@@ -1,0 +1,159 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block body %}
+
+<section class="contact_banner">
+	<div class="container">
+		<div class="banner_content_bottom">
+			<h2>contact us</h2>
+		</div>
+	</div>
+</section>
+<section class="contactmap cmp">
+	<iframe width="100%" height="310" frameborder="0" allowfullscreen="" style="border:0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12947831.74277809!2d-95.665!3d37.599999999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sin!4v1440245495157"></iframe>
+</section>
+<section class="bodybox3">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="about_head">
+					<h2>Post a job</h2>
+				</div>
+				<div class="cf1">
+					<h2>Personal Information</h2>
+					<div class="contact_inner_form">
+						<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Email ID</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Phone Number</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="">
+    </div>
+  </div>
+</form>
+					</div>
+				</div>
+				<div class="cf1">
+					<h2>Job Information</h2>
+					<div class="contact_inner_form">
+						<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Location</label>
+    <div class="col-sm-10">
+      <div class="styled-select">
+   <select>
+      <option>Select Location</option>
+      <option>The second option</option>
+   </select>
+</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Email ID</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Job Category</label>
+    <div class="col-sm-10">
+      <label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox1" value="option1"> Fire alarm
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox2" value="option2"> Ceiling fan
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox3" value="option3"> Inverter
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox3" value="option3"> Switch Installation
+</label>
+<label class="checkbox-inline chkln">
+  <input type="checkbox" id="inlineCheckbox3" value="option3"> Bath Fan
+</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Job Title</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Job Description</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="3"></textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-default">POST +</button>
+</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="contact_innaerpage_bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="cbbbox">
+					<div class="addr_icon"><img src="images/cnt-addr-icon.png" alt="" /></div>
+					<div class="addrs_info">
+						<p>123 your road name -Eastern name</p>
+						<p>12345 Zip Code, Area Name</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="cbbbox ccb2">
+					<div class="addr_icon"><img src="images/cnt2.png" alt="" /></div>
+					<div class="addrs_info">
+						<p><a href="#">info@coysh.com</a></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="cbbbox">
+					<div class="addr_icon"><img src="images/cnt3.png" alt="" /></div>
+					<div class="addrs_info phpinfo">
+						<p>+123 456 7890</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="subscribe">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="subscribe_left">
+					<h2>Please subscribe to be updated for discount and pricing</h2>
+					<p>we keep your details confidential.</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="subscribe_box">
+					<form>
+						<input type="text" placeholder="Email Address" />
+						<input type="submit" value="" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

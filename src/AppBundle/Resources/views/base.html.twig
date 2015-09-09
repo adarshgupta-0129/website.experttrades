@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Coysh</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link href="{{ asset('bundles/app/css/bootstrap.css') }}" rel="stylesheet" >
+    <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+   {% block stylesheets %}{% endblock %}
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+
+
+</head>
+<!-- NAVBAR
+================================================== -->
+<body>
+<section class="header">
+	<div class="container">
+		<nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html"><img src="{{ asset('bundles/app/images/logo.jpg') }}" alt="" /></a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex2-collapse">
+    <ul class="nav navbar-nav navbar-right">
+    <li class="select"><a href="{{ path('homepage') }}">Home</a></li>
+   	<li><a href="{{ path('about-us') }}">About  Us</a></li>
+   	<li><a href="{{ path('services') }}">Services</a></li>
+   	<li><a href="{{ path('reviews') }}">Reviews</a></li>
+   	<li><a href="{{ path('gallery') }}">Gallery</a></li>
+   	<li><a href="{{ path('contact') }}">Contact</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+
+</nav>
+	</div>
+</section>
+
+{% block body %}{% endblock %}
+
+<section class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="footerbox">
+					<h2>Our Company</h2>
+					<ul>
+						<li><a href="about.html">About us</a></li>
+						<li><a href="service.html">Services</a></li>
+						<li><a href="gallery.html">Galley</a></li>
+						<li><a href="review.html">Review</a></li>
+						<li><a href="contact.html">Contact us</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="footerbox">
+					<h2>Connect Socially</h2>
+					<ul>
+						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb1.png') }}" alt=""/>Facebook</a></li>
+						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb2.png') }}" alt=""/>Twitter</a></li>
+						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb3.png') }}" alt=""/>Youtube</a></li>
+						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb4.png') }}" alt=""/>Google +</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="footerbox wty">
+					<h2>Recent Jobs</h2>
+					<ul>
+						<li><img src="{{ asset('bundles/app/images/ftp1.png') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp2.jpg') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp3.jpg') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp3.jpg') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp2.jpg') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp1.png') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp3.jpg') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp2.jpg') }}" alt="" /></li>
+						<li><img src="{{ asset('bundles/app/images/ftp1.png') }}" alt="" /></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="footerbox">
+					<div class="footerlogo">
+						<a href="#"><img src="{{ asset('bundles/app/images/footerlogo.jpg') }}" alt="" /></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="copyright">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="cpy">©2015 Coysh.com All rights reserved</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="chat">
+	<a href="#"><img src="{{ asset('bundles/app/images/chat.jpg') }}" alt="" /></a>
+</section>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="{{ asset('bundles/app/js//bootstrap.js') }}"></script>
+<script src="{{ asset('bundles/app/js/bootstrap-carousel.js') }}"></script>
+
+<script src="{{ asset('bundles/app/js/application.js') }}"></script>
+<!-- OR -->
+<!-- <script src="js/docs.min.js"></script> -->
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="{{ asset('bundles/app/js/ie10-viewport-bug-workaround.js') }}"></script>
+
+{% block javascripts %}{% endblock %}
+
+</body>
+</html>
