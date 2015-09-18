@@ -5,43 +5,48 @@
 <section class="innerpage_banner review_banner">
 	<div class="container">
 		<div class="banner_content_top">
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+			<p>{{ review.headerText }}</p>
 		</div>
 			<div class="rvst">
-				<a href="#"><img src="images/rv-star.png" alt="" /></a>
-			<a href="#"><img src="images/rv-star.png" alt="" /></a>
-			<a href="#"><img src="images/rv-star.png" alt="" /></a>
-			<a href="#"><img src="images/rv-star.png" alt="" /></a>
-			<a href="#"><img src="images/rv-star.png" alt="" /></a>
+			<a href="#"><img src="{{ asset('bundles/app/images/rv-star.png') }}" alt="" /></a>
+			<a href="#"><img src="{{ asset('bundles/app/images/rv-star.png') }}" alt="" /></a>
+			<a href="#"><img src="{{ asset('bundles/app/images/rv-star.png') }}" alt="" /></a>
+			<a href="#"><img src="{{ asset('bundles/app/images/rv-star.png') }}" alt="" /></a>
+			<a href="#"><img src="{{ asset('bundles/app/images/rv-star.png') }}" alt="" /></a>
 			<h2>John doe, Business Name</h2>
 			</div>
 		<div class="banner_content_bottom rbbn">
-			<h2>Reviews</h2>
+			<h2>{{ review.headerTitle }}</h2>
 		</div>
 	</div>
 </section>
 <section class="review_panel">
 	<div class="container">
+
 		<div class="row">
+			{% for item in items %}
 			<div class="col-sm-6">
 				<div class="reviewbox">
 					<div class="startop">
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/rvbox-star.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/rvbox-star.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/rvbox-star.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/rvbox-star.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/rvbox-star.png') }}" alt="" /></a>
 					</div>
-					<div class="grt_wrk">Great work done by Coysh Expert</div>
+					<div class="grt_wrk">{{ item.title }}</div>
 					<div class="dt_rvw">12th August 2015</div>
 					<div class="review_listing">
 						<ul>
 							<li>Time Management</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
+							{% for img in r.stars('tidiness') %}
+									 <li><img src="{{asset('bundles/main/images/rating/') }}{{ img }}" alt="star"></li>
+							{% endfor %}
+							<li><a href="#"><img src="{{ asset('bundles/app/images/sm-star.png') }}" alt="" /></a></li>
+							<li><a href="#"><img src="{{ asset('bundles/app/images/sm-star.png') }}" alt="" /></a></li>
+							<li><a href="#"><img src="{{ asset('bundles/app/images/sm-star.png') }}" alt="" /></a></li>
+							<li><a href="#"><img src="{{ asset('bundles/app/images/sm-star.png') }}" alt="" /></a></li>
+							<li><a href="#"><img src="{{ asset('bundles/app/images/sm-star.png') }}" alt="" /></a></li>
 						</ul>
 						<ul>
 							<li>Tidiness</li>
@@ -68,7 +73,7 @@
 							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
 						</ul>
 						<div class="reviewpage_info">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<p>{{ item.message }}</p>
 							<div class="rvcoma1"><img src="images/rv-coma1.png" alt="" /></div>
 							<div class="rvcoma2"><img src="images/rv-coma2.png" alt="" /></div>
 						</div>
@@ -83,306 +88,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<div class="reviewbox">
-					<div class="startop">
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-					</div>
-					<div class="grt_wrk">Great work done by Coysh Expert</div>
-					<div class="dt_rvw">12th August 2015</div>
-					<div class="review_listing">
-						<ul>
-							<li>Time Management</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Tidiness</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Friendly rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Value Rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<div class="reviewpage_info">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-							<div class="rvcoma1"><img src="images/rv-coma1.png" alt="" /></div>
-							<div class="rvcoma2"><img src="images/rv-coma2.png" alt="" /></div>
-						</div>
-						<div class="review_comment">
-							<div class="cmnt">0 Comments</div>
-							<div class="share_rvw">
-								<span>Share :</span>
-								<a href="#"><img src="images/rvfb.png" alt="" /></a>
-								<a href="#"><img src="images/rvtwt.png" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="reviewbox">
-					<div class="startop">
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-					</div>
-					<div class="grt_wrk">Great work done by Coysh Expert</div>
-					<div class="dt_rvw">12th August 2015</div>
-					<div class="review_listing">
-						<ul>
-							<li>Time Management</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Tidiness</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Friendly rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Value Rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<div class="reviewpage_info">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-							<div class="rvcoma1"><img src="images/rv-coma1.png" alt="" /></div>
-							<div class="rvcoma2"><img src="images/rv-coma2.png" alt="" /></div>
-						</div>
-						<div class="review_comment">
-							<div class="cmnt">0 Comments</div>
-							<div class="share_rvw">
-								<span>Share :</span>
-								<a href="#"><img src="images/rvfb.png" alt="" /></a>
-								<a href="#"><img src="images/rvtwt.png" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="reviewbox">
-					<div class="startop">
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-					</div>
-					<div class="grt_wrk">Great work done by Coysh Expert</div>
-					<div class="dt_rvw">12th August 2015</div>
-					<div class="review_listing">
-						<ul>
-							<li>Time Management</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Tidiness</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Friendly rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Value Rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<div class="reviewpage_info">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-							<div class="rvcoma1"><img src="images/rv-coma1.png" alt="" /></div>
-							<div class="rvcoma2"><img src="images/rv-coma2.png" alt="" /></div>
-						</div>
-						<div class="review_comment">
-							<div class="cmnt">0 Comments</div>
-							<div class="share_rvw">
-								<span>Share :</span>
-								<a href="#"><img src="images/rvfb.png" alt="" /></a>
-								<a href="#"><img src="images/rvtwt.png" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="reviewbox">
-					<div class="startop">
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-					</div>
-					<div class="grt_wrk">Great work done by Coysh Expert</div>
-					<div class="dt_rvw">12th August 2015</div>
-					<div class="review_listing">
-						<ul>
-							<li>Time Management</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Tidiness</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Friendly rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Value Rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<div class="reviewpage_info">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-							<div class="rvcoma1"><img src="images/rv-coma1.png" alt="" /></div>
-							<div class="rvcoma2"><img src="images/rv-coma2.png" alt="" /></div>
-						</div>
-						<div class="review_comment">
-							<div class="cmnt">0 Comments</div>
-							<div class="share_rvw">
-								<span>Share :</span>
-								<a href="#"><img src="images/rvfb.png" alt="" /></a>
-								<a href="#"><img src="images/rvtwt.png" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="reviewbox">
-					<div class="startop">
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-						<a href="#"><img src="images/rvbox-star.png" alt="" /></a>
-					</div>
-					<div class="grt_wrk">Great work done by Coysh Expert</div>
-					<div class="dt_rvw">12th August 2015</div>
-					<div class="review_listing">
-						<ul>
-							<li>Time Management</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Tidiness</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Friendly rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<ul>
-							<li>Value Rating</li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/sm-star.png" alt="" /></a></li>
-						</ul>
-						<div class="reviewpage_info">
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-							<div class="rvcoma1"><img src="images/rv-coma1.png" alt="" /></div>
-							<div class="rvcoma2"><img src="images/rv-coma2.png" alt="" /></div>
-						</div>
-						<div class="review_comment">
-							<div class="cmnt">0 Comments</div>
-							<div class="share_rvw">
-								<span>Share :</span>
-								<a href="#"><img src="images/rvfb.png" alt="" /></a>
-								<a href="#"><img src="images/rvtwt.png" alt="" /></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </section>

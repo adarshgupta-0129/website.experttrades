@@ -12,36 +12,23 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="{{ asset('bundles/app/images/slider1.jpg') }}" alt="">
-      <div class="carousel-caption">
-       <div class="captop">Lorem Ipsum is simply dummy text of the printing and typesetting industry</div>
-       <div class="capmid">Lorem Ipsum is simply dummy text of the printing and typesetting industry</div>
-       <div class="slide_button"><a href="#">Request a Quote</a></div>
-       <div class="slide_social">
-       	<h2>Connect Socially</h2>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos1.png') }}" alt="" /></a>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos2.png') }}" alt="" /></a>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos3.png') }}" alt="" /></a>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos4.png') }}" alt="" /></a>
-       </div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="{{ asset('bundles/app/images/slider1.jpg') }}" alt="">
-      <div class="carousel-caption">
-       <div class="captop">Lorem Ipsum is simply dummy text of the printing and typesetting industry</div>
-       <div class="capmid">Lorem Ipsum is simply dummy text of the printing and typesetting industry</div>
-       <div class="slide_button"><a href="#">Request a Quote</a></div>
-       <div class="slide_social">
-       	<h2>Connect Socially</h2>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos1.png') }}" alt="" /></a>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos2.png') }}" alt="" /></a>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos3.png') }}" alt="" /></a>
-       	<a href="#"><img src="{{ asset('bundles/app/images/sos4.png') }}" alt="" /></a>
-       </div>
-      </div>
-    </div>
+		{% for slider in homepage.sliders %}
+				<div class="item {% if loop.index == 1 %} active {% endif %}">
+					<img src="{{ asset('bundles/app/images/slider1.jpg') }}" alt="">
+					<div class="carousel-caption">
+					 <div class="captop">{{ slider.title }}</div>
+					 <div class="capmid">{{ slider.subtitle }}</div>
+					 <div class="slide_button"><a href="#">{{ slider.buttonText }}</a></div>
+					 <div class="slide_social">
+						<h2>Connect Socially</h2>
+						<a href="#"><img src="{{ asset('bundles/app/images/sos1.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/sos2.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/sos3.png') }}" alt="" /></a>
+						<a href="#"><img src="{{ asset('bundles/app/images/sos4.png') }}" alt="" /></a>
+					 </div>
+					</div>
+				</div>
+	   {% endfor %}
   </div>
 
   <!-- Controls -->
@@ -60,8 +47,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="about_head">
-					<h2>About us</h2>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+					<h2>{{ homepage.aboutUsTitle }}</h2>
+					<p>{{ homepage.aboutUsText }}</p>
 				</div>
 			</div>
 		</div>
@@ -76,22 +63,22 @@
 					<div class="abtr">
 						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr1.png') }}" alt="" /></div>
 						<div class="abtrinfo">
-							<h2>Experience Since 1990</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<h2>{{ homepage.aboutUsFirstPointTitle }}</h2>
+							<p>{{ homepage.aboutUsFirstPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
 						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr2.png') }}" alt="" /></div>
 						<div class="abtrinfo">
-							<h2>Best material used ever</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<h2>{{ homepage.aboutUsSecondPointTitle }}</h2>
+							<p>{{ homepage.aboutUsSecondPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
 						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr3.png') }}" alt="" /></div>
 						<div class="abtrinfo">
-							<h2>Professional Certified</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<h2>{{ homepage.aboutUsThirdPointTitle }}</h2>
+							<p>{{ homepage.aboutUsThirdPointText }}</p>
 						</div>
 					</div>
 				</div>

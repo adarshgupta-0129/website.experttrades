@@ -13,6 +13,10 @@ class ServicesController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:services:index.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
+        $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getForDisplay();
+
+        return $this->render('AppBundle:services:index.html.twig', array('service' => $service, 'items' => $items));
     }
 }

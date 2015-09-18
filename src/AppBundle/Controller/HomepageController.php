@@ -13,6 +13,9 @@ class HomepageController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:homepage:index.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
+
+        return $this->render('AppBundle:homepage:index.html.twig', array('homepage' => $homepage));
     }
 }

@@ -16,7 +16,6 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form:            ~
-    csrf_protection: ~
     validation:      { enable_annotations: true }
     #serializer:      { enable_annotations: true }
     templating:
@@ -30,6 +29,8 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    csrf_protection:
+        enabled:        false
 
 # Twig Configuration
 twig:
@@ -59,6 +60,7 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"

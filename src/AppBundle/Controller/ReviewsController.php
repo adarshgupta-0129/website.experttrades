@@ -13,6 +13,10 @@ class ReviewsController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:reviews:index.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
+        $items = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getForDisplay();
+
+        return $this->render('AppBundle:reviews:index.html.twig', array('review' => $review, 'items' => $items));
     }
 }
