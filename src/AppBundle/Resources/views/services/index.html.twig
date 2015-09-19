@@ -22,7 +22,7 @@
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
-									<img alt="" src="images/srp1.jpg">
+									<img alt="{{ item[1].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
 									<h2>{{ item[0].title }}</h2>
 									<p>{{ item[0].subtitle }}</p>
 							</div>
@@ -34,7 +34,7 @@
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
-									<img alt="" src="images/srp1.jpg">
+									<img alt="{{ item[1].title }}" src="{{ asset('images/services/') }}{{ item[1].path }}">
 									<h2>{{ item[1].title }}</h2>
 									<p>{{ item[1].subtitle }}</p>
 							</div>
@@ -46,7 +46,7 @@
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
-									<img alt="" src="images/srp1.jpg">
+									<img alt="{{ item[2].title }}" src="{{ asset('images/services/') }}{{ item[2].path }}">
 									<h2>{{ item[2].title }}</h2>
 									<p>{{ item[2].subtitle }}</p>
 							</div>
@@ -66,18 +66,10 @@
 <section class="subscribe susin">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-8">
+			<div class="col-sm-12">
 				<div class="subscribe_left">
 					<h2>Please subscribe to be updated for discount and pricing</h2>
 					<p>we keep your details confidential.</p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="subscribe_box">
-					<form>
-						<input type="text" placeholder="Email Address" />
-						<input type="submit" value="" />
-					</form>
 				</div>
 			</div>
 		</div>

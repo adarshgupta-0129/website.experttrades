@@ -346,7 +346,7 @@ class Item{
     *
     * @return array
     */
-   public function getStars($type = 'total') {
+   public function getStars($type = 'total', $img = null) {
 
      $total = 0;
      switch($type){
@@ -367,6 +367,17 @@ class Item{
              break;
 
      }
+
+     if(!is_null($img)){
+
+       $result = [];
+       for ($i = 0; $i < $total; $i++) {
+          $result[$i] = $img;
+       }
+
+       return $result;
+     }
+
 
      $result = array('sm-star-empty.png','sm-star-empty.png','sm-star-empty.png','sm-star-empty.png','sm-star-empty.png');
 

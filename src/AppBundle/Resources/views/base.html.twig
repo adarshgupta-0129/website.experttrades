@@ -44,18 +44,18 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html"><img src="{{ asset('bundles/app/images/logo.jpg') }}" alt="" /></a>
+    <a class="navbar-brand" href="{{ path('homepage') }}"><img src="{{ asset('bundles/app/images/logo.jpg') }}" alt="" /></a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex2-collapse">
     <ul class="nav navbar-nav navbar-right">
-    <li class="select"><a href="{{ path('homepage') }}">Home</a></li>
-   	<li><a href="{{ path('about-us') }}">About  Us</a></li>
-   	<li><a href="{{ path('services') }}">Services</a></li>
-   	<li><a href="{{ path('reviews') }}">Reviews</a></li>
-   	<li><a href="{{ path('gallery') }}">Gallery</a></li>
-   	<li><a href="{{ path('contact') }}">Contact</a></li>
+    <li {% if app.request.attributes.get('_route') == 'homepage' %} class="select" {% endif %}><a href="{{ path('homepage') }}">Home</a></li>
+   	<li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About  Us</a></li>
+   	<li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
+   	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
+   	<li {% if app.request.attributes.get('_route') == 'gallery' %} class="select" {% endif %}><a href="{{ path('gallery') }}">Gallery</a></li>
+   	<li {% if app.request.attributes.get('_route') == 'contact' %} class="select" {% endif %}><a href="{{ path('contact') }}">Contact</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 
@@ -72,45 +72,49 @@
 				<div class="footerbox">
 					<h2>Our Company</h2>
 					<ul>
-						<li><a href="about.html">About us</a></li>
-						<li><a href="service.html">Services</a></li>
-						<li><a href="gallery.html">Galley</a></li>
-						<li><a href="review.html">Review</a></li>
-						<li><a href="contact.html">Contact us</a></li>
+						<li><a href="{{ path('about-us') }}">About us</a></li>
+						<li><a href="{{ path('services') }}">Services</a></li>
+						<li><a href="{{ path('gallery') }}">Gallery</a></li>
+						<li><a href="{{ path('reviews') }}">Reviews</a></li>
+						<li><a href="{{ path('contact') }}">Contact us</a></li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-sm-3">
+        {% if website.hasSocial == true %}
 				<div class="footerbox">
 					<h2>Connect Socially</h2>
 					<ul>
-						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb1.png') }}" alt=""/>Facebook</a></li>
-						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb2.png') }}" alt=""/>Twitter</a></li>
-						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb3.png') }}" alt=""/>Youtube</a></li>
-						<li><a href="#"><img src="{{ asset('bundles/app/images/ffb4.png') }}" alt=""/>Google +</a></li>
+            {% if website.facebookLink is not null %}
+						<li><a href="{{ website.facebookLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb1.png') }}" alt="Connect On Facebook" />Facebook</a></li>
+						{% endif %}
+						{% if website.twitterLink is not null %}
+						<li><a href="{{ website.twitterLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb2.png') }}" alt="Connect On Twitter" />Twitter</a></li>
+						{% endif %}
+						{% if website.youtubeLink is not null %}
+						<li><a href="{{ website.youtubeLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb3.png') }}" alt="Connect On Youtube" />Youtube</a></li>
+						{% endif %}
+						{% if website.googleLink is not null %}
+						<li><a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb4.png') }}" alt="Connect On Google Plus" />Google +</a></li>
+						{% endif %}
 					</ul>
 				</div>
+        {% endif %}
 			</div>
 			<div class="col-sm-3">
 				<div class="footerbox wty">
 					<h2>Recent Jobs</h2>
 					<ul>
-						<li><img src="{{ asset('bundles/app/images/ftp1.png') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp2.jpg') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp3.jpg') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp3.jpg') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp2.jpg') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp1.png') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp3.jpg') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp2.jpg') }}" alt="" /></li>
-						<li><img src="{{ asset('bundles/app/images/ftp1.png') }}" alt="" /></li>
+            {% for item in footer_images %}
+            	<li><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></li>
+            {% endfor %}
 					</ul>
 				</div>
 			</div>
 			<div class="col-sm-3">
 				<div class="footerbox">
 					<div class="footerlogo">
-						<a href="#"><img src="{{ asset('bundles/app/images/footerlogo.jpg') }}" alt="" /></a>
+						<a href="{{ path('homepage') }}"><img src="{{ asset('bundles/app/images/footerlogo.jpg') }}" alt="" /></a>
 					</div>
 				</div>
 			</div>
@@ -126,14 +130,16 @@
 		</div>
 	</div>
 </section>
+<!--
 <section class="chat">
 	<a href="#"><img src="{{ asset('bundles/app/images/chat.jpg') }}" alt="" /></a>
 </section>
-
+-->
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="{{ asset('bundles/app/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('bundles/app/js//bootstrap.js') }}"></script>
 <script src="{{ asset('bundles/app/js/bootstrap-carousel.js') }}"></script>
 

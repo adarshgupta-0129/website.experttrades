@@ -13,6 +13,12 @@ class GalleryController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:gallery:index.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
+        $items = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay();
+        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'ASC'], 9, 0);
+
+        return $this->render('AppBundle:gallery:index.html.twig', array('website' => $website, 'gallery' => $gallery, 'items' => $items, 'footer_images' => $footerImages));
     }
 }

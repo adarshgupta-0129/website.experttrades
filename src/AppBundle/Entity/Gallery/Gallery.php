@@ -1,17 +1,17 @@
 <?php
 
-namespace AppBundle\Entity\Review;
+namespace AppBundle\Entity\Gallery;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * AppBundle\Entity\Review\Review
- * @ORM\Table(name="review")
+ * AppBundle\Entity\Gallery\Gallery
+ * @ORM\Table(name="gallery")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Review\ReviewRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Gallery\GalleryRepository")
  */
-class Review{
+class Gallery{
 
     /**
      * @var integer $id
@@ -37,25 +37,8 @@ class Review{
      */
     private $header_title;
 
-    /**
-     * @var string $header_subtitle
-     *
-     * @ORM\Column(name="header_subtitle", type="text", length=2555, nullable=true)
-     */
-    private $header_subtitle;
-
     public function __construct(){
 
-    }
-
-    /**
-     * Count items
-     *
-     * @return integer
-     */
-    public function countItems()
-    {
-        return $this->items->count();
     }
 
     /**
@@ -86,26 +69,6 @@ class Review{
     public function getHeaderTitle()
     {
         return $this->header_title;
-    }
-
-    /**
-     * Set header_subtitle
-     *
-     * @param string $header_subtitle
-     */
-    public function setHeaderSubtitle($header_subtitle)
-    {
-        $this->header_subtitle = $header_subtitle;
-    }
-
-    /**
-     * Get header_subtitle
-     *
-     * @return string
-     */
-    public function getHeaderSubtitle()
-    {
-        return $this->header_subtitle;
     }
 
     /**

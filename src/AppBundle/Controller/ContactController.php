@@ -13,6 +13,10 @@ class ContactController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:contact:index.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'ASC'], 9, 0);
+
+        return $this->render('AppBundle:contact:index.html.twig', array('website' => $website, 'footer_images' => $footerImages));
     }
 }

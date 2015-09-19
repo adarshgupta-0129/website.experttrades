@@ -1,16 +1,16 @@
 <?php
 
-namespace AppBundle\Entity\Service\Item;
+namespace AppBundle\Entity\Gallery\Item;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * AppBundle\Entity\Service\Item\Item
- * @ORM\Table(name="service_item")
+ * AppBundle\Entity\Gallery\Item\Item
+ * @ORM\Table(name="gallery_item")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Service\Item\ItemRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Gallery\Item\ItemRepository")
  */
 class Item{
 
@@ -35,13 +35,6 @@ class Item{
      * @ORM\Column(name="title", type="text", length=2555, nullable=true)
      */
     private $title;
-
-    /**
-     * @var string $subtitle
-     *
-     * @ORM\Column(name="subtitle", type="text", length=2555, nullable=true)
-     */
-    private $subtitle;
 
     /**
     * @ORM\Column(type="string", length=255, nullable=true)
@@ -83,6 +76,16 @@ class Item{
     }
 
     /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
      * Set title
      *
      * @param string $title
@@ -100,26 +103,6 @@ class Item{
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set subtitle
-     *
-     * @param string $subtitle
-     */
-    public function setSubtitle($subtitle)
-    {
-        $this->subtitle = $subtitle;
-    }
-
-    /**
-     * Get subtitle
-     *
-     * @return string
-     */
-    public function getSubtitle()
-    {
-        return $this->subtitle;
     }
 
     public function upload()
@@ -171,6 +154,6 @@ class Item{
      {
          // get rid of the __DIR__ so it doesn't screw up
          // when displaying uploaded doc/image in the view.
-         return 'images/services';
+         return 'images/gallery';
      }
 }

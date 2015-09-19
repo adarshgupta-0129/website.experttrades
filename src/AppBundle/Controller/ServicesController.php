@@ -14,9 +14,11 @@ class ServicesController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
         $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getForDisplay();
+        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'ASC'], 9, 0);
 
-        return $this->render('AppBundle:services:index.html.twig', array('service' => $service, 'items' => $items));
+        return $this->render('AppBundle:services:index.html.twig', array('website' => $website, 'service' => $service, 'items' => $items, 'footer_images' => $footerImages));
     }
 }

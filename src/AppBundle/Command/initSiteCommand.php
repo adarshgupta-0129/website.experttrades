@@ -17,6 +17,9 @@ use AppBundle\Entity\Service\Item\Item as ServiceItem;
 use AppBundle\Entity\Review\Review;
 use AppBundle\Entity\Review\Item\Item as ReviewItem;
 
+use AppBundle\Entity\Gallery\Gallery;
+use AppBundle\Entity\Gallery\Item\Item as GalleryItem;
+
 use AppBundle\Entity\Website;
 
 class initSiteCommand extends ContainerAwareCommand
@@ -26,7 +29,7 @@ class initSiteCommand extends ContainerAwareCommand
         $this->setName('init_site')
              ->setDescription('Init the website');
     }
-
+/*
     protected function execute(InputInterface $input, OutputInterface $output)
 	  {
 
@@ -37,7 +40,9 @@ class initSiteCommand extends ContainerAwareCommand
 
         if(!is_object($website)){
           $website = new Website();
+          $website->setFacebookLink('http://www.yourwebsite.com');
           $website->setAccessToken(substr( md5(rand()), 0, 50));
+          $website->setPostcode('B94AA');
           $em->persist($website);
           $em->flush();
 
@@ -67,6 +72,7 @@ class initSiteCommand extends ContainerAwareCommand
               $slider->setTitle('Lorem Ipsum is simply dummy text');
               $slider->setSubtitle('Lorem Ipsum is simply dummy text');
               $slider->setButtonText('Request a Quote');
+              $slider->setPath('slider_'.$i.'.jpg')
               $em->persist($slider);
               $em->flush();
           }
@@ -106,6 +112,7 @@ class initSiteCommand extends ContainerAwareCommand
           $review = new Review();
           $review->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
           $review->setHeaderTitle('SERVICES');
+          $review->setHeaderSubtitle('John, Business Name');
           $em->persist($review);
           $em->flush();
 
@@ -129,7 +136,31 @@ class initSiteCommand extends ContainerAwareCommand
 
         }
 
-        echo "\nSite Created \n";
+        $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
 
-    }
+        if(!is_object($gallery)){
+
+          $gallery = new Gallery();
+          $gallery->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
+          $gallery->setHeaderTitle('OUR WORK GALLERY');
+          $em->persist($gallery);
+          $em->flush();
+
+          if(sizeof($em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findAll()) < 6){
+
+              for ($i = 1; $i <= 6; $i++) {
+                  $item = new GalleryItem();
+                  $item->setTitle('Installing Switch');
+                  $em->persist($item);
+                  $em->flush();
+              }
+          }
+
+          echo "\n Gallery Created \n";
+
+        }
+
+        echo "\n Site Created \n";
+
+    }*/
 }

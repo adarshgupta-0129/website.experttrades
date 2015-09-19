@@ -1,183 +1,46 @@
 {% extends "AppBundle::base.html.twig" %}
 
+{% block stylesheets %}
+<link href="{{ asset('bundles/app/css/magnific-popup.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
 <section class="innerpage_banner gallery_banner">
 	<div class="container">
 		<div class="banner_content_top">
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+			<p>{{ gallery.headerText }}</p>
 		</div>
 		<div class="banner_content_bottom">
-			<h2>Our Work Gallery</h2>
+			<h2>{{ gallery.headerTitle }}</h2>
 		</div>
 	</div>
 </section>
 <section class="service_page_panel">
 	<div class="container">
 		<div class="servicepage_box clearfix" id="portfolio">
-			<div class="row">
-			<div class="col-sm-4">
 				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig1.jpg"><img alt="" src="images/srp1h.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-				</div>
-				</div>
+					{% for item in items %}
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="servicebox galbox">
+							<a href="{{ asset('images/gallery/') }}{{ item.path }}">
+								<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}" class="grayscale">
+								<div class="galhover"><p>{{ item.title }}</p></div>
+							</a>
+						</div>
+						</div>
+					</div>
+					{% endfor %}
 			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig2.jpg"><img alt="" src="images/gal2.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig3.jpg"><img alt="" src="images/gal3.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig1.jpg"><img alt="" src="images/gal1.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig2.jpg"><img alt="" src="images/gal2.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig3.jpg"><img alt="" src="images/gal3.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig1.jpg"><img alt="" src="images/gal1.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig2.jpg"><img alt="" src="images/gal2.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig3.jpg"><img alt="" src="images/gal3.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig1.jpg"><img alt="" src="images/gal1.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig2.jpg"><img alt="" src="images/gal2.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig3.jpg"><img alt="" src="images/gal3.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig1.jpg"><img alt="" src="images/gal1.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig2.jpg"><img alt="" src="images/gal2.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox galbox">
-					<a href="images/galbig3.jpg"><img alt="" src="images/gal3.jpg" class="grayscale">
-						<div class="galhover"><p>Installing switch</p></div>
-					</a>
-
-				</div>
-				</div>
-			</div>
-		</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="rv_pagination_listing forgp">
 					<ul>
-						<li><a href="#"><img alt="" src="images/pg-arw1.jpg"></a></li>
+						<li><a href="#"><img src="{{ asset('bundles/app/images/global/pg-arw1.jpg') }}" alt="" /></a></li>
 						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">...</a></li>
-						<li><a href="#">10</a></li>
-						<li><a href="#"><img alt="" src="images/pg-arw1.jpg"></a></li>
+						<li><a href="#"><img src="{{ asset('bundles/app/images/global/pg-arw2.jpg') }}" alt="" /></a></li>
 					</ul>
 				</div>
 			</div>
@@ -209,4 +72,25 @@
 		</div>
 	</div>
 </section>
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+$(function(){
+  $('#portfolio').magnificPopup({
+    delegate: 'a',
+    type: 'image',
+    image: {
+      cursor: null,
+      titleSrc: 'title'
+    },
+    gallery: {
+      enabled: true,
+      preload: [0,1], // Will preload 0 - before current, and 1 after the current image
+      navigateByImgClick: true
+		}
+  });
+});
+</script>
 {% endblock %}
