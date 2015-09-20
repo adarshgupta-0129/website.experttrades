@@ -83,6 +83,16 @@ class Item{
     }
 
     /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
      * Set title
      *
      * @param string $title

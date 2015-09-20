@@ -90,31 +90,22 @@ class GalleryController extends SecurityController
       $this->checkAccess($request);
 
       $em = $this->getDoctrine()->getManager();
-      $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['created' => 'ASC'], $request->query->get('limit');, $request->query->get('offset'););
 
       $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/gallery/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
             $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
       }
 
-      $imageArray = [
-        "total" => 20,
-        "per_page" => 25,
-        "current_page" => 1,
-        "last_page" => 1,
-        "from" => 1,
-        "to" => 20,
-        "data" => []
-      ];
+      $limit = $request->query->get('limit');
+      $limit = (is_null($limit)) ? 10 : $limit;
 
-      foreach($images as $i){
-          $imageArray['data'][] = [
-            'id' => $i->getId(),
-            'title' => $i->getTitle(),
-            'image_url' => $slidersPath.$i->getPath()
-          ];
-      }
-      $response = new Response(json_encode($imageArray));
+      $offset = $request->query->get('offset');
+      $offset = (is_null($offset)) ? 0 : $offset;
+
+      $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')
+      ->getPaginated($limit, $offset, $slidersPath);
+
+      $response = new Response(json_encode($images));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -130,9 +121,14 @@ class GalleryController extends SecurityController
       $this->checkAccess($request);
 
       $em = $this->getDoctrine()->getManager();
-      $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findAll();
+      $image =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->find($id);
 
-      $response = new Response(json_encode($images));
+      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/gallery/';
+      if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
+      }
+
+      $response = new Response(json_encode(['id' => $image->getId(), 'title' => $image->getTitle(), 'image_url' => $slidersPath.$image->getPath() ]));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -154,6 +150,48 @@ class GalleryController extends SecurityController
         if(!is_null($file)) {
 
           $item = new Item();
+          $item->setFile($file);
+          $item->upload();
+          $em->persist($item);
+          $em->flush();
+
+          $response = new Response(json_encode(
+          [
+            'code' => 200,
+            'message' => 'OK'
+          ]));
+
+          $response->headers->set('Content-Type', 'application/json');
+          return $response;
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+    /**
+     * @Route("/api/v1/gallery_items/{id}", name="put_gallery_items")
+     * @Method({"PUT"})
+     */
+    public function putItemAction(Request $request, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $item =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->find($id);
+
+        $file = $request->files->get('file');
+        if(!is_null($file)) {
+
           $item->setFile($file);
           $item->upload();
           $em->persist($item);

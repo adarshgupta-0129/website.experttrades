@@ -20,6 +20,8 @@ use AppBundle\Entity\Review\Item\Item as ReviewItem;
 use AppBundle\Entity\Gallery\Gallery;
 use AppBundle\Entity\Gallery\Item\Item as GalleryItem;
 
+use AppBundle\Entity\Contact\Contact;
+
 use AppBundle\Entity\Website;
 
 class initSiteCommand extends ContainerAwareCommand
@@ -29,7 +31,7 @@ class initSiteCommand extends ContainerAwareCommand
         $this->setName('init_site')
              ->setDescription('Init the website');
     }
-/*
+
     protected function execute(InputInterface $input, OutputInterface $output)
 	  {
 
@@ -72,7 +74,7 @@ class initSiteCommand extends ContainerAwareCommand
               $slider->setTitle('Lorem Ipsum is simply dummy text');
               $slider->setSubtitle('Lorem Ipsum is simply dummy text');
               $slider->setButtonText('Request a Quote');
-              $slider->setPath('slider_'.$i.'.jpg')
+              $slider->setPath('slider_'.$i.'.jpg');
               $em->persist($slider);
               $em->flush();
           }
@@ -160,7 +162,21 @@ class initSiteCommand extends ContainerAwareCommand
 
         }
 
+        $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
+
+        if(!is_object($contact)){
+
+          $contact = new Contact();
+          $contact->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
+          $contact->setHeaderTitle('OUR WORK GALLERY');
+          $em->persist($contact);
+          $em->flush();
+
+          echo "\n Contact Created \n";
+
+        }
+
         echo "\n Site Created \n";
 
-    }*/
+    }
 }

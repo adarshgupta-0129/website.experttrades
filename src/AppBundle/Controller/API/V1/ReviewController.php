@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use AppBundle\Entity\Service\Item\Item;
+use AppBundle\Entity\Review\Item\Item;
 
-class ServiceController extends SecurityController
+class ReviewController extends SecurityController
 {
     /**
-     * @Route("/api/v1/service", name="get_service")
+     * @Route("/api/v1/review", name="get_review")
      * @Method({"GET"})
      */
     public function getAction(Request $request)
@@ -21,12 +21,12 @@ class ServiceController extends SecurityController
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
+        $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
 
         $response = new Response(json_encode(
         [
-          'header_text' => $service->getHeaderText(),
-          'header_title' => $service->getHeaderTitle(),
+          'header_text' => $review->getHeaderText(),
+          'header_title' => $review->getHeaderTitle(),
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -35,7 +35,7 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service", name="post_service")
+     * @Route("/api/v1/review", name="post_review")
      * @Method({"POST"})
      */
     public function postAction(Request $request)
@@ -43,7 +43,7 @@ class ServiceController extends SecurityController
          $this->checkAccess($request);
 
          $em = $this->getDoctrine()->getManager();
-         $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
+         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
 
          $params = array();
          $content = $this->get("request")->getContent();
@@ -52,13 +52,13 @@ class ServiceController extends SecurityController
              $params = json_decode($content, true); // 2nd param to get as array
 
              if(isset($params['header_text'])){
-               $service->setHeaderText($params['header_text']);
+               $review->setHeaderText($params['header_text']);
              }
              if(isset($params['header_title'])){
-               $service->setHeaderTitle($params['header_title']);
+               $review->setHeaderTitle($params['header_title']);
              }
 
-             $em->persist($service);
+             $em->persist($review);
              $em->flush();
 
              $response = new Response(json_encode(
@@ -82,7 +82,7 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service_items", name="get_service_items", requirements={"offset" = "\d+", "limit" = "\d+"}, defaults={"offset" = 0, "limit" = 10})
+     * @Route("/api/v1/review_items", name="get_review_items", requirements={"offset" = "\d+", "limit" = "\d+"}, defaults={"offset" = 0, "limit" = 10})
      * @Method({"GET"})
      */
     public function getItemsAction(Request $request)
@@ -91,9 +91,9 @@ class ServiceController extends SecurityController
 
       $em = $this->getDoctrine()->getManager();
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
+      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/reviews/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
+            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/reviews/';
       }
 
       $limit = $request->query->get('limit');
@@ -102,7 +102,7 @@ class ServiceController extends SecurityController
       $offset = $request->query->get('offset');
       $offset = (is_null($offset)) ? 0 : $offset;
 
-      $images =  $em->getRepository('AppBundle\Entity\Service\Item\Item')
+      $images =  $em->getRepository('AppBundle\Entity\Review\Item\Item')
       ->getPaginated($limit, $offset, $slidersPath);
 
       $response = new Response(json_encode($images));
@@ -113,7 +113,7 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service_items/{id}", name="get_service_item")
+     * @Route("/api/v1/review_items/{id}", name="get_review_item")
      * @Method({"GET"})
      */
     public function getItemAction(Request $request, $id)
@@ -121,14 +121,21 @@ class ServiceController extends SecurityController
       $this->checkAccess($request);
 
       $em = $this->getDoctrine()->getManager();
-      $image =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
+      $item =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
-      if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
-      }
+      $response = new Response(json_encode([
+        'id' => $item->getId(),
+        'title' => $item->getTitle(),
+        'message' => $item->getMessage(),
+        'job_description' => $item->getJobDescription(),
+        'job_location' => (is_object($item->getJobLocation()) && !is_null($item->getJobLocation())) ? $item->getJobLocation()->format('Y-m-d') : '',
+        'rate_time_management' => $item->getRateTimeManagement(),
+        'rate_friendly' => $item->getRateFriendly(),
+        'rate_tidiness' => $item->getRateTidiness(),
+        'rate_value' => $item->getRateValue(),
+        'rate_total' => $item->getRateTotal()
 
-      $response = new Response(json_encode(['id' => $image->getId(), 'title' => $image->getTitle(), 'image_url' => $slidersPath.$image->getPath() ]));
+      ]));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -136,7 +143,7 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service_items", name="post_service_items")
+     * @Route("/api/v1/review_items", name="post_review_items")
      * @Method({"POST"})
      */
     public function postItemAction(Request $request)
@@ -144,7 +151,7 @@ class ServiceController extends SecurityController
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
+        $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
 
         $file = $request->files->get('file');
         if(!is_null($file)) {
@@ -179,7 +186,7 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service_items/{id}", name="put_service_items")
+     * @Route("/api/v1/review_items/{id}", name="put_review_items")
      * @Method({"PUT"})
      */
     public function putItemAction(Request $request, $id)
@@ -187,7 +194,7 @@ class ServiceController extends SecurityController
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $item =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
+        $item =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
 
         $file = $request->files->get('file');
         if(!is_null($file)) {
