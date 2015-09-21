@@ -128,7 +128,11 @@ class GalleryController extends SecurityController
             $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
       }
 
-      $response = new Response(json_encode(['id' => $image->getId(), 'title' => $image->getTitle(), 'image_url' => $slidersPath.$image->getPath() ]));
+      $response = new Response(json_encode([
+        'id' => $image->getId(),
+        'title' => $image->getTitle(),
+        'image_url' => (is_null($image->getPath())) ? null : $slidersPath.$image->getPath()
+      ]));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -136,7 +140,7 @@ class GalleryController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/gallery_items", name="post_gallery_items")
+     * @Route("/api/v1/gallery_items", name="post_gallery_item")
      * @Method({"POST"})
      */
     public function postItemAction(Request $request)
@@ -144,11 +148,77 @@ class GalleryController extends SecurityController
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
+        $em = $this->getDoctrine()->getManager();
 
+        $item = new Item();
+        $em->persist($item);
+        $em->flush();
+
+        $response = new Response(json_encode(
+        [
+          'id' => $item->getId(),
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/v1/gallery_items/{id}", name="put_gallery_item")
+     * @Method({"PUT"})
+     */
+    public function putItemAction(Request $request, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $item =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->find($id);
+
+        $params = array();
+        $content = $this->get("request")->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content, true); // 2nd param to get as array
+
+            if(isset($params['title'])){
+                $item->setTitle($params['title']);
+            }
+
+            $em->persist($item);
+            $em->flush();
+
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+    /**
+     * @Route("/api/v1/gallery_item_images", name="post_gallery_item_image")
+     * @Method({"POST"})
+     */
+    public function postItemImageAction(Request $request)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
         $file = $request->files->get('file');
         if(!is_null($file)) {
-
+          
           $item = new Item();
           $item->setFile($file);
           $item->upload();
@@ -179,32 +249,27 @@ class GalleryController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/gallery_items/{id}", name="put_gallery_items")
-     * @Method({"PUT"})
+     * @Route("/api/v1/gallery_items/{id}", name="delete_gallery_item")
+     * @Method({"DELETE"})
      */
-    public function putItemAction(Request $request, $id)
+    public function deleteItemAction(Request $request, $id)
     {
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
         $item =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->find($id);
 
-        $file = $request->files->get('file');
-        if(!is_null($file)) {
+        if(is_object($item)){
 
-          $item->setFile($file);
-          $item->upload();
-          $em->persist($item);
-          $em->flush();
+            $item->deleteFile();
+            $em->remove($item);
+            $em->flush();
 
-          $response = new Response(json_encode(
-          [
-            'code' => 200,
-            'message' => 'OK'
-          ]));
-
-          $response->headers->set('Content-Type', 'application/json');
-          return $response;
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
 
         }else{
 

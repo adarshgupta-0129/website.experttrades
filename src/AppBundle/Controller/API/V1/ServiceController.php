@@ -128,7 +128,12 @@ class ServiceController extends SecurityController
             $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
       }
 
-      $response = new Response(json_encode(['id' => $image->getId(), 'title' => $image->getTitle(), 'image_url' => $slidersPath.$image->getPath() ]));
+      $response = new Response(json_encode([
+        'id' => $image->getId(),
+        'title' => $image->getTitle(),
+        'subtitle' => $image->getSubtitle(),
+       'image_url' => (is_null($image->getPath())) ? null : $slidersPath.$image->getPath()
+      ]));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -136,7 +141,7 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service_items", name="post_service_items")
+     * @Route("/api/v1/service_items", name="post_service_item")
      * @Method({"POST"})
      */
     public function postItemAction(Request $request)
@@ -144,12 +149,81 @@ class ServiceController extends SecurityController
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
+
+        $item = new Item();
+        $em->persist($item);
+        $em->flush();
+
+        $response = new Response(json_encode(
+        [
+          'id' => $item->getId(),
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/v1/service_items/{id}", name="put_service_item")
+     * @Method({"PUT"})
+     */
+    public function putItemAction(Request $request, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $item =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
+
+        $params = array();
+        $content = $this->get("request")->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content, true); // 2nd param to get as array
+
+            if(isset($params['title'])){
+                $item->setTitle($params['title']);
+            }
+            if(isset($params['subtitle'])){
+                $item->setSubtitle($params['subtitle']);
+            }
+
+            $em->persist($item);
+            $em->flush();
+
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+    /**
+     * @Route("/api/v1/service_item_image/{id}", name="post_service_item_image")
+     * @Method({"POST"})
+     */
+    public function postItemImageAction(Request $request, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $item =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
 
         $file = $request->files->get('file');
         if(!is_null($file)) {
 
-          $item = new Item();
           $item->setFile($file);
           $item->upload();
           $em->persist($item);
@@ -179,32 +253,27 @@ class ServiceController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/service_items/{id}", name="put_service_items")
-     * @Method({"PUT"})
+     * @Route("/api/v1/service_items/{id}", name="delete_service_item")
+     * @Method({"DELETE"})
      */
-    public function putItemAction(Request $request, $id)
+    public function deleteItemAction(Request $request, $id)
     {
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
         $item =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
 
-        $file = $request->files->get('file');
-        if(!is_null($file)) {
+        if(is_object($item)){
 
-          $item->setFile($file);
-          $item->upload();
-          $em->persist($item);
-          $em->flush();
+            $item->deleteFile();
+            $em->remove($item);
+            $em->flush();
 
-          $response = new Response(json_encode(
-          [
-            'code' => 200,
-            'message' => 'OK'
-          ]));
-
-          $response->headers->set('Content-Type', 'application/json');
-          return $response;
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
 
         }else{
 

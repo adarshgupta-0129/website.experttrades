@@ -5,10 +5,10 @@
 <section class="innerpage_banner service_banner">
 	<div class="container">
 		<div class="banner_content_top">
-			<p>{{ service.headerTitle }}</p>
+			<p>{{ service.headerText }}</p>
 		</div>
 		<div class="banner_content_bottom">
-			<h2>{{ service.headerText }}</h2>
+			<h2>{{ service.headerTitle }}</h2>
 		</div>
 	</div>
 </section>
@@ -22,7 +22,9 @@
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
-									<img alt="{{ item[1].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
+									{% if item[0].path is not null %}
+									<img alt="{{ item[0].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
+									{% endif %}
 									<h2>{{ item[0].title }}</h2>
 									<p>{{ item[0].subtitle }}</p>
 							</div>
@@ -34,7 +36,9 @@
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
+									{% if item[1].path is not null %}
 									<img alt="{{ item[1].title }}" src="{{ asset('images/services/') }}{{ item[1].path }}">
+									{% endif %}
 									<h2>{{ item[1].title }}</h2>
 									<p>{{ item[1].subtitle }}</p>
 							</div>
@@ -46,7 +50,9 @@
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
+									{% if item[2].path is not null %}
 									<img alt="{{ item[2].title }}" src="{{ asset('images/services/') }}{{ item[2].path }}">
+									{% endif %}
 									<h2>{{ item[2].title }}</h2>
 									<p>{{ item[2].subtitle }}</p>
 							</div>
@@ -59,7 +65,7 @@
 
 		<div class="team_click srvclk">
 				<h2>Click below to get yourself a quote</h2>
-				<div class="teamq"><div class="slide_button"><a href="#">Get A Quote</a></div></div>
+				<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">Get A Quote</a></div></div>
 		</div>
 	</div>
 </section>

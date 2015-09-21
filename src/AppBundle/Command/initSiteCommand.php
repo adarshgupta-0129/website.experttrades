@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use AppBundle\Entity\Homepage\Homepage;
 use AppBundle\Entity\Homepage\Slider\Slider;
 
+use AppBundle\Entity\AboutUs\AboutUs;
+
 use AppBundle\Entity\Service\Service;
 use AppBundle\Entity\Service\Item\Item as ServiceItem;
 
@@ -54,16 +56,8 @@ class initSiteCommand extends ContainerAwareCommand
         $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
 
         if(!is_object($homepage)){
-          $homepage = new Homepage();
-          $homepage->setAboutUsTitle('ABOUT US');
-          $homepage->setAboutUsText('About us text');
-          $homepage->setAboutUsFirstPointTitle('Lorem Ipsum is simply dummy text');
-          $homepage->setAboutUsFirstPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
-          $homepage->setAboutUsSecondPointTitle('Lorem Ipsum is simply dummy text');
-          $homepage->setAboutUsSecondPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
-          $homepage->setAboutUsThirdPointTitle('Lorem Ipsum is simply dummy text');
-          $homepage->setAboutUsThirdPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
 
+          $homepage = new Homepage();
           $em->persist($homepage);
           $em->flush();
 
@@ -79,7 +73,28 @@ class initSiteCommand extends ContainerAwareCommand
               $em->flush();
           }
 
-          echo "\nHomepage Created \n";
+          echo "\n Homepage Created \n";
+        }
+
+        $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
+
+        if(!is_object($aboutUs)){
+          $aboutUs = new AboutUs();
+          $aboutUs->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
+          $aboutUs->setHeaderTitle('ABOUT US');
+          $aboutUs->setAboutUsTitle('ABOUT US');
+          $aboutUs->setAboutUsText('About us text');
+          $aboutUs->setAboutUsFirstPointTitle('Lorem Ipsum is simply dummy text');
+          $aboutUs->setAboutUsFirstPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
+          $aboutUs->setAboutUsSecondPointTitle('Lorem Ipsum is simply dummy text');
+          $aboutUs->setAboutUsSecondPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
+          $aboutUs->setAboutUsThirdPointTitle('Lorem Ipsum is simply dummy text');
+          $aboutUs->setAboutUsThirdPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
+
+          $em->persist($aboutUs);
+          $em->flush();
+
+          echo "\n About Us Created \n";
         }
 
         $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);

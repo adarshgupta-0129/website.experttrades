@@ -34,7 +34,7 @@ class ItemRepository extends Repository{
 
       $final = [];
       foreach($data->getQuery()->getResult() as $item){
-        $final['data'][] = [
+        $final[] = [
           'id' => $item->getId(),
           'title' => $item->getTitle(),
           'message' => $item->getMessage(),

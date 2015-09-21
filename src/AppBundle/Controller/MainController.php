@@ -18,12 +18,11 @@ class MainController extends Controller
 
             setcookie('visit', '1', time() + 86400, "/");
 
-        } else {
-
             $visit = new Visit();
             $visit->setIp();
             $em->persist($visit);
             $em->flush();
+
         }
     }
 }

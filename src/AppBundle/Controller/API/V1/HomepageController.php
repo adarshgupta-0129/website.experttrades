@@ -43,21 +43,6 @@ class HomepageController extends SecurityController
 
         $response = new Response(json_encode(
         [
-          'about_us_title' => $homepage->getAboutUsTitle(),
-          'about_us_text' => $homepage->getAboutUsText(),
-
-          'about_us_first_point_title' => $homepage->getAboutUsFirstPointTitle(),
-          'about_us_first_point_text' => $homepage->getAboutUsFirstPointText(),
-          'about_us_first_point_image' => $homepage->getAboutUsFirstPointImage(),
-
-          'about_us_second_point_title' => $homepage->getAboutUsSecondPointTitle(),
-          'about_us_second_point_text' => $homepage->getAboutUsSecondPointText(),
-          'about_us_second_point_image' => $homepage->getAboutUsSecondPointImage(),
-
-          'about_us_third_point_title' => $homepage->getAboutUsThirdPointTitle(),
-          'about_us_third_point_text' => $homepage->getAboutUsThirdPointText(),
-          'about_us_third_point_image' => $homepage->getAboutUsThirdPointImage(),
-
           'sliders' => $slidersArray
         ]));
         $response->headers->set('Content-Type', 'application/json');
@@ -82,43 +67,6 @@ class HomepageController extends SecurityController
          if (!empty($content))
          {
              $params = json_decode($content, true); // 2nd param to get as array
-
-             if(isset($params['about_us_title'])){
-               $homepage->setAboutUsTitle($params['about_us_title']);
-             }
-             if(isset($params['about_us_text'])){
-               $homepage->setAboutUsText($params['about_us_text']);
-             }
-
-             if(isset($params['about_us_first_point_title'])){
-               $homepage->setAboutUsFirstPointTitle($params['about_us_first_point_title']);
-             }
-             if(isset($params['about_us_first_point_text'])){
-               $homepage->setAboutUsFirstPointText($params['about_us_first_point_text']);
-             }
-             if(isset($params['about_us_first_point_image'])){
-               $homepage->setAboutUsFirstPointImage($params['about_us_first_point_image']);
-             }
-
-             if(isset($params['about_us_second_point_title'])){
-               $homepage->setAboutUsSecondPointTitle($params['about_us_second_point_title']);
-             }
-             if(isset($params['about_us_second_point_text'])){
-               $homepage->setAboutUsSecondPointText($params['about_us_second_point_text']);
-             }
-             if(isset($params['about_us_second_point_image'])){
-               $homepage->setAboutUsSecondPointImage($params['about_us_second_point_image']);
-             }
-
-             if(isset($params['about_us_third_point_title'])){
-               $homepage->setAboutUsThirdPointTitle($params['about_us_third_point_title']);
-             }
-             if(isset($params['about_us_third_point_text'])){
-               $homepage->setAboutUsThirdPointText($params['about_us_third_point_text']);
-             }
-             if(isset($params['about_us_third_point_image'])){
-               $homepage->setAboutUsThirdPointImage($params['about_us_third_point_image']);
-             }
 
              $em->persist($homepage);
              $em->flush();

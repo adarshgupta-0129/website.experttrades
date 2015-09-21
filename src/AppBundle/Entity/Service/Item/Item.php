@@ -183,4 +183,12 @@ class Item{
          // when displaying uploaded doc/image in the view.
          return 'images/services';
      }
+
+     public function deleteFIle()
+     {
+         $path = $this->getUploadRootDir().'/'.$this->path;
+         if(file_exists ($path)){
+           unlink($path);
+         }
+     }
 }

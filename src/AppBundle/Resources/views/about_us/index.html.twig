@@ -5,10 +5,10 @@
 <section class="innerpage_banner">
 	<div class="container">
 		<div class="banner_content_top">
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+				<p>{{ aboutUs.headerText }}</p>
 		</div>
 		<div class="banner_content_bottom">
-			<h2>About us</h2>
+			<h2>{{ aboutUs.headerTitle }}</h2>
 		</div>
 	</div>
 </section>
@@ -17,39 +17,38 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="about_head">
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an  unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an  unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not  only five centuries, but also the leap into electronic typesetting, </p>
-					<p><span>remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an  unknown printer took a galley of type and scrambled it to make a type specimen book.
-It has survived not  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</span></p>
+					<h2>{{ aboutUs.aboutUsTitle }}</h2>
+					<p>{{ aboutUs.aboutUsText }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="about_body_left">
-					<img src="images/abt-bd-left-pic.png" alt="" />
+					<img src="{{ asset('bundles/app/images/abt-bd-left-pic.png') }}" alt="" />
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="about_body_right">
 					<div class="abtr">
-						<div class="abtrpic"><img src="images/abtr1.png" alt="" /></div>
+						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr1.png') }}" alt="" /></div>
 						<div class="abtrinfo">
-							<h2>Experience Since 1990</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<h2>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
+							<p>{{ aboutUs.aboutUsFirstPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
-						<div class="abtrpic"><img src="images/abtr2.png" alt="" /></div>
+						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr2.png') }}" alt="" /></div>
 						<div class="abtrinfo">
-							<h2>Best material used ever</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<h2>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
+							<p>{{ aboutUs.aboutUsSecondPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
-						<div class="abtrpic"><img src="images/abtr3.png" alt="" /></div>
+						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr3.png') }}" alt="" /></div>
 						<div class="abtrinfo">
-							<h2>Professional Certified</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+							<h2>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
+							<p>{{ aboutUs.aboutUsThirdPointText }}</p>
 						</div>
 					</div>
 				</div>
@@ -111,35 +110,19 @@ It has survived not  only five centuries, but also the leap into electronic type
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="team_panel">
-					<div class="teambox">
-						<img src="images/team1.jpg" alt="" />
-						<h2>Teammate Name</h2>
-						<h3>Designation</h3>
-					</div>
-					<div class="teambox">
-						<img src="images/team2.jpg" alt="" />
-						<h2>Teammate Name</h2>
-						<h3>Designation</h3>
-					</div>
-					<div class="teambox">
-						<img src="images/team1.jpg" alt="" />
-						<h2>Teammate Name</h2>
-						<h3>Designation</h3>
-					</div>
-					<div class="teambox">
-						<img src="images/team2.jpg" alt="" />
-						<h2>Teammate Name</h2>
-						<h3>Designation</h3>
-					</div>
-					<div class="teambox nom">
-						<img src="images/team1.jpg" alt="" />
-						<h2>Teammate Name</h2>
-						<h3>Designation</h3>
-					</div>
+					{% for team_member in teamMembers %}
+						{% if team_member.path is not null %}
+						<div class="teambox">
+							<img src="{{ asset('images/team_members/') }}{{ item.path }}" alt="" />
+							<h2>{{ team_member.name }}</h2>
+							<h3>{{ team_member.title }}</h3>
+						</div>
+						{% endif %}
+					{% endfor %}
 				</div>
 				<div class="team_click">
 					<h2>Click below to get yourself a quote</h2>
-					<div class="teamq"><div class="slide_button"><a href="#">Get A Quote</a></div></div>
+					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">Get A Quote</a></div></div>
 				</div>
 			</div>
 		</div>

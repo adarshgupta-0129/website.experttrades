@@ -21,16 +21,18 @@
 		<div class="servicepage_box clearfix" id="portfolio">
 				<div class="row">
 					{% for item in items %}
-					<div class="col-sm-4">
-						<div class="row">
-							<div class="servicebox galbox">
-							<a href="{{ asset('images/gallery/') }}{{ item.path }}">
-								<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}" class="grayscale">
-								<div class="galhover"><p>{{ item.title }}</p></div>
-							</a>
+						{% if item.path is not null %}
+						<div class="col-sm-4">
+							<div class="row">
+								<div class="servicebox galbox">
+								<a href="{{ asset('images/gallery/') }}{{ item.path }}">
+									<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}" class="grayscale">
+									<div class="galhover"><p>{{ item.title }}</p></div>
+								</a>
+							</div>
+							</div>
 						</div>
-						</div>
-					</div>
+						{% endif %}
 					{% endfor %}
 			</div>
 		</div>
@@ -48,7 +50,7 @@
 
 		<div class="team_click srvclk">
 					<h2>Click below to get yourself a quote</h2>
-					<div class="teamq"><div class="slide_button"><a href="#">Get A Quote</a></div></div>
+					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">Get A Quote</a></div></div>
 				</div>
 	</div>
 </section>

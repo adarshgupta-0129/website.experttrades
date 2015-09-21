@@ -1,18 +1,18 @@
 <?php
 
-namespace AppBundle\Entity\Gallery\Item;
+namespace AppBundle\Entity\TeamMember;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * AppBundle\Entity\Gallery\Item\Item
- * @ORM\Table(name="gallery_item")
+ * AppBundle\Entity\TeamMember\TeamMember
+ * @ORM\Table(name="team_member")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Gallery\Item\ItemRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TeamMember\TeamMemberRepository")
  */
-class Item{
+class TeamMember{
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -28,6 +28,13 @@ class Item{
      *
      */
     private $id;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="name", type="text", length=2555, nullable=true)
+     */
+    private $name;
 
     /**
      * @var string $title
@@ -75,6 +82,7 @@ class Item{
         return $this->id;
     }
 
+
     /**
      * Get path
      *
@@ -83,6 +91,26 @@ class Item{
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -154,7 +182,7 @@ class Item{
      {
          // get rid of the __DIR__ so it doesn't screw up
          // when displaying uploaded doc/image in the view.
-         return 'images/gallery';
+         return 'images/team_members';
      }
 
      public function deleteFile()
@@ -164,4 +192,5 @@ class Item{
            unlink($path);
          }
      }
+
 }

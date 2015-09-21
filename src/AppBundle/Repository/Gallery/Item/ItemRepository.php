@@ -35,10 +35,10 @@ class ItemRepository extends Repository{
 
       $final = [];
       foreach($result as $i){
-        $final['data'][] = [
+        $final[] = [
           'id' => $i->getId(),
           'title' => $i->getTitle(),
-          'image_url' => $slidersPath.$i->getPath()
+          'image_url' => (is_null($i->getPath())) ? null : $slidersPath.$i->getPath()
         ];
       }
 
