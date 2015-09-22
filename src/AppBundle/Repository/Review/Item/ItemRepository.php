@@ -36,6 +36,7 @@ class ItemRepository extends Repository{
       foreach($data->getQuery()->getResult() as $item){
         $final[] = [
           'id' => $item->getId(),
+          'expert_trades_review_id' => $item->getExpertTradesReviewId(),
           'title' => $item->getTitle(),
           'message' => $item->getMessage(),
           'job_description' => $item->getJobDescription(),

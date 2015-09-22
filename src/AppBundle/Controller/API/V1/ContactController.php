@@ -27,6 +27,10 @@ class ContactController extends SecurityController
         [
           'header_text' => $contact->getHeaderText(),
           'header_title' => $contact->getHeaderTitle(),
+          'phone' => $contact->getPhone(),
+          'email' => $contact->getEmail(),
+          'address_first_line' => $contact->getAddressFirstLine(),
+          'address_second_line' => $contact->getAddressSecondLine(),
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -56,6 +60,18 @@ class ContactController extends SecurityController
              }
              if(isset($params['header_title'])){
                $contact->setHeaderTitle($params['header_title']);
+             }
+             if(isset($params['phone'])){
+               $contact->setPhone($params['phone']);
+             }
+             if(isset($params['email'])){
+               $contact->setEmail($params['email']);
+             }
+             if(isset($params['address_first_line'])){
+               $contact->setAddressFirstLine($params['address_first_line']);
+             }
+             if(isset($params['address_second_line'])){
+               $contact->setAddressSecondLine($params['address_second_line']);
              }
 
              $em->persist($contact);

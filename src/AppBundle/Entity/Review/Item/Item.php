@@ -23,6 +23,13 @@ class Item{
      */
     private $id;
 
+    /**
+     * @var string $expert_trades_review_id
+     *
+     * @ORM\Column(name="expert_trades_review_id", type="integer", nullable=true)
+     */
+     private $expert_trades_review_id;
+
    /**
     * @var string $title
     *
@@ -114,6 +121,26 @@ class Item{
    {
        return  $this->id;
    }
+
+   /**
+   * Set $expert_trades_review_id
+   *
+   * @param integer expert_trades_review_id
+   */
+  public function setExpertTradesReviewId($expert_trades_review_id)
+  {
+      $this->expert_trades_review_id = $expert_trades_review_id;
+  }
+
+  /**
+   * Get $expert_trades_review_id
+   *
+   * @return string
+   */
+  public function getExpertTradesReviewId()
+  {
+      return $this->expert_trades_review_id;
+  }
 
    /**
    * Set $title

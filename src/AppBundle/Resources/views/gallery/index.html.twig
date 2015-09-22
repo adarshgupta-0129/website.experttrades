@@ -59,14 +59,14 @@
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="subscribe_left">
-					<h2>Please subscribe to be updated for discount and pricing</h2>
-					<p>we keep your details confidential.</p>
+					<h2>{{ website.subscribeTitle }}</h2>
+					<p>{{ website.subscribeSubtitle }}</p>
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="subscribe_box">
-					<form>
-						<input type="text" placeholder="Email Address" />
+					<form action="{{ path('subscribe') }}" method="POST">
+					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
 						<input type="submit" value="" />
 					</form>
 				</div>

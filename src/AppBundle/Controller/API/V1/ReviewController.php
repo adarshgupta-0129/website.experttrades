@@ -125,6 +125,7 @@ class ReviewController extends SecurityController
 
       $response = new Response(json_encode([
         'id' => $item->getId(),
+        'expert_trades_review_id' => $item->getExpertTradesReviewId(),
         'title' => $item->getTitle(),
         'message' => $item->getMessage(),
         'job_description' => $item->getJobDescription(),
@@ -143,7 +144,7 @@ class ReviewController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/review_items", name="post_review_items")
+     * @Route("/api/v1/review_items", name="post_review_item")
      * @Method({"POST"})
      */
     public function postItemAction(Request $request)
@@ -151,25 +152,51 @@ class ReviewController extends SecurityController
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
+        $params = array();
+        $content = $this->get("request")->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content, true); // 2nd param to get as array
 
-        $file = $request->files->get('file');
-        if(!is_null($file)) {
+            $item = new Item();
+            if(isset($params['expert_trades_review_id'])){
+              $item->setExpertTradesReviewId($params['expert_trades_review_id']);
+            }
+            if(isset($params['title'])){
+              $item->setTitle($params['title']);
+            }
+            if(isset($params['message'])){
+              $item->setMessage($params['message']);
+            }
+            if(isset($params['job_description'])){
+              $item->setJobDescription($params['job_description']);
+            }
+            if(isset($params['job_location'])){
+              $item->setJobLocation($params['job_location']);
+            }
+            if(isset($params['rate_time_management'])){
+              $item->setRateTimeManagement($params['rate_time_management']);
+            }
+            if(isset($params['rate_friendly'])){
+              $item->setRateFriendly($params['rate_friendly']);
+            }
+            if(isset($params['rate_tidiness'])){
+              $item->setRateTidiness($params['rate_tidiness']);
+            }
+            if(isset($params['rate_value'])){
+              $item->setRateValue($params['rate_value']);
+            }
 
-          $item = new Item();
-          $item->setFile($file);
-          $item->upload();
-          $em->persist($item);
-          $em->flush();
+            $rateTotal = round((($item->getRateTimeManagement() + $item->getRateFriendly() + $item->getRateTidiness() + $item->getRateValue()) / 4), 0, PHP_ROUND_HALF_UP);
+            $item->setRateTotal($rateTotal);
+            $em->persist($item);
+            $em->flush();
 
-          $response = new Response(json_encode(
-          [
-            'code' => 200,
-            'message' => 'OK'
-          ]));
-
-          $response->headers->set('Content-Type', 'application/json');
-          return $response;
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
 
         }else{
 
@@ -226,4 +253,41 @@ class ReviewController extends SecurityController
         return $response;
 
     }
+
+    /**
+     * @Route("/api/v1/review_items/{id}", name="delete_review_item")
+     * @Method({"DELETE"})
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
+
+        if(is_object($item)){
+
+            $em->remove($item);
+            $em->flush();
+
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
 }

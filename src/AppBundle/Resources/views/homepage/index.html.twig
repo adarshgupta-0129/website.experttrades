@@ -18,7 +18,7 @@
 					<div class="carousel-caption">
 					 <div class="captop">{{ slider.title }}</div>
 					 <div class="capmid">{{ slider.subtitle }}</div>
-					 <div class="slide_button"><a href="#">{{ slider.buttonText }}</a></div>
+					 <div class="slide_button"><a href="{{ path('contact') }}">{{ slider.buttonText }}</a></div>
 					 <div class="slide_social">
 						{% if website.hasSocial == true %}
 						<h2>Connect Socially</h2>
@@ -234,27 +234,28 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="contact_left">
-				<div class="cppic"><img src="{{ asset('bundles/app/images/cp1.png') }}" alt="" /></div>
-				<div class="cpinfo"><p>123 your road name -Eastern name
-<br>12345 Zip Code, Area Name</p></div>
-				<a href="#"><img src="{{ asset('bundles/app/images/cp2.png') }}" alt="" />info@coysh.com</a>
-				<p><img src="{{ asset('bundles/app/images/cp3.png') }}" alt="" />+1234 567 890</p>
+				<div class="cppic"><img src="{{ asset('bundles/app/images/homepage/cp1.png') }}" alt="" /></div>
+				<div class="cpinfo">
+				<p>{{ contact.addressFirstLine }}
+				<br>{{ contact.addressSecondLine }}</p></div>
+				<a href="mailto:{{ contact.email }}"><img src="{{ asset('bundles/app/images/homepage/cp2.png') }}" alt="{{ contact.email }}" />{{ contact.email }}</a>
+				<p><img src="{{ asset('bundles/app/images/homepage/cp3.png') }}" alt="{{ contact.phone }}" />{{ contact.phone }}</p>
 			</div>
 		</div>
 		<div class="col-sm-6">
 			<div class="contact_right">
-				<form>
-  <div class="form-group gfp">
-    <input type="text" class="form-control" placeholder="Name">
-  </div>
-  <div class="form-group gfp grp2">
-    <input type="text" class="form-control" placeholder="Email">
-  </div>
-  <div class="form-group fgt">
-   <textarea class="form-control" rows="3" placeholder="Message"></textarea>
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+				<form method="POST">
+				  <div class="form-group gfp">
+							{{ form_widget(contact_form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Name'} }) }}
+				  </div>
+				  <div class="form-group gfp grp2">
+				    	{{ form_widget(contact_form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Email'} }) }}
+				  </div>
+				  <div class="form-group fgt">
+							{{ form_widget(contact_form.message, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Message' } }) }}
+				  </div>
+				  <button type="submit" class="btn btn-default">Submit</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -265,10 +266,18 @@
 <section class="subscribe">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-8">
 				<div class="subscribe_left">
-					<h2>Please subscribe to be updated for discount and pricing</h2>
-					<p>we keep your details confidential.</p>
+					<h2>{{ website.subscribeTitle }}</h2>
+					<p>{{ website.subscribeSubtitle }}</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="subscribe_box">
+					<form action="{{ path('subscribe') }}" method="POST">
+					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
+						<input type="submit" value="" />
+					</form>
 				</div>
 			</div>
 		</div>

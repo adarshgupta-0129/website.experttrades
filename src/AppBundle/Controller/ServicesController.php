@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use AppBundle\Entity\Subscriber\Subscriber;
+
 class ServicesController extends MainController
 {
     /**
@@ -19,7 +21,14 @@ class ServicesController extends MainController
         $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getForDisplay();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
-        
-        return $this->render('AppBundle:services:index.html.twig', array('website' => $website, 'service' => $service, 'items' => $items, 'footer_images' => $footerImages));
+
+        return $this->render('AppBundle:services:index.html.twig',
+        array(
+          'website' => $website,
+          'service' => $service,
+          'items' => $items,
+          'footer_images' => $footerImages,
+          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
+        ));
     }
 }

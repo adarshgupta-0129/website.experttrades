@@ -68,7 +68,7 @@
 <section class="footer">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-4">
 				<div class="footerbox">
 					<h2>Our Company</h2>
 					<ul>
@@ -80,7 +80,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-4">
         {% if website.hasSocial == true %}
 				<div class="footerbox">
 					<h2>Connect Socially</h2>
@@ -101,7 +101,7 @@
 				</div>
         {% endif %}
 			</div>
-			<div class="col-sm-3">
+			<div class="col-sm-4">
 				<div class="footerbox wty">
 					<h2>Recent Jobs</h2>
 					<ul>
@@ -111,13 +111,14 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-sm-3">
+		<!--	<div class="col-sm-3">
 				<div class="footerbox">
 					<div class="footerlogo">
 						<a href="{{ path('homepage') }}"><img src="{{ asset('bundles/app/images/footerlogo.jpg') }}" alt="" /></a>
 					</div>
 				</div>
 			</div>
+    -->
 		</div>
 	</div>
 </section>
@@ -125,7 +126,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="cpy">©2015 Coysh.com All rights reserved</div>
+				<div class="cpy">{{ website.copyright }}</div>
 			</div>
 		</div>
 	</div>

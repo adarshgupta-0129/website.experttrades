@@ -43,10 +43,14 @@ class initSiteCommand extends ContainerAwareCommand
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
 
         if(!is_object($website)){
+
           $website = new Website();
           $website->setFacebookLink('http://www.yourwebsite.com');
           $website->setAccessToken(substr( md5(rand()), 0, 50));
           $website->setPostcode('B94AA');
+          $website->setSubscribeTitle(' Please subscribe to be updated for discount and pricing.');
+          $website->setSubscribeSubtitle('We keep your details confidential.');
+          $website->setCopyright('©2015 Coysh.com All rights reserved');
           $em->persist($website);
           $em->flush();
 

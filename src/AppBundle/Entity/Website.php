@@ -64,6 +64,27 @@ class Website{
      */
     private $postcode;
 
+    /**
+     * @var string $subscribe_title
+     *
+     * @ORM\Column(name="subscribe_title", type="string", length=2555, nullable=true)
+     */
+    private $subscribe_title;
+
+    /**
+     * @var string $subscribe_subtitle
+     *
+     * @ORM\Column(name="subscribe_subtitle", type="string", length=2555, nullable=true)
+     */
+    private $subscribe_subtitle;
+
+    /**
+     * @var string $copyright
+     *
+     * @ORM\Column(name="copyright", type="string", length=2555, nullable=true)
+     */
+    private $copyright;
+
     public function __construct(){
 
     }
@@ -209,6 +230,66 @@ class Website{
     public function getPostcode()
     {
         return $this->postcode;
+    }
+
+    /**
+     * Set subscribe_title
+     *
+     * @param string $subscribe_title
+     */
+    public function setSubscribeTitle($subscribe_title)
+    {
+        $this->subscribe_title = $subscribe_title;
+    }
+
+    /**
+     * Get subscribe_title
+     *
+     * @return string
+     */
+    public function getSubscribeTitle()
+    {
+        return $this->subscribe_title;
+    }
+
+    /**
+     * Set subscribe_subtitle
+     *
+     * @param string $subscribe_subtitle
+     */
+    public function setSubscribeSubtitle($subscribe_subtitle)
+    {
+        $this->subscribe_subtitle = $subscribe_subtitle;
+    }
+
+    /**
+     * Get subscribe_subtitle
+     *
+     * @return string
+     */
+    public function getSubscribeSubtitle()
+    {
+        return $this->subscribe_subtitle;
+    }
+
+    /**
+     * Set copyright
+     *
+     * @param string $copyright
+     */
+    public function setCopyright($copyright)
+    {
+        $this->copyright = $copyright;
+    }
+
+    /**
+     * Get copyright
+     *
+     * @return string
+     */
+    public function getCopyright()
+    {
+        return $this->copyright;
     }
 
 }

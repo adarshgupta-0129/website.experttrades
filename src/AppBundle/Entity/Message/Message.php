@@ -1,17 +1,17 @@
 <?php
 
-namespace AppBundle\Entity\Notification;
+namespace AppBundle\Entity\Message;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * AppBundle\Entity\Notification\Notification
- * @ORM\Table(name="notification")
+ * AppBundle\Entity\Message\Message
+ * @ORM\Table(name="message")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Notification\NotificationRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Message\MessageRepository")
  */
-class Notification{
+class Message{
 
     /**
      * @var integer $id

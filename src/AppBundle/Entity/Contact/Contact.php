@@ -37,6 +37,34 @@ class Contact{
      */
     private $header_title;
 
+    /**
+     * @var string $address_first_line
+     *
+     * @ORM\Column(name="address_first_line", type="text", length=2555, nullable=true)
+     */
+    private $address_first_line;
+
+    /**
+     * @var string $address_second_line
+     *
+     * @ORM\Column(name="address_second_line", type="text", length=2555, nullable=true)
+     */
+    private $address_second_line;
+
+    /**
+     * @var string $phone
+     *
+     * @ORM\Column(name="phone", type="text", length=2555, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="text", length=2555, nullable=true)
+     */
+    private $email;
+
     public function __construct(){
 
     }
@@ -89,6 +117,86 @@ class Contact{
     public function getHeaderText()
     {
         return $this->header_text;
+    }
+
+    /**
+     * Set address_first_line
+     *
+     * @param string $address_first_line
+     */
+    public function setAddressFirstLine($address_first_line)
+    {
+        $this->address_first_line = $address_first_line;
+    }
+
+    /**
+     * Get address_first_line
+     *
+     * @return string
+     */
+    public function getAddressFirstLine()
+    {
+        return $this->address_first_line;
+    }
+
+    /**
+     * Set address_second_line
+     *
+     * @param string $address_second_line
+     */
+    public function setAddressSecondLine($address_second_line)
+    {
+        $this->address_second_line = $address_second_line;
+    }
+
+    /**
+     * Get address_second_line
+     *
+     * @return string
+     */
+    public function getAddressSecondLine()
+    {
+        return $this->address_second_line;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
 }

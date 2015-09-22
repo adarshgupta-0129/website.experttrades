@@ -14,6 +14,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 class QuoteRequest{
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\QuoteRequest\JobCategory\JobCategory", mappedBy="quote_request")
+     */
+     private $job_categories;
+
+    /**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
@@ -43,6 +48,20 @@ class QuoteRequest{
       * @ORM\Column(name="phone", type="text", length=255, nullable=true)
       */
      private $phone;
+
+    /**
+     * @var string $job_location
+     *
+     * @ORM\Column(name="job_location", type="text", length=255, nullable=true)
+     */
+     private $job_location;
+
+     /**
+      * @var string $job_description
+      *
+      * @ORM\Column(name="job_description", type="text", length=25555, nullable=true)
+      */
+     private $job_description;
 
      /**
      * @var datetime $created
@@ -123,6 +142,46 @@ class QuoteRequest{
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set job_location
+     *
+     * @param string $job_location
+     */
+    public function setJobLocation($job_location)
+    {
+        $this->job_location = $job_location;
+    }
+
+    /**
+     * Get job_location
+     *
+     * @return string
+     */
+    public function getJobLocation()
+    {
+        return $this->job_location;
+    }
+
+    /**
+     * Set job_description
+     *
+     * @param string $job_description
+     */
+    public function setJobDescription($job_description)
+    {
+        $this->job_description = $job_description;
+    }
+
+    /**
+     * Get job_description
+     *
+     * @return string
+     */
+    public function getJobDescription()
+    {
+        return $this->job_description;
     }
 
     /**

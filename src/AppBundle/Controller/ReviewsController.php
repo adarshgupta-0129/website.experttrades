@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use AppBundle\Entity\Subscriber\Subscriber;
+
 class ReviewsController extends MainController
 {
     /**
@@ -19,7 +21,14 @@ class ReviewsController extends MainController
         $items = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getForDisplay();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
-        
-        return $this->render('AppBundle:reviews:index.html.twig', array('website' => $website, 'review' => $review, 'items' => $items, 'footer_images' => $footerImages));
+
+        return $this->render('AppBundle:reviews:index.html.twig',
+        array(
+          'website' => $website,
+          'review' => $review,
+          'items' => $items,
+          'footer_images' => $footerImages,
+          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
+        ));
     }
 }

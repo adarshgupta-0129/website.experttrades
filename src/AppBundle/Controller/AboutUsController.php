@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 
+use AppBundle\Entity\Subscriber\Subscriber;
+
 class AboutUsController extends MainController
 {
     /**
@@ -23,6 +25,12 @@ class AboutUsController extends MainController
         $this->trackVisit();
 
         return $this->render('AppBundle:about_us:index.html.twig',
-        array('website' => $website, 'aboutUs' => $aboutUs, 'teamMembers' => $teamMembers, 'footer_images' => $footerImages));
+        array(
+         'website' => $website,
+         'aboutUs' => $aboutUs,
+         'teamMembers' => $teamMembers,
+         'footer_images' => $footerImages,
+         'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
+       ));
     }
 }
