@@ -16,7 +16,7 @@ class ItemRepository extends Repository{
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Review\Item\Item', 'i');
-
+      $data->orderBy('i.id', 'DESC');
       return $data->getQuery()->getResult();
   }
 

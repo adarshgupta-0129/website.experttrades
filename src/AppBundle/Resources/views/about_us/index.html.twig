@@ -113,7 +113,7 @@
 					{% for team_member in teamMembers %}
 						{% if team_member.path is not null %}
 						<div class="teambox">
-							<img src="{{ asset('images/team_members/') }}{{ item.path }}" alt="" />
+							<img src="{{ asset('images/team_members/') }}{{ team_member.path }}" alt="{{ team_member.name }}" />
 							<h2>{{ team_member.name }}</h2>
 							<h3>{{ team_member.title }}</h3>
 						</div>

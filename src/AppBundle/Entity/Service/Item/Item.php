@@ -184,7 +184,7 @@ class Item{
          return 'images/services';
      }
 
-     public function deleteFIle()
+     public function deleteFile()
      {
          $path = $this->getUploadRootDir().'/'.$this->path;
          if(file_exists ($path)){
