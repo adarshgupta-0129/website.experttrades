@@ -28,13 +28,14 @@ class ContactController extends MainController
         foreach($em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findAll() as $c){
             $choices[$c->getName()] = $c->getName();
         }
-
+        $date = new \Datetime();
         $quoteRequest = new QuoteRequest();
         $form = $this->createFormBuilder($quoteRequest)
             ->add('name', 'text')
             ->add('email', 'text')
             ->add('phone', 'text')
             ->add('job_location', 'text')
+            ->add('job_date', 'text', array('mapped' => false, 'data' => $date->format('d/m/Y')))
             ->add('job_description', 'textarea')
             ->add('job_categories', 'choice', [
                 'choices' => $choices,
@@ -49,13 +50,18 @@ class ContactController extends MainController
 
             if ($form->isValid()) {
 
+                $quoteRequest->setJobDate(new \Datetime($form->get('job_date')->getData()));
                 $em->persist($quoteRequest);
                 $em->flush();
 
+                $categories = [];
                 foreach($form->get('job_categories')->getData() as $c){
 
                     $jobCategory = $em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findOneBy(array('name' => $c));
                     if(is_object($jobCategory)) {
+
+                        $categories[] = $jobCategory->getName();
+
 
                         $category = new QuoteRequestCategory();
                         $category->setQuoteRequest($quoteRequest);
@@ -64,6 +70,27 @@ class ContactController extends MainController
                         $em->flush();
                     }
                 }
+
+                $data_string = json_encode([
+                  'name' => $quoteRequest->getName(),
+                  'email' => $quoteRequest->getEmail(),
+                  'phone' => $quoteRequest->getPhone(),
+                  'job_description' => $quoteRequest->getJobDescription(),
+                  'job_date' => (is_object($quoteRequest->getJobDate())) ? $quoteRequest->getJobDate()->format('Y-m-d H:i') : '',
+                  'job_location' => $quoteRequest->getJobLocation(),
+                  'categories' => $categories
+                ]);
+
+                $ch = curl_init('https://www.experttrades.com/api/v1/trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($data_string))
+                );
+
+                $result = json_decode(curl_exec($ch));
 
                 return $this->redirect($this->generateUrl('contact').'?sent=true');
             }
@@ -95,6 +122,19 @@ class ContactController extends MainController
             if ($subscriberForm->isValid()) {
                 $em->persist($subscriber);
                 $em->flush();
+
+                $data_string = json_encode([
+                  'email' => $subscriber->getEmail()
+                ]);
+
+                $ch = curl_init('https://www.experttrades.com/api/v1/trade/'.$website->getTradeId().'/website_subscriber?website_access_token='.$website->getAccessToken());
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($data_string))
+                );
             }
         }
 

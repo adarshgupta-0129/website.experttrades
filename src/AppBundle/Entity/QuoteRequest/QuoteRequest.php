@@ -57,6 +57,13 @@ class QuoteRequest{
      private $job_location;
 
      /**
+      * @var datetime $job_date
+      *
+      * @ORM\Column(name="job_date", type="datetime", nullable=true)
+      */
+      private $job_date;
+
+     /**
       * @var string $job_description
       *
       * @ORM\Column(name="job_description", type="text", length=25555, nullable=true)
@@ -71,7 +78,18 @@ class QuoteRequest{
      private $created;
 
     public function __construct(){
+        $this->job_categories = new ArrayCollection();
         $this->created = new \DateTime("now",new \DateTimeZone('Europe/London'));
+    }
+
+    /**
+     * Get job_categories
+     *
+     * @return string
+     */
+    public function getJobCategories()
+    {
+        return $this->job_categories;
     }
 
     /**
@@ -162,6 +180,26 @@ class QuoteRequest{
     public function getJobLocation()
     {
         return $this->job_location;
+    }
+
+    /**
+     * Set job_date
+     *
+     * @param string $job_date
+     */
+    public function setJobDate($job_date)
+    {
+        $this->job_date = $job_date;
+    }
+
+    /**
+     * Get job_date
+     *
+     * @return string
+     */
+    public function getJobDate()
+    {
+        return $this->job_date;
     }
 
     /**

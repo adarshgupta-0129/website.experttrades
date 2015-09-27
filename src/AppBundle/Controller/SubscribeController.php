@@ -18,6 +18,7 @@ class SubscribeController extends MainController
     public function subscribeAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
 
         $subscriber = new Subscriber();
         $subscriberForm = $this->createFormBuilder($subscriber)
@@ -30,6 +31,22 @@ class SubscribeController extends MainController
             if ($subscriberForm->isValid()) {
                 $em->persist($subscriber);
                 $em->flush();
+
+                $data_string = json_encode([
+                  'email' => $subscriber->getEmail()
+                ]);
+
+                $ch = curl_init('https://www.experttrades.com/api/v1/trades/'.$website->getTradeId().'/website_subscribers?website_access_token='.$website->getAccessToken());
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($data_string))
+                );
+
+                $result = json_decode(curl_exec($ch));
+
             }
         }
 

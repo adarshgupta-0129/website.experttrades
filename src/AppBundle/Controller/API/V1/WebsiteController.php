@@ -37,7 +37,7 @@ class WebsiteController extends SecurityController
           'subscribe_subtitle' => $website->getSubscribeSubtitle(),
           'copyright' => $website->getCopyright(),
           'company_name' => $website->getCompanyName(),
-          'image_url' => (is_null($website->getLogoPath())) ? null : $slidersPath.$website->getLogoPath(),
+          'logo_url' => (is_null($website->getLogoPath())) ? null : $slidersPath.$website->getLogoPath(),
 
         ]));
         $response->headers->set('Content-Type', 'application/json');
@@ -47,10 +47,10 @@ class WebsiteController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/website", name="post_website")
-     * @Method({"POST"})
+     * @Route("/api/v1/website", name="put_website")
+     * @Method({"PUT"})
      */
-    public function postAction(Request $request)
+    public function putAction(Request $request)
     {
          $this->checkAccess($request);
 
@@ -115,23 +115,23 @@ class WebsiteController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/website_logo/{id}", name="post_website_logo")
+     * @Route("/api/v1/website_logo", name="post_website_logo")
      * @Method({"POST"})
      */
-    public function postLogoAction(Request $request, $id)
+    public function postLogoAction(Request $request)
     {
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $website = $em->getRepository('AppBundle\Entity\Website')
-        ->find(1);
+        $website = $em->getRepository('AppBundle\Entity\Website')->find(1);
 
         $file = $request->files->get('file');
         if(!is_null($file)) {
 
+          $website->deleteLogoFile();
           $website->setLogoFile($file);
-          $item->logoUpload();
-          $em->persist($item);
+          $website->logoUpload();
+          $em->persist($website);
           $em->flush();
 
           $response = new Response(json_encode(

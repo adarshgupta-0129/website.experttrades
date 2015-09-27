@@ -30,11 +30,23 @@ class Website{
     private $id;
 
     /**
+     * @var string $trade_id
+     *
+     * @ORM\Column(name="trade_id", type="integer")
+     */
+    private $trade_id;
+
+    /**
      * @var string $access_token
      *
      * @ORM\Column(name="access_token", type="text", length=2555, nullable=true)
      */
     private $access_token;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    public $trade_url;
 
     /**
      * @var string $facebook_link
@@ -158,6 +170,26 @@ class Website{
         }
 
         return false;
+    }
+
+    /**
+     * Set trade_id
+     *
+     * @param string $trade_id
+     */
+    public function setTradeId($trade_id)
+    {
+        $this->trade_id = $trade_id;
+    }
+
+    /**
+     * Get trade_id
+     *
+     * @return inetegr
+     */
+    public function getTradeId()
+    {
+        return $this->trade_id;
     }
 
     /**
@@ -351,6 +383,26 @@ class Website{
     }
 
     /**
+     * Get trade_url
+     *
+     * @return string
+     */
+    public function getTradeUrl()
+    {
+        return $this->trade_url;
+    }
+
+    /**
+     * Set trade_url
+     *
+     * @param string $trade_url
+     */
+    public function setTradeUrl($trade_url)
+    {
+        $this->trade_url = $trade_url;
+    }
+
+    /**
      * Get company_name
      *
      * @return string
@@ -369,7 +421,7 @@ class Website{
 
         // use the original file name here but you should
         // sanitize it at least to avoid any security issues
-        $filename = substr( md5(rand()), 0, 15).'.'.$this->getFile()->guessExtension();
+        $filename = substr( md5(rand()), 0, 15).'.'.$this->getLogoFile()->guessExtension();
         // move takes the target directory and then the
         // target filename to move to
         $this->getLogoFile()->move(
@@ -402,7 +454,7 @@ class Website{
      {
          // the absolute directory path where uploaded
          // documents should be saved
-         return __DIR__.'/../../../../../web/'.$this->getLogoUploadDir();
+         return __DIR__.'/../../../web/'.$this->getLogoUploadDir();
      }
 
      protected function getLogoUploadDir()
@@ -414,7 +466,7 @@ class Website{
 
      public function deleteLogoFile()
      {
-         $path = $this->getUploadRootDir().'/'.$this->logo_path;
+         $path = $this->getLogoUploadRootDir().'/'.$this->logo_path;
          if(file_exists ($path)){
            unlink($path);
          }

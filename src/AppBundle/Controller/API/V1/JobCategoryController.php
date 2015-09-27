@@ -123,8 +123,7 @@ class JobCategoryController extends SecurityController
 
              $response = new Response(json_encode(
              [
-               'code' => 200,
-               'message' => 'OK'
+               'id' => $jobCategory->getId()
              ]));
 
          }else{

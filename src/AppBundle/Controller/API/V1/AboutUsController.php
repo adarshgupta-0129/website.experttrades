@@ -22,6 +22,11 @@ class AboutUsController extends SecurityController
         $em = $this->getDoctrine()->getManager();
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
 
+        $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/about_us/';
+        if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+              $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/about_us/';
+        }
+
         $response = new Response(json_encode(
         [
 
@@ -42,6 +47,23 @@ class AboutUsController extends SecurityController
           'about_us_third_point_title' => $aboutUs->getAboutUsThirdPointTitle(),
           'about_us_third_point_text' => $aboutUs->getAboutUsThirdPointText(),
           'about_us_third_point_image' => $aboutUs->getAboutUsThirdPointImage(),
+
+          'image_url' => (is_null($aboutUs->getPath())) ? null : $slidersPath.$aboutUs->getPath(),
+
+          'statistics_title' => $aboutUs->getStatisticsTitle(),
+
+          'statistics_first_box_number' => $aboutUs->getStatisticsFirstBoxNumber(),
+          'statistics_first_box_text' => $aboutUs->getStatisticsFirstBoxText(),
+
+          'statistics_second_box_number' => $aboutUs->getStatisticsSecondBoxNumber(),
+          'statistics_second_box_text' => $aboutUs->getStatisticsSecondBoxText(),
+
+          'statistics_third_box_number' => $aboutUs->getStatisticsThirdBoxNumber(),
+          'statistics_third_box_text' => $aboutUs->getStatisticsThirdBoxText(),
+
+          'statistics_fourth_box_number' => $aboutUs->getStatisticsFourthBoxNumber(),
+          'statistics_fourth_box_text' => $aboutUs->getStatisticsFourthBoxText()
+
         ]));
 
         $response->headers->set('Content-Type', 'application/json');
@@ -51,8 +73,8 @@ class AboutUsController extends SecurityController
     }
 
     /**
-     * @Route("/api/v1/about_us", name="post_about_us")
-     * @Method({"POST"})
+     * @Route("/api/v1/about_us", name="put_about_us")
+     * @Method({"PUT"})
      */
     public function postAction(Request $request)
     {
@@ -111,6 +133,38 @@ class AboutUsController extends SecurityController
                $aboutUs->setAboutUsThirdPointImage($params['about_us_third_point_image']);
              }
 
+             if(isset($params['statistics_title'])){
+               $aboutUs->setStatisticsTitle($params['statistics_title']);
+             }
+
+             if(isset($params['statistics_first_box_number'])){
+               $aboutUs->setStatisticsFirstBoxNumber($params['statistics_first_box_number']);
+             }
+             if(isset($params['statistics_first_box_text'])){
+               $aboutUs->setStatisticsFirstBoxText($params['statistics_first_box_text']);
+             }
+
+             if(isset($params['statistics_second_box_number'])){
+               $aboutUs->setStatisticsSecondBoxNumber($params['statistics_second_box_number']);
+             }
+             if(isset($params['statistics_second_box_text'])){
+               $aboutUs->setStatisticsSecondBoxText($params['statistics_second_box_text']);
+             }
+
+             if(isset($params['statistics_third_box_number'])){
+               $aboutUs->setStatisticsThirdBoxNumber($params['statistics_third_box_number']);
+             }
+             if(isset($params['statistics_third_box_text'])){
+               $aboutUs->setStatisticsThirdBoxText($params['statistics_third_box_text']);
+             }
+
+             if(isset($params['statistics_fourth_box_number'])){
+               $aboutUs->setStatisticsFourhtBoxNumber($params['statistics_fourth_box_number']);
+             }
+             if(isset($params['statistics_fourth_box_text'])){
+               $aboutUs->setStatisticsFourthBoxText($params['statistics_fourth_box_text']);
+             }
+
              $em->persist($aboutUs);
              $em->flush();
 
@@ -131,6 +185,49 @@ class AboutUsController extends SecurityController
 
          $response->headers->set('Content-Type', 'application/json');
          return $response;
+
+    }
+
+    /**
+     * @Route("/api/v1/about_us_image", name="post_contact_image")
+     * @Method({"POST"})
+     */
+    public function postImageAction(Request $request)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
+
+        $file = $request->files->get('file');
+        if(!is_null($file)) {
+
+          $aboutUs->deleteFile();
+          $aboutUs->setFile($file);
+          $aboutUs->upload();
+          $em->persist($aboutUs);
+          $em->flush();
+
+          $response = new Response(json_encode(
+          [
+            'code' => 200,
+            'message' => 'OK'
+          ]));
+
+          $response->headers->set('Content-Type', 'application/json');
+          return $response;
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
 
     }
 }

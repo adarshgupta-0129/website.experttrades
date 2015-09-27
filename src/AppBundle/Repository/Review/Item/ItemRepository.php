@@ -12,12 +12,20 @@ use AppBundle\Repository\Repository;
  */
 class ItemRepository extends Repository{
 
-  public function getForDisplay(){
+  public function getForDisplay($limit, $offset){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Review\Item\Item', 'i');
+      $data->setFirstResult($offset);
+      $data->setMaxResults($limit);
       $data->orderBy('i.id', 'DESC');
-      return $data->getQuery()->getResult();
+      $result = $data->getQuery()->getResult();
+
+      $count = $this->getEntityManager()->createQueryBuilder();
+      $count->select('count(i.id)')->from('AppBundle\Entity\Review\Item\Item', 'i');
+      $total = $count->getQuery()->getSingleScalarResult();
+
+      return $this->payload($total, $limit, $offset, $result);
   }
 
   public function getPaginated($limit, $offset, $slidersPath){

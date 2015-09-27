@@ -43,8 +43,17 @@ class HomepageController extends SecurityController
 
         $response = new Response(json_encode(
         [
-          'sliders' => $slidersArray
+          'sliders' => $slidersArray,
+          'reviews_title' => $homepage->getReviewsTitle(),
+          'reviews_subtitle' => $homepage->getReviewsSubtitle(),
+          'services_title' => $homepage->getServicesTitle(),
+          'services_subtitle' => $homepage->getServicesSubtitle(),
+          'gallery_title' => $homepage->getGalleryTitle(),
+          'gallery_subtitle' => $homepage->getGallerySubtitle(),
+          'contact_us_title' => $homepage->getContactUsTitle(),
+          'contact_us_subtitle' => $homepage->getContactUsSubtitle()
         ]));
+
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
@@ -67,6 +76,31 @@ class HomepageController extends SecurityController
          if (!empty($content))
          {
              $params = json_decode($content, true); // 2nd param to get as array
+
+             if(isset($params['reviews_title'])){
+                 $homepage->setReviewsSubtitle($params['reviews_title']);
+             }
+             if(isset($params['reviews_subtitle'])){
+                 $homepage->setReviewsSubtitle($params['reviews_subtitle']);
+             }
+             if(isset($params['services_title'])){
+                 $homepage->setServicesTitle($params['services_title']);
+             }
+             if(isset($params['services_subtitle'])){
+                 $homepage->setServicesSubtitle($params['services_subtitle']);
+             }
+             if(isset($params['gallery_title'])){
+                 $homepage->setGalleryTitle($params['gallery_title']);
+             }
+             if(isset($params['gallery_subtitle'])){
+                 $homepage->setGallerySubtitle($params['gallery_subtitle']);
+             }
+             if(isset($params['contact_us_title'])){
+                 $homepage->setContactUsTitle($params['contact_us_title']);
+             }
+             if(isset($params['contact_us_subtitle'])){
+                 $homepage->setContactUsSubtitle($params['contact_us_subtitle']);
+             }
 
              $em->persist($homepage);
              $em->flush();

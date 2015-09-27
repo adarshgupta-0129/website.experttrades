@@ -4,6 +4,8 @@ namespace AppBundle\Entity\AboutUs;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * AppBundle\Entity\AboutUs\AboutUs
@@ -12,6 +14,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AboutUs\AboutUsRepository")
  */
 class AboutUs{
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+     private $file;
 
     /**
      * @var integer $id
@@ -114,8 +121,121 @@ class AboutUs{
      */
     private $about_us_third_point_image;
 
+    /**
+     * @var string $statistics_title
+     *
+     * @ORM\Column(name="statistics_title", type="text", length=2555, nullable=true)
+     */
+    private $statistics_title;
+
+    /**
+     * @var string $statistics_first_box_number
+     *
+     * @ORM\Column(name="statistics_first_box_number", type="text", length=2555, nullable=true)
+     */
+    private $statistics_first_box_number;
+
+    /**
+     * @var string $statistics_first_box_text
+     *
+     * @ORM\Column(name="statistics_first_box_text", type="text", length=2555, nullable=true)
+     */
+    private $statistics_first_box_text;
+
+
+    /**
+     * @var string $statistics_second_box_number
+     *
+     * @ORM\Column(name="statistics_second_box_number", type="text", length=2555, nullable=true)
+     */
+    private $statistics_second_box_number;
+
+    /**
+     * @var string $statistics_second_box_text
+     *
+     * @ORM\Column(name="statistics_second_box_text", type="text", length=2555, nullable=true)
+     */
+    private $statistics_second_box_text;
+
+    /**
+     * @var string $statistics_third_box_number
+     *
+     * @ORM\Column(name="statistics_third_box_number", type="text", length=2555, nullable=true)
+     */
+    private $statistics_third_box_number;
+
+    /**
+     * @var string $statistics_third_box_text
+     *
+     * @ORM\Column(name="statistics_third_box_text", type="text", length=2555, nullable=true)
+     */
+    private $statistics_third_box_text;
+
+    /**
+     * @var string $statistics_fourth_box_number
+     *
+     * @ORM\Column(name="statistics_fourth_box_number", type="text", length=2555, nullable=true)
+     */
+    private $statistics_fourth_box_number;
+
+    /**
+     * @var string $statistics_fourth_box_text
+     *
+     * @ORM\Column(name="statistics_fourth_box_text", type="text", length=2555, nullable=true)
+     */
+    private $statistics_fourth_box_text;
+
+    /**
+     * @var string $team_title
+     *
+     * @ORM\Column(name="team_title", type="text", length=2555, nullable=true)
+     */
+    private $team_title;
+
+    /**
+     * @var string $team_subtitle
+     *
+     * @ORM\Column(name="team_subtitle", type="text", length=25555, nullable=true)
+     */
+    private $team_subtitle;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    public $path;
+
     public function __construct(){
 
+    }
+
+    /**
+     * Get path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
     /**
@@ -388,4 +508,285 @@ class AboutUs{
         return $this->about_us_third_point_image;
     }
 
+    /**
+     * Set statistics_title
+     *
+     * @param string $statistics_title
+     */
+    public function setStatisticsTitle($statistics_title)
+    {
+        $this->statistics_title = $statistics_title;
+    }
+
+    /**
+     * Get statistics_title
+     *
+     * @return string
+     */
+    public function getStatisticsTitle()
+    {
+        return $this->statistics_title;
+    }
+
+    /**
+     * Set statistics_first_box_number
+     *
+     * @param string $statistics_first_box_number
+     */
+    public function setStatisticsFirstBoxNumber($statistics_first_box_number)
+    {
+        $this->statistics_first_box_number = $statistics_first_box_number;
+    }
+
+    /**
+     * Get statistics_first_box_number
+     *
+     * @return string
+     */
+    public function getStatisticsFirstBoxNumber()
+    {
+        return $this->statistics_first_box_number;
+    }
+
+    /**
+     * Set statistics_first_box_text
+     *
+     * @param string $statistics_first_box_text
+     */
+    public function setStatisticsFirstBoxText($statistics_first_box_text)
+    {
+        $this->statistics_first_box_text = $statistics_first_box_text;
+    }
+
+    /**
+     * Get statistics_first_box_text
+     *
+     * @return string
+     */
+    public function getStatisticsFirstBoxText()
+    {
+        return $this->statistics_first_box_text;
+    }
+
+    /**
+     * Set statistics_second_box_number
+     *
+     * @param string $statistics_second_box_number
+     */
+    public function setStatisticsSecondBoxNumber($statistics_second_box_number)
+    {
+        $this->statistics_second_box_number = $statistics_second_box_number;
+    }
+
+    /**
+     * Get statistics_second_box_number
+     *
+     * @return string
+     */
+    public function getStatisticsSecondBoxNumber()
+    {
+        return $this->statistics_second_box_number;
+    }
+
+    /**
+     * Set statistics_second_box_text
+     *
+     * @param string $statistics_second_box_text
+     */
+    public function setStatisticsSecondBoxText($statistics_second_box_text)
+    {
+        $this->statistics_second_box_text = $statistics_second_box_text;
+    }
+
+    /**
+     * Get statistics_second_box_text
+     *
+     * @return string
+     */
+    public function getStatisticsSecondBoxText()
+    {
+        return $this->statistics_second_box_text;
+    }
+
+    /**
+     * Set statistics_second_box_number
+     *
+     * @param string $statistics_third_box_number
+     */
+    public function setStatisticsThirdBoxNumber($statistics_third_box_number)
+    {
+        $this->statistics_third_box_number = $statistics_third_box_number;
+    }
+
+    /**
+     * Get statistics_third_box_number
+     *
+     * @return string
+     */
+    public function getStatisticsThirdBoxNumber()
+    {
+        return $this->statistics_third_box_number;
+    }
+
+    /**
+     * Set statistics_third_box_text
+     *
+     * @param string $statistics_third_box_text
+     */
+    public function setStatisticsThirdBoxText($statistics_third_box_text)
+    {
+        $this->statistics_third_box_text = $statistics_third_box_text;
+    }
+
+    /**
+     * Get statistics_third_box_text
+     *
+     * @return string
+     */
+    public function getStatisticsThirdBoxText()
+    {
+        return $this->statistics_third_box_text;
+    }
+
+
+
+    /**
+     * Set statistics_fourth_box_number
+     *
+     * @param string $statistics_fourth_box_number
+     */
+    public function setStatisticsFourthBoxNumber($statistics_fourth_box_number)
+    {
+        $this->statistics_fourth_box_number = $statistics_fourth_box_number;
+    }
+
+    /**
+     * Get statistics_fourth_box_number
+     *
+     * @return string
+     */
+    public function getStatisticsFourthBoxNumber()
+    {
+        return $this->statistics_fourth_box_number;
+    }
+
+    /**
+     * Set statistics_fourth_box_text
+     *
+     * @param string $statistics_fourth_box_text
+     */
+    public function setStatisticsFourthBoxText($statistics_fourth_box_text)
+    {
+        $this->statistics_fourth_box_text = $statistics_fourth_box_text;
+    }
+
+    /**
+     * Get statistics_fourth_box_text
+     *
+     * @return string
+     */
+    public function getStatisticsFourthBoxText()
+    {
+        return $this->statistics_fourth_box_text;
+    }
+
+    /**
+     * Set team_title
+     *
+     * @param string $team_title
+     */
+    public function setTeamTitle($team_title)
+    {
+        $this->team_title = $team_title;
+    }
+
+    /**
+     * Get team_title
+     *
+     * @return string
+     */
+    public function getTeamTitle()
+    {
+        return $this->team_title;
+    }
+
+    /**
+     * Set team_subtitle
+     *
+     * @param string $team_subtitle
+     */
+    public function setTeamSubtitle($team_subtitle)
+    {
+        $this->team_subtitle = $team_subtitle;
+    }
+
+    /**
+     * Get team_subtitle
+     *
+     * @return string
+     */
+    public function getTeamSubtitle()
+    {
+        return $this->team_subtitle;
+    }
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        $filename = substr( md5(rand()), 0, 15).'.'.$this->getFile()->guessExtension();
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $filename
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->path = $filename;
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+     }
+
+     public function getAbsolutePath()
+     {
+         return null === $this->path
+             ? null
+             : $this->getUploadRootDir().'/'.$this->path;
+     }
+
+     public function getWebPath()
+     {
+         return null === $this->path
+             ? null
+             : $this->getUploadDir().'/'.$this->path;
+     }
+
+     protected function getUploadRootDir()
+     {
+         // the absolute directory path where uploaded
+         // documents should be saved
+         return __DIR__.'/../../../../web/'.$this->getUploadDir();
+     }
+
+     protected function getUploadDir()
+     {
+         // get rid of the __DIR__ so it doesn't screw up
+         // when displaying uploaded doc/image in the view.
+         return 'images/about_us';
+     }
+
+     public function deleteFile()
+     {
+         $path = $this->getUploadRootDir().'/'.$this->path;
+         if(file_exists ($path)){
+           unlink($path);
+         }
+     }
 }

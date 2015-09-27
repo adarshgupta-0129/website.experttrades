@@ -27,6 +27,7 @@ class ReviewController extends SecurityController
         [
           'header_text' => $review->getHeaderText(),
           'header_title' => $review->getHeaderTitle(),
+          'header_subtitle' => $review->getHeaderSubtitle(),
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -56,6 +57,10 @@ class ReviewController extends SecurityController
              }
              if(isset($params['header_title'])){
                $review->setHeaderTitle($params['header_title']);
+             }
+
+             if(isset($params['header_subtitle'])){
+               $review->setHeaderSubtitle($params['header_subtitle']);
              }
 
              $em->persist($review);

@@ -96,4 +96,5 @@ class ContactController extends SecurityController
          return $response;
 
     }
+
 }

@@ -13,7 +13,8 @@
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
     <link href="{{ asset('bundles/app/css/bootstrap.css') }}" rel="stylesheet" >
-  <!--  <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datetimepicker.min.css') }}" />
 
   {% set main_color = '#AF1600' %}
   {% set dark_color = '#620D00' %}
@@ -31,7 +32,7 @@
   .captop {width:100%; background: {{ light_color }}; padding: 5px; text-align: center; font-family: 'multicolore_regular'; font-size: 35px; color:#fff; text-transform: uppercase; line-height: 50px;text-shadow: none;}
   .capmid {width:100%; background: {{ dark_color }}; line-height: 50px; text-align: center; font-family: 'Lato', sans-serif; font-size: 19px; color:#fff; font-weight:400; text-transform: uppercase; margin-top: 5px; margin-bottom: 55px;}
   .slide_button {width:290px; margin: 0 auto;}
-  .slide_button a {display: block; background: url(../bundles/app/images/tt.png) no-repeat 0 0 {{ main_color }}; background-position: 83% 54%; text-align: center;font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:700; line-height: 70px;}
+  .slide_button a {display: block; background: url({{ asset('bundles/app/images/tt.png') }}) no-repeat 0 0 {{ main_color }}; background-position: 83% 54%; text-align: center;font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:700; line-height: 70px;}
   .slide_social {width:187px; margin: 59px auto 0;}
   .slide_social h2 {font-family: 'Lato', sans-serif; font-size: 18px; color:#fff; font-weight:400; text-transform: uppercase; margin: 0 0 11px;}
   .slide_social a {display:inline-block; padding: 0 4px;}
@@ -42,7 +43,7 @@
 
   .bodybox1 {width:100%; margin-top: 45px;}
   .about_head {width:100%; text-align: center; margin-bottom: 57px;}
-  .about_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#111111; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url(../bundles/app/images/about-bg.jpg) no-repeat 0 0; background-position: bottom center;}
+  .about_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#111111; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url({{ asset('bundles/app/images/about-bg.jpg') }}) no-repeat 0 0; background-position: bottom center;}
   .about_head p {font-family: 'Lato', sans-serif; font-size: 16px; color:#666666; font-weight:400; line-height: 22px;}
   .about_body_left {width:100%;}
   .about_body_left img {width:auto; display: block;}
@@ -56,7 +57,7 @@
 
   .bodybox2 {width:100%; background: {{ main_color }}; padding: 45px 0 35px; margin-top: 43px;}
   .review_head {width:100%; text-align: center; margin-bottom: 57px;}
-  .review_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#fff; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url(../bundles/app/images/reviews/review-bg.jpg) no-repeat 0 0; background-position: bottom center;}
+  .review_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#fff; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url({{ asset('bundles/app/images/reviews/review-bg.jpg') }}) no-repeat 0 0; background-position: bottom center;}
   .reviewbox {width:100%; background: #fff;}
   .rvbtop {width:100%; text-align: center; margin-top: 10px; border-bottom: 1px solid #d1d1d1; padding-bottom: 15px;display: inline-block;}
   .rvbtop a {display: inline-block;}
@@ -66,7 +67,7 @@
   .rvmdinr {width:100%; margin-bottom: 0;display: inline-block;}
   .rvmdinr span {float: left; font-family: 'Lato', sans-serif; font-size: 16px; color:#000; font-weight:400;}
   .rvmdinr a {float: right;}
-  .rvbottom {width:100%; border-top: 1px solid #d1d1d1; padding: 12px 6px 0; text-align: center;}
+  .rvbottom { height:150px; width:100%; border-top: 1px solid #d1d1d1; padding: 12px 6px 0; text-align: center;}
   .rvbottom p {font-family: 'Lato', sans-serif; font-size: 16px; color:#999999; font-weight:400; line-height: 22px;}
   .rvsocial {width:100%; background: {{ dark_color }}; text-align: center; padding: 10px 0; display: inline-block; margin-top: 12px;}
   .rvsocial span {float: none;font-family: 'Lato', sans-serif; font-size: 16px; color:#fff; font-weight:400; margin-right: 10px;}
@@ -78,7 +79,7 @@
   .bodybox3 {width:100%; margin-top: 45px;}
   .servicebox {width:100%; text-align: center;}
   .servicebox img {width:100%;}
-  .servicebox h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#000; font-weight:400; background: url(../bundles/app/images/serv-bg.jpg) no-repeat 0 0; background-position: bottom center; padding-bottom:17px; margin: 15px 0 0; text-transform: uppercase;}
+  .servicebox h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#000; font-weight:400; background: url({{ asset('bundles/app/images/serv-bg.jpg') }}) no-repeat 0 0; background-position: bottom center; padding-bottom:17px; margin: 15px 0 0; text-transform: uppercase;}
   .servicebox p {font-family: 'Lato', sans-serif; font-size: 16px; color:#666666; font-weight:400; margin: 26px 0 0;padding: 0 20px;}
   .servicebox a {display: inline-block; font-family: 'Lato', sans-serif; font-size: 16px; color:#000; font-weight:400; margin-top: 25px;}
 
@@ -114,7 +115,7 @@
   .subscribe_left p {font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:400; margin: 0; font-style: italic;}
   .subscribe_box {width:100%;}
   .subscribe_box input[type="text"]{width:80%; float: left; background: #fff; border:none; height:50px; padding: 0 8px; font-style: italic;}
-  .subscribe_box input[type="submit"] {width:20%; float: right; background: url(../bundles/app/images/airmail.jpg) no-repeat 0 0; border:none; height: 50px;}
+  .subscribe_box input[type="submit"] {width:20%; float: right; background: url({{ asset('bundles/app/images/airmail.jpg') }}) no-repeat 0 0; border:none; height: 50px;}
   .contactmap > iframe {display: block;}
 
   .footer {width:100%; background: #000; padding: 45px 0 35px;}
@@ -136,11 +137,11 @@
   .item > img {width: 100%;}
 
   /*--------------------------inner-pages-----------------------*/
-  .innerpage_banner {width:100%; background: url(../bundles/app/images/innerpage-banner.jpg) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
-  .banner_content_top {width:100%; text-align: center;}
+  .innerpage_banner {width:100%; background: url({{ asset('bundles/app/images/innerpage-banner.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
+  .banner_content_top { width:100%; text-align: center;}
   .banner_content_top p {font-family: 'Lato', sans-serif; font-size: 30px; color:#fff; font-weight:700; line-height: 41px;text-transform: uppercase;}
   .banner_content_bottom {width:100%; text-align: center; margin-top: 100px;}
-  .banner_content_bottom h2 {font-family: 'Lato', sans-serif; font-size: 50px; color:#fff; font-weight:700; background: url(../bundles/app/images/bcth-bg.jpg) no-repeat 0 0; background-position: center top; padding-top: 32px; text-transform: uppercase;}
+  .banner_content_bottom h2 {font-family: 'Lato', sans-serif; font-size: 50px; color:#fff; font-weight:700; background: url({{ asset('bundles/app/images/bcth-bg.jpg') }}) no-repeat 0 0; background-position: center top; padding-top: 32px; text-transform: uppercase;}
   .about_head p span {color:#000; display: block; margin-top: 30px;}
   .statbox {width:100%; background: #fff; text-align: center; padding: 35px 0 20px; margin-bottom: 30px;}
   .statbox img {width:auto; margin-bottom: 30px;}
@@ -154,10 +155,10 @@
   .teambox.nom {margin-right: 0;}
   .team_click {width:100%; text-align: center; margin-top: 60px;}
   .team_click h2 {font-family: 'Lato', sans-serif; font-size: 19px; color:#000; font-weight:400;}
-  .teamq {width:100%; background: url(../bundles/app/images/ttq.png) no-repeat 0 0; background-position: -124px 29px;margin-top: 20px;}
+  .teamq {width:100%; background: url({{ asset('bundles/app/images/ttq.png') }}) no-repeat 0 0; background-position: -124px 29px;margin-top: 20px;}
   .teamq a {text-transform: uppercase;}
   .susin {margin-top: 90px;}
-  .contact_banner {width:100%; background: url(../bundles/app/images/contact-banner.jpg) no-repeat 0 0; background-size: cover; padding-bottom: 40px;}
+  .contact_banner {width:100%; background: url({{ asset('bundles/app/images/contact-banner.jpg') }}) no-repeat 0 0; background-size: cover; padding-bottom: 40px;}
   .contact_banner .banner_content_bottom {margin-top: 40px;}
   .cmp {margin-top: 0;}
   .cf1 {width:100%; margin-top: 45px;}
@@ -182,7 +183,7 @@
      width: 100%;
      height: 34px;
      overflow: hidden;
-     background: url(../bundles/app/images/select-icon.jpg) no-repeat right #fafafa;
+     background: url({{ asset('bundles/app/images/select-icon.jpg') }}) no-repeat right #fafafa;
      border: 1px solid #ccc;
      height: 48px;
       line-height: 47px;
@@ -204,7 +205,7 @@
   .rvst a {display: inline-block; padding: 0;}
   .rvst h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:400; margin: 12px 0 0; text-transform: uppercase;}
   .rbbn {margin-top: 44px;}
-  .review_banner {background: url(../bundles/app/images/reviews/review-banner.jpg) no-repeat 0 0; background-size: cover;}
+  .review_banner {background: url({{ asset('bundles/app/images/reviews/review-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
   .review_panel {width:100%; margin-top: 24px;}
   .reviewbox {width:100%; margin-bottom: 65px;}
   .startop {width:100%;}
@@ -218,7 +219,7 @@
   .review_listing ul li a {width:auto; padding: 0;}
   .review_listing ul li img {width:auto;}
   .review_listing ul li:first-child {width:79%;}
-  .reviewpage_info {width:100%; position: relative; padding: 26px 49px 20px;}
+  .reviewpage_info { height:150px; width:100%; position: relative; padding: 26px 49px 20px;}
   .reviewpage_info p {font-family: 'Lato', sans-serif; font-size: 16px; color:#666666; font-weight:400; font-style: italic; margin: 0;}
   .rvcoma1 {width:auto; position: absolute; left:0; top:10px;}
   .rvcoma1 img {width:auto;}
@@ -246,12 +247,12 @@
   .rv_pagination_listing ul li img {width:35px; height:35px;}
   .rv_pagination_listing ul li a:hover {background: {{ main_color }}; color:#fff;}
   .slide_button img {float: right;}
-  .rvquote a {background: url(../bundles/app/images/qt-star.png) no-repeat 0 0 {{ main_color }}; background-position: 89% 48%;}
-  .service_banner {background: url(../bundles/app/images/service-banner.jpg) no-repeat 0 0; background-size: cover;}
+  .rvquote a {background: url({{ asset('bundles/app/images/qt-star.png') }}) no-repeat 0 0 {{ main_color }}; background-position: 89% 48%;}
+  .service_banner {background: url({{ asset('bundles/app/images/service-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
   .service_page_panel {width:100%;}
   .servicepage_box {width:100%; margin-top: 66px;}
   .srvclk {margin-top: 125px;}
-  .gallery_banner {background: url(../bundles/app/images/gallery/gallery-banner.jpg) no-repeat 0 0; background-size: cover;}
+  .gallery_banner {background: url({{ asset('bundles/app/images/gallery/gallery-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
   .forgp {margin-top: 59px;}
   .galbox {width:100%; position:  relative;}
   .galhover {width:100%; height: 100%; background: rgba(255, 255, 255, 0.6); position: absolute; left:0; top:0; display: none;}
@@ -371,8 +372,18 @@
   img.mfp-img {height: 300px !important;}
   }
 
+  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+      color: #fff;
+      background-color: {{ dark_color }};
+      border-color: {{ dark_color }};
+  }
+  .pagination > li > a, .pagination > li > span {
+      color: {{ dark_color }};
+  }
+
   </style>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
    {% block stylesheets %}{% endblock %}
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -404,7 +415,7 @@
     </button>
     <a class="navbar-brand" href="{{ path('homepage') }}">
       {% if website.logoPath is not null %}
-      <img src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" />
+      <img src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" style="width:100%"/>
       {% else %}
       <br>
       {{ website.companyName | upper }}

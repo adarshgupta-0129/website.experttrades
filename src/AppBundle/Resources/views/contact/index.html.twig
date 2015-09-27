@@ -34,19 +34,19 @@
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 							    <div class="col-sm-10">
-										{{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your name'} }) }}
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
 							    <div class="col-sm-10">
-							      {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+							      {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email'} }) }}
 							    </div>
 							  </div>
 								<div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Phone</label>
 							    <div class="col-sm-10">
-							      {{ form_widget(form.phone, { 'attr': {'class': 'form-control'} }) }}
+							      {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your phone'} }) }}
 							    </div>
 							  </div>
 					</div>
@@ -58,6 +58,12 @@
 						    <label for="inputPassword3" class="col-sm-2 control-label">Job Location</label>
 						    <div class="col-sm-10">
 						      {{ form_widget(form.job_location, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job postcode'} }) }}
+						    </div>
+						  </div>
+							<div class="form-group">
+						    <label for="inputPassword3" class="col-sm-2 control-label">Preferred Start Date</label>
+						    <div class="col-sm-10">
+						      {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy'} }) }}
 						    </div>
 						  </div>
 						  <div class="form-group">
@@ -75,10 +81,10 @@
 						  <div class="form-group">
 						    <label for="inputPassword3" class="col-sm-2 control-label">Job Description</label>
 						    <div class="col-sm-10">
-									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3'} }) }}
+									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description'} }) }}
 						    </div>
 						  </div>
-						  <button type="submit" class="btn btn-default">POST</button>
+						  <button type="submit" class="btn btn-default" style="background-color:{{ main_color }}">POST</button>
 
 					</div>
 				</div>
@@ -142,4 +148,12 @@
 		</div>
 	</div>
 </section>
+{% endblock %}
+
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript">
+$('.datepicker').datepicker().datepicker('show');
+</script>
 {% endblock %}

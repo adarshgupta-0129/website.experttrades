@@ -179,6 +179,16 @@ class Slider{
     }
 
     /**
+     * Set path
+     *
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+    
+    /**
      * Get path
      *
      * @return string

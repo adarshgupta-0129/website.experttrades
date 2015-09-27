@@ -65,27 +65,35 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="about_body_left">
-					<img src="{{ asset('bundles/app/images/abt-bd-left-pic.png') }}" alt="" />
+					{% if aboutUs.path is not null %}
+					<img src="{{ asset('images/about_us/') }}{{ aboutUs.path }}" alt="About Us" />
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="about_body_right">
 					<div class="abtr">
-						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr1.png') }}" alt="" /></div>
+						<div class="abtrpic">
+							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
 							<p>{{ aboutUs.aboutUsFirstPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
-						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr2.png') }}" alt="" /></div>
+						<div class="abtrpic">
+							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
 							<p>{{ aboutUs.aboutUsSecondPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
-						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr3.png') }}" alt="" /></div>
+						<div class="abtrpic">
+							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
 							<p>{{ aboutUs.aboutUsThirdPointText }}</p>
@@ -101,7 +109,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="review_head">
-					<h2>Reviews By our Clients</h2>
+					<h2>{{ homepage.reviewsTitle }}</h2>
+					<p>{{ homepage.reviewsSubtitle }}</p>
 				</div>
 			</div>
 		</div>
@@ -144,13 +153,12 @@
 						</div>
 					</div>
 					<div class="rvbottom">
-						<p>{{ review.message }}</p>
+						<p>{{ review.message |slice(0, 150) }} {% if review.message |length > 150 %}...{% endif %}</p>
 					</div>
 					<div class="rvsocial">
 						<span>Share :</span>
-						<a href="#"><img src="{{ asset('bundles/app/images/reviews/rvs1.png') }}" alt="" /></a>
-						<a href="#"><img src="{{ asset('bundles/app/images/reviews/rvs2.png') }}" alt="" /></a>
-						<a href="#"><img src="{{ asset('bundles/app/images/reviews/rvs3.png') }}" alt="" /></a>
+						<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK"><img src="{{ asset('bundles/app/images/reviews/rvs1.png') }}" alt="Share On Facebook" /></a>
+						<a href="https://twitter.com/home?status=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK"><img src="{{ asset('bundles/app/images/reviews/rvs2.png') }}" alt="Share On Twitter" /></a>
 					</div>
 				</div>
 			</div>
@@ -171,8 +179,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="about_head">
-					<h2>Services</h2>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+					<h2>{{ homepage.servicesTitle }}</h2>
+					<p>{{ homepage.servicesSubtitle }}</p>
 				</div>
 			</div>
 		</div>
@@ -197,7 +205,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="review_head">
-					<h2>Recent Jobs</h2>
+					<h2>{{ homepage.galleryTitle }}</h2>
+					<p>{{ homepage.gallerySubtitle }}</p>
 				</div>
 			</div>
 		</div>
@@ -217,7 +226,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="view">
-					<a href="#">View more gallery +</a>
+					<a href="{{ path('gallery') }}">View more gallery +</a>
 				</div>
 			</div>
 		</div>
@@ -228,18 +237,27 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="about_head">
-					<h2>Contact Us</h2>
+					<h2>{{ homepage.contactUsTitle }}</h2>
+					<p>{{ homepage.contactUsSubtitle }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-6">
 			<div class="contact_left">
-				<div class="cppic"><img src="{{ asset('bundles/app/images/homepage/cp1.png') }}" alt="" /></div>
+				<div class="cppic">
+					<i class="fa fa-map-marker fa-2x" style="color:{{ dark_color }}"></i>
+				</div>
 				<div class="cpinfo">
-				<p>{{ contact.addressFirstLine }}
-				<br>{{ contact.addressSecondLine }}</p></div>
-				<a href="mailto:{{ contact.email }}"><img src="{{ asset('bundles/app/images/homepage/cp2.png') }}" alt="{{ contact.email }}" />{{ contact.email }}</a>
-				<p><img src="{{ asset('bundles/app/images/homepage/cp3.png') }}" alt="{{ contact.phone }}" />{{ contact.phone }}</p>
+					<p>{{ contact.addressFirstLine }}
+					<br>{{ contact.addressSecondLine }}</p>
+				</div>
+				<br><br>
+				<a href="mailto:{{ contact.email }}">
+					<i class="fa fa-envelope fa-2x" style="color:{{ dark_color }}"></i>
+					{{ contact.email }}
+				</a>
+				<br><br>
+				<p><i class="fa fa-phone fa-2x" style="color:{{ dark_color }}"></i>{{ contact.phone }}</p>
 			</div>
 		</div>
 		<div class="col-sm-6">

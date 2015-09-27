@@ -42,6 +42,23 @@ class HomepageController extends MainController
                 $em->persist($message);
                 $em->flush();
 
+                $data_string = json_encode([
+                  'name' => $message->getName(),
+                  'email' => $message->getEmail(),
+                  'message' => $message->getMessage()
+                ]);
+
+                $ch = curl_init('https://www.experttrades.com/api/v1/trades/'.$website->getTradeId().'/website_notifications?website_access_token='.$website->getAccessToken());
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($data_string))
+                );
+
+                $result = json_decode(curl_exec($ch));
+
                 return $this->redirect($this->generateUrl('message_success'));
             }
         }

@@ -25,27 +25,35 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="about_body_left">
-					<img src="{{ asset('bundles/app/images/abt-bd-left-pic.png') }}" alt="" />
+					{% if aboutUs.path is not null %}
+					<img src="{{ asset('images/about_us/') }}{{ aboutUs.path }}" alt="About Us" />
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="about_body_right">
 					<div class="abtr">
-						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr1.png') }}" alt="" /></div>
+						<div class="abtrpic">
+								<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
 							<p>{{ aboutUs.aboutUsFirstPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
-						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr2.png') }}" alt="" /></div>
+						<div class="abtrpic">
+								<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
 							<p>{{ aboutUs.aboutUsSecondPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
-						<div class="abtrpic"><img src="{{ asset('bundles/app/images/abtr3.png') }}" alt="" /></div>
+						<div class="abtrpic">
+							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
 							<p>{{ aboutUs.aboutUsThirdPointText }}</p>
@@ -61,37 +69,37 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="review_head">
-					<h2>See our statistics</h2>
+					<h2>{{ aboutUs.statisticsTitle }}</h2>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="statbox">
-					<img src="images/stat1.png" alt="" />
-					<h2>72</h2>
-					<p>Total Jobs Done</p>
+					<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+					<h2>{{ aboutUs.statisticsFirstBoxNumber }}</h2>
+					<p>{{ aboutUs.statisticsFirstBoxText }}</p>
 				</div>
 			</div>
 			<div class="col-sm-3">
 				<div class="statbox">
-					<img src="images/stat2.png" alt="" />
-					<h2>69</h2>
-					<p>Happy Clients</p>
+					<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+					<h2>{{ aboutUs.statisticsSecondBoxNumber }}</h2>
+					<p>{{ aboutUs.statisticsSecondBoxText }}</p>
 				</div>
 			</div>
 			<div class="col-sm-3">
 				<div class="statbox">
-					<img src="images/stat3.png" alt="" />
-					<h2>31</h2>
-					<p>Jobs Processing</p>
+				  <i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+					<h2>{{ aboutUs.statisticsThirdBoxNumber }}</h2>
+					<p>{{ aboutUs.statisticsThirdBoxText }}</p>
 				</div>
 			</div>
 			<div class="col-sm-3">
 				<div class="statbox">
-					<img src="images/stat4.png" alt="" />
-					<h2>23,079</h2>
-					<p>Followers</p>
+					<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+					<h2>{{ aboutUs.statisticsFourthBoxNumber }}</h2>
+					<p>{{ aboutUs.statisticsFourthBoxText }}</p>
 				</div>
 			</div>
 		</div>
@@ -102,8 +110,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="about_head">
-					<h2>Our Team</h2>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an  unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+					<h2>{{ aboutUs.teamTitle }}</h2>
+					<p>{{ aboutUs.teamsubtitle }}</p>
 				</div>
 			</div>
 		</div>
