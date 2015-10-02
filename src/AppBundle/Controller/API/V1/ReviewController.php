@@ -28,6 +28,8 @@ class ReviewController extends SecurityController
           'header_text' => $review->getHeaderText(),
           'header_title' => $review->getHeaderTitle(),
           'header_subtitle' => $review->getHeaderSubtitle(),
+          'meta_title' => $review->getMetaTitle(),
+          'meta_description' => $review->getMetaDescription()
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -61,6 +63,13 @@ class ReviewController extends SecurityController
 
              if(isset($params['header_subtitle'])){
                $review->setHeaderSubtitle($params['header_subtitle']);
+             }
+
+             if(isset($params['meta_title'])){
+               $review->setMetaTitle($params['meta_title']);
+             }
+             if(isset($params['meta_description'])){
+               $review->setMetaDescription($params['meta_description']);
              }
 
              $em->persist($review);
@@ -227,23 +236,48 @@ class ReviewController extends SecurityController
 
         $em = $this->getDoctrine()->getManager();
         $item =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
+        
+        $params = array();
+        $content = $this->get("request")->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content, true); // 2nd param to get as array
 
-        $file = $request->files->get('file');
-        if(!is_null($file)) {
+            if(isset($params['title'])){
+              $item->setTitle($params['title']);
+            }
+            if(isset($params['message'])){
+              $item->setMessage($params['message']);
+            }
+            if(isset($params['job_description'])){
+              $item->setJobDescription($params['job_description']);
+            }
+            if(isset($params['job_location'])){
+              $item->setJobLocation($params['job_location']);
+            }
+            if(isset($params['rate_time_management'])){
+              $item->setRateTimeManagement($params['rate_time_management']);
+            }
+            if(isset($params['rate_friendly'])){
+              $item->setRateFriendly($params['rate_friendly']);
+            }
+            if(isset($params['rate_tidiness'])){
+              $item->setRateTidiness($params['rate_tidiness']);
+            }
+            if(isset($params['rate_value'])){
+              $item->setRateValue($params['rate_value']);
+            }
 
-          $item->setFile($file);
-          $item->upload();
-          $em->persist($item);
-          $em->flush();
+            $rateTotal = round((($item->getRateTimeManagement() + $item->getRateFriendly() + $item->getRateTidiness() + $item->getRateValue()) / 4), 0, PHP_ROUND_HALF_UP);
+            $item->setRateTotal($rateTotal);
+            $em->persist($item);
+            $em->flush();
 
-          $response = new Response(json_encode(
-          [
-            'code' => 200,
-            'message' => 'OK'
-          ]));
-
-          $response->headers->set('Content-Type', 'application/json');
-          return $response;
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
 
         }else{
 

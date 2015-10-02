@@ -27,6 +27,8 @@ class ServiceController extends SecurityController
         [
           'header_text' => $service->getHeaderText(),
           'header_title' => $service->getHeaderTitle(),
+          'meta_title' => $service->getMetaTitle(),
+          'meta_description' => $service->getMetaDescription()
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -56,6 +58,13 @@ class ServiceController extends SecurityController
              }
              if(isset($params['header_title'])){
                $service->setHeaderTitle($params['header_title']);
+             }
+
+             if(isset($params['meta_title'])){
+               $service->setMetaTitle($params['meta_title']);
+             }
+             if(isset($params['meta_description'])){
+               $service->setMetaDescription($params['meta_description']);
              }
 
              $em->persist($service);

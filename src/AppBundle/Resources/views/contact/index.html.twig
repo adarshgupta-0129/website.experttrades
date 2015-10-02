@@ -1,5 +1,10 @@
 {% extends "AppBundle::base.html.twig" %}
 
+{% block header %}
+	<title>{{ contact.metaTitle }}</title>
+	<meta name="description" content="{{ contact.metaDescription }}">
+{% endblock %}
+
 {% block body %}
 
 <section class="contact_banner">
@@ -84,7 +89,7 @@
 									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description'} }) }}
 						    </div>
 						  </div>
-						  <button type="submit" class="btn btn-default" style="background-color:{{ main_color }}">POST</button>
+						  <button type="submit" class="btn btn-default" style="background-color:{{ website.mainColor }}">POST</button>
 
 					</div>
 				</div>

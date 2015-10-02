@@ -44,6 +44,20 @@ class Review{
      */
     private $header_subtitle;
 
+    /**
+     * @var string $meta_title
+     *
+     * @ORM\Column(name="meta_title", type="text", length=2555, nullable=true)
+     */
+    private $meta_title;
+
+    /**
+     * @var string $meta_description
+     *
+     * @ORM\Column(name="meta_description", type="text", length=2555, nullable=true)
+     */
+    private $meta_description;
+
     public function __construct(){
 
     }
@@ -126,6 +140,36 @@ class Review{
     public function getHeaderText()
     {
         return $this->header_text;
+    }
+
+    /**
+     * Get meta_title
+     *
+     * @return string
+     */
+    public function getMetaTitle()
+    {
+        return $this->meta_title;
+    }
+
+    /**
+     * Set meta_description
+     *
+     * @param string $meta_description
+     */
+    public function setMetaDescription($meta_description)
+    {
+        $this->meta_description = $meta_description;
+    }
+
+    /**
+     * Get meta_description
+     *
+     * @return string
+     */
+    public function getMetaDescription()
+    {
+        return $this->meta_description;
     }
 
 }

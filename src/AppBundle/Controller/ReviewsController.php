@@ -36,7 +36,7 @@ class ReviewsController extends MainController
     }
 
     /**
-     * @Route("/reviews/{id}", name="review_view")
+     * @Route("/review/{id}", name="review_view")
      */
     public function viewAction(Request $request, $id)
     {

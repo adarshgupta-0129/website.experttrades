@@ -4,11 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="{{ website.companyName }}">
 
-
-    <title>Coysh</title>
+    {% block header %}{% endblock %}
 
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
@@ -16,23 +14,20 @@
     <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datetimepicker.min.css') }}" />
 
-  {% set main_color = '#AF1600' %}
-  {% set dark_color = '#620D00' %}
-  {% set light_color = '#E57E7E' %}
   <style>
 
   .header {width:100%; padding: 0;}
   .navbar-default {background: none; border:none;}
   .navbar-nav > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
-  .navbar-nav > li > a:hover {color:{{ main_color }} !important;}
-  .navbar-nav li.select a {color:{{ main_color }};}
+  .navbar-nav > li > a:hover {color:{{ website.mainColor }} !important;}
+  .navbar-nav li.select a {color:{{ website.mainColor }};}
   .navbar-right {margin-top: 23px;}
 
   .banner_slider {width:100%; margin-top: 13px;}
-  .captop {width:100%; background: {{ light_color }}; padding: 5px; text-align: center; font-family: 'multicolore_regular'; font-size: 35px; color:#fff; text-transform: uppercase; line-height: 50px;text-shadow: none;}
-  .capmid {width:100%; background: {{ dark_color }}; line-height: 50px; text-align: center; font-family: 'Lato', sans-serif; font-size: 19px; color:#fff; font-weight:400; text-transform: uppercase; margin-top: 5px; margin-bottom: 55px;}
+  .captop {width:100%; background: {{ website.lightColor }}; padding: 5px; text-align: center; font-family: 'multicolore_regular'; font-size: 35px; color:#fff; text-transform: uppercase; line-height: 50px;text-shadow: none;}
+  .capmid {width:100%; background: {{ website.darkColor }}; line-height: 50px; text-align: center; font-family: 'Lato', sans-serif; font-size: 19px; color:#fff; font-weight:400; text-transform: uppercase; margin-top: 5px; margin-bottom: 55px;}
   .slide_button {width:290px; margin: 0 auto;}
-  .slide_button a {display: block; background: url({{ asset('bundles/app/images/tt.png') }}) no-repeat 0 0 {{ main_color }}; background-position: 83% 54%; text-align: center;font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:700; line-height: 70px;}
+  .slide_button a {display: block; background: url({{ asset('bundles/app/images/tt.png') }}) no-repeat 0 0 {{ website.mainColor }}; background-position: 83% 54%; text-align: center;font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:700; line-height: 70px;}
   .slide_social {width:187px; margin: 59px auto 0;}
   .slide_social h2 {font-family: 'Lato', sans-serif; font-size: 18px; color:#fff; font-weight:400; text-transform: uppercase; margin: 0 0 11px;}
   .slide_social a {display:inline-block; padding: 0 4px;}
@@ -55,21 +50,21 @@
   .abtr {width:100%; margin-bottom: 13px;display: inline-block;}
   .abtrinfo {width:86%; float: right;}
 
-  .bodybox2 {width:100%; background: {{ main_color }}; padding: 45px 0 35px; margin-top: 43px;}
+  .bodybox2 {width:100%; background: {{ website.mainColor }}; padding: 45px 0 35px; margin-top: 43px;}
   .review_head {width:100%; text-align: center; margin-bottom: 57px;}
   .review_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#fff; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url({{ asset('bundles/app/images/reviews/review-bg.jpg') }}) no-repeat 0 0; background-position: bottom center;}
   .reviewbox {width:100%; background: #fff;}
   .rvbtop {width:100%; text-align: center; margin-top: 10px; border-bottom: 1px solid #d1d1d1; padding-bottom: 15px;display: inline-block;}
   .rvbtop a {display: inline-block;}
   .rvbtop h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#000; font-weight:400; margin: 8px 0 0;}
-  .rvbtop h3 {font-family: 'Lato', sans-serif; font-size: 14px; color:{{ main_color }}; font-weight:400; margin: 0;}
+  .rvbtop h3 {font-family: 'Lato', sans-serif; font-size: 14px; color:{{ website.mainColor }}; font-weight:400; margin: 0;}
   .rvmid {width:100%; padding: 5px 10px; display: inline-block;}
   .rvmdinr {width:100%; margin-bottom: 0;display: inline-block;}
   .rvmdinr span {float: left; font-family: 'Lato', sans-serif; font-size: 16px; color:#000; font-weight:400;}
   .rvmdinr a {float: right;}
   .rvbottom { height:150px; width:100%; border-top: 1px solid #d1d1d1; padding: 12px 6px 0; text-align: center;}
   .rvbottom p {font-family: 'Lato', sans-serif; font-size: 16px; color:#999999; font-weight:400; line-height: 22px;}
-  .rvsocial {width:100%; background: {{ dark_color }}; text-align: center; padding: 10px 0; display: inline-block; margin-top: 12px;}
+  .rvsocial {width:100%; background: {{ website.darkColor }}; text-align: center; padding: 10px 0; display: inline-block; margin-top: 12px;}
   .rvsocial span {float: none;font-family: 'Lato', sans-serif; font-size: 16px; color:#fff; font-weight:400; margin-right: 10px;}
   .rvsocial a { display: inline-block;padding: 0 3px;}
   .rvsocial img {width:auto;}
@@ -89,7 +84,7 @@
   .bx23 {margin-top: 80px;}
   .jbhover {width:100%; height: 100%; background: rgba(0, 0, 0, 0.6); text-align: center; position: absolute; top:0; display: none;}
   .jbhover h2 {font-family: 'Lato', sans-serif; font-size: 16px; color:#fff; font-weight:700; margin: 0; padding-top: 68px;}
-  .jbhover a {display: inline-block; width:auto; padding: 0 33px; text-align: center; background: {{ main_color }}; line-height: 47px;font-family: 'Lato', sans-serif; font-size: 16px; color:#fff; font-weight:700; margin-top: 10px;-webkit-border-radius: 26px;
+  .jbhover a {display: inline-block; width:auto; padding: 0 33px; text-align: center; background: {{ website.mainColor }}; line-height: 47px;font-family: 'Lato', sans-serif; font-size: 16px; color:#fff; font-weight:700; margin-top: 10px;-webkit-border-radius: 26px;
   -moz-border-radius: 26px;
   border-radius: 26px;}
   .jobpic:hover .jbhover {display: block;}
@@ -106,10 +101,10 @@
   .gfp {width:48.8%; float: left;}
   .fgt {width:100%; float: left;}
   .grp2 {margin-left: 12px;}
-  .contact_right .btn-default {background-color:{{ main_color }}; border-radius: 0; width:168px; color:#fff; border:none; height: 41px;}
+  .contact_right .btn-default {background-color:{{ website.mainColor }}; border-radius: 0; width:168px; color:#fff; border:none; height: 41px;}
   .contactmap {width:100%; margin-top: 50px;}
 
-  .subscribe {width:100%; background: {{ dark_color }}; padding: 30px 0;}
+  .subscribe {width:100%; background: {{ website.darkColor }}; padding: 30px 0;}
   .subscribe_left {width:100%;}
   .subscribe_left h2 {font-family: 'Lato', sans-serif; font-size: 30px; color:#fff; font-weight:700; margin: 0;}
   .subscribe_left p {font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:400; margin: 0; font-style: italic;}
@@ -120,7 +115,7 @@
 
   .footer {width:100%; background: #000; padding: 45px 0 35px;}
   .footerbox {width: 100%;}
-  .footerbox h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:{{ main_color }}; font-weight:400; margin: 0 0 25px;}
+  .footerbox h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:{{ website.mainColor }}; font-weight:400; margin: 0 0 25px;}
   .footerbox ul {width:100%; margin: 0; padding: 0;}
   .footerbox ul li {list-style: none; margin: 0; padding: 0 0 6px;}
   .footerbox ul li a {display: block; font-family: 'Lato', sans-serif; font-size: 16px; color:#bdbdbd; font-weight:400;}
@@ -151,7 +146,7 @@
   .teambox {width:16.8%; float: left;margin-right: 45px;}
   .teambox img {width:100%; display: block; margin-bottom: 10px;}
   .teambox h2 {font-family: 'Lato', sans-serif; font-size: 18px; color:#000; font-weight:400; margin: 0 0 8px;}
-  .teambox h3 {font-family: 'Lato', sans-serif; font-size: 16px; color:{{ main_color }}; font-weight:700; margin: 0; text-transform: uppercase;}
+  .teambox h3 {font-family: 'Lato', sans-serif; font-size: 16px; color:{{ website.mainColor }}; font-weight:700; margin: 0; text-transform: uppercase;}
   .teambox.nom {margin-right: 0;}
   .team_click {width:100%; text-align: center; margin-top: 60px;}
   .team_click h2 {font-family: 'Lato', sans-serif; font-size: 19px; color:#000; font-weight:400;}
@@ -162,7 +157,7 @@
   .contact_banner .banner_content_bottom {margin-top: 40px;}
   .cmp {margin-top: 0;}
   .cf1 {width:100%; margin-top: 45px;}
-  .cf1 h2 {font-family: 'Lato', sans-serif; font-size: 18px; color:{{ main_color }}; font-weight:700; margin: 0; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 10px;}
+  .cf1 h2 {font-family: 'Lato', sans-serif; font-size: 18px; color:{{ website.mainColor }}; font-weight:700; margin: 0; text-transform: uppercase; border-bottom: 1px solid #dddddd; padding-bottom: 10px;}
   .contact_inner_form {width:100%; margin-top: 42px;padding: 0 111px;}
   .contact_inner_form label {font-family: 'Lato', sans-serif; font-size: 16px; color:#999999; font-weight:400; text-transform: uppercase; text-align: left !important;}
   .contact_inner_form .form-control {background: #fafafa; border:1px solid #cdcdcd;}
@@ -192,7 +187,7 @@
   .chkln {margin-right: 0 !important;}
   .contact_inner_form textarea.form-control {height: 270px;}
   .contact_inner_form .btn-default {background: #0077C2;color: #FFFFFF;display: block;font-family: 'Lato',sans-serif;font-size: 20px;font-weight: 700;line-height: 60px;text-align: center; padding: 0 75px; margin-left: 158px; border-radius: 0;}
-  .contact_innaerpage_bottom {width:100%; background: {{ main_color }}; padding: 30px 0; margin-top: 90px;}
+  .contact_innaerpage_bottom {width:100%; background: {{ website.mainColor }}; padding: 30px 0; margin-top: 90px;}
   .cbbbox {width:100%; display: inline-block;}
   .addr_icon {width:20%; float: left;}
   .addr_icon img {width:auto;}
@@ -242,12 +237,12 @@
   .rv_pagination_listing ul li a {display: block; font-family: 'Lato', sans-serif; font-size: 19px; color:#000; font-weight:400; line-height: 35px;padding: 0 12px;background: #fff; border:1px solid #000;}
   .rv_pagination_listing ul li:first-child a {line-height:0; margin-top: 2px;padding: 0; border: none;}
   .rv_pagination_listing ul li:last-child a {line-height:0; margin-top: 2px;padding: 0;border: none;}
-  .rv_pagination_listing ul li:first-child {padding: 0; background: {{ main_color }};}
-  .rv_pagination_listing ul li:last-child  { padding: 0;background: {{ main_color }};}
+  .rv_pagination_listing ul li:first-child {padding: 0; background: {{ website.mainColor }};}
+  .rv_pagination_listing ul li:last-child  { padding: 0;background: {{ website.mainColor }};}
   .rv_pagination_listing ul li img {width:35px; height:35px;}
-  .rv_pagination_listing ul li a:hover {background: {{ main_color }}; color:#fff;}
+  .rv_pagination_listing ul li a:hover {background: {{ website.mainColor }}; color:#fff;}
   .slide_button img {float: right;}
-  .rvquote a {background: url({{ asset('bundles/app/images/qt-star.png') }}) no-repeat 0 0 {{ main_color }}; background-position: 89% 48%;}
+  .rvquote a {background: url({{ asset('bundles/app/images/qt-star.png') }}) no-repeat 0 0 {{ website.mainColor }}; background-position: 89% 48%;}
   .service_banner {background: url({{ asset('bundles/app/images/service-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
   .service_page_panel {width:100%;}
   .servicepage_box {width:100%; margin-top: 66px;}
@@ -374,11 +369,11 @@
 
   .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
       color: #fff;
-      background-color: {{ dark_color }};
-      border-color: {{ dark_color }};
+      background-color: {{ website.darkColor }};
+      border-color: {{ website.darkColor }};
   }
   .pagination > li > a, .pagination > li > span {
-      color: {{ dark_color }};
+      color: {{ website.darkColor }};
   }
 
   </style>
@@ -414,7 +409,7 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="{{ path('homepage') }}">
-      {% if website.logoPath is not null %}
+      {% if website.showLogo is true %}
       <img src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" style="width:100%"/>
       {% else %}
       <br>

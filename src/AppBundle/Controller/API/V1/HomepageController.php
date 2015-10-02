@@ -51,7 +51,9 @@ class HomepageController extends SecurityController
           'gallery_title' => $homepage->getGalleryTitle(),
           'gallery_subtitle' => $homepage->getGallerySubtitle(),
           'contact_us_title' => $homepage->getContactUsTitle(),
-          'contact_us_subtitle' => $homepage->getContactUsSubtitle()
+          'contact_us_subtitle' => $homepage->getContactUsSubtitle(),
+          'meta_title' => $homepage->getMetaTitle(),
+          'meta_description' => $homepage->getMetaDescription()
         ]));
 
         $response->headers->set('Content-Type', 'application/json');
@@ -100,6 +102,13 @@ class HomepageController extends SecurityController
              }
              if(isset($params['contact_us_subtitle'])){
                  $homepage->setContactUsSubtitle($params['contact_us_subtitle']);
+             }
+
+             if(isset($params['meta_title'])){
+               $homepage->setMetaTitle($params['meta_title']);
+             }
+             if(isset($params['meta_description'])){
+               $homepage->setMetaDescription($params['meta_description']);
              }
 
              $em->persist($homepage);

@@ -190,8 +190,7 @@ class TeamMemberController extends SecurityController
 
           $response = new Response(json_encode(
           [
-            'code' => 200,
-            'message' => 'OK'
+            'id' => $item->getId()
           ]));
 
           $response->headers->set('Content-Type', 'application/json');

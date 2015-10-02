@@ -44,6 +44,11 @@ class Website{
     private $access_token;
 
     /**
+    * @ORM\Column(type="boolean")
+    */
+    public $show_logo;
+
+    /**
     * @ORM\Column(type="string", length=255, nullable=true)
     */
     public $trade_url;
@@ -116,8 +121,23 @@ class Website{
     */
     public $logo_path;
 
-    public function __construct(){
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    public $main_color;
 
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    public $dark_color;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    public $light_color;
+
+    public function __construct(){
+        $this->show_logo = false;
     }
     /**
      * Get path
@@ -373,16 +393,6 @@ class Website{
     }
 
     /**
-     * Set company_name
-     *
-     * @param string $company_name
-     */
-    public function setCompanyName($company_name)
-    {
-        $this->company_name = $company_name;
-    }
-
-    /**
      * Get trade_url
      *
      * @return string
@@ -403,6 +413,16 @@ class Website{
     }
 
     /**
+     * Set company_name
+     *
+     * @param string $company_name
+     */
+    public function setCompanyName($company_name)
+    {
+        $this->company_name = $company_name;
+    }
+
+    /**
      * Get company_name
      *
      * @return string
@@ -410,6 +430,86 @@ class Website{
     public function getCompanyName()
     {
         return $this->company_name;
+    }
+
+    /**
+     * Set main_color
+     *
+     * @param string $main_color
+     */
+    public function setMainColor($main_color)
+    {
+        $this->main_color = $main_color;
+    }
+
+    /**
+     * Get main_color
+     *
+     * @return string
+     */
+    public function getMainColor()
+    {
+        return $this->main_color;
+    }
+
+    /**
+     * Set dark_color
+     *
+     * @param string $dark_color
+     */
+    public function setDarkColor($dark_color)
+    {
+        $this->dark_color = $dark_color;
+    }
+
+    /**
+     * Get dark_color
+     *
+     * @return string
+     */
+    public function getDarkColor()
+    {
+        return $this->dark_color;
+    }
+
+    /**
+     * Set light_color
+     *
+     * @param string $light_color
+     */
+    public function setLightColor($light_color)
+    {
+        $this->light_color = $light_color;
+    }
+
+    /**
+     * Get light_color
+     *
+     * @return string
+     */
+    public function getLightColor()
+    {
+        return $this->light_color;
+    }
+
+    /**
+     * Set show_logo
+     *
+     * @param string $show_logo
+     */
+    public function setShowLogo($show_logo)
+    {
+        $this->show_logo = $show_logo;
+    }
+
+    /**
+     * Get show_logo
+     *
+     * @return string
+     */
+    public function getShowLogo()
+    {
+        return $this->show_logo;
     }
 
     public function logoUpload()

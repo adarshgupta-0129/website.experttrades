@@ -4,6 +4,11 @@
 <link href="{{ asset('bundles/app/css/magnific-popup.css') }}" rel="stylesheet">
 {% endblock %}
 
+{% block header %}
+	<title>{{ gallery.metaTitle }}</title>
+	<meta name="description" content="{{ gallery.metaDescription }}">
+{% endblock %}
+
 {% block body %}
 
 <section class="innerpage_banner gallery_banner">

@@ -31,6 +31,8 @@ class ContactController extends SecurityController
           'email' => $contact->getEmail(),
           'address_first_line' => $contact->getAddressFirstLine(),
           'address_second_line' => $contact->getAddressSecondLine(),
+          'meta_title' => $contact->getMetaTitle(),
+          'meta_description' => $contact->getMetaDescription()
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -72,6 +74,13 @@ class ContactController extends SecurityController
              }
              if(isset($params['address_second_line'])){
                $contact->setAddressSecondLine($params['address_second_line']);
+             }
+
+             if(isset($params['meta_title'])){
+               $contact->setMetaTitle($params['meta_title']);
+             }
+             if(isset($params['meta_description'])){
+               $contact->setMetaDescription($params['meta_description']);
              }
 
              $em->persist($contact);

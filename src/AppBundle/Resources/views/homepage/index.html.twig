@@ -1,5 +1,10 @@
 {% extends "AppBundle::base.html.twig" %}
 
+{% block header %}
+	<title>{{ homepage.metaTitle }}</title>
+	<meta name="description" content="{{ homepage.metaDescription }}">
+{% endblock %}
+
 {% block body %}
 <section class="banner_slider">
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -18,7 +23,7 @@
 					<div class="carousel-caption">
 					 <div class="captop">{{ slider.title }}</div>
 					 <div class="capmid">{{ slider.subtitle }}</div>
-					 <div class="slide_button"><a href="{{ path('contact') }}">{{ slider.buttonText }}</a></div>
+					 <div class="slide_button"><a href="{{ path('contact') }}">Request A Quote</a></div>
 					 <div class="slide_social">
 						{% if website.hasSocial == true %}
 						<h2>Connect Socially</h2>
@@ -74,7 +79,7 @@
 				<div class="about_body_right">
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+							<i class="fa fa-check-circle fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
@@ -83,7 +88,7 @@
 					</div>
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+							<i class="fa fa-check-circle fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
@@ -92,7 +97,7 @@
 					</div>
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa fa-check-circle fa-4x" style="color:{{ dark_color }}"></i>
+							<i class="fa fa-check-circle fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
@@ -245,7 +250,7 @@
 		<div class="col-sm-6">
 			<div class="contact_left">
 				<div class="cppic">
-					<i class="fa fa-map-marker fa-2x" style="color:{{ dark_color }}"></i>
+					<i class="fa fa-map-marker fa-2x" style="color:{{ website.darkColor }}"></i>
 				</div>
 				<div class="cpinfo">
 					<p>{{ contact.addressFirstLine }}
@@ -253,11 +258,11 @@
 				</div>
 				<br><br>
 				<a href="mailto:{{ contact.email }}">
-					<i class="fa fa-envelope fa-2x" style="color:{{ dark_color }}"></i>
+					<i class="fa fa-envelope fa-2x" style="color:{{ website.darkColor }}"></i>
 					{{ contact.email }}
 				</a>
 				<br><br>
-				<p><i class="fa fa-phone fa-2x" style="color:{{ dark_color }}"></i>{{ contact.phone }}</p>
+				<p><i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i>{{ contact.phone }}</p>
 			</div>
 		</div>
 		<div class="col-sm-6">

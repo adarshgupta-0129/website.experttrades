@@ -1,5 +1,10 @@
 {% extends "AppBundle::base.html.twig" %}
 
+{% block header %}
+	<title>{{ item.message |slice(0, 200) }} {% if item.message |length > 200 %}...{% endif %}</title>
+	<meta name="description" content="{{ item.title }}">
+{% endblock %}
+
 {% block body %}
 
 <section class="innerpage_banner review_banner">
@@ -31,7 +36,7 @@
 						<img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
 						{% endfor %}
 					</div>
-					<div class="grt_wrk" style="color:{{ dark_color }}">{{ item.title }}</div>
+					<div class="grt_wrk" style="color:{{ website.darkColor }}">{{ item.title }}</div>
 					<div class="dt_rvw">{{ item.jobDoneDate | date }}</div>
 					<div class="review_listing">
 						<ul>
@@ -59,7 +64,7 @@
 							{% endfor %}
 						</ul>
 						<div class="reviewpage_info" >
-							<p>{{ item.message |slice(0, 250) }} {% if item.message |length > 250 %}...{% endif %}</p>
+							<p>{{ item.message }}</p>
 							<div class="rvcoma1"><img src="{{ asset('bundles/app/images/reviews/rv-coma1.png') }}" alt="Share On Facebook" /></div>
 							<div class="rvcoma2"><img src="{{ asset('bundles/app/images/reviews/rv-coma2.png') }}" alt="Share On Twitter" /></div>
 						</div>
@@ -67,8 +72,8 @@
 							<div class="cmnt">{% if item.expertTradesReviewId == 0 %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verfied By Expert Trades</a>{% endif %} </div>
 							<div class="share_rvw">
 								<span>Share :</span>
-								<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/reviews/{{ item.id }}" target="_BLANK"><i class="fa fa-facebook-square fa-2x" style="color:{{ dark_color }}"></i></a>
-								<a href="https://twitter.com/home?status=http://{{ app.request.host }}/reviews/{{ item.id }}" target="_BLANK"><i class="fa fa-twitter-square fa-2x" style="color:{{ dark_color }}"></i></a>
+								<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/reviews/{{ item.id }}" target="_BLANK"><i class="fa fa-facebook-square fa-2x" style="color:{{ website.darkColor }}"></i></a>
+								<a href="https://twitter.com/home?status=http://{{ app.request.host }}/reviews/{{ item.id }}" target="_BLANK"><i class="fa fa-twitter-square fa-2x" style="color:{{ website.darkColor }}"></i></a>
 							</div>
 						</div>
 					</div>

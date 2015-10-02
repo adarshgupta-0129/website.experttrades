@@ -62,7 +62,9 @@ class AboutUsController extends SecurityController
           'statistics_third_box_text' => $aboutUs->getStatisticsThirdBoxText(),
 
           'statistics_fourth_box_number' => $aboutUs->getStatisticsFourthBoxNumber(),
-          'statistics_fourth_box_text' => $aboutUs->getStatisticsFourthBoxText()
+          'statistics_fourth_box_text' => $aboutUs->getStatisticsFourthBoxText(),
+          'meta_title' => $aboutUs->getMetaTitle(),
+          'meta_description' => $aboutUs->getMetaDescription()
 
         ]));
 
@@ -163,6 +165,13 @@ class AboutUsController extends SecurityController
              }
              if(isset($params['statistics_fourth_box_text'])){
                $aboutUs->setStatisticsFourthBoxText($params['statistics_fourth_box_text']);
+             }
+
+             if(isset($params['meta_title'])){
+               $aboutUs->setMetaTitle($params['meta_title']);
+             }
+             if(isset($params['meta_description'])){
+               $aboutUs->setMetaDescription($params['meta_description']);
              }
 
              $em->persist($aboutUs);

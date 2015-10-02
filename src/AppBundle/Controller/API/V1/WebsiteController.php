@@ -37,6 +37,7 @@ class WebsiteController extends SecurityController
           'subscribe_subtitle' => $website->getSubscribeSubtitle(),
           'copyright' => $website->getCopyright(),
           'company_name' => $website->getCompanyName(),
+          'show_logo' => $website->getShowLogo(),
           'logo_url' => (is_null($website->getLogoPath())) ? null : $slidersPath.$website->getLogoPath(),
 
         ]));
@@ -89,6 +90,9 @@ class WebsiteController extends SecurityController
              }
              if(isset($params['company_name'])){
                $website->setCompanyName($params['company_name']);
+             }
+             if(isset($params['show_logo'])){
+               $website->setShowLogo($params['show_logo']);
              }
 
              $em->persist($website);

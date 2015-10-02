@@ -1,5 +1,10 @@
 {% extends "AppBundle::base.html.twig" %}
 
+{% block header %}
+	<title>{{ service.metaTitle }}</title>
+	<meta name="description" content="{{ service.metaDescription }}">
+{% endblock %}
+
 {% block body %}
 
 <section class="innerpage_banner service_banner">

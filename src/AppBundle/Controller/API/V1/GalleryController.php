@@ -27,6 +27,8 @@ class GalleryController extends SecurityController
         [
           'header_text' => $gallery->getHeaderText(),
           'header_title' => $gallery->getHeaderTitle(),
+          'meta_title' => $gallery->getMetaTitle(),
+          'meta_description' => $gallery->getMetaDescription()
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -58,12 +60,19 @@ class GalleryController extends SecurityController
                $gallery->setHeaderTitle($params['header_title']);
              }
 
+             if(isset($params['meta_title'])){
+               $gallery->setMetaTitle($params['meta_title']);
+             }
+             if(isset($params['meta_description'])){
+               $gallery->setMetaDescription($params['meta_description']);
+             }
+
              $em->persist($gallery);
              $em->flush();
 
              $response = new Response(json_encode(
              [
-               'code' => 200,
+               'id' => 200,
                'message' => 'OK'
              ]));
 
@@ -218,7 +227,7 @@ class GalleryController extends SecurityController
         $em = $this->getDoctrine()->getManager();
         $file = $request->files->get('file');
         if(!is_null($file)) {
-          
+
           $item = new Item();
           $item->setFile($file);
           $item->upload();
@@ -227,8 +236,7 @@ class GalleryController extends SecurityController
 
           $response = new Response(json_encode(
           [
-            'code' => 200,
-            'message' => 'OK'
+            'id' => $item->getId()
           ]));
 
           $response->headers->set('Content-Type', 'application/json');
