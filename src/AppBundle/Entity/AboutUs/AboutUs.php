@@ -142,6 +142,12 @@ class AboutUs{
      */
     private $statistics_first_box_text;
 
+    /**
+     * @var string $statistics_first_box_image
+     *
+     * @ORM\Column(name="statistics_first_box_image", type="text", length=255, nullable=true)
+     */
+    private $statistics_first_box_image;
 
     /**
      * @var string $statistics_second_box_number
@@ -158,6 +164,13 @@ class AboutUs{
     private $statistics_second_box_text;
 
     /**
+     * @var string $statistics_second_box_image
+     *
+     * @ORM\Column(name="statistics_second_box_image", type="text", length=255, nullable=true)
+     */
+    private $statistics_second_box_image;
+
+    /**
      * @var string $statistics_third_box_number
      *
      * @ORM\Column(name="statistics_third_box_number", type="text", length=2555, nullable=true)
@@ -167,9 +180,16 @@ class AboutUs{
     /**
      * @var string $statistics_third_box_text
      *
-     * @ORM\Column(name="statistics_third_box_text", type="text", length=2555, nullable=true)
+     * @ORM\Column(name="statistics_third_box_text", type="text", length=255, nullable=true)
      */
     private $statistics_third_box_text;
+
+    /**
+     * @var string $statistics_third_box_image
+     *
+     * @ORM\Column(name="statistics_third_box_image", type="text", length=2555, nullable=true)
+     */
+    private $statistics_third_box_image;
 
     /**
      * @var string $statistics_fourth_box_number
@@ -184,6 +204,13 @@ class AboutUs{
      * @ORM\Column(name="statistics_fourth_box_text", type="text", length=2555, nullable=true)
      */
     private $statistics_fourth_box_text;
+
+    /**
+     * @var string $statistics_fourth_box_image
+     *
+     * @ORM\Column(name="statistics_fourth_box_image", type="text", length=255, nullable=true)
+     */
+    private $statistics_fourth_box_image;
 
     /**
      * @var string $team_title
@@ -583,6 +610,26 @@ class AboutUs{
     }
 
     /**
+     * Set statistics_first_box_image
+     *
+     * @param string $statistics_first_box_image
+     */
+    public function setStatisticsFirstBoxImage($statistics_first_box_image)
+    {
+        $this->statistics_first_box_image = $statistics_first_box_image;
+    }
+
+    /**
+     * Get statistics_first_box_image
+     *
+     * @return string
+     */
+    public function getStatisticsFirstBoxImage()
+    {
+        return $this->statistics_first_box_image;
+    }
+
+    /**
      * Set statistics_second_box_number
      *
      * @param string $statistics_second_box_number
@@ -620,6 +667,26 @@ class AboutUs{
     public function getStatisticsSecondBoxText()
     {
         return $this->statistics_second_box_text;
+    }
+
+    /**
+     * Set statistics_second_box_image
+     *
+     * @param string $statistics_second_box_image
+     */
+    public function setStatisticsSecondBoxImage($statistics_second_box_image)
+    {
+        $this->statistics_second_box_image = $statistics_second_box_image;
+    }
+
+    /**
+     * Get statistics_second_box_image
+     *
+     * @return string
+     */
+    public function getStatisticsSecondBoxImage()
+    {
+        return $this->statistics_second_box_image;
     }
 
     /**
@@ -662,7 +729,25 @@ class AboutUs{
         return $this->statistics_third_box_text;
     }
 
+    /**
+     * Set statistics_third_box_image
+     *
+     * @param string $statistics_third_box_image
+     */
+    public function setStatisticsThirdBoxImage($statistics_third_box_image)
+    {
+        $this->statistics_third_box_image = $statistics_third_box_image;
+    }
 
+    /**
+     * Get statistics_third_box_image
+     *
+     * @return string
+     */
+    public function getStatisticsThirdBoxImage()
+    {
+        return $this->statistics_third_box_image;
+    }
 
     /**
      * Set statistics_fourth_box_number
@@ -702,6 +787,26 @@ class AboutUs{
     public function getStatisticsFourthBoxText()
     {
         return $this->statistics_fourth_box_text;
+    }
+
+    /**
+     * Set statistics_fourth_box_image
+     *
+     * @param string $statistics_fourth_box_image
+     */
+    public function setStatisticsFourthBoxImage($statistics_fourth_box_image)
+    {
+        $this->statistics_fourth_box_image = $statistics_fourth_box_image;
+    }
+
+    /**
+     * Get statistics_fourth_box_image
+     *
+     * @return string
+     */
+    public function getStatisticsFourthBoxImage()
+    {
+        return $this->statistics_fourth_box_image;
     }
 
     /**

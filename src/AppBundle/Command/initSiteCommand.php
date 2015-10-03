@@ -45,12 +45,17 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($website)){
 
           $website = new Website();
-          $website->setFacebookLink('http://www.yourwebsite.com');
+          $website->setFacebookLink('https://www.facebook.com/localexperttrades?fref=ts');
+          $website->setTwitterLink('https://twitter.com/ExpertTradesmen');
+          $website->setYoutubeLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
+          $website->setGooglePlusLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
+
           $website->setAccessToken(substr( md5(rand()), 0, 50));
           $website->setPostcode('B94AA');
-          $website->setSubscribeTitle(' Please subscribe to be updated for discount and pricing.');
-          $website->setSubscribeSubtitle('We keep your details confidential.');
-          $website->setCopyright('©2015 Coysh.com All rights reserved');
+          $website->setCompanyName('Expert Trades');
+          $website->setSubscribeTitle('Stay in touch');
+          $website->setSubscribeSubtitle('Keep up to date with our special offers');
+          $website->setCopyright('©2015 Your Company All rights reserved');
           $em->persist($website);
           $em->flush();
 
@@ -65,17 +70,32 @@ class initSiteCommand extends ContainerAwareCommand
           $em->persist($homepage);
           $em->flush();
 
-          for ($i = 1; $i <= 3; $i++) {
+          $slider = new Slider();
+          $slider->setHomepage($homepage);
+          $slider->setTitle('QUALIFIED ELECTRICAL SERVICES');
+          $slider->setSubtitle('FROM MOVING PLUGS TO HOUSE REWIRES');
+          $slider->setButtonText('Request a Quote');
+          $slider->setPath('slider_'.$i.'.jpg');
+          $em->persist($slider);
+          $em->flush();
 
-              $slider = new Slider();
-              $slider->setHomepage($homepage);
-              $slider->setTitle('Lorem Ipsum is simply dummy text');
-              $slider->setSubtitle('Lorem Ipsum is simply dummy text');
-              $slider->setButtonText('Request a Quote');
-              $slider->setPath('slider_'.$i.'.jpg');
-              $em->persist($slider);
-              $em->flush();
-          }
+          $slider = new Slider();
+          $slider->setHomepage($homepage);
+          $slider->setTitle('PLUMBING SERVICES');
+          $slider->setSubtitle('HERE TO HELP WITH ALL YOUR PLUMBING NEEDS');
+          $slider->setButtonText('Request a Quote');
+          $slider->setPath('slider_'.$i.'.jpg');
+          $em->persist($slider);
+          $em->flush();
+
+          $slider = new Slider();
+          $slider->setHomepage($homepage);
+          $slider->setTitle('BOILER SERVICES');
+          $slider->setSubtitle('STAY WARM THIS WINTER. HAVE YOUR BOILER SERVICED');
+          $slider->setButtonText('Request a Quote');
+          $slider->setPath('slider_'.$i.'.jpg');
+          $em->persist($slider);
+          $em->flush();
 
           echo "\n Homepage Created \n";
         }
@@ -83,17 +103,39 @@ class initSiteCommand extends ContainerAwareCommand
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
 
         if(!is_object($aboutUs)){
+
           $aboutUs = new AboutUs();
-          $aboutUs->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
+          $aboutUs->setHeaderText('WE PRIDE OURSELVES ON OFFERING A HIGH QUALITY SERVICE AND THE BEST PRICE POSSIBLE');
           $aboutUs->setHeaderTitle('ABOUT US');
           $aboutUs->setAboutUsTitle('ABOUT US');
-          $aboutUs->setAboutUsText('About us text');
-          $aboutUs->setAboutUsFirstPointTitle('Lorem Ipsum is simply dummy text');
-          $aboutUs->setAboutUsFirstPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
-          $aboutUs->setAboutUsSecondPointTitle('Lorem Ipsum is simply dummy text');
-          $aboutUs->setAboutUsSecondPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
-          $aboutUs->setAboutUsThirdPointTitle('Lorem Ipsum is simply dummy text');
-          $aboutUs->setAboutUsThirdPointText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s');
+          $aboutUs->setAboutUsText('');
+          $aboutUs->setAboutUsFirstPointTitle('Professional');
+          $aboutUs->setAboutUsFirstPointText('We provide a friendly, tidy and timely service');
+          $aboutUs->setAboutUsFirstPointImage('fa-calendar-o');
+          $aboutUs->setAboutUsSecondPointTitle('Fully insured');
+          $aboutUs->setAboutUsSecondPointText('We have public liability insurance, ensuring peace of mind for our customers');
+          $aboutUs->setAboutUsSecondPointImage('fa-check-circle');
+          $aboutUs->setAboutUsThirdPointTitle('Experienced & qualified');
+          $aboutUs->setAboutUsThirdPointText('We have all the experience and qualifications needed to provide an excellent service');
+          $aboutUs->setAboutUsThirdPointImage('fa-star');
+
+          $aboutUs->setStatisticsTitle('Statistics');
+
+          $aboutUs->setStatisticsFirstBoxNumber('45');
+          $aboutUs->setStatisticsFirstBoxText('Positive Reviews');
+          $aboutUs->setStatisticsFirstBoxImage('fa-comments');
+
+          $aboutUs->setStatisticsSecondBoxNumber('124');
+          $aboutUs->setStatisticsSecondBoxText('Jobs Done So Far');
+          $aboutUs->setStatisticsSecondBoxImage('fa-wrench');
+
+          $aboutUs->setStatisticsThirdBoxNumber('12');
+          $aboutUs->setStatisticsThirdBoxText('Years Of Expirience');
+          $aboutUs->setStatisticsThirdBoxImage('fa-bookmark-o');
+
+          $aboutUs->setStatisticsFourthBoxNumber('5');
+          $aboutUs->setStatisticsFourthBoxText('Team Members');
+          $aboutUs->setStatisticsFourthBoxImage('fa-smile-o');
 
           $em->persist($aboutUs);
           $em->flush();
@@ -106,20 +148,19 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($service)){
 
           $service = new Service();
-          $service->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
+          $service->setHeaderText('See below the services we offer');
           $service->setHeaderTitle('SERVICES');
           $em->persist($service);
           $em->flush();
 
           if(sizeof($em->getRepository('AppBundle\Entity\Service\Item\Item')->findAll()) < 6){
 
-              for ($i = 1; $i <= 6; $i++) {
-                $item = new ServiceItem();
-                $item->setTitle('CEILING FAN REPAIR');
-                $item->setSubtitle('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text Lorem Ipsum is simply dummy text of the');
-                $em->persist($item);
-                $em->flush();
-              }
+              $item = new ServiceItem();
+              $item->setTitle('PLUMBING');
+              $item->setSubtitle('Bathroom, Kitchen and WC Plumbing');
+              $em->persist($item);
+              $em->flush();
+
           }
 
           echo "\n Service Created \n";
@@ -131,18 +172,18 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($review)){
 
           $review = new Review();
-          $review->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
-          $review->setHeaderTitle('SERVICES');
-          $review->setHeaderSubtitle('John, Business Name');
+          $review->setHeaderText('Recent reviews by our customers');
+          $review->setHeaderTitle('REVIEWS');
+          $review->setHeaderSubtitle('');
           $em->persist($review);
           $em->flush();
 
           if(sizeof($em->getRepository('AppBundle\Entity\Review\Item\Item')->findAll()) < 6){
 
-              for ($i = 1; $i <= 6; $i++) {
+              for ($i = 1; $i <= 3; $i++) {
                   $item = new ReviewItem();
                   $item->setTitle('GREAT WORK DONE BY...');
-                  $item->setMessage('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,');
+                  $item->setMessage('Best service ever');
                   $item->setRateTimeManagement(5);
                   $item->setRateFriendly(5);
                   $item->setRateTidiness(5);
@@ -162,20 +203,10 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($gallery)){
 
           $gallery = new Gallery();
-          $gallery->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
+          $gallery->setHeaderText('WE ARE PROUD OF THE WORK WE DO. WE HAVE INCLUDED SOME EXAMPLES OF OUR WORK BELOW.');
           $gallery->setHeaderTitle('OUR WORK GALLERY');
           $em->persist($gallery);
           $em->flush();
-
-          if(sizeof($em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findAll()) < 6){
-
-              for ($i = 1; $i <= 6; $i++) {
-                  $item = new GalleryItem();
-                  $item->setTitle('Installing Switch');
-                  $em->persist($item);
-                  $em->flush();
-              }
-          }
 
           echo "\n Gallery Created \n";
 
@@ -186,8 +217,8 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($contact)){
 
           $contact = new Contact();
-          $contact->setHeaderText('LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN THE INDUSTRY STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.');
-          $contact->setHeaderTitle('OUR WORK GALLERY');
+          $contact->setHeaderText('GET IN TOUCH AND WE WILL GET BACK TO YOU AS SOON AS POSSIBLE');
+          $contact->setHeaderTitle('CONTACT US');
           $em->persist($contact);
           $em->flush();
 

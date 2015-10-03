@@ -409,7 +409,7 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="{{ path('homepage') }}">
-      {% if website.showLogo is true %}
+      {% if website.showLogo == true %}
       <img src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" style="width:100%"/>
       {% else %}
       <br>

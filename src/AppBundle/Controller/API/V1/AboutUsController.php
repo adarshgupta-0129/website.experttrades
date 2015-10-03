@@ -54,15 +54,20 @@ class AboutUsController extends SecurityController
 
           'statistics_first_box_number' => $aboutUs->getStatisticsFirstBoxNumber(),
           'statistics_first_box_text' => $aboutUs->getStatisticsFirstBoxText(),
+          'statistics_first_box_image' => $aboutUs->getStatisticsFirstBoxImage(),
 
           'statistics_second_box_number' => $aboutUs->getStatisticsSecondBoxNumber(),
           'statistics_second_box_text' => $aboutUs->getStatisticsSecondBoxText(),
+          'statistics_second_box_image' => $aboutUs->getStatisticsSecondBoxImage(),
 
           'statistics_third_box_number' => $aboutUs->getStatisticsThirdBoxNumber(),
           'statistics_third_box_text' => $aboutUs->getStatisticsThirdBoxText(),
+          'statistics_third_box_image' => $aboutUs->getStatisticsThirdBoxImage(),
 
           'statistics_fourth_box_number' => $aboutUs->getStatisticsFourthBoxNumber(),
           'statistics_fourth_box_text' => $aboutUs->getStatisticsFourthBoxText(),
+          'statistics_fourth_box_image' => $aboutUs->getStatisticsFourthBoxImage(),
+          
           'meta_title' => $aboutUs->getMetaTitle(),
           'meta_description' => $aboutUs->getMetaDescription()
 
@@ -145,12 +150,18 @@ class AboutUsController extends SecurityController
              if(isset($params['statistics_first_box_text'])){
                $aboutUs->setStatisticsFirstBoxText($params['statistics_first_box_text']);
              }
+             if(isset($params['statistics_first_box_image'])){
+               $aboutUs->setStatisticsFirstBoxImage($params['statistics_first_box_image']);
+             }
 
              if(isset($params['statistics_second_box_number'])){
                $aboutUs->setStatisticsSecondBoxNumber($params['statistics_second_box_number']);
              }
              if(isset($params['statistics_second_box_text'])){
                $aboutUs->setStatisticsSecondBoxText($params['statistics_second_box_text']);
+             }
+             if(isset($params['statistics_second_box_image'])){
+               $aboutUs->setStatisticsSecondBoxImage($params['statistics_second_box_image']);
              }
 
              if(isset($params['statistics_third_box_number'])){
@@ -159,12 +170,18 @@ class AboutUsController extends SecurityController
              if(isset($params['statistics_third_box_text'])){
                $aboutUs->setStatisticsThirdBoxText($params['statistics_third_box_text']);
              }
+             if(isset($params['statistics_third_box_image'])){
+               $aboutUs->setStatisticsThirdBoxImage($params['statistics_third_box_image']);
+             }
 
              if(isset($params['statistics_fourth_box_number'])){
-               $aboutUs->setStatisticsFourhtBoxNumber($params['statistics_fourth_box_number']);
+               $aboutUs->setStatisticsFourthBoxNumber($params['statistics_fourth_box_number']);
              }
              if(isset($params['statistics_fourth_box_text'])){
                $aboutUs->setStatisticsFourthBoxText($params['statistics_fourth_box_text']);
+             }
+             if(isset($params['statistics_fourth_box_image'])){
+               $aboutUs->setStatisticsFourthBoxImage($params['statistics_fourth_box_image']);
              }
 
              if(isset($params['meta_title'])){

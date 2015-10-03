@@ -143,7 +143,8 @@ class ReviewController extends SecurityController
         'title' => $item->getTitle(),
         'message' => $item->getMessage(),
         'job_description' => $item->getJobDescription(),
-        'job_location' => (is_object($item->getJobLocation()) && !is_null($item->getJobLocation())) ? $item->getJobLocation()->format('Y-m-d') : '',
+        'job_location' => $item->getJobLocation(),
+        'job_done_date' => (is_object($item->getJobDoneDate()) && !is_null($item->getJobDoneDate())) ? $item->getJobDoneDate()->format('Y-m-d') : '',
         'rate_time_management' => $item->getRateTimeManagement(),
         'rate_friendly' => $item->getRateFriendly(),
         'rate_tidiness' => $item->getRateTidiness(),
@@ -200,6 +201,9 @@ class ReviewController extends SecurityController
             if(isset($params['rate_value'])){
               $item->setRateValue($params['rate_value']);
             }
+            if(isset($params['job_done_date'])){
+              $item->setJobDoneDate(\DateTime::createFromFormat('Y-m-d', substr($params['job_done_date'], 0, 10)));
+            }
 
             $rateTotal = round((($item->getRateTimeManagement() + $item->getRateFriendly() + $item->getRateTidiness() + $item->getRateValue()) / 4), 0, PHP_ROUND_HALF_UP);
             $item->setRateTotal($rateTotal);
@@ -236,7 +240,7 @@ class ReviewController extends SecurityController
 
         $em = $this->getDoctrine()->getManager();
         $item =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
-        
+
         $params = array();
         $content = $this->get("request")->getContent();
         if (!empty($content))
@@ -254,6 +258,10 @@ class ReviewController extends SecurityController
             }
             if(isset($params['job_location'])){
               $item->setJobLocation($params['job_location']);
+            }
+
+            if(isset($params['job_done_date'])){
+              $item->setJobDoneDate(\DateTime::createFromFormat('Y-m-d', substr($params['job_done_date'], 0, 10)));
             }
             if(isset($params['rate_time_management'])){
               $item->setRateTimeManagement($params['rate_time_management']);

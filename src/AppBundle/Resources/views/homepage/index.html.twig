@@ -79,7 +79,7 @@
 				<div class="about_body_right">
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa fa-check-circle fa-4x" style="color:{{ website.darkColor }}"></i>
+							<i class="fa {{ aboutUs.aboutUsFirstPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
@@ -88,7 +88,7 @@
 					</div>
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa fa-check-circle fa-4x" style="color:{{ website.darkColor }}"></i>
+							<i class="fa {{ aboutUs.aboutUsSecondPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
@@ -97,7 +97,7 @@
 					</div>
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa fa-check-circle fa-4x" style="color:{{ website.darkColor }}"></i>
+							<i class="fa {{ aboutUs.aboutUsThirdPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
 							<h2>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
@@ -256,7 +256,7 @@
 					<p>{{ contact.addressFirstLine }}
 					<br>{{ contact.addressSecondLine }}</p>
 				</div>
-				<br><br>
+				<br><br> <br><br>
 				<a href="mailto:{{ contact.email }}">
 					<i class="fa fa-envelope fa-2x" style="color:{{ website.darkColor }}"></i>
 					{{ contact.email }}
