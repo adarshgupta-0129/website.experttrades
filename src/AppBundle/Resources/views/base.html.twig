@@ -52,7 +52,7 @@
 
   .bodybox2 {width:100%; background: {{ website.mainColor }}; padding: 45px 0 35px; margin-top: 43px;}
   .review_head {width:100%; text-align: center; margin-bottom: 57px;}
-  .review_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#fff; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url({{ asset('bundles/app/images/reviews/review-bg.jpg') }}) no-repeat 0 0; background-position: bottom center;}
+  .review_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#fff; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url({{ asset('bundles/app/images/serv-bg.jpg') }}) no-repeat 0 0; background-position: bottom center;}
   .reviewbox {width:100%; background: #fff;}
   .rvbtop {width:100%; text-align: center; margin-top: 10px; border-bottom: 1px solid #d1d1d1; padding-bottom: 15px;display: inline-block;}
   .rvbtop a {display: inline-block;}
@@ -132,7 +132,7 @@
   .item > img {width: 100%;}
 
   /*--------------------------inner-pages-----------------------*/
-  .innerpage_banner {width:100%; background: url({{ asset('bundles/app/images/innerpage-banner.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
+  .innerpage_banner {width:100%; background: url({{ asset('images/headers/about.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
   .banner_content_top { width:100%; text-align: center;}
   .banner_content_top p {font-family: 'Lato', sans-serif; font-size: 30px; color:#fff; font-weight:700; line-height: 41px;text-transform: uppercase;}
   .banner_content_bottom {width:100%; text-align: center; margin-top: 100px;}
@@ -153,7 +153,7 @@
   .teamq {width:100%; background: url({{ asset('bundles/app/images/ttq.png') }}) no-repeat 0 0; background-position: -124px 29px;margin-top: 20px;}
   .teamq a {text-transform: uppercase;}
   .susin {margin-top: 90px;}
-  .contact_banner {width:100%; background: url({{ asset('bundles/app/images/contact-banner.jpg') }}) no-repeat 0 0; background-size: cover; padding-bottom: 40px;}
+  .contact_banner {width:100%; background: url({{ asset('images/headers/contact.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
   .contact_banner .banner_content_bottom {margin-top: 40px;}
   .cmp {margin-top: 0;}
   .cf1 {width:100%; margin-top: 45px;}
@@ -200,7 +200,7 @@
   .rvst a {display: inline-block; padding: 0;}
   .rvst h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:400; margin: 12px 0 0; text-transform: uppercase;}
   .rbbn {margin-top: 44px;}
-  .review_banner {background: url({{ asset('bundles/app/images/reviews/review-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
+  .review_banner {background: url({{ asset('images/headers/reviews.jpg') }}) no-repeat 0 0; background-size: cover;  padding: 111px 0 49px;}
   .review_panel {width:100%; margin-top: 24px;}
   .reviewbox {width:100%; margin-bottom: 65px;}
   .startop {width:100%;}
@@ -243,11 +243,11 @@
   .rv_pagination_listing ul li a:hover {background: {{ website.mainColor }}; color:#fff;}
   .slide_button img {float: right;}
   .rvquote a {background: url({{ asset('bundles/app/images/qt-star.png') }}) no-repeat 0 0 {{ website.mainColor }}; background-position: 89% 48%;}
-  .service_banner {background: url({{ asset('bundles/app/images/service-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
+  .service_banner {background: url({{ asset('images/headers/services.jpg') }}) no-repeat 0 0; background-size: cover;  padding: 111px 0 49px;}
   .service_page_panel {width:100%;}
   .servicepage_box {width:100%; margin-top: 66px;}
   .srvclk {margin-top: 125px;}
-  .gallery_banner {background: url({{ asset('bundles/app/images/gallery/gallery-banner.jpg') }}) no-repeat 0 0; background-size: cover;}
+  .gallery_banner {background: url({{ asset('images/headers/gallery.jpg') }}) no-repeat 0 0; background-size: cover;  padding: 111px 0 49px;}
   .forgp {margin-top: 59px;}
   .galbox {width:100%; position:  relative;}
   .galhover {width:100%; height: 100%; background: rgba(255, 255, 255, 0.6); position: absolute; left:0; top:0; display: none;}
@@ -456,16 +456,16 @@
 				<div class="footerbox">
 					<h2>Connect Socially</h2>
 					<ul>
-            {% if website.facebookLink is not null %}
-						<li><a href="{{ website.facebookLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb1.png') }}" alt="Connect On Facebook" />Facebook</a></li>
+            {% if website.facebookLink is not null and website.facebookLink | length > 0 %}
+						<li><a href="{{ website.facebookLink  }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb1.png') }}" alt="Connect On Facebook" />Facebook</a></li>
 						{% endif %}
-						{% if website.twitterLink is not null %}
+						{% if website.twitterLink is not null and website.twitterLink | length > 0 %}
 						<li><a href="{{ website.twitterLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb2.png') }}" alt="Connect On Twitter" />Twitter</a></li>
 						{% endif %}
-						{% if website.youtubeLink is not null %}
+						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 %}
 						<li><a href="{{ website.youtubeLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb3.png') }}" alt="Connect On Youtube" />Youtube</a></li>
 						{% endif %}
-						{% if website.googleLink is not null %}
+						{% if website.googleLink is not null and website.googleLink | length > 0 %}
 						<li><a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb4.png') }}" alt="Connect On Google Plus" />Google +</a></li>
 						{% endif %}
 					</ul>

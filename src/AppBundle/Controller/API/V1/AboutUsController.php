@@ -67,7 +67,7 @@ class AboutUsController extends SecurityController
           'statistics_fourth_box_number' => $aboutUs->getStatisticsFourthBoxNumber(),
           'statistics_fourth_box_text' => $aboutUs->getStatisticsFourthBoxText(),
           'statistics_fourth_box_image' => $aboutUs->getStatisticsFourthBoxImage(),
-          
+
           'meta_title' => $aboutUs->getMetaTitle(),
           'meta_description' => $aboutUs->getMetaDescription()
 
@@ -83,7 +83,7 @@ class AboutUsController extends SecurityController
      * @Route("/api/v1/about_us", name="put_about_us")
      * @Method({"PUT"})
      */
-    public function postAction(Request $request)
+    public function putAction(Request $request)
     {
         $this->checkAccess($request);
 

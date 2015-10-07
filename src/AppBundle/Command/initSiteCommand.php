@@ -45,10 +45,17 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($website)){
 
           $website = new Website();
+
+          $website->setMainColor('#D65C3B');
+          $website->setLightColor('#ED6D3C');
+          $website->setDarkColor('#964B2D');
+          $website->setTradeId(1559);
+          $website->setTradeUrl('https://www.experttrades.com/trade/cc-carpentry--joinery');
+
           $website->setFacebookLink('https://www.facebook.com/localexperttrades?fref=ts');
           $website->setTwitterLink('https://twitter.com/ExpertTradesmen');
           $website->setYoutubeLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
-          $website->setGooglePlusLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
+          $website->setGoogleLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
 
           $website->setAccessToken(substr( md5(rand()), 0, 50));
           $website->setPostcode('B94AA');
@@ -75,7 +82,7 @@ class initSiteCommand extends ContainerAwareCommand
           $slider->setTitle('QUALIFIED ELECTRICAL SERVICES');
           $slider->setSubtitle('FROM MOVING PLUGS TO HOUSE REWIRES');
           $slider->setButtonText('Request a Quote');
-          $slider->setPath('slider_'.$i.'.jpg');
+          $slider->setPath('');
           $em->persist($slider);
           $em->flush();
 
@@ -84,16 +91,16 @@ class initSiteCommand extends ContainerAwareCommand
           $slider->setTitle('PLUMBING SERVICES');
           $slider->setSubtitle('HERE TO HELP WITH ALL YOUR PLUMBING NEEDS');
           $slider->setButtonText('Request a Quote');
-          $slider->setPath('slider_'.$i.'.jpg');
+          $slider->setPath('');
           $em->persist($slider);
           $em->flush();
 
           $slider = new Slider();
           $slider->setHomepage($homepage);
           $slider->setTitle('BOILER SERVICES');
-          $slider->setSubtitle('STAY WARM THIS WINTER. HAVE YOUR BOILER SERVICED');
+          $slider->setSubtitle('STAY WARM THIS WINTER. HAVE YOUR BOILER SERVICE');
           $slider->setButtonText('Request a Quote');
-          $slider->setPath('slider_'.$i.'.jpg');
+          $slider->setPath('');
           $em->persist($slider);
           $em->flush();
 

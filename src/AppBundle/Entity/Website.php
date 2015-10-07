@@ -32,7 +32,7 @@ class Website{
     /**
      * @var string $trade_id
      *
-     * @ORM\Column(name="trade_id", type="integer")
+     * @ORM\Column(name="trade_id", type="integer", nullable=true)
      */
     private $trade_id;
 

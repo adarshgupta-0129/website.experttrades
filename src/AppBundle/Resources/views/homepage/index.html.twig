@@ -28,16 +28,16 @@
 						{% if website.hasSocial == true %}
 						<h2>Connect Socially</h2>
 						{% endif %}
-						{% if website.facebookLink is not null %}
+						{% if website.facebookLink is not null and website.facebookLink | length > 0 %}
 						<a href="{{ website.facebookLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos1.png') }}" alt="Connect On Facebook" /></a>
 						{% endif %}
-						{% if website.twitterLink is not null %}
+						{% if website.twitterLink is not null and website.twitterLink | length > 0 %}
 						<a href="{{ website.twitterLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos2.png') }}" alt="Connect On Twitter" /></a>
 						{% endif %}
-						{% if website.youtubeLink is not null %}
+						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 %}
 						<a href="{{ website.youtubeLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos3.png') }}" alt="Connect On Youtube" /></a>
 						{% endif %}
-						{% if website.googleLink is not null %}
+						{% if website.googleLink is not null  and website.googleLink | length > 0 %}
 						<a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos4.png') }}" alt="Connect On Google Plus" /></a>
 						{% endif %}
 					 </div>
@@ -127,7 +127,7 @@
 						{% for img in review.stars('total', 'star.png') %}
 							<img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
 						{% endfor %}
-						<h2>{{ review.title }}</h2>
+						<h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
 						<br>
 						<h3>{{ review.jobDoneDate | date }}</h3>
 					</div>

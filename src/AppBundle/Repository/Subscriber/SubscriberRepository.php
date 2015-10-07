@@ -30,7 +30,7 @@ class SubscriberRepository extends Repository{
           $final[] = [
             'id' => $i->getId(),
             'email' => $i->getEmail(),
-            'created' => $i->getCreated()
+            'created' => $i->getCreated()->format('Y-m-d')
           ];
       }
 
