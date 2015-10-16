@@ -81,6 +81,35 @@ class Website{
      */
     private $google_link;
 
+
+    /**
+     * @var boolean $facebook_link_enabled
+     *
+     * @ORM\Column(name="facebook_link_enabled", type="boolean")
+     */
+    private $facebook_link_enabled;
+
+    /**
+     * @var boolean $twitter_link_enabled
+     *
+     * @ORM\Column(name="twitter_link_enabled", type="boolean")
+     */
+    private $twitter_link_enabled;
+
+    /**
+     * @var boolean $youtube_link_enabled
+     *
+     * @ORM\Column(name="youtube_link_enabled", type="boolean")
+     */
+    private $youtube_link_enabled;
+
+    /**
+     * @var boolean $google_link_enabled
+     *
+     * @ORM\Column(name="google_link_enabled", type="boolean")
+     */
+    private $google_link_enabled;
+
     /**
      * @var string $postcode
      *
@@ -138,6 +167,10 @@ class Website{
 
     public function __construct(){
         $this->show_logo = false;
+        $this->facebook_link_enabled = false;
+        $this->twitter_link_enabled = false;
+        $this->youtube_link_enabled = false;
+        $this->google_link_enabled = false;
     }
     /**
      * Get path
@@ -310,6 +343,87 @@ class Website{
     public function getGoogleLink()
     {
         return $this->google_link;
+    }
+
+
+    /**
+     * Set facebook_link_enabled
+     *
+     * @param string $facebook_link_enabled
+     */
+    public function setFacebookLinkEnabled($facebook_link_enabled)
+    {
+        $this->facebook_link_enabled = $facebook_link_enabled;
+    }
+
+    /**
+     * Get facebook_link_enabled
+     *
+     * @return string
+     */
+    public function getFacebookLinkEnabled()
+    {
+        return $this->facebook_link_enabled;
+    }
+
+    /**
+     * Set twitter_link_enabled
+     *
+     * @param string $twitter_link_enabled
+     */
+    public function setTwitterLinkEnabled($twitter_link_enabled)
+    {
+        $this->twitter_link_enabled = $twitter_link_enabled;
+    }
+
+    /**
+     * Get twitter_link_enabled
+     *
+     * @return string
+     */
+    public function getTwitterLinkEnabled()
+    {
+        return $this->twitter_link_enabled;
+    }
+
+    /**
+     * Set youtube_link_enabled
+     *
+     * @param string $youtube_link_enabled
+     */
+    public function setYoutubeLinkEnabled($youtube_link_enabled)
+    {
+        $this->youtube_link_enabled = $youtube_link_enabled;
+    }
+
+    /**
+     * Get youtube_link_enabled
+     *
+     * @return string
+     */
+    public function getYoutubeLinkEnabled()
+    {
+        return $this->youtube_link_enabled;
+    }
+
+    /**
+     * Set google_link_enabled
+     *
+     * @param string $google_link_enabled
+     */
+    public function setGoogleLinkEnabled($google_link_enabled)
+    {
+        $this->google_link_enabled = $google_link_enabled;
+    }
+
+    /**
+     * Get google_link_enabled
+     *
+     * @return string
+     */
+    public function getGoogleLinkEnabled()
+    {
+        return $this->google_link_enabled;
     }
 
     /**

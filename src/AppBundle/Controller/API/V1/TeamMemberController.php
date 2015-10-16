@@ -29,13 +29,13 @@ class TeamMemberController extends SecurityController
         $offset = $request->query->get('offset');
         $offset = (is_null($offset)) ? 0 : $offset;
 
-        $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/team_members/';
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/images/team_members/';
         if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-              $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/team_members/';
+              $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/team_members/';
         }
 
         $teamMembers =  $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')
-        ->getPaginated($limit, $offset, $slidersPath);
+        ->getPaginated($limit, $offset, $path);
 
         $response = new Response(json_encode($teamMembers));
         $response->headers->set('Content-Type', 'application/json');
@@ -57,16 +57,17 @@ class TeamMemberController extends SecurityController
         $teamMember = $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')
         ->find($id);
 
-        $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/team_members/';
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/images/team_members/';
         if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-              $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/team_members/';
+              $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/team_members/';
         }
 
         $response = new Response(json_encode([
           'id' => $teamMember->getId(),
           'name' => $teamMember->getName(),
           'title' => $teamMember->getTitle(),
-          'image_url' => (is_null($teamMember->getPath())) ? null : $slidersPath.$teamMember->getPath()
+          'description' => $teamMember->getDescription(),
+          'image_url' => (is_null($teamMember->getPath())) ? null : $path.$teamMember->getPath()
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -96,6 +97,9 @@ class TeamMemberController extends SecurityController
             }
             if(isset($params['name'])){
                 $item->setName($params['name']);
+            }
+            if(isset($params['description'])){
+                $item->setDescription($params['description']);
             }
 
             $em->persist($item);

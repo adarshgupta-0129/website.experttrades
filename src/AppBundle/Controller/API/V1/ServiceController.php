@@ -100,9 +100,9 @@ class ServiceController extends SecurityController
 
       $em = $this->getDoctrine()->getManager();
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
+      $path = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
+            $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
       }
 
       $limit = $request->query->get('limit');
@@ -112,7 +112,7 @@ class ServiceController extends SecurityController
       $offset = (is_null($offset)) ? 0 : $offset;
 
       $images =  $em->getRepository('AppBundle\Entity\Service\Item\Item')
-      ->getPaginated($limit, $offset, $slidersPath);
+      ->getPaginated($limit, $offset, $path);
 
       $response = new Response(json_encode($images));
       $response->headers->set('Content-Type', 'application/json');
@@ -132,16 +132,16 @@ class ServiceController extends SecurityController
       $em = $this->getDoctrine()->getManager();
       $image =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
+      $path = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
+            $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/services/';
       }
 
       $response = new Response(json_encode([
         'id' => $image->getId(),
         'title' => $image->getTitle(),
         'subtitle' => $image->getSubtitle(),
-       'image_url' => (is_null($image->getPath())) ? null : $slidersPath.$image->getPath()
+       'image_url' => (is_null($image->getPath())) ? null : $path.$image->getPath()
       ]));
       $response->headers->set('Content-Type', 'application/json');
 

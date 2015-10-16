@@ -14,6 +14,7 @@
     <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datetimepicker.min.css') }}" />
 
+    <link rel="icon" href="favicon.png" type="image/x-icon"/>
   <style>
 
   .header {width:100%; padding: 0;}
@@ -110,7 +111,7 @@
   .subscribe_left p {font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:400; margin: 0; font-style: italic;}
   .subscribe_box {width:100%;}
   .subscribe_box input[type="text"]{width:80%; float: left; background: #fff; border:none; height:50px; padding: 0 8px; font-style: italic;}
-  .subscribe_box input[type="submit"] {width:20%; float: right; background: url({{ asset('bundles/app/images/airmail.jpg') }}) no-repeat 0 0; border:none; height: 50px;}
+  .subscribe_box input[type="submit"] {width:20%; float: right; color:white; background: {{ website.mainColor }}; border:none; height: 50px;}
   .contactmap > iframe {display: block;}
 
   .footer {width:100%; background: #000; padding: 45px 0 35px;}
@@ -183,7 +184,7 @@
      height: 48px;
       line-height: 47px;
      }
-  .contact_inner_form label.checkbox-inline {text-transform: none; margin-right: 51px;}
+  .contact_inner_form label.checkbox-inline { text-transform: none; margin-right: 51px;}
   .chkln {margin-right: 0 !important;}
   .contact_inner_form textarea.form-control {height: 270px;}
   .contact_inner_form .btn-default {background: #0077C2;color: #FFFFFF;display: block;font-family: 'Lato',sans-serif;font-size: 20px;font-weight: 700;line-height: 60px;text-align: center; padding: 0 75px; margin-left: 158px; border-radius: 0;}
@@ -261,6 +262,16 @@
   .servicebox:hover .grayscale {filter: grayscale(0%) !important;
       -webkit-filter: grayscale(0%) !important;
       filter: none !important; }
+
+      /*-----------------8/10/2015-----------as per mail work--------------*/
+    .newtm {width:100%; margin-bottom: 30px;}
+    .new_team_pic {width:100%;}
+    .new_team_pic img {width:100%; border-radius:50%; border:4px solid #fff;box-shadow: 0 1px 6px #000;}
+    .new_team_pic_info {width:100%;}
+    .new_team_pic_info h2 {color: #000;font-family: "Lato",sans-serif;font-size: 18px;font-weight: 400;margin: 0 0 20px;}
+    .new_team_pic_info h3 {color: #0077c2;font-family: "Lato",sans-serif;font-size: 16px;font-weight: 700;margin: 0;text-transform: uppercase;}
+    .new_team_pic_info p {color: #666666;font-family: "Lato",sans-serif;font-size: 16px;font-weight: 400;line-height: 22px; margin: 20px 0 0 0;}
+
 
 
   /*====================responsive==================*/
@@ -410,7 +421,7 @@
     </button>
     <a class="navbar-brand" href="{{ path('homepage') }}">
       {% if website.showLogo == true %}
-      <img src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" style="width:100%"/>
+      <img style="max-height:65px" src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" style="width:100%"/>
       {% else %}
       <br>
       {{ website.companyName | upper }}
@@ -456,16 +467,16 @@
 				<div class="footerbox">
 					<h2>Connect Socially</h2>
 					<ul>
-            {% if website.facebookLink is not null and website.facebookLink | length > 0 %}
+            {% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
 						<li><a href="{{ website.facebookLink  }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb1.png') }}" alt="Connect On Facebook" />Facebook</a></li>
 						{% endif %}
-						{% if website.twitterLink is not null and website.twitterLink | length > 0 %}
+						{% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
 						<li><a href="{{ website.twitterLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb2.png') }}" alt="Connect On Twitter" />Twitter</a></li>
 						{% endif %}
-						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 %}
+						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
 						<li><a href="{{ website.youtubeLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb3.png') }}" alt="Connect On Youtube" />Youtube</a></li>
 						{% endif %}
-						{% if website.googleLink is not null and website.googleLink | length > 0 %}
+						{% if website.googleLink is not null and website.googleLink | length > 0 and website.googleLinkEnabled %}
 						<li><a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/ffb4.png') }}" alt="Connect On Google Plus" />Google +</a></li>
 						{% endif %}
 					</ul>
@@ -497,7 +508,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="cpy">{{ website.copyright }}</div>
+				<div class="cpy">{{ website.copyright }} <small><a style="color: #bdbdbd;" href="https://www.experttrades.com">Built by Expert Trades</a></small></div>
 			</div>
 		</div>
 	</div>

@@ -71,18 +71,35 @@
 						      {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy'} }) }}
 						    </div>
 						  </div>
+							{% if form.job_categories |length > 0 %}
 						  <div class="form-group">
-								{% if form.job_categories |length > 0 %}
+
 						    <label for="inputPassword3" class="col-sm-2 control-label">Job Category</label>
-								{% endif %}
-						    <div class="col-sm-10">
+
+						    <div class="col-sm-5">
 									{% for formElement in form.job_categories %}
+									{% if loop.index is odd %}
 										<label class="checkbox-inline">
 											{{ form_widget(formElement) }} {{ formElement.vars.value }}
 										</label>
+										<br>
+										{% endif %}
+
+									{% endfor %}
+						    </div>
+								<div class="col-sm-5">
+									{% for formElement in form.job_categories %}
+									{% if loop.index is even %}
+										<label class="checkbox-inline">
+											{{ form_widget(formElement) }} {{ formElement.vars.value }}
+										</label>
+										<br>
+										{% endif %}
 									{% endfor %}
 						    </div>
 						  </div>
+							<br><br>
+							{% endif %}
 						  <div class="form-group">
 						    <label for="inputPassword3" class="col-sm-2 control-label">Job Description</label>
 						    <div class="col-sm-10">
@@ -146,7 +163,7 @@
 				<div class="subscribe_box">
 					<form action="{{ path('subscribe') }}" method="POST">
 					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="" />
+						<input type="submit" value="GO" />
 					</form>
 				</div>
 			</div>
@@ -159,6 +176,7 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript">
+$.fn.datepicker.defaults.format = "dd/mm/yyyy";
 $('.datepicker').datepicker();
 </script>
 {% endblock %}

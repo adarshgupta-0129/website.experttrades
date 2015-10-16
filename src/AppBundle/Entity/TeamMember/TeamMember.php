@@ -44,6 +44,13 @@ class TeamMember{
     private $title;
 
     /**
+     * @var string $description
+     *
+     * @ORM\Column(name="description", type="text", length=2555, nullable=true)
+     */
+    private $description;
+
+    /**
     * @ORM\Column(type="string", length=255, nullable=true)
     */
     public $path;
@@ -131,6 +138,26 @@ class TeamMember{
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     public function upload()

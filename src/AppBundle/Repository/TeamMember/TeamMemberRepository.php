@@ -12,7 +12,7 @@ use AppBundle\Repository\Repository;
  */
 class TeamMemberRepository extends Repository{
 
-  public function getPaginated($limit, $offset, $slidersPath){
+  public function getPaginated($limit, $offset, $path){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('tm')->from('AppBundle\Entity\TeamMember\TeamMember', 'tm');
@@ -30,7 +30,8 @@ class TeamMemberRepository extends Repository{
             'id' => $item->getId(),
             'name' => $item->getName(),
             'title' => $item->getTitle(),
-            'image_url' => (is_null($item->getPath())) ? null : $slidersPath.$item->getPath()
+            'description' => $item->getDescription(),
+            'image_url' => (is_null($item->getPath())) ? null : $path.$item->getPath()
           ];
       }
 

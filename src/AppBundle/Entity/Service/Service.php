@@ -115,16 +115,6 @@ class Service{
     {
         $this->meta_title = $meta_title;
     }
-
-    /**
-     * Set meta_title
-     *
-     * @param string $meta_title
-     */
-    public function setMetaTitle($meta_title)
-    {
-        $this->meta_title = $meta_title;
-    }
     
     /**
      * Get meta_title

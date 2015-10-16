@@ -26,9 +26,9 @@ class HomepageController extends SecurityController
 
         $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
 
-        $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/homepage/sliders/';
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/images/homepage/sliders/';
         if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-              $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/homepage/sliders/';
+              $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/homepage/sliders/';
         }
         $slidersArray = [];
         foreach($homepage->getSliders() as $slider){
@@ -37,7 +37,7 @@ class HomepageController extends SecurityController
               'title' => $slider->getTitle(),
               'subtitle' => $slider->getSubtitle(),
               'button_text' => $slider->getButtonText(),
-              'image_url' => $slidersPath.$slider->getPath()
+              'image_url' => $path.$slider->getPath()
             ];
         }
 
@@ -80,7 +80,7 @@ class HomepageController extends SecurityController
              $params = json_decode($content, true); // 2nd param to get as array
 
              if(isset($params['reviews_title'])){
-                 $homepage->setReviewsSubtitle($params['reviews_title']);
+                 $homepage->setReviewsTitle($params['reviews_title']);
              }
              if(isset($params['reviews_subtitle'])){
                  $homepage->setReviewsSubtitle($params['reviews_subtitle']);

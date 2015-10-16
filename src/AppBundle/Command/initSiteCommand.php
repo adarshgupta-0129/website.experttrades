@@ -46,11 +46,11 @@ class initSiteCommand extends ContainerAwareCommand
 
           $website = new Website();
 
-          $website->setMainColor('#D65C3B');
-          $website->setLightColor('#ED6D3C');
-          $website->setDarkColor('#964B2D');
-          $website->setTradeId(1559);
-          $website->setTradeUrl('https://www.experttrades.com/trade/cc-carpentry--joinery');
+          $website->setMainColor('#25B7DB');
+          $website->setLightColor('#00FF00');
+          $website->setDarkColor('#0000FF');
+          $website->setTradeId(10594);
+          $website->setTradeUrl('https://www.experttrades.com/trade/valley-cleaning-centre');
 
           $website->setFacebookLink('https://www.facebook.com/localexperttrades?fref=ts');
           $website->setTwitterLink('https://twitter.com/ExpertTradesmen');
@@ -184,7 +184,7 @@ class initSiteCommand extends ContainerAwareCommand
           $review->setHeaderSubtitle('');
           $em->persist($review);
           $em->flush();
-
+/*
           if(sizeof($em->getRepository('AppBundle\Entity\Review\Item\Item')->findAll()) < 6){
 
               for ($i = 1; $i <= 3; $i++) {
@@ -200,7 +200,7 @@ class initSiteCommand extends ContainerAwareCommand
                   $em->flush();
               }
           }
-
+*/
           echo "\n Review Created \n";
 
         }

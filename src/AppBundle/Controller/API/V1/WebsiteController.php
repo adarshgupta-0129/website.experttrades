@@ -22,9 +22,9 @@ class WebsiteController extends SecurityController
         $em = $this->getDoctrine()->getManager();
         $website = $em->getRepository('AppBundle\Entity\Website')->find(1);
 
-        $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/logo/';
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/images/logo/';
         if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-              $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/logo/';
+              $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/logo/';
         }
 
         $response = new Response(json_encode([
@@ -32,13 +32,17 @@ class WebsiteController extends SecurityController
           'twitter_link' => $website->getTwitterLink(),
           'youtube_link' => $website->getYoutubeLink(),
           'google_link' => $website->getGoogleLink(),
+          'facebook_link_enabled' => $website->getFacebookLinkEnabled(),
+          'twitter_link_enabled' => $website->getTwitterLinkEnabled(),
+          'youtube_link_enabled' => $website->getYoutubeLinkEnabled(),
+          'google_link_enabled' => $website->getGoogleLinkEnabled(),
           'postcode' => $website->getPostcode(),
           'subscribe_title' => $website->getSubscribeTitle(),
           'subscribe_subtitle' => $website->getSubscribeSubtitle(),
           'copyright' => $website->getCopyright(),
           'company_name' => $website->getCompanyName(),
           'show_logo' => $website->getShowLogo(),
-          'logo_url' => (is_null($website->getLogoPath())) ? null : $slidersPath.$website->getLogoPath(),
+          'logo_url' => (is_null($website->getLogoPath())) ? null : $path.$website->getLogoPath(),
 
         ]));
         $response->headers->set('Content-Type', 'application/json');
@@ -76,6 +80,20 @@ class WebsiteController extends SecurityController
              if(isset($params['google_link'])){
                $website->setGoogleLink($params['google_link']);
              }
+
+             if(isset($params['facebook_link_enabled'])){
+               $website->setFacebookLinkEnabled($params['facebook_link_enabled']);
+             }
+             if(isset($params['twitter_link_enabled'])){
+               $website->setTwitterLinkEnabled($params['twitter_link_enabled']);
+             }
+             if(isset($params['youtube_link_enabled'])){
+               $website->setYoutubeLinkEnabled($params['youtube_link_enabled']);
+             }
+             if(isset($params['google_link_enabled'])){
+               $website->setGoogleLinkEnabled($params['google_link_enabled']);
+             }
+
              if(isset($params['postcode'])){
                $website->setPostcode($params['postcode']);
              }

@@ -120,25 +120,34 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="team_panel">
-					{% for team_member in teamMembers %}
+		<!-- 08/10/2015---------------as per mail work -->
+		{% for team_member in teamMembers %}
+		<div class="newtm">
+			<div class="row">
+					<div class="col-sm-2">
 						{% if team_member.path is not null %}
-						<div class="teambox">
-							<img src="{{ asset('images/team_members/') }}{{ team_member.path }}" alt="{{ team_member.name }}" />
+						<div class="new_team_pic"><img src="{{ asset('images/team_members/') }}{{ team_member.path }}" alt="{{ team_member.name }}"/></div>
+						{% endif %}
+					</div>
+					<div class="col-sm-10">
+						<div class="new_team_pic_info">
 							<h2>{{ team_member.name }}</h2>
 							<h3>{{ team_member.title }}</h3>
+							<p>{{ team_member.description }}</p>
 						</div>
-						{% endif %}
-					{% endfor %}
+					</div>
 				</div>
+		</div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-sm-12">
 				<div class="team_click">
 					<h2>Click below to get yourself a quote</h2>
 					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">Get A Quote</a></div></div>
 				</div>
 			</div>
 		</div>
+		<!-- 08/10/2015---------------as per mail work -->
 	</div>
 </section>
 <section class="subscribe susin">
@@ -154,7 +163,7 @@
 				<div class="subscribe_box">
 					<form action="{{ path('subscribe') }}" method="POST">
 					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="" />
+						<input type="submit" value="GO" />
 					</form>
 				</div>
 			</div>

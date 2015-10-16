@@ -28,16 +28,16 @@
 						{% if website.hasSocial == true %}
 						<h2>Connect Socially</h2>
 						{% endif %}
-						{% if website.facebookLink is not null and website.facebookLink | length > 0 %}
+						{% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
 						<a href="{{ website.facebookLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos1.png') }}" alt="Connect On Facebook" /></a>
 						{% endif %}
-						{% if website.twitterLink is not null and website.twitterLink | length > 0 %}
+						{% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
 						<a href="{{ website.twitterLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos2.png') }}" alt="Connect On Twitter" /></a>
 						{% endif %}
-						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 %}
+						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
 						<a href="{{ website.youtubeLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos3.png') }}" alt="Connect On Youtube" /></a>
 						{% endif %}
-						{% if website.googleLink is not null  and website.googleLink | length > 0 %}
+						{% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
 						<a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos4.png') }}" alt="Connect On Google Plus" /></a>
 						{% endif %}
 					 </div>
@@ -262,7 +262,7 @@
 					{{ contact.email }}
 				</a>
 				<br><br>
-				<p><i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i>{{ contact.phone }}</p>
+				<p><i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i> {{ contact.phone }}</p>
 			</div>
 		</div>
 		<div class="col-sm-6">
@@ -299,7 +299,7 @@
 				<div class="subscribe_box">
 					<form action="{{ path('subscribe') }}" method="POST">
 					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="" />
+						<input type="submit" value="GO" />
 					</form>
 				</div>
 			</div>

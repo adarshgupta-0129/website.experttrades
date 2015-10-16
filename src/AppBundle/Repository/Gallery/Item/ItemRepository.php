@@ -28,7 +28,7 @@ class ItemRepository extends Repository{
       return $this->payload($total, $limit, $offset, $result);
   }
 
-  public function getPaginated($limit, $offset, $slidersPath){
+  public function getPaginated($limit, $offset, $path){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
@@ -46,7 +46,7 @@ class ItemRepository extends Repository{
         $final[] = [
           'id' => $i->getId(),
           'title' => $i->getTitle(),
-          'image_url' => (is_null($i->getPath())) ? null : $slidersPath.$i->getPath()
+          'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
         ];
       }
 

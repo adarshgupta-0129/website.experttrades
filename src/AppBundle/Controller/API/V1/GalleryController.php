@@ -100,9 +100,9 @@ class GalleryController extends SecurityController
 
       $em = $this->getDoctrine()->getManager();
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/gallery/';
+      $path = 'http://'.$request->server->get('HTTP_HOST').'/images/gallery/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
+            $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
       }
 
       $limit = $request->query->get('limit');
@@ -112,7 +112,7 @@ class GalleryController extends SecurityController
       $offset = (is_null($offset)) ? 0 : $offset;
 
       $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')
-      ->getPaginated($limit, $offset, $slidersPath);
+      ->getPaginated($limit, $offset, $path);
 
       $response = new Response(json_encode($images));
       $response->headers->set('Content-Type', 'application/json');
@@ -132,15 +132,15 @@ class GalleryController extends SecurityController
       $em = $this->getDoctrine()->getManager();
       $image =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->find($id);
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/gallery/';
+      $path = 'http://'.$request->server->get('HTTP_HOST').'/images/gallery/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
+            $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
       }
 
       $response = new Response(json_encode([
         'id' => $image->getId(),
         'title' => $image->getTitle(),
-        'image_url' => (is_null($image->getPath())) ? null : $slidersPath.$image->getPath()
+        'image_url' => (is_null($image->getPath())) ? null : $path.$image->getPath()
       ]));
       $response->headers->set('Content-Type', 'application/json');
 

@@ -22,9 +22,9 @@ class AboutUsController extends SecurityController
         $em = $this->getDoctrine()->getManager();
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
 
-        $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/about_us/';
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/images/about_us/';
         if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-              $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/about_us/';
+              $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/about_us/';
         }
 
         $response = new Response(json_encode(
@@ -48,7 +48,7 @@ class AboutUsController extends SecurityController
           'about_us_third_point_text' => $aboutUs->getAboutUsThirdPointText(),
           'about_us_third_point_image' => $aboutUs->getAboutUsThirdPointImage(),
 
-          'image_url' => (is_null($aboutUs->getPath())) ? null : $slidersPath.$aboutUs->getPath(),
+          'image_url' => (is_null($aboutUs->getPath())) ? null : $path.$aboutUs->getPath(),
 
           'statistics_title' => $aboutUs->getStatisticsTitle(),
 

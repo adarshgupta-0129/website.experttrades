@@ -25,7 +25,7 @@ class ContactController extends MainController
         $this->trackVisit();
 
         $choices = [];
-        foreach($em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findAll() as $c){
+        foreach($em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findBy(array('deleted_at' => null)) as $c){
             $choices[$c->getName()] = $c->getName();
         }
         $date = new \Datetime();
@@ -50,7 +50,7 @@ class ContactController extends MainController
 
             if ($form->isValid()) {
 
-                $quoteRequest->setJobDate(new \Datetime($form->get('job_date')->getData()));
+                $quoteRequest->setJobDate(\DateTime::createFromFormat('d/m/Y',$form->get('job_date')->getData()));
                 $em->persist($quoteRequest);
                 $em->flush();
 
@@ -81,7 +81,7 @@ class ContactController extends MainController
                   'categories' => $categories
                 ]);
 
-                $ch = curl_init('https://www.experttrades.com/api/v1/trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
+                $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -127,7 +127,7 @@ class ContactController extends MainController
                   'email' => $subscriber->getEmail()
                 ]);
 
-                $ch = curl_init('https://www.experttrades.com/api/v1/trade/'.$website->getTradeId().'/website_subscriber?website_access_token='.$website->getAccessToken());
+                $ch = curl_init($this->container->getParameter('api_url').'trade/'.$website->getTradeId().'/website_subscriber?website_access_token='.$website->getAccessToken());
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

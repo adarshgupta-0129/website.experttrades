@@ -36,7 +36,7 @@ class SubscribeController extends MainController
                   'email' => $subscriber->getEmail()
                 ]);
 
-                $ch = curl_init('https://www.experttrades.com/api/v1/trades/'.$website->getTradeId().'/website_subscribers?website_access_token='.$website->getAccessToken());
+                $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_subscribers?website_access_token='.$website->getAccessToken());
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

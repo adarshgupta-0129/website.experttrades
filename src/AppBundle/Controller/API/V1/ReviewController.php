@@ -105,9 +105,9 @@ class ReviewController extends SecurityController
 
       $em = $this->getDoctrine()->getManager();
 
-      $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/images/reviews/';
+      $path = 'http://'.$request->server->get('HTTP_HOST').'/images/reviews/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-            $slidersPath = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/reviews/';
+            $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/reviews/';
       }
 
       $limit = $request->query->get('limit');
@@ -117,7 +117,7 @@ class ReviewController extends SecurityController
       $offset = (is_null($offset)) ? 0 : $offset;
 
       $images =  $em->getRepository('AppBundle\Entity\Review\Item\Item')
-      ->getPaginated($limit, $offset, $slidersPath);
+      ->getPaginated($limit, $offset, $path);
 
       $response = new Response(json_encode($images));
       $response->headers->set('Content-Type', 'application/json');
