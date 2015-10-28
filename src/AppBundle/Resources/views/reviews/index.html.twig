@@ -65,7 +65,7 @@
 							{% endfor %}
 						</ul>
 						<div class="reviewpage_info" >
-							<p>{{ item.message |slice(0, 250) }} {% if item.message |length > 250 %}...{% endif %}</p>
+							<p>{{ item.message |slice(0, 200) }} {% if item.message |length > 200 %}...{% endif %}</p>
 							<div class="rvcoma1"><img src="{{ asset('bundles/app/images/reviews/rv-coma1.png') }}" alt="Share On Facebook" /></div>
 							<div class="rvcoma2"><img src="{{ asset('bundles/app/images/reviews/rv-coma2.png') }}" alt="Share On Twitter" /></div>
 						</div>
