@@ -46,11 +46,11 @@ class initSiteCommand extends ContainerAwareCommand
 
           $website = new Website();
 
-          $website->setMainColor('#25B7DB');
-          $website->setLightColor('#00FF00');
-          $website->setDarkColor('#0000FF');
-          $website->setTradeId(10594);
-          $website->setTradeUrl('https://www.experttrades.com/trade/valley-cleaning-centre');
+          $website->setMainColor('#252325');
+          $website->setLightColor('#747274');
+          $website->setDarkColor('#090709');
+          $website->setTradeId(10457);
+          $website->setTradeUrl('https://www.experttrades.com/trade/urban-refurb-co');
 
           $website->setFacebookLink('https://www.facebook.com/localexperttrades?fref=ts');
           $website->setTwitterLink('https://twitter.com/ExpertTradesmen');
@@ -66,7 +66,7 @@ class initSiteCommand extends ContainerAwareCommand
           $em->persist($website);
           $em->flush();
 
-          echo "\nWeb Created \n";
+          echo "\nWeb Created. Access Token: ".$website->getAccessToken()." \n";
         }
 
         $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
