@@ -49,8 +49,8 @@ class initSiteCommand extends ContainerAwareCommand
           $website->setMainColor('#252325');
           $website->setLightColor('#747274');
           $website->setDarkColor('#090709');
-          $website->setTradeId(10457);
-          $website->setTradeUrl('https://www.experttrades.com/trade/urban-refurb-co');
+          $website->setTradeId(9786);
+          $website->setTradeUrl('https://www.experttrades.com/trade/russell-wright-building-and-landscaping');
 
           $website->setFacebookLink('https://www.facebook.com/localexperttrades?fref=ts');
           $website->setTwitterLink('https://twitter.com/ExpertTradesmen');

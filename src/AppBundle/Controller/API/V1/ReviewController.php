@@ -312,6 +312,10 @@ class ReviewController extends SecurityController
         $em = $this->getDoctrine()->getManager();
         $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
 
+        if(!is_object($item)){
+            $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->findOneBy(array('expert_trades_review_id' => $id));
+        }
+
         if(is_object($item)){
 
             $em->remove($item);
