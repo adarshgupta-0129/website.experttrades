@@ -22,6 +22,7 @@ class AboutUsController extends MainController
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $teamMembers =  $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')->findAll();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+
         $this->trackVisit();
 
         return $this->render('AppBundle:about_us:index.html.twig',
@@ -30,6 +31,7 @@ class AboutUsController extends MainController
          'aboutUs' => $aboutUs,
          'teamMembers' => $teamMembers,
          'footer_images' => $footerImages,
+         'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
        ));
     }

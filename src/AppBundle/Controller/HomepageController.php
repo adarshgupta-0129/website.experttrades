@@ -74,6 +74,7 @@ class HomepageController extends MainController
           'images' => $images,
           'footer_images' => $footerImages,
           'contact_form' => $contactForm->createView(),
+          'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
         ));
     }

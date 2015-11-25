@@ -18,6 +18,11 @@ class MessageController extends MainController
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
 
-        return $this->render('AppBundle:message:success.html.twig', array('website' => $website, 'footer_images' => $footerImages));
+        return $this->render('AppBundle:message:success.html.twig',
+        array(
+          'website' => $website,
+          'footer_images' => $footerImages,
+          'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll()
+        ));
     }
 }

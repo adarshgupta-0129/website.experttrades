@@ -31,6 +31,7 @@ class ReviewsController extends MainController
           'review' => $review,
           'items' => $items,
           'footer_images' => $footerImages,
+          'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
         ));
     }

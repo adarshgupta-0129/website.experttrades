@@ -102,6 +102,7 @@ class ContactController extends MainController
           'contact' => $contact,
           'footer_images' => $footerImages,
           'form' => $form->createView(),
+          'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
         ));
     }

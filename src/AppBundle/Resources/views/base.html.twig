@@ -535,5 +535,10 @@
 
 {% block javascripts %}{% endblock %}
 
+<!-- ANALYTICS ETC -->
+{% for script in scripts %}
+{{ script.value |raw }}
+{% endfor %}
+
 </body>
 </html>
