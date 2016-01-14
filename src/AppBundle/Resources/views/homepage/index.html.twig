@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block body %}
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
 <section class="banner_slider">
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
@@ -63,7 +66,7 @@
 			<div class="col-sm-12">
 				<div class="about_head">
 					<h2>{{ aboutUs.aboutUsTitle }}</h2>
-					<p>{{ aboutUs.aboutUsText }}</p>
+					<p>{{ aboutUs.aboutUsText | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -115,7 +118,7 @@
 			<div class="col-sm-12">
 				<div class="review_head">
 					<h2>{{ homepage.reviewsTitle }}</h2>
-					<p style="color:white">{{ homepage.reviewsSubtitle }}</p>
+					<p style="color:white">{{ homepage.reviewsSubtitle | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -131,6 +134,9 @@
 						<h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
 						<br>
 						<h3>{{ review.jobDoneDate | date }}</h3>
+						<br>
+						<p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
+
 					</div>
 					<div class="rvmid">
 						<div class="rvmdinr">
@@ -166,6 +172,8 @@
 						<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK"><img src="{{ asset('bundles/app/images/reviews/rvs1.png') }}" alt="Share On Facebook" /></a>
 						<a href="https://twitter.com/home?status=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK"><img src="{{ asset('bundles/app/images/reviews/rvs2.png') }}" alt="Share On Twitter" /></a>
 					</div>
+
+
 				</div>
 			</div>
 	    {% endfor %}
@@ -186,7 +194,7 @@
 			<div class="col-sm-12">
 				<div class="about_head">
 					<h2>{{ homepage.servicesTitle }}</h2>
-					<p>{{ homepage.servicesSubtitle }}</p>
+					<p>{{ homepage.servicesSubtitle | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -212,7 +220,7 @@
 			<div class="col-sm-12">
 				<div class="review_head">
 					<h2>{{ homepage.galleryTitle }}</h2>
-					<p style="color:white">{{ homepage.gallerySubtitle }}</p>
+					<p style="color:white">{{ homepage.gallerySubtitle | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -244,7 +252,7 @@
 			<div class="col-sm-12">
 				<div class="about_head">
 					<h2>{{ homepage.contactUsTitle }}</h2>
-					<p>{{ homepage.contactUsSubtitle }}</p>
+					<p>{{ homepage.contactUsSubtitle | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -284,6 +292,36 @@
 		</div>
 	</div>
 </section>
+
+{% if findMeOns | length > 0
+	or homepage.findMeOnTitle | length > 0
+		or homepage.findMeOnSubtitle | length > 0 %}
+
+<section class="bodybox4">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="find_us_head">
+					<h2 style="color:white">{{ homepage.findMeOnTitle }}</h2>
+					<p style="color:white">{{ homepage.findMeOnSubtitle | raw }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+		{% for findMeOn in findMeOns %}
+	    <div class="col-xs-3">
+	        <a href="{{ findMeOn.link }}" target="_blank" class="thumbnail">
+							<img class="img-responsive" src="{{ asset('images/find_me_on/') }}{{ findMeOn.path }}" />
+	        </a>
+	    </div>
+		{% endfor %}
+	  </div>
+		<br>
+
+	</div>
+</section>
+{% endif %}
 <section class="contactmap">
 	<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDWh2ugH_oq9rD1WRF9qH0-eIcUjEN-bEg&q={{ website.postcode }}" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
 </section>
@@ -307,4 +345,5 @@
 		</div>
 	</div>
 </section>
+{% endif %}
 {% endblock %}

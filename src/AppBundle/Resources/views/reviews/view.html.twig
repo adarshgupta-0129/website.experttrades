@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block body %}
-
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
 <section class="innerpage_banner review_banner">
 	<div class="container">
 		<div class="banner_content_top">
@@ -114,4 +116,5 @@
 		</div>
 	</div>
 </section>
+{% endif %}
 {% endblock %}

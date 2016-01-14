@@ -18,9 +18,9 @@ class GalleryController extends MainController
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
-        $perPage = 10;
+        $perPage = 9;
         $offset = ($page - 1) * $perPage;
-        $items = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay(10, $offset);
+        $items = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay($perPage, $offset);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
 

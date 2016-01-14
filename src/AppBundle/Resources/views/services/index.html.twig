@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block body %}
-
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
 <section class="innerpage_banner service_banner">
 	<div class="container">
 		<div class="banner_content_top">
@@ -31,7 +33,7 @@
 									<img alt="{{ item[0].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
 									{% endif %}
 									<h2>{{ item[0].title }}</h2>
-									<p>{{ item[0].subtitle }}</p>
+									<p>{{ item[0].subtitle | raw }}</p>
 							</div>
 						</div>
 					</div>
@@ -45,7 +47,7 @@
 									<img alt="{{ item[1].title }}" src="{{ asset('images/services/') }}{{ item[1].path }}">
 									{% endif %}
 									<h2>{{ item[1].title }}</h2>
-									<p>{{ item[1].subtitle }}</p>
+									<p>{{ item[1].subtitle | raw }}</p>
 							</div>
 						</div>
 					</div>
@@ -59,7 +61,7 @@
 									<img alt="{{ item[2].title }}" src="{{ asset('images/services/') }}{{ item[2].path }}">
 									{% endif %}
 									<h2>{{ item[2].title }}</h2>
-									<p>{{ item[2].subtitle }}</p>
+									<p>{{ item[2].subtitle | raw }}</p>
 							</div>
 						</div>
 					</div>
@@ -94,4 +96,5 @@
 		</div>
 	</div>
 </section>
+{% endif %}
 {% endblock %}

@@ -72,12 +72,18 @@
   .view {width:100%; text-align: center; margin-top: 50px;}
   .view a {display: inline-block; width:auto; padding: 0 33px; line-height: 50px; background: #fff; text-align: center; font-family: 'Lato', sans-serif; font-size: 16px; color:#7a7a7a; font-weight:400; text-transform: uppercase;}
 
-  .bodybox3 {width:100%; margin-top: 45px;}
+  .bodybox3 {width:100%;  margin-top: 45px; margin-bottom: 45px;}
   .servicebox {width:100%; text-align: center;}
   .servicebox img {width:100%;}
   .servicebox h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#000; font-weight:400; background: url({{ asset('bundles/app/images/serv-bg.jpg') }}) no-repeat 0 0; background-position: bottom center; padding-bottom:17px; margin: 15px 0 0; text-transform: uppercase;}
   .servicebox p {font-family: 'Lato', sans-serif; font-size: 16px; color:#666666; font-weight:400; margin: 26px 0 0;padding: 0 20px;}
   .servicebox a {display: inline-block; font-family: 'Lato', sans-serif; font-size: 16px; color:#000; font-weight:400; margin-top: 25px;}
+
+  .bodybox4 {width:100%; background: {{ website.mainColor }};  margin-top: 45px;}
+  .find_us_head p span {color:#000; display: block; margin-top: 60px;}
+  .find_us_head { width:100%; text-align: center; margin-bottom: 57px; margin-top: 60px;}
+  .find_us_head h2 {font-family: 'Lato', sans-serif; font-size: 26px; color:#111111; font-weight:700; text-transform: uppercase; margin: 0 0 38px; padding-bottom: 25px; background: url({{ asset('bundles/app/images/about-bg.jpg') }}) no-repeat 0 0; background-position: bottom center;}
+  .find_us_head p {font-family: 'Lato', sans-serif; font-size: 16px; color:#666666; font-weight:400; line-height: 22px;}
 
 
   .jobpic {width:100%; margin-bottom: 18px; position: relative; cursor: pointer;}
@@ -103,7 +109,7 @@
   .fgt {width:100%; float: left;}
   .grp2 {margin-left: 12px;}
   .contact_right .btn-default {background-color:{{ website.mainColor }}; border-radius: 0; width:168px; color:#fff; border:none; height: 41px;}
-  .contactmap {width:100%; margin-top: 50px;}
+  .contactmap {width:100%; margin-top: 0px;}
 
   .subscribe {width:100%; background: {{ website.darkColor }}; padding: 30px 0;}
   .subscribe_left {width:100%;}
@@ -272,7 +278,14 @@
     .new_team_pic_info h3 {color: #0077c2;font-family: "Lato",sans-serif;font-size: 16px;font-weight: 700;margin: 0;text-transform: uppercase;}
     .new_team_pic_info p {color: #666666;font-family: "Lato",sans-serif;font-size: 16px;font-weight: 400;line-height: 22px; margin: 20px 0 0 0;}
 
+    .error_page_400_banner {width:100%; background: url({{ asset('bundles/app/images/errors/404_error.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
+    .error_page_400_banner .banner_content_bottom {margin-top: 40px;}
 
+    .error_page_500_banner {width:100%; background: url({{ asset('bundles/app/images/errors/500_error.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
+    .error_page_500_banner .banner_content_bottom {margin-top: 40px;}
+
+    .disabled_website_banner {width:100%; background: url({{ asset('bundles/app/images/errors/disabled.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
+    .disabled_website_banner .banner_content_bottom {margin-top: 40px;}
 
   /*====================responsive==================*/
 
@@ -313,7 +326,9 @@
   .addrs_info a {font-size: 15px;}
   .contact_inner_form label.checkbox-inline {margin-right: 10px;}
   .contact_inner_form .btn-default {margin-left: 125px;}
-  .contact_banner {margin-top: 4px;}
+  .error_page_400_banner {margin-top: 4px;}
+  .disabled_website_banner{margin-top: 4px;}
+  .error_page_500_banner {margin-top: 4px;}
   .review_listing ul li:first-child {width:66%;}
   .grt_wrk {font-size: 17px;}
   }
@@ -342,6 +357,9 @@
   .contact_inner_form label.checkbox-inline {margin-right: 10px;}
   .contact_inner_form .btn-default {margin-left: 0;}
   .contact_banner {margin-top: 20px;}
+  .error_page_400_banner {margin-top: 20px;}
+  .error_page_500_banner {margin-top: 20px;}
+  .disabled_website_banner {margin-top: 20px;}
   .cbbbox {margin-bottom: 20px;}
   .ccb2 {padding-top: 0;}
   .addrs_info a {padding-left: 0;}
@@ -433,7 +451,7 @@
   <div class="collapse navbar-collapse navbar-ex2-collapse">
     <ul class="nav navbar-nav navbar-right">
     <li {% if app.request.attributes.get('_route') == 'homepage' %} class="select" {% endif %}><a href="{{ path('homepage') }}">Home</a></li>
-   	<li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About  Us</a></li>
+   	<li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About</a></li>
    	<li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
    	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
    	<li {% if app.request.attributes.get('_route') == 'gallery' %} class="select" {% endif %}><a href="{{ path('gallery') }}">Gallery</a></li>
@@ -508,7 +526,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="cpy">{{ website.copyright }} <small><a style="color: #bdbdbd;" href="https://www.experttrades.com">| Built by Expert Trades</a></small></div>
+				<div class="cpy">{{ website.copyright }} <small><a style="color: #bdbdbd;" href="https://www.experttrades.com/website">| Websites For Trades - by Expert Trades </a></small></div>
 			</div>
 		</div>
 	</div>
@@ -532,6 +550,8 @@
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ asset('bundles/app/js/ie10-viewport-bug-workaround.js') }}"></script>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 {% block javascripts %}{% endblock %}
 

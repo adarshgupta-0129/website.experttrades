@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block body %}
-
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
 <section class="contact_banner">
 	<div class="container">
 		<div class="banner_content_top">
@@ -106,10 +108,26 @@
 									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description'} }) }}
 						    </div>
 						  </div>
+							<br>
+							<div class="row">
+								<div class="col-md-2 col-md-offset-5 text-center">
+										<div class="g-recaptcha" data-sitekey="6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn"></div>
+								</div>
+							</div>
+							<br>
+							{% if error %}
+							<div class="row">
+								  <div class="col-md-10 col-md-offset-2">
+										<div class="alert alert-danger text-center">{{ error }}</div>
+								</div>
+							</div>
+							<br>
+							{% endif %}
 						  <button type="submit" class="btn btn-default" style="background-color:{{ website.mainColor }}">POST</button>
 
 					</div>
 				</div>
+
 				</form>
 				{% endif %}
 			</div>
@@ -140,7 +158,7 @@
 				<div class="cbbbox">
 					<div class="addr_icon"><img src="{{ asset('bundles/app/images/contact/cnt3.png') }}" alt="" /></div>
 					<div class="addrs_info phpinfo">
-						<p>{{ contact.phone }}</p>
+						<p>{{ contact.phone |replace({',': '<br>'}) | raw }}</p>
 					</div>
 				</div>
 			</div>
@@ -170,6 +188,7 @@
 		</div>
 	</div>
 </section>
+{% endif %}
 {% endblock %}
 
 

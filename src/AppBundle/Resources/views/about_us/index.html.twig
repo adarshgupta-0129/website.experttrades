@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block body %}
-
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
 <section class="innerpage_banner">
 	<div class="container">
 		<div class="banner_content_top">
@@ -23,7 +25,7 @@
 			<div class="col-sm-12">
 				<div class="about_head">
 					<h2>{{ aboutUs.aboutUsTitle }}</h2>
-					<p>{{ aboutUs.aboutUsText }}</p>
+					<p>{{ aboutUs.aboutUsText | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -116,7 +118,7 @@
 			<div class="col-sm-12">
 				<div class="about_head">
 					<h2>{{ aboutUs.teamTitle }}</h2>
-					<p>{{ aboutUs.teamsubtitle }}</p>
+					<p>{{ aboutUs.teamsubtitle | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -170,4 +172,5 @@
 		</div>
 	</div>
 </section>
+{% endif %}
 {% endblock %}

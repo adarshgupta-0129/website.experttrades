@@ -85,6 +85,20 @@ class Homepage{
     private $contact_us_subtitle;
 
     /**
+     * @var string $find_me_on_title
+     *
+     * @ORM\Column(name="find_me_on_title", type="text", length=2555, nullable=true)
+     */
+    private $find_me_on_title;
+
+    /**
+     * @var string $find_me_on_subtitle
+     *
+     * @ORM\Column(name="find_me_on_subtitle", type="text", length=2555, nullable=true)
+     */
+    private $find_me_on_subtitle;
+
+    /**
      * @var string $meta_title
      *
      * @ORM\Column(name="meta_title", type="text", length=2555, nullable=true)
@@ -281,6 +295,46 @@ class Homepage{
     public function getContactUsSubtitle()
     {
         return $this->contact_us_subtitle;
+    }
+
+    /**
+     * Set find_me_on_title
+     *
+     * @param string $find_me_on_title
+     */
+    public function setFindMeOnTitle($find_me_on_title)
+    {
+        $this->find_me_on_title = $find_me_on_title;
+    }
+
+    /**
+     * Get find_me_on_title
+     *
+     * @return string
+     */
+    public function getFindMeOnTitle()
+    {
+        return $this->find_me_on_title;
+    }
+
+    /**
+     * Set find_me_on_subtitle
+     *
+     * @param string $find_me_on_subtitle
+     */
+    public function setFindMeOnSubtitle($find_me_on_subtitle)
+    {
+        $this->find_me_on_subtitle = $find_me_on_subtitle;
+    }
+
+    /**
+     * Get find_me_on_subtitle
+     *
+     * @return string
+     */
+    public function getFindMeOnSubtitle()
+    {
+        return $this->find_me_on_subtitle;
     }
 
     /**

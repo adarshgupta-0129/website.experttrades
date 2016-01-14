@@ -30,6 +30,13 @@ class Script{
     */
     private $value;
 
+    /**
+    * @var string $name
+    *
+    * @ORM\Column(name="name", type="text", length=2555, nullable=true)
+    */
+    private $name;
+
     public function __construct(){
 
     }
@@ -62,5 +69,25 @@ class Script{
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

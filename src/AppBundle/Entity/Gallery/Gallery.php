@@ -52,7 +52,6 @@ class Gallery{
     private $meta_description;
 
     public function __construct(){
-
     }
 
     /**

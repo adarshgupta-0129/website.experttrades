@@ -52,6 +52,8 @@ class HomepageController extends SecurityController
           'gallery_subtitle' => $homepage->getGallerySubtitle(),
           'contact_us_title' => $homepage->getContactUsTitle(),
           'contact_us_subtitle' => $homepage->getContactUsSubtitle(),
+          'find_me_on_title' => $homepage->getFindMeOnTitle(),
+          'find_me_on_subtitle' => $homepage->getFindMeOnSubtitle(),
           'meta_title' => $homepage->getMetaTitle(),
           'meta_description' => $homepage->getMetaDescription()
         ]));
@@ -102,6 +104,12 @@ class HomepageController extends SecurityController
              }
              if(isset($params['contact_us_subtitle'])){
                  $homepage->setContactUsSubtitle($params['contact_us_subtitle']);
+             }
+             if(isset($params['find_me_on_title'])){
+                 $homepage->setFindMeOnTitle($params['find_me_on_title']);
+             }
+             if(isset($params['find_me_on_subtitle'])){
+                 $homepage->setFindMeOnSubtitle($params['find_me_on_subtitle']);
              }
 
              if(isset($params['meta_title'])){

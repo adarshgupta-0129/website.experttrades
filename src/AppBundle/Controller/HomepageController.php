@@ -24,6 +24,7 @@ class HomepageController extends MainController
         $reviews =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([],['created' => 'DESC'], 3, 0);
         $services =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['id' => 'DESC'], 3, 0);
         $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 8, 0);
+        $findMeOns =  $em->getRepository('AppBundle\Entity\Homepage\FindMeOn\Item\Item')->findAll();
         $footerImages = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
 
@@ -72,6 +73,7 @@ class HomepageController extends MainController
           'reviews' => $reviews,
           'services' => $services,
           'images' => $images,
+          'findMeOns' => $findMeOns,
           'footer_images' => $footerImages,
           'contact_form' => $contactForm->createView(),
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),

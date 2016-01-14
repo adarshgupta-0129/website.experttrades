@@ -165,12 +165,19 @@ class Website{
     */
     public $light_color;
 
+    /**
+    * @ORM\Column(type="boolean")
+    */
+    public $disabled;
+
     public function __construct(){
+
         $this->show_logo = false;
         $this->facebook_link_enabled = false;
         $this->twitter_link_enabled = false;
         $this->youtube_link_enabled = false;
         $this->google_link_enabled = false;
+        $this->disabled = false;
     }
     /**
      * Get path
@@ -624,6 +631,26 @@ class Website{
     public function getShowLogo()
     {
         return $this->show_logo;
+    }
+
+    /**
+     * Set disabled
+     *
+     * @param string $disabled
+     */
+    public function setDisabled($disabled)
+    {
+        $this->disabled = $disabled;
+    }
+
+    /**
+     * Get show_logo
+     *
+     * @return string
+     */
+    public function getDisabled()
+    {
+        return $this->disabled;
     }
 
     public function logoUpload()
