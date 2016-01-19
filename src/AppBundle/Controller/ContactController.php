@@ -48,6 +48,11 @@ class ContactController extends MainController
             ])
             ->getForm();
 
+        $config = ['site_key' => '6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn', 'site_secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl'];
+        $recaptchaToken = new \ReCaptchaSecureToken\ReCaptchaToken($config);
+        $sessionId = uniqid('recaptcha');
+        $secureToken = $recaptchaToken->secureToken($sessionId);
+
         $form->handleRequest($request);
         if($this->getRequest()->isMethod('POST')){
 
@@ -128,6 +133,7 @@ class ContactController extends MainController
         return $this->render('AppBundle:contact:index.html.twig',
         array(
           'error' => $error,
+          'secureToken' => $secureToken,
           'website' => $website,
           'contact' => $contact,
           'footer_images' => $footerImages,
