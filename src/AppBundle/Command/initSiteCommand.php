@@ -22,6 +22,10 @@ use AppBundle\Entity\Review\Item\Item as ReviewItem;
 use AppBundle\Entity\Gallery\Gallery;
 use AppBundle\Entity\Gallery\Item\Item as GalleryItem;
 
+use AppBundle\Entity\Blog\Blog;
+use AppBundle\Entity\Blog\Post\Post;
+use AppBundle\Entity\Blog\Post\Item\Item as PostItem;
+
 use AppBundle\Entity\Contact\Contact;
 
 use AppBundle\Entity\Website;
@@ -231,6 +235,20 @@ class initSiteCommand extends ContainerAwareCommand
 
           echo "\n Contact Created \n";
 
+        }
+        
+
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
+        
+        if(!is_object($blog)){
+        
+        	$blog = new Blog();
+        	$blog->setHeaderText('Recent news by ourselfs');
+        	$blog->setHeaderTitle('BLOG');
+        	$em->persist($blog);
+        	$em->flush();
+        	echo "\n Blog Created \n";
+        
         }
 
         echo "\n Site Created \n";
