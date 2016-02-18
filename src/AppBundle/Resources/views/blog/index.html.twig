@@ -1,0 +1,181 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block header %}
+	<title>{{ blog.metaTitle }}</title>
+	<meta name="description" content="{{ blog.metaDescription }}">
+{% endblock %}
+
+{% block body %}
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
+<section class="innerpage_banner blog_banner">
+	<div class="container">
+		<div class="banner_content_top">
+			<p>{{ blog.headerText }}</p>
+		</div>
+		<div class="banner_content_bottom">
+			<h2>{{ blog.headerTitle }}</h2>
+		</div>
+	</div>
+</section>
+<section class="subscribe">
+		<div class="container subscribe_box">
+				<div class="row">
+				  <div class="col-md-4 col-md-offset-4">
+					<form action="{{ path('blog') }}" method="GET">
+						<input type="text" id="form_search" name="search"  placeholder="" value="{{search}}">
+						<input type="submit" value="Search" />
+					</form>
+					</div>
+				</div>
+		</div>
+</section>
+
+<section class="service_page_panel">
+	<div class="container">
+	
+
+				
+		<div class="servicepage_box clearfix" >
+				<div class="row">
+					{% for post in posts.data %}
+						<article id="post-{{ post.id }}" class="post col-md-4 col-sd-12">
+	    				{% if post.featuredImage is defined   %}
+	    					<div class="post-thumb post-featured  text-center">
+	    					<a href="{{ path('post', { 'slug': post.slug  } ) }}" title="{{post.title}}">
+	    						<img src="{{ asset(post.featuredImage.url) }}" alt="post.featuredImage.title" class=""  ></a>
+	    					</div>
+	    				
+	    				{% endif  %}
+	    					<section class="entry-body text-center">
+						        <h3 class="entry-title"><a href="{{ path('post', { 'slug': post.slug  } ) }}" rel="bookmark">{{post.title}}</a></h3>
+	    				{% if post.excerpt is defined   %}
+						        <div class="entry-content">
+						            <p>{{post.excerpt | raw }}</p>  
+						        </div>
+	    				{% endif  %}
+						        <div class="entry-meta">
+						            <span class="entry-date"><time class="entry-date" datetime="{{ post.published|date("Y-m-d H:i:s") }}">{{ post.published|date("F d, 	Y") }}</time></span>  
+						        </div>
+						        <div class="readmore_button">
+		                			<a href="{{ path('post', { 'slug': post.slug  } ) }}" title="{{post.title}}" rel="bookmark">Continue Reading</a>
+		           				</div>
+		           			</section>
+		           			<div class="clearfix"></div>
+		           	  </article>
+				{% if loop.index is divisible by(3) %}
+		           	</div>
+					<div class="row">
+    			{% endif  %}
+						
+					{% endfor %}
+			</div>
+		</div>
+		
+	   {% if posts.total == 0%}
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<h1> No Post found with "{{search}}"!</h1>
+				        <div class="readmore_button">
+                			<a href="{{ path('blog') }}" >Back to blog</a>
+           				</div>
+			</div>
+		</div>
+       {% endif  %}
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				{% if posts.total != 0%}
+				<div>
+					<ul class="pagination pagination-dark pagination-m ">
+
+								<li {% if page == 1 %} class="disabled" {% endif %}>
+									<a {% if page != 1 %} href="{{ path('blog', { 'page': 1 } ) }}" {% endif %}>&laquo;</a>
+								</li>
+								{% if posts.last_page < 8 %}
+
+										{% for i in 1..posts.last_page %}
+												<li {%if i == page %} class="active" {% endif %}>
+													<a href="{{ path('blog', { 'page': i } ) }}">{{ i }}</a>
+												</li>
+										{% endfor %}
+
+								{% else %}
+										 <!-- Page 1 -->
+										 <li {%if 1 == page %} class="active" {% endif %}>
+												<a href="{{ path('blog', { 'page': 1 } ) }}">1</a>
+										 </li>
+										 <!-- Page - 1 -->
+										 {% if posts.last_page >= 2 %}
+														{% set pageMinusOne = page -1 %}
+
+														{% if page > 3 %}
+														<li><a href="{{ path('blog', { 'page': pageMinusOne }) }}">..</a></li>
+														{% endif %}
+
+														{% if pageMinusOne >= 2 %}
+														<li><a href="{{ path('blog', { 'page': pageMinusOne }) }}">{{ pageMinusOne }}</a></li>
+														{% endif %}
+
+														{% if page != 1 and page != posts.last_page %}
+														<li class="active" >
+															<a href="{{ path('blog', { 'page': page }) }}">{{ page }}</a>
+														</li>
+														{% endif %}
+
+														{% set pagePlusOne = page +1 %}
+														{% if pagePlusOne < posts.last_page %}
+														<li><a href="{{ path('blog', { 'page': pagePlusOne }) }}">{{ pagePlusOne }}</a></li>
+														{% endif %}
+
+														{% set totalMinusTree = posts.last_page -3 %}
+														{% if page < totalMinusTree %}
+														<li><a href="{{ path('blog', { 'page': pagePlusOne }) }}">..</a></li>
+														{% endif %}
+										{% endif %}
+										<!-- Page 1 -->
+										<li {% if posts.last_page == page %} class="active" {% endif %}>
+											<a href="{{ path('blog', { 'page': posts.last_page }) }}">{{ posts.last_page }}</a>
+										</li>
+
+								{% endif %}
+
+								<li {% if page == posts.last_page %} class="disabled" {% endif %}>
+									<a {% if page != posts.last_page %} href="{{ path('blog', { 'page': posts.last_page } ) }}" {% endif %}>&raquo;</a>
+							 </li>
+				</ul>
+			</div>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+<section class="subscribe susin">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="subscribe_left">
+					<h2>{{ website.subscribeTitle }}</h2>
+					<p>{{ website.subscribeSubtitle }}</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="subscribe_box">
+					<form action="{{ path('subscribe') }}" method="POST">
+					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
+						<input type="submit" value="GO" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+</script>
+{% endblock %}

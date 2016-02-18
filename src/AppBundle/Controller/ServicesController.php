@@ -17,6 +17,7 @@ class ServicesController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
         $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getForDisplay();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
@@ -25,6 +26,7 @@ class ServicesController extends MainController
         return $this->render('AppBundle:services:index.html.twig',
         array(
           'website' => $website,
+           'hasBlog' => $blog->getActive(),
           'service' => $service,
           'items' => $items,
           'footer_images' => $footerImages,

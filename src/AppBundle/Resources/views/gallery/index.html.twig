@@ -50,7 +50,7 @@
 					<ul class="pagination pagination-dark pagination-m">
 
 								<li {% if page == 1 %} class="disabled" {% endif %}>
-									<a {% if page != 1 %} href="{{ path('gallery', { 'page': items.last_page } ) }}" {% endif %}>&laquo;</a>
+									<a {% if page != 1 %} href="{{ path('gallery', { 'page': 1 } ) }}" {% endif %}>&laquo;</a>
 								</li>
 								{% if items.last_page < 8 %}
 

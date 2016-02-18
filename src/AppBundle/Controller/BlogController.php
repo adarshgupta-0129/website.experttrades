@@ -11,16 +11,30 @@ use AppBundle\Entity\Subscriber\Subscriber;
 class BlogController extends MainController
 {
     /**
-     * @Route("/blog/{page}", name="blog", requirements={"page" = "\d+"}, defaults={"page" = 1})
+     * @Route("/blog/posts/{page}", name="blog", requirements={"page" = "\d+"}, defaults={"page" = 1})
      */
     public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $search = "";
+        
         
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $perPage = 6;
         $offset = ($page - 1) * $perPage;
-        $posts = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->getPaginated($perPage, $offset);
+        if( !empty($request->get('search'))){
+        	$search = $request->get('search');
+        	$posts = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->getPaginated($perPage, $offset, array('search' => $search ));
+        }
+        else
+        {
+        	$posts = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->getPaginated($perPage, $offset, array('search' => $search));
+        }
+        
+        if( $page > $posts['last_page'] ){
+        	return $this->redirect($this->generateUrl('blog'));
+        }
+        
 
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
@@ -28,8 +42,10 @@ class BlogController extends MainController
 
         return $this->render('AppBundle:blog:index.html.twig',
          array(
+         	'search' => $search,
            'page' => $page,
            'website' => $website,
+           'hasBlog' => $blog->getActive(),
            'blog' => $blog,
            'posts' => $posts,
            'footer_images' => $footerImages,

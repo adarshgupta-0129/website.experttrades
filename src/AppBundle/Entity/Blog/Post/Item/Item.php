@@ -92,6 +92,7 @@ class Item{
     public function __construct(\AppBundle\Entity\Blog\Post\Post $post)
     {
     	$this->post = $post;
+    	$this->featured = false;
 
     }
 

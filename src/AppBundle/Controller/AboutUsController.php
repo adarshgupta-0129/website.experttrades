@@ -19,6 +19,7 @@ class AboutUsController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $teamMembers =  $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')->findAll();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
@@ -28,6 +29,7 @@ class AboutUsController extends MainController
         return $this->render('AppBundle:about_us:index.html.twig',
         array(
          'website' => $website,
+          'hasBlog' => $blog->getActive(),
          'aboutUs' => $aboutUs,
          'teamMembers' => $teamMembers,
          'footer_images' => $footerImages,

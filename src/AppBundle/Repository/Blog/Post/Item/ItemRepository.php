@@ -11,4 +11,16 @@ use AppBundle\Repository\Repository;
  * repository methods below.
  */
 class ItemRepository extends Repository{
+	
+	public function clearFeaturedItems($post_id){
+	
+		$data = $this->getEntityManager()->createQueryBuilder();
+			$q = $data->update( 'AppBundle\Entity\Blog\Post\Item\Item' ,'i')
+			->set('i.featured', '?1')
+			->where('i.post = :post_id')
+			->setParameter('1', false)
+			->setParameter('post_id', $post_id)
+			->getQuery();
+			$p = $q->execute();
+	}
 }

@@ -12,13 +12,18 @@ use AppBundle\Repository\Repository;
  */
 class PostRepository extends Repository{
 	
-	public function getPaginated($limit, $offset){
+	public function getPaginated($limit, $offset, $filters = []){
 	
 		$data = $this->getEntityManager()->createQueryBuilder();
 		$data->from('AppBundle\Entity\Blog\Post\Post', 'p');
 		$data->where('p.publish IS NOT NULL');
 		$data->andWhere('p.publish <= :date_now');
-		$data->setParameters(array('date_now' => (new \DateTime()) ));
+		$data->setParameter('date_now' , (new \DateTime()) );
+		
+		if(isset($filters['search']) && $filters['search'] != "" ){
+			$data->andWhere('p.search LIKE  :search');
+			$data->setParameter('search' , '%'.$filters['search'].'%');
+		}
 		
 		$count = clone $data;
 		$count->select('count(p.id)');
@@ -38,11 +43,11 @@ class PostRepository extends Repository{
 			$result_post['slug'] = $post->getSlug();
 			$result_post['excerpt'] = $post->getExcerpt();
 			$result_post['body'] = $post->getBody();
-			$result_post['publish'] = (is_null($post->getPublish()))?null:$post->getPublish()->getTimestamp();
+			$result_post['published'] = (is_null($post->getPublish()))?null:$post->getPublish()->getTimestamp();
 			$result_post['meta_title'] = $post->getMetaTitle();
 			$result_post['meta_description'] = $post->getMetaDescription();
 			if( ($item = $post->getFeaturedItem()) !== FALSE)
-				$result_post['pathFeaturedItem'] = $item->getPath();
+				$result_post['featuredImage'] = array( 'url' => $item->getWebPath(), 'title' => $item->getTitle()  );
 			$final[] = $result_post;
 		}
 	
@@ -50,10 +55,25 @@ class PostRepository extends Repository{
 	
 	}
 	
-	public function getAllPaginated($limit, $offset){
+	public function getAllPaginated($limit, $offset, $filters = []){
 	
 		$data = $this->getEntityManager()->createQueryBuilder();
 		$data->from('AppBundle\Entity\Blog\Post\Post', 'p');
+
+		if(isset($filters['search']) && $filters['search'] != "" ){
+			$data->where('p.search <= :search');
+			$data->setParameter('search' , $filters['search'] );
+		}
+		if(isset($filters['search_by']) && $filters['search_by'] != "" ){
+			switch ($filters['search_by']){
+				case 'published':
+					$data->andWhere('p.publish IS NOT NULL');
+					break;
+				case 'unpublished':
+					$data->andWhere('p.publish IS NULL');
+					break;
+			}
+		}
 	
 		$count = clone $data;
 		$count->select('count(p.id)');
@@ -73,11 +93,11 @@ class PostRepository extends Repository{
 			$result_post['slug'] = $post->getSlug();
 			$result_post['excerpt'] = $post->getExcerpt();
 			$result_post['body'] = $post->getBody();
-			$result_post['publish'] = (is_null($post->getPublish()))?null:$post->getPublish()->getTimestamp();
+			$result_post['published'] = (is_null($post->getPublish()))?null:$post->getPublish()->getTimestamp();
 			$result_post['meta_title'] = $post->getMetaTitle();
 			$result_post['meta_description'] = $post->getMetaDescription();
 			if( ($item = $post->getFeaturedItem()) !== FALSE)
-				$result_post['pathFeaturedItem'] = $item->getPath();
+				$result_post['featuredImage'] = array( 'url' => $item->getWebPath(), 'title' => $item->getTitle()  );
 			$final[] = $result_post;
 		}
 	

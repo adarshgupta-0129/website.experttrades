@@ -245,6 +245,7 @@ class initSiteCommand extends ContainerAwareCommand
         	$blog = new Blog();
         	$blog->setHeaderText('Recent news by ourselfs');
         	$blog->setHeaderTitle('BLOG');
+        	$blog->setActive(false);
         	$em->persist($blog);
         	$em->flush();
         	echo "\n Blog Created \n";

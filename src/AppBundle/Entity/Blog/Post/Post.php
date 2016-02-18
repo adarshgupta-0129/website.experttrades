@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping\OrderBy;
+use AppBundle\Entity\Blog\Post\Item\Item;
 
 
 
@@ -73,6 +74,14 @@ class Post{
     * @ORM\Column(name="body", type="text", length=25555, nullable=true)
     */
     private $body;
+    
+
+    /**
+     * @var search $body
+     *
+     * @ORM\Column(name="search", type="text", nullable=true)
+     */
+    private $search;
 
     /**
      * @var string $meta_title
@@ -145,9 +154,13 @@ class Post{
      *
      * @return ArrayCollection
      */
-    public function getItems()
+    public function getItems( $type = Item::ITEM_IMAGE)
     {
-    	return $this->items;
+
+    	$criteria = Criteria::create();
+    	$criteria->where(Criteria::expr()->eq('type', $type));
+    	$arr = $this->items->matching($criteria);
+    	return $arr;
     }
     
     /**
@@ -171,6 +184,8 @@ class Post{
   public function setTitle($title)
   {
       $this->title = $title;
+		$this->regenerateSearch();
+		return $this;
   }
 
   /**
@@ -187,6 +202,7 @@ class Post{
 	}
 	public function setSlug($slug) {
 		$this->slug = $slug;
+		$this->regenerateSearch();
 		return $this;
 	}
 	public function getExcerpt() {
@@ -194,6 +210,7 @@ class Post{
 	}
 	public function setExcerpt($excerpt) {
 		$this->excerpt = $excerpt;
+		$this->regenerateSearch();
 		return $this;
 	}
 	public function getBody() {
@@ -201,6 +218,7 @@ class Post{
 	}
 	public function setBody($body) {
 		$this->body = $body;
+		$this->regenerateSearch();
 		return $this;
 	}
 	public function getMetaTitle() {
@@ -208,6 +226,7 @@ class Post{
 	}
 	public function setMetaTitle($meta_title) {
 		$this->meta_title = $meta_title;
+		$this->regenerateSearch();
 		return $this;
 	}
 	public function getMetaDescription() {
@@ -215,6 +234,7 @@ class Post{
 	}
 	public function setMetaDescription($meta_description) {
 		$this->meta_description = $meta_description;
+		$this->regenerateSearch();
 		return $this;
 	}
 	public function getPublish() {
@@ -224,6 +244,21 @@ class Post{
 		$this->publish = $publish;
 		return $this;
 	}
+	public function getSearch() {
+		return $this->search;
+	}
+	public function regenerateSearch() {
+		$search = "";
+		$search .= $this->title." ";
+		$search .= $this->slug." ";
+		$search .= $this->meta_title." ";
+		$search .= $this->meta_description." ";
+		$search .= strip_tags( $this->excerpt ) ." ";
+		$search .= strip_tags( $this->body ) ." ";
+		$this->search = $search;
+		return $this;
+	}
+	
    /**
     * Get created
     *
@@ -233,5 +268,6 @@ class Post{
    {
        return $this->created;
    }
+	
 	
 }

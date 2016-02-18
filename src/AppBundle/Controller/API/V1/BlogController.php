@@ -82,7 +82,7 @@ class BlogController extends SecurityController
 
              $response = new Response(json_encode(
              [
-               'id' => 200,
+               'code' => 200,
                'message' => 'OK'
              ]));
 
@@ -115,9 +115,17 @@ class BlogController extends SecurityController
 
       $offset = $request->query->get('offset');
       $offset = (is_null($offset)) ? 0 : $offset;
+      $filters = [];
+      if( $request->query->get('search') != "" ){
+      	$filters['search'] = $request->query->get('search');
+      }
+
+      if( $request->query->get('search_by') != "" ){
+      	$filters['search_by'] = $request->query->get('search_by');
+      }
 
       $posts =  $em->getRepository('AppBundle\Entity\Blog\Post\Post')
-      ->getAllPaginated($limit, $offset);
+      ->getAllPaginated($limit, $offset,$filters);
 
       $response = new Response(json_encode($posts));
       $response->headers->set('Content-Type', 'application/json');
@@ -142,7 +150,7 @@ class BlogController extends SecurityController
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
             $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
       }
-      $items =  [];
+      /*$items =  [];
       foreach( $post->getItems() as $item){
       	$arrItem = [
       		'id' => $item->getId(),
@@ -151,6 +159,16 @@ class BlogController extends SecurityController
       		'item_url' => (is_null($item->getPath())) ? null : $path.$item->getPath()
       	];
       	$items[] = $arrItem;
+      }*/
+      $objItem = $post->getFeaturedItem();
+      $item = null;
+      if(is_object($objItem)){
+	      $item = [
+	      		'id' => $objItem->getId(),
+	      		'featured' => $objItem->getFeatured(),
+	      		'title' => $objItem->getTitle(),
+	      		'url' => (is_null($objItem->getWebPath())) ? null : $path.$objItem->getWebPath()
+	      	];
       }
 
       $response = new Response(json_encode([
@@ -162,7 +180,7 @@ class BlogController extends SecurityController
         'publish' => (is_null($post->getPublish()))?null:$post->getPublish()->getTimestamp(),
         'meta_title' => $post->getMetaTitle(),
         'meta_description' => $post->getMetaDescription(),
-      	'items' => $items
+      	'featured_image' => $item
       ]));
       $response->headers->set('Content-Type', 'application/json');
 
@@ -375,15 +393,18 @@ class BlogController extends SecurityController
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
         $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
       }
-      foreach( $post->getItems() as $item ){
-      	$items[] = ['id' => $item->getId(),
-            'title' => $item->getTitle(),
-            'url' => $path.$item->getWebPath()];
+      foreach( $post->getItems( $type ) as $item ){
+      	$items[] = [
+      			'id' => $item->getId(),
+            	'title' => $item->getTitle(),
+            	'url' => $path.$item->getWebPath(),
+      			'featured' => $item->getFeatured()
+      	];
       	
       	
       }
 		
-      $response = new Response(json_encode($posts));
+      $response = new Response(json_encode(array('items'=>$items)));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
@@ -423,17 +444,19 @@ class BlogController extends SecurityController
           $params = array();
           $post =  $em->getRepository('AppBundle\Entity\Blog\Post\Post')->find($id);
           $item = new Item($post);
-          $item->setFile($file);
-          $item->upload();
           if(isset($_REQUEST['title'])){
           	$item->setTitle($_REQUEST['title']);
           }
           if(isset($_REQUEST['featured'])){
-          	$item->setFeatured($_REQUEST['featured']);
+          	$item->setFeatured(boolval($_REQUEST['featured']));
+          	//remove all the  featured items for this post
+          	$em->getRepository('AppBundle\Entity\Blog\Post\Item\Item')->clearFeaturedItems( $id );
           }
           if($type != ""){
           	$item->setType($type);
           }
+          $item->setFile($file);
+          $item->upload();
           
           $em->persist($item);
           $em->flush();
@@ -446,7 +469,8 @@ class BlogController extends SecurityController
           [
             'id' => $item->getId(),
             'title' => $item->getTitle(),
-            'url' => $path.$item->getWebPath()
+            'url' => $path.$item->getWebPath(),
+          	'featured' => $item->getFeatured()
           ]));
 
           $response->headers->set('Content-Type', 'application/json');
