@@ -146,7 +146,7 @@ class BlogController extends SecurityController
       $post =  $em->getRepository('AppBundle\Entity\Blog\Post\Post')->find($id);
 
 
-      $path = 'http://'.$request->server->get('HTTP_HOST');
+      $path = 'http://'.$request->server->get('HTTP_HOST').'/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
             $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
       }
@@ -448,7 +448,7 @@ class BlogController extends SecurityController
           	$item->setTitle($_REQUEST['title']);
           }
           if(isset($_REQUEST['featured'])){
-          	$item->setFeatured(boolval($_REQUEST['featured']));
+          	$item->setFeatured(filter_var($_REQUEST['featured'], FILTER_VALIDATE_BOOLEAN));
           	//remove all the  featured items for this post
           	$em->getRepository('AppBundle\Entity\Blog\Post\Item\Item')->clearFeaturedItems( $id );
           }
