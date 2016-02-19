@@ -17,24 +17,24 @@ class BlogController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $search = "";
-        
-        
+
+
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $perPage = 6;
         $offset = ($page - 1) * $perPage;
-        if( !empty($request->get('search'))){
-        	$search = $request->get('search');
+        if( !is_null($request->query->get('search'))){
+        	$search = $request->query->get('search');
         	$posts = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->getPaginated($perPage, $offset, array('search' => $search ));
         }
         else
         {
         	$posts = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->getPaginated($perPage, $offset, array('search' => $search));
         }
-        
+
         if( $page > $posts['last_page'] ){
         	return $this->redirect($this->generateUrl('blog'));
         }
-        
+
 
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
