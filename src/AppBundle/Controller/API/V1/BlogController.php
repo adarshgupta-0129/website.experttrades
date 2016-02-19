@@ -144,7 +144,7 @@ class BlogController extends SecurityController
 
       $em = $this->getDoctrine()->getManager();
       $post =  $em->getRepository('AppBundle\Entity\Blog\Post\Post')->find($id);
-      
+
 
       $path = 'http://'.$request->server->get('HTTP_HOST');
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
@@ -194,28 +194,28 @@ class BlogController extends SecurityController
      */
     public function postPostAction(Request $request)
     {
-    	
+
         $this->checkAccess($request);
 
         $em = $this->getDoctrine()->getManager();
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);	
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $post = new Post($blog);
-        
+
         $params = array();
         $content = $this->get("request")->getContent();
         try{
         if (!empty($content))
         {
         	$params = json_decode($content, true); // 2nd param to get as array
-        	
-        	
+
+
         	if(isset($params['title'])){
         		$post->setTitle($params['title']);
         	}
         	if(isset($params['slug'])){
         		if( $em->getRepository('AppBundle\Entity\Blog\Post\Post')->checkSlug( $params['slug'] ) <= 0 )
         			$post->setSlug($params['slug']);
-        		else 
+        		else
         			throw new \Exception('This slug already exist.');
         	}
         	if(isset($params['excerpt'])){
@@ -233,7 +233,7 @@ class BlogController extends SecurityController
              if(isset($params['meta_description'])){
                $post->setMetaDescription($params['meta_description']);
              }
-        	
+
 	        $em->persist($post);
 	        $em->flush();
 
@@ -287,7 +287,7 @@ class BlogController extends SecurityController
         	if(isset($params['slug'])){
         		if( $em->getRepository('AppBundle\Entity\Blog\Post\Post')->checkSlug( $params['slug'], $id ) <= 0 )
         			$post->setSlug($params['slug']);
-        		else 
+        		else
         			throw new \Exception('This slug already exist.');
         	}
         	if(isset($params['excerpt'])){
@@ -307,7 +307,7 @@ class BlogController extends SecurityController
              if(isset($params['meta_description'])){
                $post->setMetaDescription($params['meta_description']);
              }
-        	
+
 	        $em->persist($post);
 	        $em->flush();
             $response = new Response(json_encode(
@@ -332,13 +332,13 @@ class BlogController extends SecurityController
         					'message' => $e->getMessage()
         			]));
         }
-        
+
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
     }
-    
+
     /**
      * @Route("/api/v1/blog/posts/{id}", name="delete_blog_post")
      * @Method({"DELETE"})
@@ -346,37 +346,37 @@ class BlogController extends SecurityController
     public function deletePostAction(Request $request, $id)
     {
     	$this->checkAccess($request);
-    
+
     	$em = $this->getDoctrine()->getManager();
     	$post =  $em->getRepository('AppBundle\Entity\Blog\Post\Post')->find($id);
-    
+
     	if(is_object($post)){
     		foreach( $post->getItems() as $item ){
     			$this->deletePostFileAction($request, $post->getId(), $item->getId());
     		}
     		$em->remove($post);
     		$em->flush();
-    
+
     		$response = new Response(json_encode(
     				[
     						'code' => 200,
     						'message' => 'OK'
     				]));
-    
+
     	}else{
-    
+
     		$response = new Response(json_encode(
     				[
     						'code' => 1,
     						'message' => 'Invalid Form'
     				]));
     	}
-    
+
     	$response->headers->set('Content-Type', 'application/json');
     	return $response;
-    
+
     }
-    
+
     /**
      * @Route("/api/v1/blog/posts/{id}/file/{type}", name="get_blog_post_file_img")
      * @Method({"GET"})
@@ -400,19 +400,19 @@ class BlogController extends SecurityController
             	'url' => $path.$item->getWebPath(),
       			'featured' => $item->getFeatured()
       	];
-      	
-      	
+
+
       }
-		
+
       $response = new Response(json_encode(array('items'=>$items)));
       $response->headers->set('Content-Type', 'application/json');
 
       return $response;
-    
-    	
-    
+
+
+
     }
-    
+
 
     /**
      * @Route("/api/v1/blog/posts/{id}/file", name="post_blog_post_file")
@@ -421,7 +421,7 @@ class BlogController extends SecurityController
     public function postPostFileAction(Request $request, $id)
     {
         $this->checkAccess($request);
-        
+
 
         $em = $this->getDoctrine()->getManager();
         $file = $request->files->get('file');
@@ -457,10 +457,10 @@ class BlogController extends SecurityController
           }
           $item->setFile($file);
           $item->upload();
-          
+
           $em->persist($item);
           $em->flush();
-          
+
           $path = 'http://'.$request->server->get('HTTP_HOST').'/';
           if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
           	$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
