@@ -28,10 +28,16 @@ class HomepageController extends MainController
         $footerImages = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
 
+        $contactError = "";
+        $config = ['site_key' => '6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn', 'site_secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl'];
+        $recaptchaToken = new \ReCaptchaSecureToken\ReCaptchaToken($config);
+        $sessionId = uniqid('recaptcha');
+        $secureToken = $recaptchaToken->secureToken($sessionId);
+
         $message = new Message();
         $contactForm = $this->createFormBuilder($message)
             ->add('name', 'text')
-            ->add('email', 'text')
+            ->add('email', 'email')
             ->add('message', 'textarea')
             ->getForm();
 
@@ -40,27 +46,50 @@ class HomepageController extends MainController
 
             if ($contactForm->isValid()) {
 
-                $em->persist($message);
-                $em->flush();
+              //open connection
+                $ch = curl_init();
+                //set the url, number of POST vars, POST data
+                curl_setopt($ch,CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+                curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query([
+                  'secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl',
+                  'response' => $this->get('request')->request->get('g-recaptcha-response'),
+                  'remoteip' => $this->container->get('request')->getClientIp()
+                ]));
 
-                $data_string = json_encode([
-                  'name' => $message->getName(),
-                  'email' => $message->getEmail(),
-                  'message' => $message->getMessage()
-                ]);
+                //execute post
+                $result = json_decode(curl_exec($ch), true);
+                //close connection
+                curl_close($ch);
 
-                $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_notifications?website_access_token='.$website->getAccessToken());
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($data_string))
-                );
+                if(isset($result['success']) && $result['success']){
 
-                $result = json_decode(curl_exec($ch));
+                    $em->persist($message);
+                    $em->flush();
 
-                return $this->redirect($this->generateUrl('message_success'));
+                    $data_string = json_encode([
+                      'name' => $message->getName(),
+                      'email' => $message->getEmail(),
+                      'message' => $message->getMessage()
+                    ]);
+
+                    $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_notifications?website_access_token='.$website->getAccessToken());
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($data_string))
+                    );
+
+                    $result = json_decode(curl_exec($ch));
+
+                    return $this->redirect($this->generateUrl('message_success'));
+
+                }else{
+                    $contactError = 'Please click on the "I am not a Robot" checkbox';
+                }
             }
         }
 
@@ -75,6 +104,8 @@ class HomepageController extends MainController
           'images' => $images,
           'findMeOns' => $findMeOns,
           'footer_images' => $footerImages,
+          'contactError' => $contactError,
+          'secureToken' => $secureToken,
           'contact_form' => $contactForm->createView(),
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
