@@ -18,6 +18,7 @@ class HomepageController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
@@ -96,6 +97,7 @@ class HomepageController extends MainController
         return $this->render('AppBundle:homepage:index.html.twig',
         array(
           'website' => $website,
+           'hasBlog' => $blog->getActive(),
           'contact' => $contact,
           'homepage' => $homepage,
           'aboutUs' => $aboutUs,

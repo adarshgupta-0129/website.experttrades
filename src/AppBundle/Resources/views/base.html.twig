@@ -287,6 +287,248 @@
     .disabled_website_banner {width:100%; background: url({{ asset('bundles/app/images/errors/disabled.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
     .disabled_website_banner .banner_content_bottom {margin-top: 40px;}
 
+/*********************************************************************************************
+
+6. Archive Posts
+
+*********************************************************************************************/
+
+
+.full-width .content-area {
+    width: 100%;
+    float: none;
+}
+
+.section-title {
+    margin-bottom: 30px;
+    color:{{ website.mainColor }};
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Roboto Condensed", sans-serif;
+    letter-spacing: 1px;
+}
+
+.archive .section-title,
+.search .section-title {
+}
+
+
+ .post:before,
+ .post:after { content: " "; display: table; }
+ .post:after { clear: both; }
+
+ .post,
+ .type-page {
+    margin-bottom: 30px;
+}
+
+ .post {
+    vertical-align: top;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+ .post-thumb {
+    margin: 0 0 15px;
+}
+
+.post-thumb img {
+    max-width: 100%;
+    height: auto;
+}
+.post-thumb a  {
+text-decoration:none;
+}
+
+ .entry-body {
+    overflow: hidden;
+}
+
+/* On archive pages we show 3 posts per row */
+.archive  .post,
+.search  .post {
+    vertical-align: top;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+ .entry-title {
+    color:{{ website.mainColor }};
+    text-align: center;
+}
+
+
+
+.entry-title a { 
+    color:{{ website.mainColor }};
+}
+
+.entry-title {
+    margin: 0 0 15px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+
+ .post.sticky .entry-title {
+    font-size: 36px;
+}
+
+ .post.sticky .entry-meta {
+    font-size: 16px;
+}
+
+
+.entry-content:before,
+.entry-content:after { content: " "; display: table; }
+.entry-content:after { clear: both; }
+
+.entry-content p {
+    font-family: 'Lato', sans-serif;
+	color:#666666;
+    margin-bottom: 28px;
+    line-height: 1.8;
+    text-align: justify
+}
+
+
+
+.entry-content img {
+    max-width: 100%;
+    height: auto;
+    margin:20px;
+}
+
+.entry-meta {
+    margin-bottom: 15px;
+    color: #acacac;
+    font-size: 14px;
+    text-align: center;
+}
+
+.entry-meta span + span:before {
+    content: " ● ";
+    color: #eee;
+    margin: 0 5px;
+    font-style: normal;
+    opacity: .5;
+}
+
+.entry-meta a {
+    font-weight: 400;
+}
+
+.cat-links {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    display: block;
+    text-align: center;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.cat-links a {
+    color: #acacac;
+}
+
+.cat-links a:hover {
+    color: #0f7fae;
+}
+
+.more-link,
+.more_link {
+    display: table;
+    margin: 20px 0 0;
+}
+
+
+.readmore_button {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 30px;
+}
+
+.readmore_button a {
+    font-family: "Roboto Condensed", sans-serif;
+    display: inline-block;
+    color:{{ website.mainColor }};
+    padding: 10px 30px;
+    border: 1px solid #c7c9cf;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-transition-duration: 200ms;
+    -webkit-transition-duration: 200ms;
+    transition-duration: 200ms;
+}
+
+.readmore_button a:hover,
+.readmore_button a:active {
+    color: #000;
+    border-color: {{ website.mainColor }};
+}
+/*********************************************************************************************
+
+7.  Single posts
+
+*********************************************************************************************/
+
+.entry-header {
+    margin: 0 0 30px;
+}
+
+
+.single .post-thumb {
+    margin: 0 0 25px;
+}
+
+
+.page .site-main.full-width-page > article {
+    float: none;
+    max-width: 100%;
+    width: 100%;
+}
+
+
+.page h1.entry-title,
+.single h1.entry-title {
+    font-size: 44px;
+    text-align: center;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+.page .entry-info,
+.single .entry-info {
+    margin-bottom: 30px;
+}
+
+
+.page .entry-category + .entry-date,
+.single .entry-category + .entry-date {
+    display: inline-block
+}
+
+.single .entry-meta {
+    font-size: 16px;
+}
+
+
+
+
+
   /*====================responsive==================*/
 
   @media only screen and (min-width:1024px) and (max-width:1169px)
@@ -455,6 +697,12 @@
    	<li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
    	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
    	<li {% if app.request.attributes.get('_route') == 'gallery' %} class="select" {% endif %}><a href="{{ path('gallery') }}">Gallery</a></li>
+    {% if hasBlog == true %}
+    	<li 
+    		{% if app.request.attributes.get('_route') == 'blog'  %} class="select" {% endif %}
+    		{% if app.request.attributes.get('_route') == 'post'  %} class="select" {% endif %}
+    	><a href="{{ path('blog') }}">Blog</a></li>
+    {% endif %}
    	<li {% if app.request.attributes.get('_route') == 'contact' %} class="select" {% endif %}><a href="{{ path('contact') }}">Contact</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
@@ -476,6 +724,7 @@
 						<li><a href="{{ path('services') }}">Services</a></li>
 						<li><a href="{{ path('gallery') }}">Gallery</a></li>
 						<li><a href="{{ path('reviews') }}">Reviews</a></li>
+        				{% if hasBlog == true %}<li><a href="{{ path('blog') }}">Blog</a></li> {% endif %}
 						<li><a href="{{ path('contact') }}">Contact us</a></li>
 					</ul>
 				</div>

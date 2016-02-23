@@ -23,6 +23,7 @@ class ContactController extends MainController
         $error = "";
 
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
@@ -135,6 +136,7 @@ class ContactController extends MainController
           'error' => $error,
           'secureToken' => $secureToken,
           'website' => $website,
+           'hasBlog' => $blog->getActive(),
           'contact' => $contact,
           'footer_images' => $footerImages,
           'form' => $form->createView(),

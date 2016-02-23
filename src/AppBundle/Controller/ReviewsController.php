@@ -17,6 +17,7 @@ class ReviewsController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $perPage = 10;
         $offset = ($page - 1) * $perPage;
@@ -28,6 +29,7 @@ class ReviewsController extends MainController
         array(
           'page' => $page,
           'website' => $website,
+           'hasBlog' => $blog->getActive(),
           'review' => $review,
           'items' => $items,
           'footer_images' => $footerImages,

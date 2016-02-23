@@ -17,6 +17,7 @@ class GalleryController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
         $perPage = 9;
         $offset = ($page - 1) * $perPage;
@@ -28,6 +29,7 @@ class GalleryController extends MainController
          array(
            'page' => $page,
            'website' => $website,
+           'hasBlog' => $blog->getActive(),
            'gallery' => $gallery,
            'items' => $items,
            'footer_images' => $footerImages,
