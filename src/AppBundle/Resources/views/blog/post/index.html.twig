@@ -27,7 +27,7 @@
 	<div class="container">
 		<div class="servicepage_box clearfix " >
 				<div class="row">
-						<article id="post-{{ post.id }}" class="post col-sd-12">
+						<article id="post-{{ post.id }}" class="post col-sm-12">
 	    				{% if post.featuredImage is defined   %}
 	    					<div class="post-thumb post-featured  text-center">
 	    						<img src="{{ asset(post.featuredImage.url) }}" alt="post.featuredImage.title" class=""  >
@@ -36,21 +36,21 @@
 	    				<header class="entry-header">
 					        <h1 class="entry-title fn">{{post.title}}</h1>
 					        <div class="entry-meta">
-					            <span class="entry-date"><time class="entry-date" datetime="{{ post.publish|date("Y-m-d H:i:s") }}">{{ post.publish|date("F d, Y") }}</time> </span> 
+					            <span class="entry-date"><time class="entry-date" datetime="{{ post.publish|date("Y-m-d H:i:s") }}">{{ post.publish|date("F d, Y") }}</time> </span>
 					        </div>
-					
+
 					    </header>
 	    				{% if post.body is defined   %}
 						        <div class="entry-content">
-						            <p>{{post.body | raw }}</p>  
+						            <p>{{post.body | raw }}</p>
 						        </div>
 	    				{% endif  %}
 		           			<div class="clearfix"></div>
 		           	  </article>
 			</div>
 		</div>
-		
-	  
+
+
 	</div>
 </section>
 
@@ -65,7 +65,7 @@
 				</div>
 		</div>
 </section>
-						
+
 <section class="subscribe susin">
 	<div class="container">
 		<div class="row">
