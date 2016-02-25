@@ -397,7 +397,6 @@ class BlogController extends SecurityController
 
       $path = 'http://'.$request->server->get('HTTP_HOST').'/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-<<<<<<< HEAD
       	$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
       } 
       $return = $em->getRepository('AppBundle\Entity\Blog\Post\Item\Item')
@@ -411,23 +410,7 @@ class BlogController extends SecurityController
 	  {
 	      $response = new Response(json_encode(array('items'=>$return)));
 	  }		
-=======
-        $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
-      }
-      foreach( $post->getItems( $type ) as $item ){
-      	$items[] = [
-      			'id' => $item->getId(),
-            	'title' => $item->getTitle(),
-            	'url' => $path.$item->getWebPath(),
-      			'featured' => $item->getFeatured()
-      	];
 
-
-      }
-
-      $response = new Response(json_encode(array('items'=>$items)));
-      $response->headers->set('Content-Type', 'application/json');
->>>>>>> 33d51e87389ea49e8d8fc30bc41347e4e7d2f8d6
 
 	  $response->headers->set('Content-Type', 'application/json');
       return $response;
