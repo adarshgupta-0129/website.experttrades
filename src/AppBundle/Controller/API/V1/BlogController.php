@@ -384,29 +384,35 @@ class BlogController extends SecurityController
     public function getPostFileImagesAction(Request $request, $id, $type)
     {
     	$this->checkAccess($request);
-
+    	$limit = $request->query->get('limit');
+    	$limit = (is_null($limit) || !is_numeric($limit)) ? null : $limit;
+    	
+    	$offset = $request->query->get('offset');
+    	$offset = (is_null($offset) || !is_numeric($offset)) ? null : $offset;
+    	
       $em = $this->getDoctrine()->getManager();
+      $filters = array('id'=> $id, 'type'=>$type);
+      
+      
 
-      $post =  $em->getRepository('AppBundle\Entity\Blog\Post\Post')->find($id);
-      $items = [];
       $path = 'http://'.$request->server->get('HTTP_HOST').'/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-        $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
+      	$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
+      } 
+      $return = $em->getRepository('AppBundle\Entity\Blog\Post\Item\Item')
+      ->getPaginated($limit, $offset,$filters,$path);
+      
+      if( !is_null($limit)&& !is_null($offset))
+      {
+	      $response = new Response(json_encode($return));
       }
-      foreach( $post->getItems( $type ) as $item ){
-      	$items[] = [
-      			'id' => $item->getId(),
-            	'title' => $item->getTitle(),
-            	'url' => $path.$item->getWebPath(),
-      			'featured' => $item->getFeatured()
-      	];
+	  else 
+	  {
+	      $response = new Response(json_encode(array('items'=>$return)));
+	  }		
 
 
-      }
-
-      $response = new Response(json_encode(array('items'=>$items)));
-      $response->headers->set('Content-Type', 'application/json');
-
+	  $response->headers->set('Content-Type', 'application/json');
       return $response;
 
 

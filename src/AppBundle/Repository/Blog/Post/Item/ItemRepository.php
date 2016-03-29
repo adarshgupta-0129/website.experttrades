@@ -12,6 +12,45 @@ use AppBundle\Repository\Repository;
  */
 class ItemRepository extends Repository{
 	
+	public function getPaginated($limit, $offset, $filters = [], $path=""){
+		$data = $this->getEntityManager()->createQueryBuilder();
+		$data->from('AppBundle\Entity\Blog\Post\Item\Item', 'i');
+		$data->where('i.post = :id');
+		$data->setParameter('id' , $filters['id'] );
+		$data->andWhere('i.type = :type');
+		$data->setParameter('type' , $filters['type'] );
+	
+		
+	
+		$count = clone $data;
+		$count->select('count(i.id)');
+		$total = $count->getQuery()->getSingleScalarResult();
+	
+		$data->select('i');
+		if(!is_null($offset) && !is_null($limit)){
+			$data->setFirstResult($offset);
+			$data->setMaxResults($limit);
+		}
+		$result = $data->getQuery()->getResult();
+	
+		$final = [];
+		foreach($result as $item){
+			$result_post = [];
+			$result_post['id'] = $item->getId();
+			$result_post['title'] = $item->getTitle();
+			$result_post['url'] = $path.$item->getWebPath();
+			$result_post['featured'] = $item->getFeatured();
+			$final[] = $result_post;
+		}
+
+		if(!is_null($offset) && !is_null($limit)){
+			return $this->payload($total, $limit, $offset, $final);
+		} else {
+			return $final;
+		}
+	
+	}
+	
 	public function clearFeaturedItems($post_id){
 	
 		$data = $this->getEntityManager()->createQueryBuilder();
