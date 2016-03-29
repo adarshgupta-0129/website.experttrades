@@ -14,7 +14,8 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if(!isset($_COOKIE['visit'])) {
+  /*   NOT A GOOD WAY TO TRACK VISITS, TO MANY ROWS IN DB AND NOT ACCURATE
+     if(!isset($_COOKIE['visit'])) {
 
             setcookie('visit', '1', time() + 86400, "/");
 
@@ -24,5 +25,6 @@ class MainController extends Controller
             $em->flush();
 
         }
+        */
     }
 }
