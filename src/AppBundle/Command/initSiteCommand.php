@@ -243,7 +243,7 @@ class initSiteCommand extends ContainerAwareCommand
         if(!is_object($blog)){
         
         	$blog = new Blog();
-        	$blog->setHeaderText('Recent news by ourselfs');
+        	$blog->setHeaderText('Recent news by ourselves');
         	$blog->setHeaderTitle('BLOG');
         	$blog->setActive(false);
         	$em->persist($blog);
