@@ -43,6 +43,9 @@
 						{% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
 						<a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos4.png') }}" alt="Connect On Google Plus" /></a>
 						{% endif %}
+						{% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
+						<a href="{{ website.linkedinLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos5.png') }}" alt="Connect On Linkedin" /></a>
+						{% endif %}
 					 </div>
 					</div>
 				</div>
@@ -141,7 +144,7 @@
 					<div class="rvmid">
 						<div class="rvmdinr">
 							<span>Time management </span>
-							{% for img in review.stars('time_management', 'star2.png') %}
+							{% for img in review.stars('time_management') %}
 									 <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Time Management"></a>
 							{% endfor %}
 						</div>
@@ -205,12 +208,20 @@
 					<div class="servicebox">
 					<img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" />
 					<h2>{{ item.title }}</h2>
-					<p>{{ item.subtitle | raw }}</p>
+					<p>{{ item.subtitle | raw | slice(0, 200) }} {% if item.subtitle |length > 200%}...{% endif %}</p>
 					<a href="{{ path('services') }}">Learn more +</a>
 				</div>
 				</div>
 			</div>
 			{% endfor %}
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="view-color">
+					<a href="{{ path('services') }}">View more services +</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -246,7 +257,7 @@
 		</div>
 	</div>
 </section>
-<section class="bodybox3">
+<section id="bodybox3" class="bodybox3">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -276,17 +287,40 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="contact_right">
-				<form method="POST">
+				<form method="POST" name="contactForm" action="{{ path('homepage') }}#bodybox3">
 				  <div class="form-group gfp">
-							{{ form_widget(contact_form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Name'} }) }}
+							{{ form_widget(contact_form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Name' , 'ng-model' : 'contact.name'} }) }}
 				  </div>
 				  <div class="form-group gfp grp2">
-				    	{{ form_widget(contact_form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Email'} }) }}
+				    	{{ form_widget(contact_form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Email' , 'ng-model' : 'contact.email'} }) }}
+				  </div>
+					<div class="form-group fgt">
+				    	{{ form_widget(contact_form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Phone Number' , 'ng-model' : 'contact.phone'} }) }}
 				  </div>
 				  <div class="form-group fgt">
-							{{ form_widget(contact_form.message, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Message' } }) }}
+							{{ form_widget(contact_form.message, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Message' , 'ng-model' : 'contact.message' } }) }}
 				  </div>
-				  <button type="submit" class="btn btn-default">Submit</button>
+
+					<br>
+					{% if contactError %}
+					<div class="row">
+							<div class="col-md-12">
+								<div class="alert alert-danger text-center">{{ contactError }}</div>
+						</div>
+					</div>
+					<br>
+					{% endif %}
+					<div class="row">
+							<div class="col-md-12">
+							  <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default">Submit</button>
+							</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-12 text-center">
+								<div class="g-recaptcha" data-sitekey="6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn" data-stoken=" {{ secureToken }}"></div>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -346,4 +380,14 @@
 	</div>
 </section>
 {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+var app = angular.module('app', [])
+.controller('MainCtrl',
+function($rootScope, $scope) {
+  $scope.contact = {};
+});
+</script>
 {% endblock %}

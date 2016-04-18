@@ -397,7 +397,7 @@ class Item{
 
      if(!is_null($img)){
 
-       $result = [];
+       $result = array('sstar-empty.png','star-empty.png','star-empty.png','star-empty.png','star-empty.png');
        for ($i = 0; $i < $total; $i++) {
           $result[$i] = $img;
        }

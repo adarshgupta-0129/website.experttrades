@@ -18,7 +18,7 @@ class ItemRepository extends Repository{
       $data->select('i')->from('AppBundle\Entity\Review\Item\Item', 'i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
-      $data->orderBy('i.id', 'DESC');
+      $data->orderBy('i.job_done_date', 'DESC');
       $result = $data->getQuery()->getResult();
 
       $count = $this->getEntityManager()->createQueryBuilder();

@@ -18,9 +18,9 @@ class Item{
 
 	const  ITEM_PDF = 'pdf';
 	const  ITEM_IMAGE = 'img';
-	
+
 	public static $MIMETYPE = [
-			self::ITEM_IMAGE => array (	
+			self::ITEM_IMAGE => array (
 			'png'  => 'image/png',
 			'jpe'  => 'image/jpeg',
 			'jpeg' => 'image/jpeg',
@@ -33,12 +33,12 @@ class Item{
 			self::ITEM_PDF => array (
 					'pdf'  => 'application/pdf')
 			];
-	
+
     /**
      * @Assert\File(maxSize="6000000")
      */
     private $file;
-    
+
 
     /**
      * @var string $post
@@ -59,7 +59,7 @@ class Item{
      *
      */
     private $id;
-    
+
 
     /**
      * @var string $title
@@ -67,7 +67,7 @@ class Item{
      * @ORM\Column(name="title", type="text", length=2555, nullable=true)
      */
     private $title;
-    
+
 
     /**
      * @var boolean $featured
@@ -75,7 +75,7 @@ class Item{
      * @ORM\Column(name="featured", type="boolean",  nullable=true)
      */
     private $featured;
-    
+
 
     /**
      * @var type $featured
@@ -115,7 +115,7 @@ class Item{
     {
         return $this->file;
     }
-    
+
     /**
      * Get post
      *
@@ -125,7 +125,7 @@ class Item{
     {
     	return $this->post;
     }
-    
+
     /**
      * Set post
      *
@@ -135,7 +135,7 @@ class Item{
     {
     	$this->post = $post;
     }
-    
+
 
     /**
      * Get id
@@ -146,7 +146,7 @@ class Item{
     {
         return $this->id;
     }
-    
+
 
     /**
      * Get featured
@@ -157,7 +157,7 @@ class Item{
     {
     	return $this->featured;
     }
-    
+
 
     /**
      * Get featured
@@ -198,7 +198,7 @@ class Item{
     {
         return $this->title;
     }
-    
+
 
     public function getType() {
     	return $this->type;
@@ -220,6 +220,9 @@ class Item{
         $filename = substr( md5(rand()), 0, 15).'.'.$this->getFile()->guessExtension();
         // move takes the target directory and then the
         // target filename to move to
+
+
+				if(!file_exists($this->getUploadRootDir())) mkdir($this->getUploadRootDir());
         $this->getFile()->move(
             $this->getUploadRootDir(),
             $filename
@@ -267,5 +270,5 @@ class Item{
            unlink($path);
          }
      }
-	
+
 }

@@ -236,20 +236,24 @@ class initSiteCommand extends ContainerAwareCommand
           echo "\n Contact Created \n";
 
         }
-        
+
 
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        
+
         if(!is_object($blog)){
-        
+
         	$blog = new Blog();
+<<<<<<< HEAD
         	$blog->setHeaderText('Recent news by ourselves');
+=======
+        	$blog->setHeaderText('Expert Advice & News');
+>>>>>>> master
         	$blog->setHeaderTitle('BLOG');
         	$blog->setActive(false);
         	$em->persist($blog);
         	$em->flush();
         	echo "\n Blog Created \n";
-        
+
         }
 
         echo "\n Site Created \n";

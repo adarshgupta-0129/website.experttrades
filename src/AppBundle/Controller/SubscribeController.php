@@ -22,13 +22,14 @@ class SubscribeController extends MainController
 
         $subscriber = new Subscriber();
         $subscriberForm = $this->createFormBuilder($subscriber)
-            ->add('email', 'text')
+            ->add('email', 'email')
             ->getForm();
 
         $subscriberForm->handleRequest($request);
         if($this->getRequest()->isMethod('POST')){
 
-            if ($subscriberForm->isValid()) {
+            if ($subscriberForm->isValid()
+             && filter_var($subscriber->getEmail(), FILTER_VALIDATE_EMAIL)) {
                 $em->persist($subscriber);
                 $em->flush();
 
@@ -47,10 +48,14 @@ class SubscribeController extends MainController
 
                 $result = json_decode(curl_exec($ch));
 
+                return $this->redirect($this->generateUrl('subscribe_success'));
+
             }
         }
 
-        return $this->redirect($this->generateUrl('subscribe_success'));
+        return $this->redirect($this->generateUrl('subscribe_error'));
+
+
     }
 
     /**
@@ -69,4 +74,22 @@ class SubscribeController extends MainController
            'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
          ));
       }
+
+
+      /**
+       * @Route("/subscribe-error", name="subscribe_error")
+       */
+      public function subscribeErrorAction(Request $request)
+      {
+          $em = $this->getDoctrine()->getManager();
+          $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+          $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+
+          return $this->render('AppBundle:subscribe:error.html.twig',
+           array(
+             'website' => $website,
+             'footer_images' => $footerImages,
+             'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
+           ));
+        }
 }
