@@ -37,6 +37,13 @@ class Message{
       */
      private $email;
 
+     /**
+      * @var string $phone
+      *
+      * @ORM\Column(name="phone", type="text", length=2555, nullable=true)
+      */
+     private $phone;
+
     /**
       * @var string $message
       *
@@ -104,6 +111,27 @@ class Message{
     {
         return $this->email;
     }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
 
     /**
      * Set message

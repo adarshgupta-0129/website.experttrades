@@ -39,6 +39,7 @@ class HomepageController extends MainController
         $contactForm = $this->createFormBuilder($message)
             ->add('name', 'text')
             ->add('email', 'email')
+            ->add('phone', 'text')
             ->add('message', 'textarea')
             ->getForm();
 
@@ -72,6 +73,7 @@ class HomepageController extends MainController
                     $data_string = json_encode([
                       'name' => $message->getName(),
                       'email' => $message->getEmail(),
+                      'phone' => $message->getPhone(),
                       'message' => $message->getMessage()
                     ]);
 

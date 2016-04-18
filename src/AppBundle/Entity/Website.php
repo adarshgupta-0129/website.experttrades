@@ -81,6 +81,13 @@ class Website{
      */
     private $google_link;
 
+    /**
+     * @var string $linkedin_link
+     *
+     * @ORM\Column(name="linkedin_link", type="text", length=2555, nullable=true)
+     */
+    private $linkedin_link;
+
 
     /**
      * @var boolean $facebook_link_enabled
@@ -109,6 +116,13 @@ class Website{
      * @ORM\Column(name="google_link_enabled", type="boolean")
      */
     private $google_link_enabled;
+
+    /**
+     * @var boolean $linkedin_link_enabled
+     *
+     * @ORM\Column(name="linkedin_link_enabled", type="boolean")
+     */
+    private $linkedin_link_enabled;
 
     /**
      * @var string $postcode
@@ -352,6 +366,26 @@ class Website{
         return $this->google_link;
     }
 
+    /**
+     * Set linkedin_link
+     *
+     * @param string $linkedin_link
+     */
+    public function setLinkedinLink($linkedin_link)
+    {
+        $this->linkedin_link = $linkedin_link;
+    }
+
+    /**
+     * Get linkedin_link
+     *
+     * @return string
+     */
+    public function getLinkedinLink()
+    {
+        return $this->linkedin_link;
+    }
+
 
     /**
      * Set facebook_link_enabled
@@ -431,6 +465,26 @@ class Website{
     public function getGoogleLinkEnabled()
     {
         return $this->google_link_enabled;
+    }
+
+    /**
+     * Set linkedin_link_enabled
+     *
+     * @param string $linkedin_link_enabled
+     */
+    public function setLinkedinLinkEnabled($linkedin_link_enabled)
+    {
+        $this->linkedin_link_enabled = $linkedin_link_enabled;
+    }
+
+    /**
+     * Get linkedin_link_enabled
+     *
+     * @return string
+     */
+    public function getLinkedinLinkEnabled()
+    {
+        return $this->linkedin_link_enabled;
     }
 
     /**
