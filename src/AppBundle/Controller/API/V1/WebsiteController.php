@@ -32,10 +32,12 @@ class WebsiteController extends SecurityController
           'twitter_link' => $website->getTwitterLink(),
           'youtube_link' => $website->getYoutubeLink(),
           'google_link' => $website->getGoogleLink(),
+          'linkedin_link' => $website->getGoogleLink(),
           'facebook_link_enabled' => $website->getFacebookLinkEnabled(),
           'twitter_link_enabled' => $website->getTwitterLinkEnabled(),
           'youtube_link_enabled' => $website->getYoutubeLinkEnabled(),
           'google_link_enabled' => $website->getGoogleLinkEnabled(),
+          'linkedin_link_enabled' => $website->getLinkedinLinkEnabled(),
           'postcode' => $website->getPostcode(),
           'subscribe_title' => $website->getSubscribeTitle(),
           'subscribe_subtitle' => $website->getSubscribeSubtitle(),
@@ -80,6 +82,9 @@ class WebsiteController extends SecurityController
              if(isset($params['google_link'])){
                $website->setGoogleLink($params['google_link']);
              }
+             if(isset($params['linkedin_link'])){
+               $website->setLinkedinLink($params['linkedin_link']);
+             }
 
              if(isset($params['facebook_link_enabled'])){
                $website->setFacebookLinkEnabled($params['facebook_link_enabled']);
@@ -92,6 +97,9 @@ class WebsiteController extends SecurityController
              }
              if(isset($params['google_link_enabled'])){
                $website->setGoogleLinkEnabled($params['google_link_enabled']);
+             }
+             if(isset($params['linkedin_link_enabled'])){
+               $website->setLinkedinLinkEnabled($params['linkedin_link_enabled']);
              }
 
              if(isset($params['postcode'])){
