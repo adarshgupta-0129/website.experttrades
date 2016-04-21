@@ -36,13 +36,21 @@ class Item{
      */
     private $title;
 
+
+    /**
+     * @var string $order
+     *
+     * @ORM\Column(name="ordering", type="smallint", options={"default" = 0})
+     */
+    private $order;
+
     /**
     * @ORM\Column(type="string", length=255, nullable=true)
     */
     public $path;
 
     public function __construct(){
-
+        $this->order = 0;
     }
 
     /**
@@ -103,6 +111,26 @@ class Item{
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set order
+     *
+     * @param string $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+    }
+
+    /**
+     * Get order
+     *
+     * @return string
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 
     public function upload()

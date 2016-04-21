@@ -226,6 +226,7 @@ class GalleryController extends SecurityController
 
         $em = $this->getDoctrine()->getManager();
         $file = $request->files->get('file');
+        var_dump('entra');
         if(!is_null($file)) {
 
           $item = new Item();
