@@ -47,14 +47,14 @@ class Item{
     /**
      * @var string $width
      *
-     * @ORM\Column(name="width", type="smallint", options={"default" = 0})
+     * @ORM\Column(name="width", type="smallint", options={"default" = 630})
      */
     private $width;
 
     /**
      * @var string $height
      *
-     * @ORM\Column(name="height", type="smallint", options={"default" = 0})
+     * @ORM\Column(name="height", type="smallint", options={"default" = 420})
      */
     private $height;
 
