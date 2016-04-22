@@ -140,6 +140,7 @@ class GalleryController extends SecurityController
       $response = new Response(json_encode([
         'id' => $image->getId(),
         'title' => $image->getTitle(),
+        'order' => $image->getOrder(),
         'image_url' => (is_null($image->getPath())) ? null : $path.$image->getPath()
       ]));
       $response->headers->set('Content-Type', 'application/json');
@@ -188,9 +189,17 @@ class GalleryController extends SecurityController
         if (!empty($content))
         {
             $params = json_decode($content, true); // 2nd param to get as array
-
             if(isset($params['title'])){
                 $item->setTitle($params['title']);
+            }
+            
+            if(isset($params['order'])){
+            	$item->setOrder($params['order']);
+            }
+
+            if(isset($params['rotate']) && $params['rotate'] != 0){
+            	//function rotate image
+            	$item->rotateImage( $params['rotate'] );
             }
 
             $em->persist($item);
@@ -226,7 +235,6 @@ class GalleryController extends SecurityController
 
         $em = $this->getDoctrine()->getManager();
         $file = $request->files->get('file');
-        var_dump('entra');
         if(!is_null($file)) {
 
           $item = new Item();
@@ -240,8 +248,6 @@ class GalleryController extends SecurityController
             'id' => $item->getId()
           ]));
 
-          $response->headers->set('Content-Type', 'application/json');
-          return $response;
 
         }else{
 

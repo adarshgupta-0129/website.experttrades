@@ -18,7 +18,8 @@ class ItemRepository extends Repository{
       $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
-      $data->orderBy('i.id', 'DESC');
+      $data->addOrderBy('i.order', 'asc');
+      $data->addOrderBy('i.id', 'desc');
       $result = $data->getQuery()->getResult();
 
       $count = $this->getEntityManager()->createQueryBuilder();
@@ -34,7 +35,8 @@ class ItemRepository extends Repository{
       $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
-      $data->orderBy('i.id', 'desc');
+      $data->addOrderBy('i.order', 'asc');
+      $data->addOrderBy('i.id', 'desc');
       $result = $data->getQuery()->getResult();
 
       $count = $this->getEntityManager()->createQueryBuilder();
@@ -46,6 +48,9 @@ class ItemRepository extends Repository{
         $final[] = [
           'id' => $i->getId(),
           'title' => $i->getTitle(),
+          'order' => $i->getOrder(),
+          'width' => $i->getWidth(),
+          'height' => $i->getHeight(),
           'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
         ];
       }
