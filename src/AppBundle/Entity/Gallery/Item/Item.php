@@ -244,12 +244,12 @@ class Item{
 	    }
     
     	// create a new temporary image
-    	//$tmp_img = imagecreatetruecolor( $new_width, $new_height );
+    	$tmp_img = imagecreatetruecolor( $new_width, $new_height );
 
     	// copy and resize old image into new image
-    	//imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+    	imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
     	
-    	$tmp_img = imagescale($img, $new_width, $new_height);
+    	//$tmp_img = imagescale($img, $new_width, $new_height);
     	
     	$tmp_path = sys_get_temp_dir(  )."/tmp_file.".$this->ext;
     	if ($this->ext == 'gif'){
