@@ -236,16 +236,41 @@
 			</div>
 		</div>
 		<div class="row">
-			{% for item in images %}
-			<div class="col-sm-3">
-				<div class="jobpic">
-					<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
-					<div class="jbhover">
-						<h2>{{ item.title }}</h2>
-						<a href="{{ path('gallery') }}">View More</a>
-					</div>
-				</div>
-			</div>
+			{% for key,item in images %}
+				{% if item.path is not null %}
+					{% if landscape %}
+						<div class="col-sm-3">
+							<div class="jobpic landscape_all">
+								<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
+								<div class="jbhover">
+									<h2>{{ item.title }}</h2>
+									<a href="{{ path('gallery') }}">View More</a>
+								</div>
+							</div>
+						</div>
+						
+					{% elseif portrait  %}
+						<div class="col-sm-3">
+							<div class="jobpic portrait_all">
+								<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
+								<div class="jbhover">
+									<h2>{{ item.title }}</h2>
+									<a href="{{ path('gallery') }}">View More</a>
+								</div>
+							</div>
+						</div>
+					{% else   %}
+						<div class="col-sm-3">
+							<div class="jobpic {{pos_items[key]}}">
+								<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
+								<div class="jbhover">
+									<h2>{{ item.title }}</h2>
+									<a href="{{ path('gallery') }}">View More</a>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
 			{% endfor %}
 		</div>
 		<div class="row">
@@ -383,6 +408,8 @@
 {% endblock %}
 
 {% block javascripts %}
+
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js'></script>
 <script>
 var app = angular.module('app', [])
 .controller('MainCtrl',

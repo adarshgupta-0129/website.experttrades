@@ -28,6 +28,23 @@ class ItemRepository extends Repository{
 
       return $this->payload($total, $limit, $offset, $result);
   }
+  
+
+  public function total_landscape(){
+  	$count = $this->getEntityManager()->createQueryBuilder();
+  	$count->select('count(i.id)')->from('AppBundle\Entity\Gallery\Item\Item', 'i'); 
+  	$count->where('i.width >= i.height');
+  	$total = $count->getQuery()->getSingleScalarResult();
+  	return $total;
+  }
+
+  public function total_portrait(){
+  	$count = $this->getEntityManager()->createQueryBuilder();
+  	$count->select('count(i.id)')->from('AppBundle\Entity\Gallery\Item\Item', 'i'); 
+  	$count->where('i.width < i.height');
+  	$total = $count->getQuery()->getSingleScalarResult();
+  	return $total;
+  }
 
   public function getPaginated($limit, $offset, $path){
 

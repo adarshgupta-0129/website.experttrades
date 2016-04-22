@@ -298,16 +298,25 @@ class Item{
         
        	$width = imagesx($image);
     	$height = imagesy($image);
-    	$side = $width > $height ? $width : $height;
-    	$imageSquare = imagecreatetruecolor($side, $side);
-    	imagecopy($imageSquare, $image, 0, 0, 0, 0, $width, $height);
-    	imagedestroy($image);
-    	$imageSquare = imagerotate($imageSquare, $degrees, 0, -1);
-    	$image = imagecreatetruecolor($height, $width);
-    	$x = $degrees == 90 ? 0 : ($height > $width ? 0 : ($side - $height));
-    	$y = $degrees == 270 ? 0 : ($height < $width ? 0 : ($side - $width));
-    	imagecopy($image, $imageSquare, 0, 0, $x, $y, $height, $width);
-    	imagedestroy($imageSquare);
+    	
+    	if($degrees != 180){
+    		$side = $width > $height ? $width : $height;
+    		$imageSquare = imagecreatetruecolor($side, $side);
+    		imagecopy($imageSquare, $image, 0, 0, 0, 0, $width, $height);
+    		imagedestroy($image);
+    		$imageSquare = imagerotate($imageSquare, $degrees, 0, -1);
+	    	$image = imagecreatetruecolor($height, $width);
+	    	$x = $degrees == 90 ? 0 : ($height > $width ? 0 : ($side - $height));
+	    	$y = $degrees == 270 ? 0 : ($height < $width ? 0 : ($side - $width));
+	    	imagecopy($image, $imageSquare, 0, 0, $x, $y, $height, $width);
+	    	imagedestroy($imageSquare);
+	    	$this->width = $height;
+	    	$this->height = $width;
+    	} else {
+    		$image = imagerotate($image, $degrees, 0);
+    		$this->width = $width;
+    		$this->height = $height;
+    	}
     	
     	$tmp_path = sys_get_temp_dir(  )."/tmp_file.".$this->ext;
     	if ($this->ext == 'gif'){
