@@ -36,7 +36,7 @@ class ContactController extends MainController
         $quoteRequest = new QuoteRequest();
         $form = $this->createFormBuilder($quoteRequest)
             ->add('name', 'text', array('required' => true, 'constraints' => array(new NotBlank())))
-            ->add('email', 'email', array('required' => true, 'constraints' => array(new NotBlank())))
+            ->add('email', 'email', array('required' => false))
             ->add('phone', 'text', array('required' => true, 'constraints' => array(new NotBlank())))
             ->add('job_location', 'text')
             ->add('job_date', 'text', array('mapped' => false, 'data' => $date->format('d/m/Y')))
