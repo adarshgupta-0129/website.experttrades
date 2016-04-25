@@ -208,7 +208,7 @@
 					<div class="servicebox">
 					<img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" />
 					<h2>{{ item.title }}</h2>
-					<p>{{ item.subtitle | raw | slice(0, 200) }} {% if item.subtitle |length > 200%}...{% endif %}</p>
+					<p>{{ item.subtitle |striptags | slice(0, 200) }} {% if item.subtitle |length > 200%}...{% endif %}</p>
 					<a href="{{ path('services') }}">Learn more +</a>
 				</div>
 				</div>
