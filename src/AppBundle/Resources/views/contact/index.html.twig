@@ -39,7 +39,7 @@
 					<h2>Contact Information</h2>
 					<div class="contact_inner_form">
 							  <div class="form-group">
-							    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+							    <label for="inputEmail3" class="col-sm-2 control-label">Name *</label>
 							    <div class="col-sm-10">
 										{{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your name', 'ng-model' : 'contact.name'} }) }}
 							    </div>
@@ -47,11 +47,11 @@
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
 							    <div class="col-sm-10">
-							      {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email', 'ng-model' : 'contact.email'} }) }}
+							      {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email', 'ng-model' : 'contact.email', 'required' : 'false'} }) }}
 							    </div>
 							  </div>
 								<div class="form-group">
-							    <label for="inputPassword3" class="col-sm-2 control-label">Phone</label>
+							    <label for="inputPassword3" class="col-sm-2 control-label">Phone *</label>
 							    <div class="col-sm-10">
 							      {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your phone', 'ng-model' : 'contact.phone'} }) }}
 							    </div>
@@ -62,13 +62,13 @@
 					<h2>Job Information</h2>
 					<div class="contact_inner_form">
 						  <div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Job Location</label>
+						    <label for="inputPassword3" class="col-sm-2 control-label">Job Location *</label>
 						    <div class="col-sm-10">
 						      {{ form_widget(form.job_location, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job postcode', 'ng-model' : 'contact.job_location'} }) }}
 						    </div>
 						  </div>
 							<div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Preferred Start Date</label>
+						    <label for="inputPassword3" class="col-sm-2 control-label">Preferred Start Date *</label>
 						    <div class="col-sm-10">
 						      {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy', 'ng-model' : 'contact.job_date'} }) }}
 						    </div>
@@ -76,7 +76,7 @@
 							{% if form.job_categories |length > 0 %}
 						  <div class="form-group">
 
-						    <label for="inputPassword3" class="col-sm-2 control-label">Job Category</label>
+						    <label for="inputPassword3" class="col-sm-2 control-label">Job Category *</label>
 
 						    <div class="col-sm-5">
 									{% for formElement in form.job_categories %}
@@ -103,9 +103,10 @@
 							<br><br>
 							{% endif %}
 						  <div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Job Description</label>
+						    <label for="inputPassword3" class="col-sm-2 control-label">Job Description *</label>
 						    <div class="col-sm-10">
 									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description', 'ng-model' : 'contact.job_description'} }) }}
+						    		
 						    </div>
 						  </div>
 							<br>
@@ -123,7 +124,10 @@
 							</div>
 							<br>
 							{% endif %}
-						  <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default" style="background-color:{{ website.mainColor }}">POST</button>
+							<div class="col-md-2 col-md-offset-2 text-left">
+							    <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default" style="background-color:{{ website.mainColor }}">POST</button>
+								<small style="float:left">(*) mandatory</small>
+							</div>
 					</div>
 				</div>
 
