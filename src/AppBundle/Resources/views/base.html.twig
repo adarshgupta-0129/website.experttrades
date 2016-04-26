@@ -16,7 +16,12 @@
 
     <link rel="icon" href="/favicon.png" type="image/x-icon"/>
   <style>
-
+     .g-recaptcha{
+        overflow: visible;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
   .header {width:100%; padding: 0;}
   .navbar-default {background: none; border:none;}
   .navbar-nav > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
@@ -843,9 +848,17 @@ $( document ).ready(function() {
 
     // change iframes
     if (is_mobile == true) {
-      $('iframe').each(function() {  
-        $( this ).width( "100%" );
-        $( this ).height( "auto" );
+
+      $('iframe').each(function() {
+        var regExp = /.*(youtube|vimeo).*/;
+          var match = $( this ).attr('src').match(regExp);
+          //console.log("embed");
+          //console.log($( this ).attr('src'));
+          //console.log(match);
+          if(match != null ){
+            $( this ).width( "100%" );
+            $( this ).height( "auto" );
+          }
       });
     }
  });
