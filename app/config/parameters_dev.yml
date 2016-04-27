@@ -4,10 +4,10 @@ parameters:
     database_host: localhost
     database_port: 3306
     database_name: website_expert_trades
-    #database_password: experttrades
-    #database_user: experttrades
-    database_password: root
-    database_user: root
+    database_password: experttrades
+    database_user: experttrades
+    #database_password: root
+    #database_user: root
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null

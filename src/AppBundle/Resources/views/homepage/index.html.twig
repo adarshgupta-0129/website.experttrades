@@ -313,17 +313,23 @@
 		<div class="col-sm-6">
 			<div class="contact_right">
 				<form method="POST" name="contactForm" action="{{ path('homepage') }}#bodybox3">
-				  <div class="form-group gfp">
+				  <div class="row">
+						<div class="form-group col-sm-6">
 							{{ form_widget(contact_form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Name' , 'ng-model' : 'contact.name'} }) }}
+				  		</div>
+					  <div class="form-group  col-sm-6">
+					    	{{ form_widget(contact_form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Email' , 'ng-model' : 'contact.email'} }) }}
+					  </div>
 				  </div>
-				  <div class="form-group gfp grp2">
-				    	{{ form_widget(contact_form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Email' , 'ng-model' : 'contact.email'} }) }}
-				  </div>
-					<div class="form-group fgt">
+				  <div class="row">
+					<div class="form-group col-sm-12">
 				    	{{ form_widget(contact_form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Phone Number' , 'ng-model' : 'contact.phone'} }) }}
+				  	</div>
 				  </div>
-				  <div class="form-group fgt">
+				  <div class="row">
+					<div class="form-group col-sm-12">
 							{{ form_widget(contact_form.message, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Message' , 'ng-model' : 'contact.message' } }) }}
+				  	</div>
 				  </div>
 
 					<br>
@@ -336,15 +342,15 @@
 					<br>
 					{% endif %}
 					<div class="row">
-							<div class="col-md-12">
-							  <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default">Submit</button>
-							</div>
-					</div>
-					<br>
-					<div class="row">
 						<div class="col-md-12 text-center">
 								<div class="g-recaptcha" data-sitekey="6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn" data-stoken=" {{ secureToken }}"></div>
 						</div>
+					</div>
+					<br>
+					<div class="row">
+							<div class="col-md-12">
+							  <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default">Submit</button>
+							</div>
 					</div>
 				</form>
 			</div>
