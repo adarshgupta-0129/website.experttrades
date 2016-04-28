@@ -159,8 +159,9 @@
   .footerbox ul li {list-style: none; margin: 0; padding: 0 0 6px;}
   .footerbox ul li a {display: block; font-family: 'Lato', sans-serif; font-size: 16px; color:#bdbdbd; font-weight:400;}
   .footerbox ul li img {width:auto; margin: -1px 10px 0 0;}
-  .wty ul li {width:33%; float: left; padding: 0 2px 5px;}
+  .wty ul li {width:33%; float: left; padding: 0 2px 5px; text-align:center;}
   .wty ul li img {width:100%;}
+  .wty ul li.portrait img {width: auto; height: 77px;}
   .footerlogo {width:100%; margin-top: 40px;}
   .footerlogo img {width:auto;}
   .copyright {width:100%; background: #0a0a0a;}
@@ -790,7 +791,11 @@ text-decoration:none;
 					<h2>Recent Jobs</h2>
 					<ul>
             {% for item in footer_images %}
-            	<li><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></li>
+            	{% if item.width > item.height %}
+            		<li class="landscape" ><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></li>
+            	{% else %}
+            		<li class="portrait" ><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></li>
+            	{% endif %}
             {% endfor %}
 					</ul>
 				</div>
