@@ -191,6 +191,7 @@ class Website{
         $this->twitter_link_enabled = false;
         $this->youtube_link_enabled = false;
         $this->google_link_enabled = false;
+        $this->linkedin_link_enabled = false;
         $this->disabled = false;
     }
     /**

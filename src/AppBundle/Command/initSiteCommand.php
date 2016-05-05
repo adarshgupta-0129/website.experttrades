@@ -59,7 +59,8 @@ class initSiteCommand extends ContainerAwareCommand
           $website->setFacebookLink('https://www.facebook.com/localexperttrades?fref=ts');
           $website->setTwitterLink('https://twitter.com/ExpertTradesmen');
           $website->setYoutubeLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
-          $website->setGoogleLink('https://www.youtube.com/channel/UCBeI5eUWHMDGovXtqcjKbeg');
+          $website->setGoogleLink('');
+          $website->setLinkedinLink('');
 
           $website->setAccessToken(substr( md5(rand()), 0, 50));
           $website->setPostcode('B94AA');
