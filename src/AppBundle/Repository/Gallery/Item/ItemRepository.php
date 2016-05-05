@@ -18,7 +18,8 @@ class ItemRepository extends Repository{
       $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
-      $data->orderBy('i.id', 'DESC');
+      $data->addOrderBy('i.order', 'asc');
+      $data->addOrderBy('i.id', 'desc');
       $result = $data->getQuery()->getResult();
 
       $count = $this->getEntityManager()->createQueryBuilder();
@@ -27,6 +28,23 @@ class ItemRepository extends Repository{
 
       return $this->payload($total, $limit, $offset, $result);
   }
+  
+
+  public function total_landscape(){
+  	$count = $this->getEntityManager()->createQueryBuilder();
+  	$count->select('count(i.id)')->from('AppBundle\Entity\Gallery\Item\Item', 'i'); 
+  	$count->where('i.width >= i.height');
+  	$total = $count->getQuery()->getSingleScalarResult();
+  	return $total;
+  }
+
+  public function total_portrait(){
+  	$count = $this->getEntityManager()->createQueryBuilder();
+  	$count->select('count(i.id)')->from('AppBundle\Entity\Gallery\Item\Item', 'i'); 
+  	$count->where('i.width < i.height');
+  	$total = $count->getQuery()->getSingleScalarResult();
+  	return $total;
+  }
 
   public function getPaginated($limit, $offset, $path){
 
@@ -34,7 +52,8 @@ class ItemRepository extends Repository{
       $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
-      $data->orderBy('i.id', 'desc');
+      $data->addOrderBy('i.order', 'asc');
+      $data->addOrderBy('i.id', 'desc');
       $result = $data->getQuery()->getResult();
 
       $count = $this->getEntityManager()->createQueryBuilder();
@@ -46,6 +65,9 @@ class ItemRepository extends Repository{
         $final[] = [
           'id' => $i->getId(),
           'title' => $i->getTitle(),
+          'order' => $i->getOrder(),
+          'width' => $i->getWidth(),
+          'height' => $i->getHeight(),
           'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
         ];
       }

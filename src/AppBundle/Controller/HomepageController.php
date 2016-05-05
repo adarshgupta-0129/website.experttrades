@@ -24,7 +24,44 @@ class HomepageController extends MainController
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $reviews =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([],['created' => 'DESC'], 3, 0);
         $services =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['id' => 'DESC'], 3, 0);
-        $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 8, 0);
+        $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
+        $total_portrait =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();
+        //var_dump($total_portrait.'::'.$total_landscape);die();
+        if(	$total_portrait  == 0 ){
+        	$perPage = 8;
+        	$landscape = true;
+        	$portrait = false;
+        }
+        elseif ( $total_landscape == 0 )
+        {
+        	$perPage = 4;
+        	$landscape = false;
+        	$portrait = true;
+        }
+        else
+        {
+        	$perPage = 8;
+        	$landscape = false;
+        	$portrait = false;
+        }
+        $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], $perPage, 0);
+        $pos_items= [];
+        if(!$landscape && !$portrait ) {
+        	$portraidc = 0;
+        	$landscapec = 0;
+        	$count = 0;
+        	foreach ($images as $key => $value ){
+        		if($value->getWidth() >= $value->getHeight() || ($value->getWidth() == 0 && $value->getHeight() == 0)){
+        			$landscapec++;
+        			$pos_items[$key] = 'landscape';
+        		} else {
+        			$portraidc++;
+        			$pos_items[$key] = 'portrait';
+        		}
+        		$count++;
+        	}
+        }
+        
         $findMeOns =  $em->getRepository('AppBundle\Entity\Homepage\FindMeOn\Item\Item')->findAll();
         $footerImages = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
@@ -106,6 +143,9 @@ class HomepageController extends MainController
           'reviews' => $reviews,
           'services' => $services,
           'images' => $images,
+           'pos_items' => $pos_items,
+           'portrait' => $portrait,
+           'landscape' => $landscape,
           'findMeOns' => $findMeOns,
           'footer_images' => $footerImages,
           'contactError' => $contactError,

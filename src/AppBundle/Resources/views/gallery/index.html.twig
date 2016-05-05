@@ -2,6 +2,12 @@
 
 {% block stylesheets %}
 <link href="{{ asset('bundles/app/css/magnific-popup.css') }}" rel="stylesheet">
+   <style type="text/css">
+   /*modify */
+   	img.mfp-img  { width:100%;height:auto; }
+   	
+	.mfp-counter { right:17px;}
+   </style>
 {% endblock %}
 
 {% block header %}
@@ -27,24 +33,49 @@
 	<div class="container">
 		<div class="servicepage_box clearfix" id="portfolio">
 				<div class="row">
-					{% for item in items.data %}
+					{% for key,item in items.data %}
 						{% if item.path is not null %}
-						<div class="col-sm-4">
-							<div class="row">
-								<div class="servicebox galbox">
-								<a href="{{ asset('images/gallery/') }}{{ item.path }}">
-									<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
-									<div class="galhover"><p>{{ item.title }}</p></div>
-								</a>
-							</div>
-							</div>
-						</div>
+							{% if landscape %}
+								<div class="col-sm-4">
+									<div class="row landscape_all">
+										<div class="servicebox galbox">
+										<a href="{{ asset('images/gallery/') }}{{ item.path }}">
+											<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
+											<div class="galhover"><p>{{ item.title }}</p></div>
+										</a>
+									</div>
+									</div>
+								</div>
+							{% elseif portrait  %}
+								<div class="col-sm-3">
+									<div class="row portrait_all">
+										<div class="servicebox galbox">
+										<a href="{{ asset('images/gallery/') }}{{ item.path }}">
+											<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
+											<div class="galhover"><p>{{ item.title }}</p></div>
+										</a>
+									</div>
+									</div>
+								</div>
+							{% else   %}
+								<div class="col-sm-4">
+									<div class="row {{pos_items[key]}}">
+										<div class="servicebox galbox">
+										<a href="{{ asset('images/gallery/') }}{{ item.path }}">
+											<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
+											<div class="galhover"><p>{{ item.title }}</p></div>
+										</a>
+									</div>
+									</div>
+								</div>
+							
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-12  text-center">
 				{% if items.total != 0%}
 				<div>
 					<ul class="pagination pagination-dark pagination-m">
