@@ -130,7 +130,7 @@ class ServiceController extends SecurityController
       $this->checkAccess($request);
 
       $em = $this->getDoctrine()->getManager();
-      $image =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
+      $item =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
 
       $path = 'http://'.$request->server->get('HTTP_HOST').'/images/services/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
@@ -138,10 +138,16 @@ class ServiceController extends SecurityController
       }
 
       $response = new Response(json_encode([
-        'id' => $image->getId(),
-        'title' => $image->getTitle(),
-        'subtitle' => $image->getSubtitle(),
-       'image_url' => (is_null($image->getPath())) ? null : $path.$image->getPath()
+        'id' => $item->getId(),
+        'title' => $item->getTitle(),
+        'subtitle' => $item->getSubtitle(),
+        'page_slug' => $item->getPageSlug(),
+        'page_meta_title' => $item->getPageMetaTitle(),
+        'page_meta_description' => $item->getPageMetaDescription(),
+        'page_title' => $item->getPageTitle(),
+        'page_html' => $item->getPageHtml(),
+        'page_active' => $item->getPageActive(),
+       'image_url' => (is_null($item->getPath())) ? null : $path.$item->getPath()
       ]));
       $response->headers->set('Content-Type', 'application/json');
 
@@ -194,6 +200,24 @@ class ServiceController extends SecurityController
             }
             if(isset($params['subtitle'])){
                 $item->setSubtitle($params['subtitle']);
+            }
+            if(isset($params['page_slug'])){
+                $item->setPageSlug($params['page_slug']);
+            }
+            if(isset($params['page_meta_title'])){
+                $item->setPageMetaTitle($params['page_meta_title']);
+            }
+            if(isset($params['page_meta_description'])){
+                $item->setPageMetaDescription($params['page_meta_description']);
+            }
+            if(isset($params['page_title'])){
+                $item->setPageTitle($params['page_title']);
+            }
+            if(isset($params['page_html'])){
+                $item->setPageHtml($params['page_html']);
+            }
+            if(isset($params['page_active'])){
+                $item->setPageActive($params['page_active']);
             }
 
             $em->persist($item);

@@ -53,6 +53,12 @@ class ItemRepository extends Repository{
           'id' => $i->getId(),
           'title' => $i->getTitle(),
           'subtitle' => $i->getSubtitle(),
+          'page_slug' => $i->getPageSlug(),
+          'page_meta_title' => $i->getPageMetaTitle(),
+          'page_meta_description' => $i->getPageMetaDescription(),
+          'page_title' => $i->getPageTitle(),
+          'page_html' => $i->getPageHtml(),
+          'page_active' => $i->getPageActive(),
           'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
         ];
       }

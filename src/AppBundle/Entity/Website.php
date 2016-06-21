@@ -180,6 +180,41 @@ class Website{
     public $light_color;
 
     /**
+     * @var string $show_about_tab
+     *
+     * @ORM\Column(name="show_about_tab", type="boolean")
+     */
+    private $show_about_tab;
+
+    /**
+     * @var string $show_services_tab
+     *
+     * @ORM\Column(name="show_services_tab", type="boolean")
+     */
+    private $show_services_tab;
+
+    /**
+     * @var string $show_reviews_tab
+     *
+     * @ORM\Column(name="show_reviews_tab", type="boolean")
+     */
+    private $show_reviews_tab;
+
+    /**
+     * @var string £show_gallery_tab
+     *
+     * @ORM\Column(name="show_gallery_tab", type="boolean")
+     */
+    private $show_gallery_tab;
+
+    /**
+     * @var string $show_contact_tab
+     *
+     * @ORM\Column(name="show_contact_tab", type="boolean")
+     */
+    private $show_contact_tab;
+
+    /**
     * @ORM\Column(type="boolean")
     */
     public $disabled;
@@ -193,6 +228,12 @@ class Website{
         $this->google_link_enabled = false;
         $this->linkedin_link_enabled = false;
         $this->disabled = false;
+
+        $this->show_about_tab = true;
+        $this->show_services_tab = true;
+        $this->show_gallery_tab = true;
+        $this->show_reviews_tab = true;
+        $this->show_contact_tab = true;
     }
     /**
      * Get path
@@ -686,6 +727,106 @@ class Website{
     public function getShowLogo()
     {
         return $this->show_logo;
+    }
+
+    /**
+     * Set show_about_tab
+     *
+     * @param string $show_about_tab
+     */
+    public function setShowAboutTab($show_about_tab)
+    {
+        $this->show_about_tab = $show_about_tab;
+    }
+
+    /**
+     * Get show_about_tab
+     *
+     * @return string
+     */
+    public function getShowAboutTab()
+    {
+        return $this->show_about_tab;
+    }
+
+    /**
+     * Set show_services_tab
+     *
+     * @param string $show_services_tab
+     */
+    public function setShowServicesTab($show_services_tab)
+    {
+        $this->show_services_tab = $show_services_tab;
+    }
+
+    /**
+     * Get show_services_tab
+     *
+     * @return string
+     */
+    public function getShowServicesTab()
+    {
+        return $this->show_services_tab;
+    }
+
+    /**
+     * Set show_gallery_tab
+     *
+     * @param string $show_gallery_tab
+     */
+    public function setShowGalleryTab($show_gallery_tab)
+    {
+        $this->show_gallery_tab = $show_gallery_tab;
+    }
+
+    /**
+     * Get show_gallery_tab
+     *
+     * @return string
+     */
+    public function getShowGalleryTab()
+    {
+        return $this->show_gallery_tab;
+    }
+
+    /**
+     * Set show_reviews_tab
+     *
+     * @param string $show_reviews_tab
+     */
+    public function setShowReviewsTab($show_reviews_tab)
+    {
+        $this->show_reviews_tab = $show_reviews_tab;
+    }
+
+    /**
+     * Get show_reviews_tab
+     *
+     * @return string
+     */
+    public function getShowReviewsTab()
+    {
+        return $this->show_reviews_tab;
+    }
+
+    /**
+     * Set show_contact_tab
+     *
+     * @param string $show_contact_tab
+     */
+    public function setShowContactTab($show_contact_tab)
+    {
+        $this->show_contact_tab = $show_contact_tab;
+    }
+
+    /**
+     * Get show_contact_tab
+     *
+     * @return string
+     */
+    public function getShowContactTab()
+    {
+        return $this->show_contact_tab;
     }
 
     /**

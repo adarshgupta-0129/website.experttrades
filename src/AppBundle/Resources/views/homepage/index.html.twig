@@ -209,7 +209,11 @@
 					<img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" />
 					<h2>{{ item.title }}</h2>
 					<p>{{ item.subtitle |striptags | slice(0, 200) | raw}} {% if item.subtitle |length > 200%}...{% endif %}</p>
+					{% if item.pageActive %}
+					<a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
+					{% else %}
 					<a href="{{ path('services') }}">Learn more +</a>
+					{% endif %}
 				</div>
 				</div>
 			</div>

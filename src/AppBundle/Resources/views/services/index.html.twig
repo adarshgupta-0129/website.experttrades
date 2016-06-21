@@ -30,10 +30,21 @@
 						<div class="row">
 							<div class="servicebox">
 									{% if item[0].path is not null %}
-									<img alt="{{ item[0].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
+
+										{% if item[0].pageActive %}
+										<a href="{{ path('services_view', { slug : item[0].pageSlug }) }}">
+											<img alt="{{ item[0].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
+										</a>
+										{% else %}
+											<img alt="{{ item[0].title }}" src="{{ asset('images/services/') }}{{ item[0].path }}">
+										{% endif %}
+
 									{% endif %}
 									<h2>{{ item[0].title }}</h2>
 									<p>{{ item[0].subtitle | raw }}</p>
+									{% if item[0].pageActive %}
+									<a href="{{ path('services_view', { slug : item[0].pageSlug }) }}">Learn more +</a>
+									{% endif %}
 							</div>
 						</div>
 					</div>

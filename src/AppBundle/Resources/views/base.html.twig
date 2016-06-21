@@ -177,6 +177,11 @@
   .banner_content_top p {font-family: 'Lato', sans-serif; font-size: 30px; color:#fff; font-weight:700; line-height: 41px;text-transform: uppercase;}
   .banner_content_bottom {width:100%; text-align: center; margin-top: 100px;}
   .banner_content_bottom h2 {font-family: 'Lato', sans-serif; font-size: 50px; color:#fff; font-weight:700; background: url({{ asset('bundles/app/images/bcth-bg.jpg') }}) no-repeat 0 0; background-position: center top; padding-top: 32px; text-transform: uppercase;}
+
+
+  .banner_content_bottom_services {width:100%; text-align: center; margin-top: 40px;}
+  .banner_content_bottom_services h2 {font-family: 'Lato', sans-serif; font-size: 50px; color:#fff; font-weight:700; }
+
   .about_head p span {color:#000; display: block; margin-top: 30px;}
   .statbox {width:100%; background: #fff; text-align: center; padding: 35px 0 20px; margin-bottom: 30px;}
   .statbox img {width:auto; margin-bottom: 30px;}
@@ -726,17 +731,27 @@ text-decoration:none;
   <div class="collapse navbar-collapse navbar-ex2-collapse">
     <ul class="nav navbar-nav navbar-right">
     <li {% if app.request.attributes.get('_route') == 'homepage' %} class="select" {% endif %}><a href="{{ path('homepage') }}">Home</a></li>
-   	<li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About</a></li>
+    {% if website.showAboutTab == true %}
+    <li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About</a></li>
+    {% endif %}
+    {% if website.showServicesTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
+    {% endif %}
+    {% if website.showReviewsTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
+    {% endif %}
+    {% if website.showGalleryTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'gallery' %} class="select" {% endif %}><a href="{{ path('gallery') }}">Gallery</a></li>
+    {% endif %}
     {% if hasBlog == true %}
     	<li
     		{% if app.request.attributes.get('_route') == 'blog'  %} class="select" {% endif %}
     		{% if app.request.attributes.get('_route') == 'post'  %} class="select" {% endif %}
     	><a href="{{ path('blog') }}">Blog</a></li>
     {% endif %}
+    {% if website.showContactTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'contact' %} class="select" {% endif %}><a href="{{ path('contact') }}">Contact</a></li>
+    {% endif %}
     </ul>
   </div><!-- /.navbar-collapse -->
 

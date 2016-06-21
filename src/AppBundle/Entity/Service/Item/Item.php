@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Service\Item;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -18,6 +19,12 @@ class Item{
      * @Assert\File(maxSize="6000000")
      */
     private $file;
+
+
+  	/**
+  	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Service\Item\File\File", mappedBy="item")
+  	 */
+  	private $files;
 
     /**
      * @var integer $id
@@ -44,12 +51,56 @@ class Item{
     private $subtitle;
 
     /**
+     * @var string $page_slug
+     *
+     * @ORM\Column(name="page_slug", type="string", length=2555, nullable=true)
+     */
+    private $page_slug;
+
+    /**
+     * @var string $page_meta_title
+     *
+     * @ORM\Column(name="page_meta_title", length=2555, nullable=true)
+     */
+    private $page_meta_title;
+
+    /**
+     * @var string $page_meta_description
+     *
+     * @ORM\Column(name="page_meta_description", type="text", nullable=true)
+     */
+    private $page_meta_description;
+
+    /**
+     * @var string $page_title
+     *
+     * @ORM\Column(name="page_title", type="text", nullable=true)
+     */
+    private $page_title;
+
+    /**
+     * @var string $page_html
+     *
+     * @ORM\Column(name="page_html", type="text", nullable=true)
+     */
+    private $page_html;
+
+    /**
+     * @var string $page_active
+     *
+     * @ORM\Column(name="page_active", type="boolean")
+     */
+    private $page_active;
+
+    /**
     * @ORM\Column(type="string", length=255, nullable=true)
     */
     public $path;
 
     public function __construct(){
 
+      $this->page_active = false;
+      $this->files = new ArrayCollection();
     }
 
     /**
@@ -130,6 +181,126 @@ class Item{
     public function getSubtitle()
     {
         return $this->subtitle;
+    }
+
+    /**
+     * Set page_slug
+     *
+     * @param string $page_slug
+     */
+    public function setPageSlug($page_slug)
+    {
+        $this->page_slug = $page_slug;
+    }
+
+    /**
+     * Get page_html
+     *
+     * @return string
+     */
+    public function getPageSlug()
+    {
+        return $this->page_slug;
+    }
+
+    /**
+     * Set page_meta_title
+     *
+     * @param string $page_meta_title
+     */
+    public function setPageMetaTitle($page_meta_title)
+    {
+        $this->page_meta_title = $page_meta_title;
+    }
+
+    /**
+     * Get page_meta_title
+     *
+     * @return string
+     */
+    public function getPageMetaTitle()
+    {
+        return $this->page_meta_title;
+    }
+
+    /**
+     * Set page_meta_description
+     *
+     * @param string $page_meta_description
+     */
+    public function setPageMetaDescription($page_meta_description)
+    {
+        $this->page_meta_description = $page_meta_description;
+    }
+
+    /**
+     * Get page_meta_description
+     *
+     * @return string
+     */
+    public function getPageMetaDescription()
+    {
+        return $this->page_meta_description;
+    }
+
+    /**
+     * Set page_title
+     *
+     * @param string $page_title
+     */
+    public function setPageTitle($page_title)
+    {
+        $this->page_title = $page_title;
+    }
+
+    /**
+     * Get page_title
+     *
+     * @return string
+     */
+    public function getPageTitle()
+    {
+        return $this->page_title;
+    }
+
+    /**
+     * Set page_html
+     *
+     * @param string $page_html
+     */
+    public function setPageHtml($page_html)
+    {
+        $this->page_html = $page_html;
+    }
+
+    /**
+     * Get page_html
+     *
+     * @return string
+     */
+    public function getPageHtml()
+    {
+        return $this->page_html;
+    }
+
+    /**
+     * Set page_active
+     *
+     * @param string $page_active
+     */
+    public function setPageActive($page_active)
+    {
+        $this->page_active = $page_active;
+    }
+
+    /**
+     * Get page_active
+     *
+     * @return string
+     */
+    public function getPageActive()
+    {
+        return $this->page_active;
     }
 
     public function upload()

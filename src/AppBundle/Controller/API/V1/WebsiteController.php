@@ -38,6 +38,11 @@ class WebsiteController extends SecurityController
           'youtube_link_enabled' => $website->getYoutubeLinkEnabled(),
           'google_link_enabled' => $website->getGoogleLinkEnabled(),
           'linkedin_link_enabled' => $website->getLinkedinLinkEnabled(),
+          'show_about_tab' => $website->getShowAboutTab(),
+          'show_services_tab' => $website->getShowServicesTab(),
+          'show_reviews_tab' => $website->getShowReviewsTab(),
+          'show_gallery_tab' => $website->getShowGalleryTab(),
+          'show_contact_tab' => $website->getShowContactTab(),
           'postcode' => $website->getPostcode(),
           'subscribe_title' => $website->getSubscribeTitle(),
           'subscribe_subtitle' => $website->getSubscribeSubtitle(),
@@ -119,6 +124,22 @@ class WebsiteController extends SecurityController
              }
              if(isset($params['show_logo'])){
                $website->setShowLogo($params['show_logo']);
+             }
+
+             if(isset($params['show_about_tab'])){
+               $website->setShowAboutTab($params['show_about_tab']);
+             }
+             if(isset($params['show_services_tab'])){
+               $website->setShowServicesTab($params['show_services_tab']);
+             }
+             if(isset($params['show_gallery_tab'])){
+               $website->setShowGalleryTab($params['show_gallery_tab']);
+             }
+             if(isset($params['show_reviews_tab'])){
+               $website->setShowReviewsTab($params['show_reviews_tab']);
+             }
+             if(isset($params['show_contact_tab'])){
+               $website->setShowContactTab($params['show_contact_tab']);
              }
 
              $em->persist($website);
