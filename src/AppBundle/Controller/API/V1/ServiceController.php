@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use AppBundle\Entity\Service\Item\Item;
+use AppBundle\Entity\Service\Item\File\File;
 
 class ServiceController extends SecurityController
 {
@@ -321,4 +322,154 @@ class ServiceController extends SecurityController
         return $response;
 
     }
+
+    /**
+     * @Route("/api/v1/service_items/{id}/files", name="get_service_item_files")
+     * @Method({"GET"})
+     */
+    public function getServiceItemFilesAction(Request $request, $id)
+    {
+      	$this->checkAccess($request);
+      	$limit = $request->query->get('limit');
+      	$limit = (is_null($limit) || !is_numeric($limit)) ? 25 : $limit;
+
+      	$offset = $request->query->get('offset');
+      	$offset = (is_null($offset) || !is_numeric($offset)) ? 0 : $offset;
+
+        $type = $request->query->get('type');
+        $type = (is_null($type)) ? 'img' : $type;
+
+        $em = $this->getDoctrine()->getManager();
+
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/';
+        if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+        	$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
+        }
+        $return = $em->getRepository('AppBundle\Entity\Service\Item\File\File')
+        ->getPaginated($id, $type, $limit, $offset, $path);
+
+        $response = new Response(json_encode($return));
+
+  	    $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+    /**
+     * @Route("/api/v1/service_items/{serviceId}/files", name="post_service_item_files")
+     * @Method({"POST"})
+     */
+    public function postServiceItemFileAction(Request $request, $serviceId)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $file = $request->files->get('file');
+        $isValid = false;
+        $type="";
+
+        if(isset($_REQUEST['type']) && !is_null($file)){
+        	if($_REQUEST['type'] == File::FILE_IMAGE && in_array($file->getMimeType(), File::$MIMETYPE[File::FILE_IMAGE])){
+        		$isValid = true;
+        		$type = File::FILE_IMAGE;
+        	}else if($_REQUEST['type'] == File::FILE_PDF && in_array($file->getMimeType(), File::$MIMETYPE[File::FILE_PDF])){
+        		$isValid = true;
+        		$type = File::FILE_PDF;
+        	}
+        }
+
+        if(!$isValid){
+          $mime = (is_object($file)) ? $file->getMimeType() : "";
+          $response = new Response(json_encode(
+          [
+            'error' => 1,
+            'message' => 'The '.$mime.' format is invalid'
+          ]));
+          $response->headers->set('Content-Type', 'application/json');
+          return $response;
+        }
+
+        $item = $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($serviceId);
+
+        $newFile = new File();
+        $newFile->setItem($item);
+
+        $title = $request->request->get('title');
+        if(!is_null($title)){
+          $newFile->setTitle($title);
+        }else{
+
+            $params = array();
+            $content = $this->get("request")->getContent();
+            if (!empty($content))
+            {
+                $params = json_decode($content, true); // 2nd param to get as array
+                if(isset($params['title'])){
+                    $newFile->setTitle($params['title']);
+                }
+            }
+        }
+
+        if($type != ""){
+        	$newFile->setType($type);
+        }
+        $newFile->setFile($file);
+        $newFile->upload();
+
+        $em->persist($newFile);
+        $em->flush();
+
+        $path = 'http://'.$request->server->get('HTTP_HOST').'/';
+        if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+        	$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
+        }
+        $response = new Response(json_encode(
+        [
+          'id' => $newFile->getId(),
+          'title' => $newFile->getTitle(),
+          'url' => $path.$newFile->getWebPath(),
+        ]));
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+    /**
+     * @Route("/api/v1/service_items/{serviceId}/files/{id}", name="delete_service_item_files")
+     * @Method({"DELETE"})
+     */
+    public function deleteServiceItemFileAction(Request $request, $serviceId, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $file = $em->getRepository('AppBundle\Entity\Service\Item\File\File')->find($id);
+
+        if(is_object($file)){
+
+            $file->deleteFile();
+            $em->remove($file);
+            $em->flush();
+
+            $response = new Response(json_encode(
+            [
+              'code' => 200,
+              'message' => 'OK'
+            ]));
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
 }

@@ -12,22 +12,31 @@ use AppBundle\Repository\Repository;
  */
 class FileRepository extends Repository{
 
-  public function getPaginated($limit, $offset, $path){
+  public function getPaginated($id, $type, $limit, $offset, $path){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Service\Item\File\File', 'i');
+      $data->join('i.item', 'it');
+      $data->where('i.type = :type');
+      $data->setParameters([ 'type' => $type ]);
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
       $data->orderBy('i.id', 'desc');
 
       $count = $this->getEntityManager()->createQueryBuilder();
       $count->select('count(i.id)')->from('AppBundle\Entity\Service\Item\File\File', 'i');
+      $count->join('i.item', 'it');
+      $count->where('i.type = :type');
+      $count->setParameters([ 'type' => $type ]);
       $total = $count->getQuery()->getSingleScalarResult();
 
       $final = [];
       foreach($data->getQuery()->getResult() as $i){
         $final[] = [
-          'id' => $i->getId()
+          'id' => $i->getId(),
+          'type' => $i->getType(),
+          'title' => $i->getTitle(),
+          'url' => $path.$i->getWebPath()
         ];
       }
 

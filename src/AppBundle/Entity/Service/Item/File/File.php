@@ -16,11 +16,11 @@ use Doctrine\ORM\Mapping\OrderBy;
  */
 class File{
 
-	const  ITEM_PDF = 'pdf';
-	const  ITEM_IMAGE = 'img';
+	const  FILE_PDF = 'pdf';
+	const  FILE_IMAGE = 'img';
 
 	public static $MIMETYPE = [
-			self::ITEM_IMAGE => array (
+			self::FILE_IMAGE => array (
 			'png'  => 'image/png',
 			'jpe'  => 'image/jpeg',
 			'jpeg' => 'image/jpeg',
@@ -30,7 +30,7 @@ class File{
 			'ico'  => 'image/vnd.microsoft.icon',
 			'tiff' => 'image/tiff',
 			'tif'  => 'image/tiff'),
-			self::ITEM_PDF => array (
+			self::FILE_PDF => array (
 					'pdf'  => 'application/pdf')
 			];
 
@@ -80,10 +80,8 @@ class File{
     */
     public $path;
 
-    public function __construct(\AppBundle\Entity\Service\Post\Post $post)
+    public function __construct()
     {
-    	$this->post = $post;
-    	$this->featured = false;
 
     }
 
@@ -122,7 +120,7 @@ class File{
      *
      * @return AppBundle\Entity\Service\Item\Item $item
      */
-    public function setPost(\AppBundle\Entity\Service\Item\Item $item)
+    public function setItem(\AppBundle\Entity\Service\Item\Item $item)
     {
     	$this->item = $item;
     }
@@ -190,7 +188,6 @@ class File{
         // move takes the target directory and then the
         // target filename to move to
 
-
 				if(!file_exists($this->getUploadRootDir())) mkdir($this->getUploadRootDir());
         $this->getFile()->move(
             $this->getUploadRootDir(),
@@ -229,7 +226,7 @@ class File{
      {
          // get rid of the __DIR__ so it doesn't screw up
          // when displaying uploaded doc/image in the view.
-         return 'images/services/'.$this->service->getId().'/images';
+         return 'images/services';
      }
 
      public function deleteFile()
