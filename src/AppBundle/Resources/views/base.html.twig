@@ -734,9 +734,31 @@ text-decoration:none;
     {% if website.showAboutTab == true %}
     <li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About</a></li>
     {% endif %}
-    {% if website.showServicesTab == true %}
-   	<li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
+
+    {% if nav_bar_services | length == 0 %}
+      {% if website.showServicesTab == true %}
+        <li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
+      {% endif %}
+    {% else %}
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Services <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{ path('services')}}">View All</a></li>
+          <li role="separator" class="divider"></li>
+          {% for s in nav_bar_services %}
+            <li><a
+              {% if s.pageSlug %}
+              href="{{ path('services_view', { slug : s.pageSlug }) }}"
+              {% else %}
+              href="{{ path('services') }}"
+              {% endif %}
+            >{{ s.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
     {% endif %}
+
     {% if website.showReviewsTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
     {% endif %}

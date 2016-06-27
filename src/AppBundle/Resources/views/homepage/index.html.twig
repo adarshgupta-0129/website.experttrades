@@ -63,13 +63,14 @@
   </a>
 </div>
 </section>
-<section class="bodybox1">
+{% if website.showAboutTab == true %}
+<section {% if website.showReviewsTab == true %} class="bodybox1" {% else %} class="bodybox2"{% endif %}>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="about_head">
-					<h2>{{ aboutUs.aboutUsTitle }}</h2>
-					<p>{{ aboutUs.aboutUsText | raw }}</p>
+				<div class="about_head" >
+					<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsTitle }}</h2>
+					<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsText | raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -85,29 +86,29 @@
 				<div class="about_body_right">
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa {{ aboutUs.aboutUsFirstPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
+							<i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsFirstPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
-							<h2>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
-							<p>{{ aboutUs.aboutUsFirstPointText }}</p>
+							<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
+							<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsFirstPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa {{ aboutUs.aboutUsSecondPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
+							<i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsSecondPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
-							<h2>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
-							<p>{{ aboutUs.aboutUsSecondPointText }}</p>
+							<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
+							<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsSecondPointText }}</p>
 						</div>
 					</div>
 					<div class="abtr">
 						<div class="abtrpic">
-							<i class="fa {{ aboutUs.aboutUsThirdPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
+							<i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsThirdPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
 						</div>
 						<div class="abtrinfo">
-							<h2>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
-							<p>{{ aboutUs.aboutUsThirdPointText }}</p>
+							<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
+							<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsThirdPointText }}</p>
 						</div>
 					</div>
 				</div>
@@ -115,6 +116,8 @@
 		</div>
 	</div>
 </section>
+{% endif %}
+{% if website.showReviewsTab == true %}
 <section class="bodybox2">
 	<div class="container">
 		<div class="row">
@@ -191,6 +194,8 @@
 		</div>
 	</div>
 </section>
+{% endif %}
+{% if website.showServicesTab == true %}
 <section class="bodybox3">
 	<div class="container">
 		<div class="row">
@@ -229,6 +234,8 @@
 		</div>
 	</div>
 </section>
+{% endif %}
+{% if website.showGalleryTab == true %}
 <section class="bodybox2 bx23">
 	<div class="container">
 		<div class="row">
@@ -286,6 +293,8 @@
 		</div>
 	</div>
 </section>
+{% endif %}
+{% if website.showContactTab == true %}
 <section id="bodybox3" class="bodybox3">
 	<div class="container">
 		<div class="row">
@@ -361,6 +370,7 @@
 		</div>
 	</div>
 </section>
+{% endif %}
 
 {% if findMeOns | length > 0
 	or homepage.findMeOnTitle | length > 0

@@ -20,6 +20,11 @@ class Item{
      */
     private $file;
 
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $header_file;
+
 
   	/**
   	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Service\Item\File\File", mappedBy="item")
@@ -97,10 +102,23 @@ class Item{
     */
     public $path;
 
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    public $header_path;
+
+    /**
+     * @var string $custom_header
+     *
+     * @ORM\Column(name="custom_header", type="boolean")
+     */
+    private $custom_header;
+
     public function __construct(){
 
       $this->page_active = false;
       $this->files = new ArrayCollection();
+      $this->custom_header = false;
     }
 
     /**
@@ -124,6 +142,26 @@ class Item{
     }
 
     /**
+     * Sets header_file.
+     *
+     * @param UploadedFile $header_file
+     */
+    public function setHeaderFile(UploadedFile $header_file = null)
+    {
+        $this->header_file = $header_file;
+    }
+
+    /**
+     * Get header_file.
+     *
+     * @return UploadedFile
+     */
+    public function getHeaderFile()
+    {
+        return $this->header_file;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -141,6 +179,16 @@ class Item{
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Get header_path
+     *
+     * @return string
+     */
+    public function getHeaderPath()
+    {
+        return $this->header_path;
     }
 
     /**
@@ -303,6 +351,26 @@ class Item{
         return $this->page_active;
     }
 
+    /**
+     * Set custom_header
+     *
+     * @param string $custom_header
+     */
+    public function setCustomHeader($custom_header)
+    {
+        $this->custom_header = $custom_header;
+    }
+
+    /**
+     * Get custom_header
+     *
+     * @return string
+     */
+    public function getCustomHeader()
+    {
+        return $this->custom_header;
+    }
+
     public function upload()
     {
         // the file property can be empty if the field is not required
@@ -327,6 +395,30 @@ class Item{
         $this->file = null;
      }
 
+     public function uploadHeader()
+     {
+         // the file property can be empty if the field is not required
+         if (null === $this->getHeaderFile()) {
+             return;
+         }
+
+         // use the original file name here but you should
+         // sanitize it at least to avoid any security issues
+         $filename = substr( md5(rand()), 0, 15).'.'.$this->getHeaderFile()->guessExtension();
+         // move takes the target directory and then the
+         // target filename to move to
+         $this->getHeaderFile()->move(
+             $this->getUploadRootDir(),
+             $filename
+         );
+
+         // set the path property to the filename where you've saved the file
+         $this->header_path = $filename;
+
+         // clean up the file property as you won't need it anymore
+         $this->header_file = null;
+      }
+
      public function getAbsolutePath()
      {
          return null === $this->path
@@ -339,6 +431,20 @@ class Item{
          return null === $this->path
              ? null
              : $this->getUploadDir().'/'.$this->path;
+     }
+
+     public function getAbsoluteHeaderPath()
+     {
+         return null === $this->header_path
+             ? null
+             : $this->getUploadRootDir().'/'.$this->header_path;
+     }
+
+     public function getWebHeaderPath()
+     {
+         return null === $this->header_path
+             ? null
+             : $this->getUploadDir().'/'.$this->header_path;
      }
 
      protected function getUploadRootDir()
@@ -358,6 +464,14 @@ class Item{
      public function deleteFile()
      {
          $path = $this->getUploadRootDir().'/'.$this->path;
+         if(file_exists ($path)){
+           unlink($path);
+         }
+     }
+
+     public function deleteHeaderFile()
+     {
+         $path = $this->getUploadRootDir().'/'.$this->header_path;
          if(file_exists ($path)){
            unlink($path);
          }

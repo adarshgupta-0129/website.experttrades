@@ -16,7 +16,7 @@ class PostController extends MainController
     public function indexAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        
+
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $post = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->findBy(['slug'=>$slug]);
         if(is_array($post) && count($post) <= 0 ){
@@ -35,6 +35,7 @@ class PostController extends MainController
            'blog' => $blog,
            'hasBlog' => $blog->getActive(),
            'post' => $post,
+           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
            'footer_images' => $footerImages,
            'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()));

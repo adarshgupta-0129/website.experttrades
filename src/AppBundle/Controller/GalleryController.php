@@ -26,7 +26,7 @@ class GalleryController extends MainController
         	$perPage = 9;
         	$landscape = true;
         	$portrait = false;
-        }	
+        }
         elseif ( $total_landscape == 0 )
         {
         	$perPage = 8;
@@ -39,7 +39,7 @@ class GalleryController extends MainController
         	$landscape = false;
         	$portrait = false;
         }
-        	
+
         $offset = ($page - 1) * $perPage;
         $items = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay($perPage, $offset);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
@@ -71,6 +71,7 @@ class GalleryController extends MainController
            'pos_items' => $pos_items,
            'portrait' => $portrait,
            'landscape' => $landscape,
+           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
            'footer_images' => $footerImages,
            'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()));

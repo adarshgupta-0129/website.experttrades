@@ -53,6 +53,12 @@
 	.quicklinks a{
 	  color: white;
 	}
+	.service_page_banner {
+		background: url('{{ asset(item.getWebHeaderPath) }}') no-repeat 0 0;
+		background-size: cover;
+		padding: 151px 0 109px;
+	}
+
 	</style>
 
 {% endblock %}
@@ -61,7 +67,7 @@
 {% if website.disabled %}
 {% include 'AppBundle:partials:website_disabled.html.twig' %}
 {% else %}
-<section class="innerpage_banner service_banner">
+<section class=" {% if item.headerPath is not null and item.customHeader %} service_page_banner {% else %} service_banner {% endif %}">
 	<div class="container">
 		<div class="banner_content_bottom_services">
 			<h2>{{ item.title }}</h2>
@@ -80,6 +86,15 @@
 		        </div>
 		    </div>
 		</article>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="team_click">
+					<h2>Click below to get yourself a quote</h2>
+					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">Get A Quote</a></div></div>
+				</div>
+			</div>
+		</div>
+		<br><br>
 	</div>
 </section>
 

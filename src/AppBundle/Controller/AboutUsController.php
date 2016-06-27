@@ -33,6 +33,7 @@ class AboutUsController extends MainController
          'aboutUs' => $aboutUs,
          'teamMembers' => $teamMembers,
          'footer_images' => $footerImages,
+         'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
          'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
        ));

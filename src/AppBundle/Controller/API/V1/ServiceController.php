@@ -148,7 +148,9 @@ class ServiceController extends SecurityController
         'page_title' => $item->getPageTitle(),
         'page_html' => $item->getPageHtml(),
         'page_active' => $item->getPageActive(),
-       'image_url' => (is_null($item->getPath())) ? null : $path.$item->getPath()
+        'custom_header' => $item->getCustomHeader(),
+        'image_url' => (is_null($item->getPath())) ? null : $path.$item->getPath(),
+        'header_image_url' => (is_null($item->getPath())) ? null : $path.$item->getHeaderPath()
       ]));
       $response->headers->set('Content-Type', 'application/json');
 
@@ -210,6 +212,12 @@ class ServiceController extends SecurityController
             }
             if(isset($params['page_meta_description'])){
                 $item->setPageMetaDescription($params['page_meta_description']);
+            }
+            if(isset($params['page_active'])){
+                $item->setPageActive($params['page_active']);
+            }
+            if(isset($params['custom_header'])){
+                $item->setCustomHeader($params['custom_header']);
             }
             if(isset($params['page_title'])){
                 $item->setPageTitle($params['page_title']);
@@ -287,6 +295,48 @@ class ServiceController extends SecurityController
     }
 
     /**
+     * @Route("/api/v1/service_item_header_image/{id}", name="post_service_item_header_image")
+     * @Method({"POST"})
+     */
+    public function postItemHeaderImageAction(Request $request, $id)
+    {
+        $this->checkAccess($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $item =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->find($id);
+
+        $file = $request->files->get('file');
+        if(!is_null($file)) {
+
+          $item->setHeaderFile($file);
+          $item->uploadHeader();
+          $em->persist($item);
+          $em->flush();
+
+          $response = new Response(json_encode(
+          [
+            'code' => 200,
+            'message' => 'OK'
+          ]));
+
+          $response->headers->set('Content-Type', 'application/json');
+          return $response;
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+    /**
      * @Route("/api/v1/service_items/{id}", name="delete_service_item")
      * @Method({"DELETE"})
      */
@@ -300,6 +350,7 @@ class ServiceController extends SecurityController
         if(is_object($item)){
 
             $item->deleteFile();
+            $item->deleteHeaderFile();
             $em->remove($item);
             $em->flush();
 

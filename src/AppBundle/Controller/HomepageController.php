@@ -61,7 +61,7 @@ class HomepageController extends MainController
         		$count++;
         	}
         }
-        
+
         $findMeOns =  $em->getRepository('AppBundle\Entity\Homepage\FindMeOn\Item\Item')->findAll();
         $footerImages = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
@@ -150,6 +150,7 @@ class HomepageController extends MainController
           'footer_images' => $footerImages,
           'contactError' => $contactError,
           'secureToken' => $secureToken,
+          'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
           'contact_form' => $contactForm->createView(),
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()

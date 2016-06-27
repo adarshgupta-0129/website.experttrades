@@ -71,6 +71,7 @@ class SubscribeController extends MainController
          array(
            'website' => $website,
            'footer_images' => $footerImages,
+           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
            'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
          ));
       }
@@ -89,6 +90,7 @@ class SubscribeController extends MainController
            array(
              'website' => $website,
              'footer_images' => $footerImages,
+             'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
              'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            ));
         }

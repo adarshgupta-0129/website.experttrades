@@ -23,6 +23,7 @@ class MessageController extends MainController
         array(
           'website' => $website,
            'hasBlog' => $blog->getActive(),
+           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
           'footer_images' => $footerImages,
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll()
         ));
