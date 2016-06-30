@@ -790,12 +790,22 @@ text-decoration:none;
 				<div class="footerbox">
 					<h2>Our Company</h2>
 					<ul>
+            {% if website.showAboutTab == true %}
 						<li><a href="{{ path('about-us') }}">About us</a></li>
+            {% endif %}
+            {% if website.showServicesTab == true %}
 						<li><a href="{{ path('services') }}">Services</a></li>
+            {% endif %}
+            {% if website.showGalleryTab == true %}
 						<li><a href="{{ path('gallery') }}">Gallery</a></li>
+            {% endif %}
+            {% if website.showReviewsTab == true %}
 						<li><a href="{{ path('reviews') }}">Reviews</a></li>
-        				{% if hasBlog == true %}<li><a href="{{ path('blog') }}">Blog</a></li> {% endif %}
+            {% endif %}
+    				{% if hasBlog == true %}<li><a href="{{ path('blog') }}">Blog</a></li> {% endif %}
+            {% if website.showContactTab == true %}
 						<li><a href="{{ path('contact') }}">Contact us</a></li>
+            {% endif %}
 					</ul>
 				</div>
 			</div>
