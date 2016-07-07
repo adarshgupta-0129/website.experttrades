@@ -320,7 +320,8 @@
 					{{ contact.email }}
 				</a>
 				<br><br>
-				<p><i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i> {{ contact.phone }}</p>
+				<p><i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i>
+					<p>{{ contact.phone |replace({',': '<br>'}) | raw }}</p></p>
 			</div>
 		</div>
 		<div class="col-sm-6">
