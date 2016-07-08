@@ -307,18 +307,22 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="contact_left">
-				<div class="cppic">
+				<div class="cppic2">
 					<i class="fa fa-map-marker fa-2x" style="color:{{ website.darkColor }}"></i>
 				</div>
-				<div class="cpinfo">
+				<div class="cpinfo2">
 					<p>{{ contact.addressFirstLine }}
 					<br>{{ contact.addressSecondLine }}</p>
 				</div>
 				<br><br> <br><br>
-				<a href="mailto:{{ contact.email }}">
-					<i class="fa fa-envelope fa-2x" style="color:{{ website.darkColor }}"></i>
-					{{ contact.email }}
-				</a>
+
+					<div class="cppic2">
+						<a href="mailto:{{ contact.email }}"><i class="fa fa-envelope fa-2x" style="color:{{ website.darkColor }}"></i></a>
+					</div>
+				  <div class="cpinfo2">
+						<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+					</div>
+
 				<br><br>
 
 				<div class="cppic2">
