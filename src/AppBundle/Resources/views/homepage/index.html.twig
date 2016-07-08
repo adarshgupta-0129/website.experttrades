@@ -307,30 +307,35 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="contact_left">
-				<div class="cppic2">
-					<i class="fa fa-map-marker fa-2x" style="color:{{ website.darkColor }}"></i>
-				</div>
-				<div class="cpinfo2">
-					<p>{{ contact.addressFirstLine }}
-					<br>{{ contact.addressSecondLine }}</p>
+				<div>
+					<div class="cppic2">
+						<i class="fa fa-map-marker fa-2x" style="color:{{ website.darkColor }}"></i>
+					</div>
+					<div class="cpinfo2">
+						<p>{{ contact.addressFirstLine }}
+						<br>{{ contact.addressSecondLine }}</p>
+					</div>
 				</div>
 				<br><br> <br><br>
 
+				<div>
 					<div class="cppic2">
 						<a href="mailto:{{ contact.email }}"><i class="fa fa-envelope fa-2x" style="color:{{ website.darkColor }}"></i></a>
 					</div>
 				  <div class="cpinfo2">
 						<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
 					</div>
+				</div>
 
 				<br><br>
-
-				<div class="cppic2">
-					<i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i>
+				<div>
+					<div class="cppic2">
+						<i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i>
+					</div>
+				  <div class="cpinfo2">
+							{{ contact.phone |replace({',': '<br><br>'}) | raw }}
+				  </div>
 				</div>
-			  <div class="cpinfo2">
-						{{ contact.phone |replace({',': '<br><br>'}) | raw }}
-			  </div>
 			</div>
 		</div>
 		<div class="col-sm-6">
