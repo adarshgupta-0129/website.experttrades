@@ -12,15 +12,23 @@ use AppBundle\Entity\Subscriber\Subscriber;
 class ServicesController extends MainController
 {
     /**
-     * @Route("/services", name="services")
+     * @Route("/services/{page}", name="services", requirements={"page" = "\d+"}, defaults={"page" = 1})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
-        $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getForDisplay();
+        //$items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['id' => 'DESC']);
+        $perPage = 6;
+        $offset = ($page - 1) * $perPage;
+        
+        $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getPaginated($perPage, $offset);
+        
+        if( $page > $items['last_page'] ){
+        	return $this->redirect($this->generateUrl('blog'));
+        }
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
 
@@ -30,6 +38,7 @@ class ServicesController extends MainController
            'hasBlog' => $blog->getActive(),
           'service' => $service,
           'items' => $items,
+           'page' => $page,
           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
           'footer_images' => $footerImages,
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),

@@ -24,7 +24,7 @@
 
 		<div class="servicepage_box">
 			<div class="row">
-				{% for item in items %}
+				{% for item in items.data %}
 					<div class="col-sm-4">
 						<div class="row">
 							<div class="servicebox">
@@ -55,6 +55,72 @@
 					{% endif  %}
 				{% endfor %}
 					
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				{% if items.total != 0%}
+				<div>
+					<ul class="pagination pagination-dark pagination-m ">
+
+								<li {% if page == 1 %} class="disabled" {% endif %}>
+									<a {% if page != 1 %} href="{{ path('services', { 'page': 1 } ) }}" {% endif %}>&laquo;</a>
+								</li>
+								{% if items.last_page < 8 %}
+
+										{% for i in 1..items.last_page %}
+												<li {%if i == page %} class="active" {% endif %}>
+													<a href="{{ path('services', { 'page': i } ) }}">{{ i }}</a>
+												</li>
+										{% endfor %}
+
+								{% else %}
+										 <!-- Page 1 -->
+										 <li {%if 1 == page %} class="active" {% endif %}>
+												<a href="{{ path('services', { 'page': 1 } ) }}">1</a>
+										 </li>
+										 <!-- Page - 1 -->
+										 {% if items.last_page >= 2 %}
+														{% set pageMinusOne = page -1 %}
+
+														{% if page > 3 %}
+														<li><a href="{{ path('services', { 'page': pageMinusOne }) }}">..</a></li>
+														{% endif %}
+
+														{% if pageMinusOne >= 2 %}
+														<li><a href="{{ path('services', { 'page': pageMinusOne }) }}">{{ pageMinusOne }}</a></li>
+														{% endif %}
+
+														{% if page != 1 and page != items.last_page %}
+														<li class="active" >
+															<a href="{{ path('services', { 'page': page }) }}">{{ page }}</a>
+														</li>
+														{% endif %}
+
+														{% set pagePlusOne = page +1 %}
+														{% if pagePlusOne < items.last_page %}
+														<li><a href="{{ path('services', { 'page': pagePlusOne }) }}">{{ pagePlusOne }}</a></li>
+														{% endif %}
+
+														{% set totalMinusTree = items.last_page -3 %}
+														{% if page < totalMinusTree %}
+														<li><a href="{{ path('services', { 'page': pagePlusOne }) }}">..</a></li>
+														{% endif %}
+										{% endif %}
+										<!-- Page 1 -->
+										<li {% if items.last_page == page %} class="active" {% endif %}>
+											<a href="{{ path('services', { 'page': items.last_page }) }}">{{ items.last_page }}</a>
+										</li>
+
+								{% endif %}
+
+								<li {% if page == items.last_page %} class="disabled" {% endif %}>
+									<a {% if page != items.last_page %} href="{{ path('services', { 'page': items.last_page } ) }}" {% endif %}>&raquo;</a>
+							 </li>
+				</ul>
+			</div>
+			{% endif %}
 			</div>
 		</div>
 

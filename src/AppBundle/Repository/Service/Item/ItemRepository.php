@@ -35,7 +35,7 @@ class ItemRepository extends Repository{
       return $result;
   }
 
-  public function getPaginated($limit, $offset, $path){
+  public function getPaginated($limit, $offset, $path = null){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Service\Item\Item', 'i');
@@ -49,18 +49,7 @@ class ItemRepository extends Repository{
 
       $final = [];
       foreach($data->getQuery()->getResult() as $i){
-        $final[] = [
-          'id' => $i->getId(),
-          'title' => $i->getTitle(),
-          'subtitle' => $i->getSubtitle(),
-          'page_slug' => $i->getPageSlug(),
-          'page_meta_title' => $i->getPageMetaTitle(),
-          'page_meta_description' => $i->getPageMetaDescription(),
-          'page_title' => $i->getPageTitle(),
-          'page_html' => $i->getPageHtml(),
-          'page_active' => $i->getPageActive(),
-          'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
-        ];
+        $final[] = $i;
       }
 
       return $this->payload($total, $limit, $offset, $final);
