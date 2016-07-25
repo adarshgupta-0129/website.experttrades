@@ -20,12 +20,12 @@ class ItemRepository extends Repository{
       $result = []; $row = [];
       foreach($data->getQuery()->getResult() as $r){
 
-        $row[] = $r;
+        $result[] = $r;
 
-        if(sizeof($row) == 3){
+        /*if(sizeof($row) == 3){
           $result[] = $row;
           $row = [];
-        }
+        }*/
       }
 
       if(sizeof($row) != 0){
