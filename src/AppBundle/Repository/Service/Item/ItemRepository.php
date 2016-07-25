@@ -35,7 +35,7 @@ class ItemRepository extends Repository{
       return $result;
   }
 
-  public function getPaginated($limit, $offset, $path = null){
+  public function getPaginated($limit, $offset, $path){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Service\Item\Item', 'i');
@@ -50,6 +50,38 @@ class ItemRepository extends Repository{
       $final = [];
       foreach($data->getQuery()->getResult() as $i){
         $final[] = $i;
+      }
+
+      return $this->payload($total, $limit, $offset, $final);
+
+  }
+  
+  public function getPaginatedAdmin($limit, $offset, $path){
+
+      $data = $this->getEntityManager()->createQueryBuilder();
+      $data->select('i')->from('AppBundle\Entity\Service\Item\Item', 'i');
+      $data->setFirstResult($offset);
+      $data->setMaxResults($limit);
+      $data->orderBy('i.id', 'desc');
+
+      $count = $this->getEntityManager()->createQueryBuilder();
+      $count->select('count(i.id)')->from('AppBundle\Entity\Service\Item\Item', 'i');
+      $total = $count->getQuery()->getSingleScalarResult();
+
+      $final = [];
+      foreach($data->getQuery()->getResult() as $i){
+        $final[] = [
+          'id' => $i->getId(),
+          'title' => $i->getTitle(),
+          'subtitle' => $i->getSubtitle(),
+          'page_slug' => $i->getPageSlug(),
+          'page_meta_title' => $i->getPageMetaTitle(),
+          'page_meta_description' => $i->getPageMetaDescription(),
+          'page_title' => $i->getPageTitle(),
+          'page_html' => $i->getPageHtml(),
+          'page_active' => $i->getPageActive(),
+          'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
+        ];
       }
 
       return $this->payload($total, $limit, $offset, $final);

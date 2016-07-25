@@ -113,7 +113,7 @@ class ServiceController extends SecurityController
       $offset = (is_null($offset)) ? 0 : $offset;
 
       $images =  $em->getRepository('AppBundle\Entity\Service\Item\Item')
-      ->getPaginated($limit, $offset, $path);
+      ->getPaginatedAdmin($limit, $offset, $path);
 
       $response = new Response(json_encode($images));
       $response->headers->set('Content-Type', 'application/json');

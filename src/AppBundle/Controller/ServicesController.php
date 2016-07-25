@@ -23,7 +23,6 @@ class ServicesController extends MainController
         //$items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['id' => 'DESC']);
         $perPage = 6;
         $offset = ($page - 1) * $perPage;
-        
         $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getPaginated($perPage, $offset);
         
         if( $page > $items['last_page'] ){
