@@ -35,7 +35,7 @@ class ItemRepository extends Repository{
       return $result;
   }
 
-  public function getPaginated($limit, $offset, $path){
+  public function getPaginated($limit, $offset, $path=null){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Service\Item\Item', 'i');
