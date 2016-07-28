@@ -206,7 +206,7 @@ class ServiceController extends SecurityController
                 $item->setSubtitle($params['subtitle']);
             }
             if(isset($params['order'])){
-                $item->setSubtitle($params['order']);
+                $item->setOrder($params['order']);
             }
             if(isset($params['page_slug'])){
                 $item->setPageSlug($params['page_slug']);
