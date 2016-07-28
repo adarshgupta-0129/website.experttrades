@@ -6,6 +6,21 @@
 {% block header %}
 	<title>{{ blog.metaTitle }}</title>
 	<meta name="description" content="{{ blog.metaDescription }}">
+	
+	
+    <meta property="og:url" content="{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+	<meta property="og:site_name" content="{{ blog.metaTitle }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ blog.metaTitle }}" />
+	<meta property="og:description" content="{{ blog.metaDescription }}" />
+	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
+	
+    <meta name="twitter:card" content="summary_large_image">
+    {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
+	<meta name="twitter:title" content="{{ blog.metaTitle }}">
+	<meta name="twitter:description" content="{{ blog.metaDescription }}">
+	<meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
+	<meta name="twitter:domain" content="{{ app.request.host }}">
 {% endblock %}
 
 {% block body %}

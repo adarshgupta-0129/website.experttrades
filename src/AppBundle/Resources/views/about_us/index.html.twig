@@ -3,6 +3,20 @@
 {% block header %}
 	<title>{{ aboutUs.metaTitle }}</title>
 	<meta name="description" content="{{ aboutUs.metaDescription }}">
+	
+    <meta property="og:url" content="{{ url('about-us') }}" />
+	<meta property="og:site_name" content="{{ aboutUs.metaTitle }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ aboutUs.metaTitle }}" />
+	<meta property="og:description" content="{{ aboutUs.metaDescription }}" />
+	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
+	
+    <meta name="twitter:card" content="summary_large_image">
+    {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
+	<meta name="twitter:title" content="{{ aboutUs.metaTitle }}">
+	<meta name="twitter:description" content="{{ aboutUs.metaDescription }}">
+	<meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
+	<meta name="twitter:domain" content="{{ app.request.host }}">
 {% endblock %}
 
 {% block body %}

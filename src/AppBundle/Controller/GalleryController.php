@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\Subscriber\Subscriber;
+use AppBundle\Entity\Item\Item;
 
 class GalleryController extends MainController
 {
@@ -18,6 +19,12 @@ class GalleryController extends MainController
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
+        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
+    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
+    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
+    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
+    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
         $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
         $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
         $total_portrait =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();
@@ -66,6 +73,9 @@ class GalleryController extends MainController
            'page' => $page,
            'website' => $website,
            'hasBlog' => $blog->getActive(),
+        		'favicon' => $favicon,
+        		'facebook_image' => $facebook_image,
+        		'twitter_image' => $twitter_image,
            'gallery' => $gallery,
            'items' => $items,
            'pos_items' => $pos_items,

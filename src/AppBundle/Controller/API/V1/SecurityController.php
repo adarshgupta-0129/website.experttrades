@@ -22,5 +22,16 @@ class SecurityController extends Controller
         }
 
     }
+    public function checkAdminAccess($request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+
+        if(in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod')) &&
+          $website->getAdminAccessToken() != $request->query->get('access_token')){
+          throw new AccessDeniedHttpException();
+        }
+
+    }
 
 }

@@ -11,6 +11,7 @@ use AppBundle\Entity\QuoteRequest\QuoteRequest;
 use AppBundle\Entity\QuoteRequest\JobCategory\JobCategory as QuoteRequestCategory;
 use AppBundle\Entity\JobCategory\JobCategory;
 use AppBundle\Entity\Subscriber\Subscriber;
+use AppBundle\Entity\Item\Item;
 
 class ContactController extends MainController
 {
@@ -24,6 +25,12 @@ class ContactController extends MainController
 
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
+        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
+    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
+    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
+    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
+    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
         $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
@@ -46,7 +53,7 @@ class ContactController extends MainController
                 'multiple' => true,
                 'expanded' => true,
                 'mapped' => false
-            ])
+            ])->add('submit', 'submit')
             ->getForm();
 
         $config = ['site_key' => '6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn', 'site_secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl'];
@@ -118,9 +125,12 @@ class ContactController extends MainController
                         'Content-Length: ' . strlen($data_string))
                     );
 
-                    $result = json_decode(curl_exec($ch));
 
-                    return $this->redirect($this->generateUrl('contact').'?sent=true');
+                    $result = json_decode(curl_exec($ch), true);
+                    if( $result['code'] != 200 ){
+                    	$error = 'We can not send your quote request. Please contact using phone number or try again later.';
+                    } else
+                    	return $this->redirect($this->generateUrl('contact').'?sent=true');
 
                 }else{
                   $error = 'Please fill the mandatory fields. (name, email and phone)';
@@ -136,6 +146,9 @@ class ContactController extends MainController
           'error' => $error,
           'secureToken' => $secureToken,
           'website' => $website,
+        		'favicon' => $favicon,
+        		'facebook_image' => $facebook_image,
+        		'twitter_image' => $twitter_image,
            'hasBlog' => $blog->getActive(),
           'contact' => $contact,
           'footer_images' => $footerImages,

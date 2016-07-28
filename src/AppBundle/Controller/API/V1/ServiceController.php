@@ -141,6 +141,7 @@ class ServiceController extends SecurityController
       $response = new Response(json_encode([
         'id' => $item->getId(),
         'title' => $item->getTitle(),
+        'order' => $item->getOrder(),
         'subtitle' => $item->getSubtitle(),
         'page_slug' => $item->getPageSlug(),
         'page_meta_title' => $item->getPageMetaTitle(),
@@ -203,6 +204,9 @@ class ServiceController extends SecurityController
             }
             if(isset($params['subtitle'])){
                 $item->setSubtitle($params['subtitle']);
+            }
+            if(isset($params['order'])){
+                $item->setSubtitle($params['order']);
             }
             if(isset($params['page_slug'])){
                 $item->setPageSlug($params['page_slug']);

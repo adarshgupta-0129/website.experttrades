@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 
 use AppBundle\Entity\Subscriber\Subscriber;
+use AppBundle\Entity\Item\Item;
 
 class AboutUsController extends MainController
 {
@@ -23,12 +24,21 @@ class AboutUsController extends MainController
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $teamMembers =  $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')->findAll();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
+    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
+    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
+    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
+    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
 
         $this->trackVisit();
 
         return $this->render('AppBundle:about_us:index.html.twig',
         array(
          'website' => $website,
+        		'favicon' => $favicon,
+        		'facebook_image' => $facebook_image,
+        		'twitter_image' => $twitter_image,
           'hasBlog' => $blog->getActive(),
          'aboutUs' => $aboutUs,
          'teamMembers' => $teamMembers,

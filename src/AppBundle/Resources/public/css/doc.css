@@ -13,3 +13,8 @@
     font-style: normal;
 
 }
+
+pre {
+	
+    white-space: pre-wrap;
+}

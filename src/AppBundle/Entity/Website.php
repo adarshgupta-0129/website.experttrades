@@ -42,6 +42,14 @@ class Website{
      * @ORM\Column(name="access_token", type="text", length=2555, nullable=true)
      */
     private $access_token;
+    
+
+    /**
+     * @var string $admin_access_token
+     *
+     * @ORM\Column(name="admin_access_token", type="text", length=2555, nullable=true)
+     */
+    private $admin_access_token;
 
     /**
     * @ORM\Column(type="boolean")
@@ -66,6 +74,12 @@ class Website{
      * @ORM\Column(name="twitter_link", type="text", length=2555, nullable=true)
      */
     private $twitter_link;
+    /**
+     * @var string $twitter_page
+     *
+     * @ORM\Column(name="twitter_page", type="text", length=2555, nullable=true)
+     */
+    private $twitter_page;
 
     /**
      * @var string $youtube_link
@@ -908,5 +922,21 @@ class Website{
            unlink($path);
          }
      }
+	public function getAdminAccessToken() {
+		return $this->admin_access_token;
+	}
+	public function setAdminAccessToken($admin_access_token) {
+		$this->admin_access_token = $admin_access_token;
+		return $this;
+	}
+	public function getTwitterPage() {
+		return $this->twitter_page;
+	}
+	public function setTwitterPage($twitter_page) {
+		$this->twitter_page = $twitter_page;
+		return $this;
+	}
+	
+	
 
 }

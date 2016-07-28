@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Subscriber\Subscriber;
 use AppBundle\Entity\Message\Message;
 
+use AppBundle\Entity\Item\Item;
+
 class HomepageController extends MainController
 {
     /**
@@ -23,9 +25,15 @@ class HomepageController extends MainController
         $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $reviews =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([],['created' => 'DESC'], 3, 0);
-        $services =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['id' => 'DESC'], 3, 0);
+        $services =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['order' => 'ASC','id' => 'DESC'], 3, 0);
         $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
         $total_portrait =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();
+        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
+    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
+    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
+    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
+    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
         //var_dump($total_portrait.'::'.$total_landscape);die();
         if(	$total_portrait  == 0 ){
         	$perPage = 8;
@@ -111,7 +119,8 @@ class HomepageController extends MainController
                       'name' => $message->getName(),
                       'email' => $message->getEmail(),
                       'phone' => $message->getPhone(),
-                      'message' => $message->getMessage()
+                      'message' => $message->getMessage(),
+                      'from' => 'website'
                     ]);
 
                     $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_notifications?website_access_token='.$website->getAccessToken());
@@ -123,9 +132,11 @@ class HomepageController extends MainController
                         'Content-Length: ' . strlen($data_string))
                     );
 
-                    $result = json_decode(curl_exec($ch));
-
-                    return $this->redirect($this->generateUrl('message_success'));
+                    $result = json_decode(curl_exec($ch), true);
+                    if( $result['code'] != 200 ){
+                    	$contactError = 'We can not send your request. Please contact using phone number or try again.';
+                    } else 
+                   		return $this->redirect($this->generateUrl('message_success'));
 
                 }else{
                     $contactError = 'Please click on the "I am not a Robot" checkbox';
@@ -146,6 +157,9 @@ class HomepageController extends MainController
            'pos_items' => $pos_items,
            'portrait' => $portrait,
            'landscape' => $landscape,
+           'favicon' => $favicon,
+           'facebook_image' => $facebook_image,
+           'twitter_image' => $twitter_image,
           'findMeOns' => $findMeOns,
           'footer_images' => $footerImages,
           'contactError' => $contactError,

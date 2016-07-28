@@ -35,13 +35,25 @@ class ItemRepository extends Repository{
       return $result;
   }
 
-  public function getPaginated($limit, $offset, $path=null){
+  public function getPaginated($limit, $offset, $orderBY=null){
 
       $data = $this->getEntityManager()->createQueryBuilder();
       $data->select('i')->from('AppBundle\Entity\Service\Item\Item', 'i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
-      $data->orderBy('i.id', 'desc');
+      if( is_null($orderBY) ){
+      	$data->orderBy('i.id', 'desc');
+      } else {
+      	switch (strtolower($orderBY)){
+      		case 'order':
+      			$data->orderBy('i.order', 'asc');
+      			$data->addOrderBy('i.id', 'desc');
+      			break;
+      		default:
+      			$data->orderBy('i.id', 'desc');
+      			
+      	}
+      }
 
       $count = $this->getEntityManager()->createQueryBuilder();
       $count->select('count(i.id)')->from('AppBundle\Entity\Service\Item\Item', 'i');
@@ -73,6 +85,7 @@ class ItemRepository extends Repository{
         $final[] = [
           'id' => $i->getId(),
           'title' => $i->getTitle(),
+          'order' => $i->getOrder(),
           'subtitle' => $i->getSubtitle(),
           'page_slug' => $i->getPageSlug(),
           'page_meta_title' => $i->getPageMetaTitle(),

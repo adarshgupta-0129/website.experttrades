@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use AppBundle\Entity\Item\Item;
+
 class WebsiteController extends SecurityController
 {
     /**
@@ -18,44 +20,78 @@ class WebsiteController extends SecurityController
     public function getAction(Request $request)
     {
         $this->checkAccess($request);
-
         $em = $this->getDoctrine()->getManager();
         $website = $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $response = new Response(json_encode($this->getWebsite($request, $website)));
+    	$response->headers->set('Content-Type', 'application/json');
+    	
+    	return $response;
 
-        $path = 'http://'.$request->server->get('HTTP_HOST').'/images/logo/';
-        if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
-              $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/logo/';
-        }
+    }
+    /**
+     * @Route("/api/v1/admin/website", name="get_admin_website")
+     * @Method({"GET"})
+     */
+    public function getAdminAction(Request $request)
+    {
+        $this->checkAdminAccess($request);
+    	$em = $this->getDoctrine()->getManager();
+    	$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
+		$array_response = $this->getWebsite($request, $website);
+		$array_response['et_atw'] = $website->getAccessToken();
+        $response = new Response(json_encode($array_response));
+    	$response->headers->set('Content-Type', 'application/json');
+    	
+    	return $response;
 
-        $response = new Response(json_encode([
-          'facebook_link' => $website->getFacebookLink(),
-          'twitter_link' => $website->getTwitterLink(),
-          'youtube_link' => $website->getYoutubeLink(),
-          'google_link' => $website->getGoogleLink(),
-          'linkedin_link' => $website->getGoogleLink(),
-          'facebook_link_enabled' => $website->getFacebookLinkEnabled(),
-          'twitter_link_enabled' => $website->getTwitterLinkEnabled(),
-          'youtube_link_enabled' => $website->getYoutubeLinkEnabled(),
-          'google_link_enabled' => $website->getGoogleLinkEnabled(),
-          'linkedin_link_enabled' => $website->getLinkedinLinkEnabled(),
-          'show_about_tab' => $website->getShowAboutTab(),
-          'show_services_tab' => $website->getShowServicesTab(),
-          'show_reviews_tab' => $website->getShowReviewsTab(),
-          'show_gallery_tab' => $website->getShowGalleryTab(),
-          'show_contact_tab' => $website->getShowContactTab(),
-          'postcode' => $website->getPostcode(),
-          'subscribe_title' => $website->getSubscribeTitle(),
-          'subscribe_subtitle' => $website->getSubscribeSubtitle(),
-          'copyright' => $website->getCopyright(),
-          'company_name' => $website->getCompanyName(),
-          'show_logo' => $website->getShowLogo(),
-          'logo_url' => (is_null($website->getLogoPath())) ? null : $path.$website->getLogoPath(),
+    }
+    
+    private function getWebsite(Request $request, $website){
+    	
+    	$path_logo = 'http://'.$request->server->get('HTTP_HOST').'/images/logo/';
+    	if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+    		$path_logo = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/logo/';
+    	}
+    	$path = 'http://'.$request->server->get('HTTP_HOST').'/';
+    	if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+    		$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
+    	}
 
-        ]));
-        $response->headers->set('Content-Type', 'application/json');
+    	$response = [
+    			'facebook_link' => $website->getFacebookLink(),
+    			'twitter_link' => $website->getTwitterLink(),
+    			'twitter_page' => $website->getTwitterPage(),
+    			'youtube_link' => $website->getYoutubeLink(),
+    			'google_link' => $website->getGoogleLink(),
+    			'linkedin_link' => $website->getGoogleLink(),
+    			'facebook_link_enabled' => $website->getFacebookLinkEnabled(),
+    			'twitter_link_enabled' => $website->getTwitterLinkEnabled(),
+    			'youtube_link_enabled' => $website->getYoutubeLinkEnabled(),
+    			'google_link_enabled' => $website->getGoogleLinkEnabled(),
+    			'linkedin_link_enabled' => $website->getLinkedinLinkEnabled(),
+    			'show_about_tab' => $website->getShowAboutTab(),
+    			'show_services_tab' => $website->getShowServicesTab(),
+    			'show_reviews_tab' => $website->getShowReviewsTab(),
+    			'show_gallery_tab' => $website->getShowGalleryTab(),
+    			'show_contact_tab' => $website->getShowContactTab(),
+    			'postcode' => $website->getPostcode(),
+    			'subscribe_title' => $website->getSubscribeTitle(),
+    			'subscribe_subtitle' => $website->getSubscribeSubtitle(),
+    			'copyright' => $website->getCopyright(),
+    			'company_name' => $website->getCompanyName(),
+    			'show_logo' => $website->getShowLogo(),
+    			'logo_url' => (is_null($website->getLogoPath())) ? null : $path_logo.$website->getLogoPath()
+    	];
 
-        return $response;
-
+    	$em = $this->getDoctrine()->getManager();
+    	$facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
+    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
+    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+    	if(is_object($facebook))$response['facebook_imge'] =( is_null($facebook->getPath())) ? null : $path.$facebook->getWebPath();
+    	if(is_object($twitter))$response['twitter_imge'] = ( is_null($twitter->getPath())) ? null : $path.$twitter->getWebPath();
+    	if(is_object($favicon))$response['favicon'] = ( is_null($favicon->getPath())) ? null : $path.$favicon->getWebPath();
+    	else $response['favicon'] = $path."favicon.png";
+    	return $response;
     }
 
     /**
@@ -80,6 +116,9 @@ class WebsiteController extends SecurityController
              }
              if(isset($params['twitter_link'])){
                $website->setTwitterLink($params['twitter_link']);
+             }
+             if(isset($params['twitter_page'])){
+               $website->setTwitterPage($params['twitter_page']);
              }
              if(isset($params['youtube_link'])){
                $website->setYoutubeLink($params['youtube_link']);
@@ -141,6 +180,7 @@ class WebsiteController extends SecurityController
              if(isset($params['show_contact_tab'])){
                $website->setShowContactTab($params['show_contact_tab']);
              }
+             
 
              $em->persist($website);
              $em->flush();
@@ -162,6 +202,124 @@ class WebsiteController extends SecurityController
 
          $response->headers->set('Content-Type', 'application/json');
          return $response;
+
+    }
+    
+    /**
+     * @Route("/api/v1/admin/website", name="put_admin_website")
+     * @Method({"PUT"})
+     */
+    public function puAdmintAction(Request $request)
+    {
+    	$this->checkAdminAccess($request);
+    
+    	$em = $this->getDoctrine()->getManager();
+    	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+    
+    	$params = array();
+    	$content = $this->get("request")->getContent();
+    	if (!empty($content))
+    	{
+    		$params = json_decode($content, true); // 2nd param to get as array
+    
+    		 
+    		if(isset($params['main_color'])){
+    			$website->setShowContactTab($params['main_color']);
+    		}
+    		if(isset($params['dark_color'])){
+    			$website->setShowContactTab($params['dark_color']);
+    		}
+    		if(isset($params['light_color'])){
+    			$website->setShowContactTab($params['light_color']);
+    		}
+    
+    		$em->persist($website);
+    		$em->flush();
+    
+    		$response = new Response(json_encode(
+    				[
+    						'code' => 200,
+    						'message' => 'OK'
+    				]));
+    
+    	}else{
+    
+    		$response = new Response(json_encode(
+    				[
+    						'code' => 1,
+    						'message' => 'Invalid Form'
+    				]));
+    	}
+    
+    	$response->headers->set('Content-Type', 'application/json');
+    	return $response;
+    
+    }
+    
+    /**
+     * @Route("/api/v1/website_headers", name="post_website_headers")
+     * @Method({"POST"})
+     */
+    public function postHeadersAction(Request $request)
+    {
+        $this->checkAdminAccess($request);
+        
+        $em = $this->getDoctrine()->getManager();
+        $file = $request->files->get('file');
+        if(!is_null($file)) {
+        
+        	$item = new Item(Item::STORE_HEADER);
+        	$item->setFile($file);
+        	$item->upload();
+        
+        	$response = new Response(json_encode(
+        			[
+        				'code' => 200,
+          				'message' => ''
+        			]));
+        
+        
+        }else{
+        
+        	$response = new Response(json_encode(
+        			[
+        					'code' => 1,
+        					'message' => 'Invalid Form'
+        			]));
+        }
+        
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+        $em = $this->getDoctrine()->getManager();
+        $website = $em->getRepository('AppBundle\Entity\Website')->find(1);
+
+        $file = $request->files->get('file');
+        if(!is_null($file)) {
+
+          $em->persist($website);
+          $em->flush();
+
+          $response = new Response(json_encode(
+          [
+            'code' => 200,
+            'message' => 'OK'
+          ]));
+
+          $response->headers->set('Content-Type', 'application/json');
+          return $response;
+
+        }else{
+
+            $response = new Response(json_encode(
+            [
+              'code' => 1,
+              'message' => 'Invalid Form'
+            ]));
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
 
     }
 
@@ -206,5 +364,106 @@ class WebsiteController extends SecurityController
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
+    }
+
+    
+    
+    /**
+     * @Route("/api/v1/website/item", name="post_website_item")
+     * @Method({"POST"})
+     */
+    public function postItemImageAction(Request $request)
+    {
+    	$this->checkAccess($request);
+    
+    	try{
+	    	$em = $this->getDoctrine()->getManager();
+	    	$file = $request->files->get('file');
+	    	if(!is_null($file)) {
+	    		$new = true;
+	    		if( 	isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]) &&
+	    				Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['quantity'] == 'unique' ){
+
+	    			$item = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>strtolower($request->request->get('type'))]);
+	    			if(is_object($item)){
+	    				$new = false;
+	    			}
+	    		}
+	    		if( $new ) $item = new Item($request->request->get('type'));
+	    		$item->setFile($file);
+	    		$item->upload();
+	    		$em->persist($item);
+	    		$em->flush();
+
+
+	    		$path_social = 'http://'.$request->server->get('HTTP_HOST').'/';
+	    		if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
+	    			$path_social = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
+	    		}
+	    		
+	    		$response = new Response(json_encode(
+	    				[
+	    						'code' => 200,
+	    						'id' => $item->getId(),
+	    						'url' => $path_social.$item->getWebPath()
+	    				]));
+	    
+	    
+	    	}else{
+	    
+	    		$response = new Response(json_encode(
+	    				[
+	    						'code' => 1,
+	    						'message' => 'Invalid Form'
+	    				]));
+	    	}
+    	} catch (\Exception $e){
+    		$response = new Response(json_encode(
+    				[
+    						'code' => 2,
+    						'message' => $e->getMessage()
+    				]));
+    	}
+    
+    	$response->headers->set('Content-Type', 'application/json');
+    	return $response;
+    
+    }
+    
+    /**
+     * @Route("/api/v1/gallery_items/{id}", name="delete_website_item")
+     * @Method({"DELETE"})
+     */
+    public function deleteItemAction(Request $request, $id)
+    {
+    	$this->checkAccess($request);
+    
+    	$em = $this->getDoctrine()->getManager();
+    	$item =  $em->getRepository('AppBundle\Entity\Item\Item')->find($id);
+    
+    	if(is_object($item)){
+    
+    		$item->deleteFile();
+    		$em->remove($item);
+    		$em->flush();
+    
+    		$response = new Response(json_encode(
+    				[
+    						'code' => 200,
+    						'message' => 'OK'
+    				]));
+    
+    	}else{
+    
+    		$response = new Response(json_encode(
+    				[
+    						'code' => 1,
+    						'message' => 'Invalid Form'
+    				]));
+    	}
+    
+    	$response->headers->set('Content-Type', 'application/json');
+    	return $response;
+    
     }
 }

@@ -113,6 +113,15 @@ class Item{
      * @ORM\Column(name="custom_header", type="boolean")
      */
     private $custom_header;
+    
+
+    /**
+     * @var string $order
+     *
+     * @ORM\Column(name="ordering", type="smallint", options={"default" = 1})
+     */
+    private $order;
+    
 
     public function __construct(){
 
@@ -476,4 +485,12 @@ class Item{
            unlink($path);
          }
      }
+	public function getOrder() {
+		return $this->order;
+	}
+	public function setOrder($order) {
+		$this->order = $order;
+		return $this;
+	}
+	
 }

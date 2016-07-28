@@ -4,7 +4,14 @@
 	<title>{{ contact.metaTitle }}</title>
 	<meta name="description" content="{{ contact.metaDescription }}">
 {% endblock %}
-
+{% block stylesheets %}
+	<style>
+	
+		.contact_inner_form .btn-default.btn-submit{
+			background-color:{{ website.mainColor }};
+		}
+	</style>
+{% endblock %}
 {% block body %}
 {% if website.disabled %}
 {% include 'AppBundle:partials:website_disabled.html.twig' %}
@@ -34,6 +41,14 @@
 					</div>
 				</div>
 				{% else %}
+				{% if error %}
+				<div class="row">
+					  <div class="col-md-10 col-md-offset-2">
+							<div class="alert alert-danger text-center">{{ error }}</div>
+					</div>
+				</div>
+				<br>
+				{% endif %}
 				<form name="contactForm" class="form-horizontal" method="post" action="{{ path('contact') }}#cf1" >
 				<div class="cf1">
 					<h2>Contact Information</h2>
@@ -41,19 +56,19 @@
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">Name *</label>
 							    <div class="col-sm-10">
-										{{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your name', 'ng-model' : 'contact.name'} }) }}
+										{{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your name'} }) }}
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
 							    <div class="col-sm-10">
-							      {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email', 'ng-model' : 'contact.email'} }) }}
+							      {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email'} }) }}
 							    </div>
 							  </div>
 								<div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">Phone *</label>
 							    <div class="col-sm-10">
-							      {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your phone', 'ng-model' : 'contact.phone'} }) }}
+							      {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your phone'} }) }}
 							    </div>
 							  </div>
 					</div>
@@ -64,13 +79,13 @@
 						  <div class="form-group">
 						    <label for="inputPassword3" class="col-sm-2 control-label">Job Location *</label>
 						    <div class="col-sm-10">
-						      {{ form_widget(form.job_location, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job postcode', 'ng-model' : 'contact.job_location'} }) }}
+						      {{ form_widget(form.job_location, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job postcode'} }) }}
 						    </div>
 						  </div>
 							<div class="form-group">
 						    <label for="inputPassword3" class="col-sm-2 control-label">Preferred Start Date *</label>
 						    <div class="col-sm-10">
-						      {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy', 'ng-model' : 'contact.job_date'} }) }}
+						      {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy'} }) }}
 						    </div>
 						  </div>
 							{% if form.job_categories |length > 0 %}
@@ -105,7 +120,7 @@
 						  <div class="form-group">
 						    <label for="inputPassword3" class="col-sm-2 control-label">Job Description *</label>
 						    <div class="col-sm-10">
-									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description', 'ng-model' : 'contact.job_description'} }) }}
+									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description'} }) }}
 						    		
 						    </div>
 						  </div>
@@ -125,7 +140,7 @@
 							<br>
 							{% endif %}
 							<div class="col-md-2 col-md-offset-2 text-left">
-							    <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default" style="background-color:{{ website.mainColor }}">POST</button>
+								{{ form_widget(form.submit, { 'label': 'POST', 'attr': {'class':'btn btn-default btn-submit'} }) }}
 								<small style="float:left">(*) mandatory</small>
 							</div>
 					</div>

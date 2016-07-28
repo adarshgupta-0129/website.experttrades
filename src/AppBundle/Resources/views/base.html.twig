@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="{{ website.companyName }}">
+    
 
     {% block header %}{% endblock %}
 
@@ -13,8 +14,11 @@
     <link href="{{ asset('bundles/app/css/bootstrap.css') }}" rel="stylesheet" >
     <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datetimepicker.min.css') }}" />
-
-    <link rel="icon" href="/favicon.png" type="image/x-icon"/>
+	{% if favicon  %}
+    	<link rel="icon" href="{{ asset(favicon) }}" type="image/x-icon"/>
+	{% else %}
+    	<link rel="icon" href="/favicon.png" type="image/x-icon"/>
+	{% endif %}
   <style>
      .g-recaptcha{
         overflow: visible;
@@ -519,6 +523,10 @@ text-decoration:none;
 .readmore_button a:active {
     color: #000;
     border-color: {{ website.mainColor }};
+}
+.readmore_button a.btn-share {
+    border: none;
+    padding: 5px 5px;
 }
 /*********************************************************************************************
 
