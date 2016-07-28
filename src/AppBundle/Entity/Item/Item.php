@@ -573,7 +573,7 @@ class Item{
 	public function getStorage() {
 		return $this->storage;
 	}
-	public function setStorage(type $storage) {
+	public function setStorage($storage) {
 		$this->storage = $storage;
 		return $this;
 	}
