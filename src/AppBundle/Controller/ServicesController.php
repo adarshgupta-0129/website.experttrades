@@ -40,7 +40,7 @@ class ServicesController extends MainController
         $this->trackVisit();
 
         return $this->render('AppBundle:services:index.html.twig',
-        array(
+        array( 
           'website' => $website,
            'hasBlog' => $blog->getActive(),
          'homepage' => $homepage,
