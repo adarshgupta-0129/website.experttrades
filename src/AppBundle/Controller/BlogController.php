@@ -38,6 +38,7 @@ class BlogController extends MainController
 
 
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
@@ -52,6 +53,7 @@ class BlogController extends MainController
          	'search' => $search,
            'page' => $page,
            'website' => $website,
+         'homepage' => $homepage,
         		'favicon' => $favicon,
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,

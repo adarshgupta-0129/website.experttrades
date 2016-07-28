@@ -18,6 +18,7 @@ class GalleryController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
@@ -73,6 +74,7 @@ class GalleryController extends MainController
            'page' => $page,
            'website' => $website,
            'hasBlog' => $blog->getActive(),
+         'homepage' => $homepage,
         		'favicon' => $favicon,
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,

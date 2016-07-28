@@ -33,6 +33,7 @@ class PostController extends MainController
         }
 
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
 
@@ -41,6 +42,7 @@ class PostController extends MainController
            'website' => $website,
            'blog' => $blog,
            'hasBlog' => $blog->getActive(),
+         'homepage' => $homepage,
         		'favicon' => $favicon,
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,

@@ -22,6 +22,7 @@ class AboutUsController extends MainController
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
+        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $teamMembers =  $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')->findAll();
         $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
@@ -36,6 +37,7 @@ class AboutUsController extends MainController
         return $this->render('AppBundle:about_us:index.html.twig',
         array(
          'website' => $website,
+         'homepage' => $homepage,
         		'favicon' => $favicon,
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,
