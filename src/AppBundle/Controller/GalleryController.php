@@ -83,7 +83,7 @@ class GalleryController extends MainController
            'pos_items' => $pos_items,
            'portrait' => $portrait,
            'landscape' => $landscape,
-           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
+           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
            'footer_images' => $footerImages,
            'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()));

@@ -84,7 +84,7 @@ class SubscribeController extends MainController
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,
            'footer_images' => $footerImages,
-           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
+           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
            'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
          ));
       }
@@ -115,7 +115,7 @@ class SubscribeController extends MainController
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,
              'footer_images' => $footerImages,
-             'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['id' => 'DESC']),
+             'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
              'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            ));
         }
