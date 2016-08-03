@@ -128,6 +128,7 @@ class Item{
       $this->page_active = false;
       $this->files = new ArrayCollection();
       $this->custom_header = false;
+      $this->order = 1;
     }
 
     /**
