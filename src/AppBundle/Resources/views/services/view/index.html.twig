@@ -58,6 +58,12 @@
 		background-size: cover;
 		padding: 151px 0 109px;
 	}
+	.title-header-services{
+		font-family: 'Lato', sans-serif;
+    font-size: 50px;
+    color: #fff;
+    font-weight: 700;
+	}
 
 	</style>
 
@@ -70,7 +76,7 @@
 <section class=" {% if item.headerPath is not null and item.customHeader %} service_page_banner {% else %} service_banner {% endif %}">
 	<div class="container">
 		<div class="banner_content_bottom_services">
-			<h2>{{ item.title }}</h2>
+			<div class="title-header-services"> {{ item.title }}</div>
 		</div>
 	</div>
 </section>
@@ -80,7 +86,7 @@
 		    <div class="container">
 		        <div class="row">
 		            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-		                <h2 class="section-heading">{{ item.pageTitle }}</h2>
+		                <h1 class="section-heading">{{ item.pageTitle }}</h1>
 		                {{ item.pageHtml | raw }}
 		            </div>
 		        </div>

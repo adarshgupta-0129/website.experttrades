@@ -24,6 +24,8 @@ class ServicesController extends MainController
         $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
     	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+      $facebook_image = null;
+      $twitter_image = null;
     	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
     	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
     	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
@@ -32,7 +34,7 @@ class ServicesController extends MainController
         $perPage = 6;
         $offset = ($page - 1) * $perPage;
         $items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->getPaginated($perPage, $offset, 'order');
-        
+
         if( $page > $items['last_page'] ){
         	return $this->redirect($this->generateUrl('blog'));
         }
@@ -40,7 +42,7 @@ class ServicesController extends MainController
         $this->trackVisit();
 
         return $this->render('AppBundle:services:index.html.twig',
-        array( 
+        array(
           'website' => $website,
            'hasBlog' => $blog->getActive(),
          'homepage' => $homepage,
@@ -69,6 +71,8 @@ class ServicesController extends MainController
         $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
     	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+      $facebook_image = null;
+      $twitter_image = null;
     	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
     	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
     	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
