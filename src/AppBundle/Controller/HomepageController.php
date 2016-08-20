@@ -112,7 +112,7 @@ class HomepageController extends MainController
                 //close connection
                 curl_close($ch);
 
-                //if(isset($result['success']) && $result['success']){
+                if(isset($result['success']) && $result['success']){
 
                     $em->persist($message);
                     $em->flush();
@@ -140,9 +140,9 @@ class HomepageController extends MainController
                     } else
                    		return $this->redirect($this->generateUrl('message_success'));
 
-               /* }else{
+                }else{
                     $contactError = 'Please click on the "I am not a Robot" checkbox';
-                }*/
+                }
             }
         }
 
