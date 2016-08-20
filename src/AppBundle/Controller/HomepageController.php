@@ -31,6 +31,8 @@ class HomepageController extends MainController
         $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
     	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
+      $facebook_image = null;
+      $twitter_image = null;
     	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
     	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
     	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
@@ -135,7 +137,7 @@ class HomepageController extends MainController
                     $result = json_decode(curl_exec($ch), true);
                     if( $result['code'] != 200 ){
                     	$contactError = 'We can not send your request. Please contact using phone number or try again.';
-                    } else 
+                    } else
                    		return $this->redirect($this->generateUrl('message_success'));
 
                /* }else{

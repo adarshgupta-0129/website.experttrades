@@ -58,4 +58,4 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-   #     unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
+        unix_socket: /Applications/MAMP/tmp/mysql/mysql.sock
