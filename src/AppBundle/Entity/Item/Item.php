@@ -54,6 +54,7 @@ class Item{
 			self::STORE_HEADER => array (
 				'folder'  => 'headers',
 				'quantity'  => 'unique',
+				'access'  => 'admin',
 				'type'  => self::ITEM_ZIP
 			),
 			self::STORE_SOCIAL_FB => array (
@@ -177,8 +178,10 @@ class Item{
     	if(array_key_exists(strtolower($this->type), self::$MIMETYPE) === FALSE ){
     		throw new \Exception('The '.$type.' type is invalid');
     	} 
-    	$this->width = self::$STORECONFIG[$this->storage]['width'];
-    	$this->height = self::$STORECONFIG[$this->storage]['height'];
+    	if( isset( self::$STORECONFIG[$this->storage]['width']) )$this->width = self::$STORECONFIG[$this->storage]['width'];
+    	else $this->width = 0;
+    	if( isset( self::$STORECONFIG[$this->storage]['height']) )$this->height = self::$STORECONFIG[$this->storage]['height'];
+    	else $this->height = 0;
 
     }
 
@@ -333,12 +336,12 @@ class Item{
     	$random_name = substr( md5(rand()), 0, 15);
     	$ext = strtolower($this->getFile()->guessExtension());
     	$this->ext = $ext;
-    	if( self::$STORECONFIG[$this->storage]['name'] == 'random' ){
+    	if( isset(self::$STORECONFIG[$this->storage]['name']) && self::$STORECONFIG[$this->storage]['name'] == 'random' ){
     		$filename = $random_name.'.'.$this->ext;
     	} elseif( isset(self::$STORECONFIG[$this->storage]['name']) ) {
     		$filename = self::$STORECONFIG[$this->storage]['name'].'.'.$this->ext;
     	} else {
-    		$filename = $random_name.'-'.$this->getFile()->getClientOriginalName().$this->ext;
+    		$filename = $random_name.'-'.$this->getFile()->getClientOriginalName();
     	}
     	// move takes the target directory and then the
     	// target filename to move to
@@ -354,7 +357,8 @@ class Item{
     	if( $this->type === self::ITEM_IMAGE  
     			&& isset(self::$STORECONFIG[$this->storage]['width']) && is_numeric(self::$STORECONFIG[$this->storage]['width'])
     			&& isset(self::$STORECONFIG[$this->storage]['height']) && is_numeric(self::$STORECONFIG[$this->storage]['height'])
-    			) {
+    			) 
+    	{
     
 	    	$imageURL = $this->getAbsolutePath();
 	    	$img = null;
@@ -442,8 +446,9 @@ class Item{
 	    	rename($imageURL, $this->getUploadRootDir().'/'.$random_name.'_original.'.$this->ext);
 	    	//move temporaly to image name
 	    	rename($tmp_path, $imageURL);
-    	} else 
-    	if( $this->type === self::ITEM_ZIP) {
+    	} 
+    	else if( $this->type === self::ITEM_ZIP) 
+    	{
     			$zip = new \ZipArchive();
     			$x = $zip->open($this->getAbsolutePath());  // open the zip file to extract
     			if ($x === true) {

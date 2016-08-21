@@ -28,6 +28,8 @@ class WebsiteController extends SecurityController
     	return $response;
 
     }
+    
+    
     /**
      * @Route("/api/v1/admin/website", name="get_admin_website")
      * @Method({"GET"})
@@ -39,11 +41,224 @@ class WebsiteController extends SecurityController
     	$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
 		$array_response = $this->getWebsite($request, $website);
 		$array_response['et_atw'] = $website->getAccessToken();
+		$array_response['main_color'] = $website->getMainColor();
+		$array_response['dark_color'] = $website->getDarkColor();
+		$array_response['light_color'] = $website->getLightColor();
         $response = new Response(json_encode($array_response));
     	$response->headers->set('Content-Type', 'application/json');
     	
     	return $response;
 
+    }
+    
+
+
+
+    /**
+     * @Route("/api/v1/admin/website/clear_integration", name="post_admin_website_clear_integration")
+     * @Method({"POST"})
+     */
+    public function postAdminClearIntegrationAction(Request $request)
+    {
+    	$this->checkAdminAccess($request);
+    	$file_json =  __DIR__.'/../../../../../clear_integration.json';
+    	
+
+    	$params = array();
+    	$content = $this->get("request")->getContent();
+    	if (!empty($content))
+    	{
+    		$params = json_decode($content, true); // 2nd param to get as array
+    		$do_it = false;
+    		if( file_exists ( $file_json ) && !isset($params['force']) ){
+
+    			$response = new Response(json_encode(
+    					[
+    							'code' => 2,
+    							'message' => "This color it's been used. We can not clear integration."
+    					]));
+    			$response->headers->set('Content-Type', 'application/json');
+    			return $response;
+    		}
+
+    		if(isset($params['color'])){
+    			$color = $params['color'];
+    			if(isset($params['domain']))
+    			{
+    				$domain = $params['domain'];
+    				$domain = preg_replace('/^http(s)?:\/\//', '', $domain);
+    				$domain = preg_replace('/^www\./', '', $domain);
+    				$domain = trim($domain, '/');
+					//var_dump('domain: '.$domain);
+    				$do_it = true;
+    			}
+    		}
+    		
+    		
+    		
+    		
+ /**/	
+    		if($do_it)
+    		{
+    			
+ /**
+    		if(true){
+$color = 'white';
+$domain = 'testwebsite.com';
+/**/
+		    	$command = escapeshellcmd('sudo -u www-data python /var/www/SCRIPTS/PHP_clear_integration_site.py -c '. $color .' -d '. $domain);
+		    	//var_dump($command);
+		    	$output = shell_exec($command);
+		    	//var_dump($output);
+		    	$em = $this->getDoctrine()->getManager();
+		    	$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
+		    	$array_response = $this->getWebsite($request, $website);
+		    	$array_response['et_atw'] = $website->getAccessToken();
+		    	$array_response['main_color'] = $website->getMainColor();
+		    	$array_response['dark_color'] = $website->getDarkColor();
+		    	$array_response['light_color'] = $website->getLightColor();
+		    	$array_response['disabled'] = $website->getDisabled();
+		    	$array_response['output_script'] = $output;
+		    	if( strpos($output, 'ERROR:') !== FALSE ){
+		    		$array_response['error'] = true;
+		    	}else {
+		    		$array_response['error'] = false;
+		    		// if we didn't have an error we add the trade data
+		    		$em = $this->getDoctrine()->getManager();
+		    		$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+		    		if(isset($params['trade_url'])){
+		    			$website->setTradeUrl($params['trade_url']);
+		    		}
+		    		if(isset($params['trade_id'])){
+		    			$website->setTradeId($params['trade_id']);
+		    		}
+		    		$em->persist($website);
+            		$em->flush();
+		    		//we write a json add all the information
+            		$array_response['trade_id'] = $website->getTradeId();
+            		$array_response['trade_url'] = $website->getTradeUrl();
+            		$array_json = [
+            				'color' => $color,
+            				'domain' => $domain,
+            				'full_domain' => $params['domain'],
+            				'data' => $array_response
+            		];
+            		
+            		if (!$handle = fopen($file_json, 'a')) {
+            			$response = new Response(json_encode(
+    					[
+    							'code' => 1,
+    							'message' => 'Something went wrong! Error creating json File!'
+    					]));
+            		}
+            		
+            		// Write $somecontent to our opened file.
+            		if (fwrite($handle, json_encode($array_json)) === FALSE) {
+            			$response = new Response(json_encode(
+    					[
+    							'code' => 1,
+    							'message' => 'Something went wrong! Error writing json File!'
+    					]));
+            		}
+            		
+					fclose($handle);
+		    		
+            		
+		    	}
+		    	$response = new Response(json_encode($array_response));
+    		} 
+    		else 
+    		{
+    			$response = new Response(json_encode(
+    					[
+    							'code' => 1,
+    							'message' => 'Invalid paramaters.'
+    					]));
+    		}
+    	} 
+    	else 
+    	{
+             $response = new Response(json_encode(
+             [
+               'code' => 1,
+               'message' => 'Invalid Form'
+             ]));
+    	}
+		$response->headers->set('Content-Type', 'application/json');
+    	return $response;
+    
+    }
+    
+    /**
+     * @Route("/api/v1/admin/website/launch_site", name="post_admin_website_launch_site")
+     * @Method({"POST"})
+     */
+    public function postAdminLaunchAction(Request $request)
+    {
+    	$this->checkAdminAccess($request);
+    	
+    	$params = array();
+    	$content = $this->get("request")->getContent();
+    	if (!empty($content))
+    	{
+    		$params = json_decode($content, true); // 2nd param to get as array
+    		$do_it = false;
+    
+    		if(isset($params['color'])){
+    			$color = $params['color'];
+    			if(isset($params['domain']))
+    			{
+    				$domain = $params['domain'];
+    				$domain = preg_replace('/^http(s)?:\/\//', '', $domain);
+    				$domain = preg_replace('/^www\./', '', $domain);
+    				$domain = trim($domain, '/');
+    				$do_it = true;
+    			}
+    		}
+    
+    		if($do_it)
+    		{
+    			 
+    			/**
+    			 if(true){
+    			 $color = 'white';
+    			 $domain = 'http://testwebsite.com';
+    			 /**/
+    			$command = escapeshellcmd('python /var/www/SCRIPTS/PHP_launch_site.py -c '. $color .' -d '. $domain);
+    			//var_dump($command);
+    			$output = shell_exec($command);
+    			//var_dump($output);
+    			$em = $this->getDoctrine()->getManager();
+    			$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
+    			$array_response = $this->getWebsite($request, $website);
+    			$array_response['et_atw'] = $website->getAccessToken();
+    			$array_response['main_color'] = $website->getMainColor();
+    			$array_response['dark_color'] = $website->getDarkColor();
+    			$array_response['light_color'] = $website->getLightColor();
+    			$array_response['disabled'] = $website->getDisabled();
+    			$array_response['output_script'] = $output;
+    			$response = new Response(json_encode($array_response));
+    		}
+    		else
+    		{
+    			$response = new Response(json_encode(
+    					[
+    							'code' => 1,
+    							'message' => 'Invalid paramaters.'
+    					]));
+    		}
+    	}
+    	else
+    	{
+    		$response = new Response(json_encode(
+    				[
+    						'code' => 1,
+    						'message' => 'Invalid Form'
+    				]));
+    	}
+    	$response->headers->set('Content-Type', 'application/json');
+    	return $response;
+    
     }
     
     private function getWebsite(Request $request, $website){
@@ -209,7 +424,7 @@ class WebsiteController extends SecurityController
      * @Route("/api/v1/admin/website", name="put_admin_website")
      * @Method({"PUT"})
      */
-    public function puAdmintAction(Request $request)
+    public function putAdmintAction(Request $request)
     {
     	$this->checkAdminAccess($request);
     
@@ -224,13 +439,25 @@ class WebsiteController extends SecurityController
     
     		 
     		if(isset($params['main_color'])){
-    			$website->setShowContactTab($params['main_color']);
+    			$website->setMainColor($params['main_color']);
     		}
     		if(isset($params['dark_color'])){
-    			$website->setShowContactTab($params['dark_color']);
+    			$website->setDarkColor($params['dark_color']);
     		}
     		if(isset($params['light_color'])){
-    			$website->setShowContactTab($params['light_color']);
+    			$website->setLightColor($params['light_color']);
+    		}
+    		if(isset($params['trade_url'])){
+    			$website->setTradeUrl($params['trade_url']);
+    		}
+    		if(isset($params['trade_id'])){
+    			$website->setTradeId($params['trade_id']);
+    		}
+    		if(isset($params['disabled'])){
+    			if($params['disabled'] === true || $params['disabled'] === 1 || $params['disabled'] === 'true')
+    				$website->setDisabled(true);
+    			else 
+    				$website->setDisabled(false);
     		}
     
     		$em->persist($website);
@@ -257,7 +484,7 @@ class WebsiteController extends SecurityController
     }
     
     /**
-     * @Route("/api/v1/website_headers", name="post_website_headers")
+     * @Route("/api/v1/admin/website_headers", name="post_website_headers")
      * @Method({"POST"})
      */
     public function postHeadersAction(Request $request)
@@ -382,13 +609,10 @@ class WebsiteController extends SecurityController
 	    	if(!is_null($file)) {
 	    		$new = true;
 	    		if( 	isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]) &&
-	    				Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['quantity'] == 'unique' ){
-
-	    			$item = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>strtolower($request->request->get('type'))]);
-	    			if(is_object($item)){
-	    				$new = false;
-	    			}
-	    		}
+	    				isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['access'] ) &&
+	    				Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['access'] == 'admin' ){
+					$this->checkAdminAccess($request);
+	    		} 
 	    		if( $new ) $item = new Item($request->request->get('type'));
 	    		$item->setFile($file);
 	    		$item->upload();
@@ -466,4 +690,7 @@ class WebsiteController extends SecurityController
     	return $response;
     
     }
+    
+    
+    
 }
