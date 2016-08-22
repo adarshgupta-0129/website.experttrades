@@ -621,18 +621,23 @@ $domain = 'testwebsite.com';
      */
     public function postItemImageAction(Request $request)
     {
-    	$this->checkAccess($request);
+
+    	if( 	isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]) &&
+    			isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['access'] ) &&
+    			Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['access'] == 'admin' )
+    	{
+    				$this->checkAdminAccess($request);
+    	}
+    	else 
+    	{
+    		$this->checkAccess($request);
+    	}
     
     	try{
 	    	$em = $this->getDoctrine()->getManager();
 	    	$file = $request->files->get('file');
 	    	if(!is_null($file)) {
 	    		$new = true;
-	    		if( 	isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]) &&
-	    				isset(Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['access'] ) &&
-	    				Item::$STORECONFIG[ strtolower($request->request->get('type')) ]['access'] == 'admin' ){
-					$this->checkAdminAccess($request);
-	    		} 
 	    		if( $new ) $item = new Item($request->request->get('type'));
 	    		$item->setFile($file);
 	    		$item->upload();
