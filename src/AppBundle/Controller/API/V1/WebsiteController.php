@@ -44,6 +44,8 @@ class WebsiteController extends SecurityController
 		$array_response['main_color'] = $website->getMainColor();
 		$array_response['dark_color'] = $website->getDarkColor();
 		$array_response['light_color'] = $website->getLightColor();
+    	$array_response['trade_id'] = $website->getTradeId();
+    	$array_response['trade_url'] = $website->getTradeUrl();
         $response = new Response(json_encode($array_response));
     	$response->headers->set('Content-Type', 'application/json');
     	
@@ -62,6 +64,7 @@ class WebsiteController extends SecurityController
     {
     	$this->checkAdminAccess($request);
     	$file_json =  __DIR__.'/../../../../../clear_integration.json';
+    	$file_json2 =  __DIR__.'/../../../../../launch_site.json';
     	
 
     	$params = array();
@@ -80,6 +83,16 @@ class WebsiteController extends SecurityController
     			$response->headers->set('Content-Type', 'application/json');
     			return $response;
     		}
+    		if( file_exists ( $file_json2 ) && !isset($params['force']) ){
+
+    			$response = new Response(json_encode(
+    					[
+    							'code' => 2,
+    							'message' => "This color it's set up to launch, if you force the clear integration before the launch you may lost all the information."
+    					]));
+    			$response->headers->set('Content-Type', 'application/json');
+    			return $response;
+    		}
 
     		if(isset($params['color'])){
     			$color = $params['color'];
@@ -93,10 +106,6 @@ class WebsiteController extends SecurityController
     				$do_it = true;
     			}
     		}
-    		
-    		
-    		
-    		
  /**/	
     		if($do_it)
     		{
@@ -107,36 +116,14 @@ $color = 'white';
 $domain = 'testwebsite.com';
 /**/
 		    	$command = escapeshellcmd('sudo -u www-data python /var/www/SCRIPTS/PHP_clear_integration_site.py -c '. $color .' -d '. $domain);
-		    	//var_dump($command);
 		    	$output = shell_exec($command);
-		    	//var_dump($output);
-		    	$em = $this->getDoctrine()->getManager();
-		    	$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
-		    	$array_response = $this->getWebsite($request, $website);
-		    	$array_response['et_atw'] = $website->getAccessToken();
-		    	$array_response['main_color'] = $website->getMainColor();
-		    	$array_response['dark_color'] = $website->getDarkColor();
-		    	$array_response['light_color'] = $website->getLightColor();
-		    	$array_response['disabled'] = $website->getDisabled();
+		    	$array_response=[];
 		    	$array_response['output_script'] = $output;
 		    	if( strpos($output, 'ERROR:') !== FALSE ){
 		    		$array_response['error'] = true;
 		    	}else {
 		    		$array_response['error'] = false;
-		    		// if we didn't have an error we add the trade data
-		    		$em = $this->getDoctrine()->getManager();
-		    		$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-		    		if(isset($params['trade_url'])){
-		    			$website->setTradeUrl($params['trade_url']);
-		    		}
-		    		if(isset($params['trade_id'])){
-		    			$website->setTradeId($params['trade_id']);
-		    		}
-		    		$em->persist($website);
-            		$em->flush();
-		    		//we write a json add all the information
-            		$array_response['trade_id'] = $website->getTradeId();
-            		$array_response['trade_url'] = $website->getTradeUrl();
+		    		
             		$array_json = [
             				'color' => $color,
             				'domain' => $domain,
@@ -144,7 +131,7 @@ $domain = 'testwebsite.com';
             				'data' => $array_response
             		];
             		
-            		if (!$handle = fopen($file_json, 'a')) {
+            		if (!$handle = fopen($file_json, 'w')) {
             			$response = new Response(json_encode(
     					[
     							'code' => 1,
@@ -196,6 +183,7 @@ $domain = 'testwebsite.com';
     public function postAdminLaunchAction(Request $request)
     {
     	$this->checkAdminAccess($request);
+    	$file_json =  __DIR__.'/../../../../../launch_site.json';
     	
     	$params = array();
     	$content = $this->get("request")->getContent();
@@ -203,7 +191,16 @@ $domain = 'testwebsite.com';
     	{
     		$params = json_decode($content, true); // 2nd param to get as array
     		$do_it = false;
-    
+    		if( file_exists ( $file_json ) && !isset($params['force']) ){
+    		
+    			$response = new Response(json_encode(
+    					[
+    							'code' => 2,
+    							'message' => "This color it's already configurated for launch."
+    					]));
+    			$response->headers->set('Content-Type', 'application/json');
+    			return $response;
+    		}
     		if(isset($params['color'])){
     			$color = $params['color'];
     			if(isset($params['domain']))
@@ -224,20 +221,43 @@ $domain = 'testwebsite.com';
     			 $color = 'white';
     			 $domain = 'http://testwebsite.com';
     			 /**/
-    			$command = escapeshellcmd('python /var/www/SCRIPTS/PHP_launch_site.py -c '. $color .' -d '. $domain);
-    			//var_dump($command);
-    			$output = shell_exec($command);
-    			//var_dump($output);
+    			$array_json = [
+    					'color' => $color,
+    					'domain' => $domain,
+    					'full_domain' => $params['domain']
+    			];
+    			
+    			if (!$handle = fopen($file_json, 'w')) {
+    				$response = new Response(json_encode(
+    						[
+    								'code' => 1,
+    								'message' => 'Something went wrong! Error creating json File!'
+    						]));
+    			}
+    			
+    			// Write $somecontent to our opened file.
+    			if (fwrite($handle, json_encode($array_json)) === FALSE) {
+    				$response = new Response(json_encode(
+    						[
+    								'code' => 1,
+    								'message' => 'Something went wrong! Error writing json File!'
+    						]));
+    			}
+    			
+    			fclose($handle);
     			$em = $this->getDoctrine()->getManager();
     			$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
-    			$array_response = $this->getWebsite($request, $website);
-    			$array_response['et_atw'] = $website->getAccessToken();
-    			$array_response['main_color'] = $website->getMainColor();
-    			$array_response['dark_color'] = $website->getDarkColor();
-    			$array_response['light_color'] = $website->getLightColor();
-    			$array_response['disabled'] = $website->getDisabled();
-    			$array_response['output_script'] = $output;
-    			$response = new Response(json_encode($array_response));
+		    	$array_response = $this->getWebsite($request, $website);
+		    	$array_response['et_atw'] = $website->getAccessToken();
+		    	$array_response['main_color'] = $website->getMainColor();
+		    	$array_response['dark_color'] = $website->getDarkColor();
+		    	$array_response['light_color'] = $website->getLightColor();
+		    	$array_response['disabled'] = $website->getDisabled();
+		    	$array_response['trade_id'] = $website->getTradeId();
+		    	$array_response['trade_url'] = $website->getTradeUrl();
+		    	$array_response['error'] = false;
+		    	$response = new Response(json_encode($array_response));
+    			
     		}
     		else
     		{
