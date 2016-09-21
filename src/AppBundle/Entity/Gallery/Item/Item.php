@@ -5,6 +5,10 @@ namespace AppBundle\Entity\Gallery\Item;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\OrderBy;
+
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * AppBundle\Entity\Gallery\Item\Item
@@ -13,6 +17,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Gallery\Item\ItemRepository")
  */
 class Item{
+	
+
+	/**
+	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Gallery\Tag\ItemTag", mappedBy="item")
+	 * @OrderBy({"id" = "DESC"})
+	 * @EXCLUDE
+	 */
+	private $item_tags;
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -70,7 +82,19 @@ class Item{
 
     public function __construct(){
         $this->order = 0;
+      	$this->item_tags = new ArrayCollection();
     }
+    
+    /**
+     * Get item_tags
+     *
+     * @return ArrayCollection
+     */
+    public function getItemTags()
+    {
+    	return $this->item_tags;
+    }
+    
 
     /**
      * Sets file.

@@ -17,17 +17,24 @@ class SecurityController extends Controller
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
 
         if(in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod')) &&
-          $website->getAccessToken() != $request->query->get('access_token')){
-          throw new AccessDeniedHttpException();
+          $website->getAccessToken() != $request->query->get('access_token'))
+        {
+	        if(in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod')) &&
+	          (is_null( $website->getAdminAccessToken() ) || $website->getAdminAccessToken() != $request->query->get('access_token') ))
+	        {
+	          throw new AccessDeniedHttpException();
+	        }
         }
 
     }
+    
     public function checkAdminAccess($request)
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
         if(in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod')) &&
-          (is_null( $website->getAdminAccessToken() ) || $website->getAdminAccessToken() != $request->query->get('access_token') )){
+          (is_null( $website->getAdminAccessToken() ) || $website->getAdminAccessToken() != $request->query->get('access_token') ))
+        {
           throw new AccessDeniedHttpException();
         }
 

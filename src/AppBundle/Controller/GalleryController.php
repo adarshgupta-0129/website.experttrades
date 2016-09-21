@@ -17,17 +17,8 @@ class GalleryController extends MainController
     public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-      $facebook_image = null;
-      $twitter_image = null;
-    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
+        $array_twig = $this->defaultInfo();
+        
         $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
         $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
         $total_portrait =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();
@@ -71,23 +62,13 @@ class GalleryController extends MainController
         	}
         }
 
-        return $this->render('AppBundle:gallery:index.html.twig',
-         array(
-           'page' => $page,
-           'website' => $website,
-           'hasBlog' => $blog->getActive(),
-         'homepage' => $homepage,
-        		'favicon' => $favicon,
-        		'facebook_image' => $facebook_image,
-        		'twitter_image' => $twitter_image,
-           'gallery' => $gallery,
-           'items' => $items,
-           'pos_items' => $pos_items,
-           'portrait' => $portrait,
-           'landscape' => $landscape,
-           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
-           'footer_images' => $footerImages,
-           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()));
+        
+        $array_twig['gallery'] = $gallery;
+        $array_twig['items'] = $items;
+        $array_twig['pos_items'] = $pos_items;
+        $array_twig['portrait'] = $portrait;
+        $array_twig['landscape'] = $landscape;
+        $array_twig['page'] = $page;
+        return $this->render('AppBundle:gallery:index.html.twig',$array_twig);
     }
 }

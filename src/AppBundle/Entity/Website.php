@@ -102,6 +102,14 @@ class Website{
      */
     private $linkedin_link;
 
+    /**
+     * @var string $instagram_link
+     *
+     * @ORM\Column(name="instagram_link", type="text", length=2555, nullable=true)
+     */
+    private $instagram_link;
+    
+
 
     /**
      * @var boolean $facebook_link_enabled
@@ -137,6 +145,13 @@ class Website{
      * @ORM\Column(name="linkedin_link_enabled", type="boolean")
      */
     private $linkedin_link_enabled;
+
+    /**
+     * @var boolean $instagram_link_enabled
+     *
+     * @ORM\Column(name="instagram_link_enabled", type="boolean")
+     */
+    private $instagram_link_enabled;
 
     /**
      * @var string $postcode
@@ -229,6 +244,20 @@ class Website{
     private $show_contact_tab;
 
     /**
+     * @var string $show_subscription
+     *
+     * @ORM\Column(name="show_subscription", type="boolean", options={"default" = 1})
+     */
+    private $show_subscription;
+
+    /**
+     * @var string $btn_txt_raq button text request a quote
+     *
+     * @ORM\Column(name="btn_txt_raq", type="string", length=25, options={"default" = "Request A quote"})
+     */
+    private $btn_txt_raq;
+
+    /**
     * @ORM\Column(type="boolean")
     */
     public $disabled;
@@ -241,6 +270,7 @@ class Website{
         $this->youtube_link_enabled = false;
         $this->google_link_enabled = false;
         $this->linkedin_link_enabled = false;
+        $this->instagram_link_enabled = false;
         $this->disabled = false;
 
         $this->show_about_tab = true;
@@ -248,6 +278,9 @@ class Website{
         $this->show_gallery_tab = true;
         $this->show_reviews_tab = true;
         $this->show_contact_tab = true;
+        $this->show_subscription = true;
+        
+        $this->btn_txt_raq = "Request A quote";
     }
     /**
      * Get path

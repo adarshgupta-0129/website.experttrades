@@ -55,7 +55,7 @@ class BlogController extends MainController
          	'search' => $search,
            'page' => $page,
            'website' => $website,
-         'homepage' => $homepage,
+         	'homepage' => $homepage,
         		'favicon' => $favicon,
         		'facebook_image' => $facebook_image,
         		'twitter_image' => $twitter_image,
