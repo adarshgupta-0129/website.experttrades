@@ -97,26 +97,6 @@
 		</div>
 </section>
 
-<section class="subscribe susin">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="subscribe_left">
-					<h2>{{ website.subscribeTitle }}</h2>
-					<p>{{ website.subscribeSubtitle }}</p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="subscribe_box">
-					<form action="{{ path('subscribe') }}" method="POST">
-					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="GO" />
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 {% endif %}
 {% endblock %}
 

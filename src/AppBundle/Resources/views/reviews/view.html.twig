@@ -104,27 +104,7 @@
 			<div class="col-sm-12">
 				<div class="team_click">
 					<h2>Click Below To Post A Review About Us</h2>
-					<div class="teamq"><div class="slide_button rvquote"><a href="https://www.experttrades.com/leave-review-step-one-create/{{ website.tradeId }}">Write A Review</a></div></div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="subscribe susin">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="subscribe_left">
-					<h2>{{ website.subscribeTitle }}</h2>
-					<p>{{ website.subscribeSubtitle }}</p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="subscribe_box">
-					<form action="{{ path('subscribe') }}" method="POST">
-					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="GO" />
-					</form>
+					<div class="teamq"><div class="slide_button rvquote"><a href="https://www.experttrades.com/leave-review-step-one-create/{{ website.tradeId }}">{{website.btn_txt_war}}</a></div></div>
 				</div>
 			</div>
 		</div>

@@ -12,19 +12,46 @@ use AppBundle\Repository\Repository;
  */
 class ItemRepository extends Repository{
 
-  public function getForDisplay($limit, $offset){
+  public function getForDisplay($limit, $offset , $filters){
 
       $data = $this->getEntityManager()->createQueryBuilder();
-      $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
+      $data->from('AppBundle\Entity\Gallery\Item\Item', 'i');
+      $tags = null;
+      if(isset($filters['tags']) && !is_array($filters['tags']) && is_string($filters['tags'])){
+      	$tags = json_decode($filters['tags'],true);
+      }
+      else if(isset($filters['tags']))
+      {
+      	$tags =$filters['tags'];
+      }
+      if(is_array($tags) && count($tags) > 0 ){
+      	$parameters= [];
+      	$data->join('i.item_tags', 'it');
+      	$data->where('it.tag IN (:ids_tags)');
+      	$parameters['ids_tags'] = $tags;
+      	$data->setParameters($parameters);
+      }
+
+      if(isset($filters['tag_path'])){
+      	$parameters= [];
+      	$data->join('i.item_tags', 'it');
+      	$data->join('it.tag', 't');
+      	$data->where('t.path = :path');
+      	$parameters['path'] = $filters['tag_path'];
+      	$data->setParameters($parameters);
+      }
+      
+      $count = clone $data;
+      $count->select('count(i.id)');
+      $total = $count->getQuery()->getSingleScalarResult();
+      $data->select('i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
       $data->addOrderBy('i.order', 'asc');
       $data->addOrderBy('i.id', 'desc');
+      //var_dump($data->getQuery()->getSQL());
       $result = $data->getQuery()->getResult();
-
-      $count = $this->getEntityManager()->createQueryBuilder();
-      $count->select('count(i.id)')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
-      $total = $count->getQuery()->getSingleScalarResult();
+      
 
       return $this->payload($total, $limit, $offset, $result);
   }
@@ -46,29 +73,59 @@ class ItemRepository extends Repository{
   	return $total;
   }
 
-  public function getPaginated($limit, $offset, $path){
+  public function getPaginated($limit, $offset, $filters, $path){
 
       $data = $this->getEntityManager()->createQueryBuilder();
-      $data->select('i')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
+      $data->from('AppBundle\Entity\Gallery\Item\Item', 'i');
+      
+      	$tags = null;
+      if(isset($filters['tags']) && !is_array($filters['tags']) && is_string($filters['tags'])){
+      	  $tags = json_decode($filters['tags'],true);
+      } 
+      else if(isset($filters['tags']))
+      {
+      	$tags =$filters['tags'];
+      }
+      if(is_array($tags) && count($tags) > 0 ){
+      	$parameters= [];
+      	$data->join('i.item_tags', 'it');
+      	$data->andWhere('it.tag IN (:ids_tags)');
+      	$parameters['ids_tags'] = $tags;
+      	$data->setParameters($parameters);
+      }
+
+      $count = clone $data;
+      $count->select('count(i)');
+      $total = $count->getQuery()->getSingleScalarResult();
+      $data->select('i');
       $data->setFirstResult($offset);
       $data->setMaxResults($limit);
       $data->addOrderBy('i.order', 'asc');
       $data->addOrderBy('i.id', 'desc');
       $result = $data->getQuery()->getResult();
 
-      $count = $this->getEntityManager()->createQueryBuilder();
-      $count->select('count(i.id)')->from('AppBundle\Entity\Gallery\Item\Item', 'i');
-      $total = $count->getQuery()->getSingleScalarResult();
+      
 
       $final = [];
       foreach($result as $i){
+      	$tags = [];
+      	foreach($i->getItemTags() as $item_tag){
+      		$tag = $item_tag->getTag();
+      		$tags[] = [
+      				'bgcolor' => $tag->getBgColor(),
+      				'color' => $tag->getColor(),
+      				'id' => $tag->getId(),
+      				'name' => $tag->getName()
+      		];
+      	}
         $final[] = [
           'id' => $i->getId(),
           'title' => $i->getTitle(),
           'order' => $i->getOrder(),
           'width' => $i->getWidth(),
           'height' => $i->getHeight(),
-          'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath()
+          'image_url' => (is_null($i->getPath())) ? null : $path.$i->getPath(),
+          'tags' =>$tags
         ];
       }
 

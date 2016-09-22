@@ -296,19 +296,22 @@ $domain = 'testwebsite.com';
     			'facebook_link' => $website->getFacebookLink(),
     			'twitter_link' => $website->getTwitterLink(),
     			'twitter_page' => $website->getTwitterPage(),
+    			'instagram_link' => $website->getInstagramLink(),
     			'youtube_link' => $website->getYoutubeLink(),
     			'google_link' => $website->getGoogleLink(),
-    			'linkedin_link' => $website->getGoogleLink(),
+    			'linkedin_link' => $website->getLinkedinLink(),
     			'facebook_link_enabled' => $website->getFacebookLinkEnabled(),
     			'twitter_link_enabled' => $website->getTwitterLinkEnabled(),
     			'youtube_link_enabled' => $website->getYoutubeLinkEnabled(),
     			'google_link_enabled' => $website->getGoogleLinkEnabled(),
     			'linkedin_link_enabled' => $website->getLinkedinLinkEnabled(),
+    			'instagram_link_enabled' => $website->getInstagramLinkEnabled(),
     			'show_about_tab' => $website->getShowAboutTab(),
     			'show_services_tab' => $website->getShowServicesTab(),
     			'show_reviews_tab' => $website->getShowReviewsTab(),
     			'show_gallery_tab' => $website->getShowGalleryTab(),
     			'show_contact_tab' => $website->getShowContactTab(),
+    			'show_subscription' => $website->getShowSubscription(),
     			'postcode' => $website->getPostcode(),
     			'subscribe_title' => $website->getSubscribeTitle(),
     			'subscribe_subtitle' => $website->getSubscribeSubtitle(),
@@ -355,6 +358,9 @@ $domain = 'testwebsite.com';
              if(isset($params['twitter_page'])){
                $website->setTwitterPage($params['twitter_page']);
              }
+             if(isset($params['instagram_link'])){
+               $website->setInstagramLink($params['instagram_link']);
+             }
              if(isset($params['youtube_link'])){
                $website->setYoutubeLink($params['youtube_link']);
              }
@@ -370,6 +376,9 @@ $domain = 'testwebsite.com';
              }
              if(isset($params['twitter_link_enabled'])){
                $website->setTwitterLinkEnabled($params['twitter_link_enabled']);
+             }
+             if(isset($params['instagram_link_enabled'])){
+               $website->setInstagramLinkEnabled($params['instagram_link_enabled']);
              }
              if(isset($params['youtube_link_enabled'])){
                $website->setYoutubeLinkEnabled($params['youtube_link_enabled']);
@@ -414,6 +423,9 @@ $domain = 'testwebsite.com';
              }
              if(isset($params['show_contact_tab'])){
                $website->setShowContactTab($params['show_contact_tab']);
+             }
+             if(isset($params['show_subscription'])){
+               $website->setShowSubscription($params['show_subscription']);
              }
              
 

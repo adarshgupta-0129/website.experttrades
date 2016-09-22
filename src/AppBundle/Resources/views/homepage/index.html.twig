@@ -40,25 +40,28 @@
 					<div class="carousel-caption">
 					 <div class="captop">{{ slider.title }}</div>
 					 <div class="capmid">{{ slider.subtitle }}</div>
-					 <div class="slide_button"><a href="{{ path('contact') }}">Request A Quote</a></div>
+					 <div class="slide_button"><a href="{{ path('contact') }}">{{ website.btnTxtRaq }}</a></div>
 					 <div class="slide_social">
 						{% if website.hasSocial == true %}
 						<h2>Connect Socially</h2>
 						{% endif %}
 						{% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
-						<a href="{{ website.facebookLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos1.png') }}" alt="Connect On Facebook" /></a>
+						<a href="{{ website.facebookLink }}" target="_BLANK"><i class="fa fa-facebook-square fa-2x social_icons hover"  alt="Connect On Facebook" ></i> </a>
 						{% endif %}
 						{% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
-						<a href="{{ website.twitterLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos2.png') }}" alt="Connect On Twitter" /></a>
+						<a href="{{ website.twitterLink }}" target="_BLANK"><i class="fa fa-twitter-square fa-2x social_icons hover"  alt="Connect On Twitter" ></i> </a>
 						{% endif %}
 						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
-						<a href="{{ website.youtubeLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos3.png') }}" alt="Connect On Youtube" /></a>
+						<a href="{{ website.youtubeLink }}" target="_BLANK"><i class="fa fa-youtube-square fa-2x social_icons hover"  alt="Connect On Youtube" ></i></a>
 						{% endif %}
 						{% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
-						<a href="{{ website.googleLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos4.png') }}" alt="Connect On Google Plus" /></a>
+						<a href="{{ website.googleLink }}" target="_BLANK"><i class="fa fa-google-plus-square fa-2x social_icons hover"  alt="Connect On Google Plus" ></i></a>
 						{% endif %}
 						{% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
-						<a href="{{ website.linkedinLink }}" target="_BLANK"><img src="{{ asset('bundles/app/images/global/social/sos5.png') }}" alt="Connect On Linkedin" /></a>
+						<a href="{{ website.linkedinLink }}" target="_BLANK"><i class="fa fa-linkedin-square fa-2x social_icons hover"  alt="Connect On Linkedin" ></i></a>
+						{% endif %}
+						{% if website.instagramLink is not null  and website.instagramLink | length > 0 and website.instagramLinkEnabled %}
+						<a href="{{ website.instagramLink }}" target="_BLANK"><i class="fa fa-instagram fa-2x social_icons hover"  alt="Connect On Instagram" ></i></a>
 						{% endif %}
 					 </div>
 					</div>
@@ -189,8 +192,12 @@
 					</div>
 					<div class="rvsocial">
 						<span>Share :</span>
-						<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK"><img src="{{ asset('bundles/app/images/reviews/rvs1.png') }}" alt="Share On Facebook" /></a>
-						<a href="https://twitter.com/home?status=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK"><img src="{{ asset('bundles/app/images/reviews/rvs2.png') }}" alt="Share On Twitter" /></a>
+						<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK" alt="Share On Facebook">
+						<i class="fa fa-facebook-square fa-2x social_icons_review_home "  alt="Share On Facebook" ></i> 
+						</a>
+						<a href="https://twitter.com/home?status=http://{{ app.request.host }}/reviews/{{ review.id }}" target="_BLANK" alt="Share On Twitter">
+						<i class="fa fa-twitter-square fa-2x social_icons_review_home "  alt="Share On Twitter" ></i> 
+						</a>
 					</div>
 
 
@@ -436,26 +443,7 @@
 <section class="contactmap">
 	<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDWh2ugH_oq9rD1WRF9qH0-eIcUjEN-bEg&q={{ website.postcode }}" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
 </section>
-<section class="subscribe">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="subscribe_left">
-					<h2>{{ website.subscribeTitle }}</h2>
-					<p>{{ website.subscribeSubtitle }}</p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="subscribe_box">
-					<form action="{{ path('subscribe') }}" method="POST">
-					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="GO" />
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+
 {% endif %}
 {% endblock %}
 

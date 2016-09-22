@@ -253,9 +253,23 @@ class Website{
     /**
      * @var string $btn_txt_raq button text request a quote
      *
-     * @ORM\Column(name="btn_txt_raq", type="string", length=25, options={"default" = "Request A quote"})
+     * @ORM\Column(name="btn_txt_raq", type="string", length=25, options={"default" = "Request A Quote"})
      */
     private $btn_txt_raq;
+    
+    /**
+     * @var string $btn_txt_gaq button text get a quote
+     *
+     * @ORM\Column(name="btn_txt_gaq", type="string", length=25, options={"default" = "Get A Quote"})
+     */
+    private $btn_txt_gaq;
+    
+    /**
+     * @var string $btn_txt_war button text write a review
+     *
+     * @ORM\Column(name="btn_txt_war", type="string", length=25, options={"default" = "Write A Review"})
+     */
+    private $btn_txt_war;
 
     /**
     * @ORM\Column(type="boolean")
@@ -319,16 +333,19 @@ class Website{
      */
     public function hasSocial()
     {
-        if(!is_null($this->getFacebookLink())){
+        if(!is_null($this->getFacebookLink())  && $this->getFacebookLinkEnabled() ){
           return true;
         }
-        if(!is_null($this->getTwitterLink())){
+        if(!is_null($this->getTwitterLink()) && $this->getTwitterLinkEnabled() ){
           return true;
         }
-        if(!is_null($this->getYoutubeLink())){
+        if(!is_null($this->getYoutubeLink()) && $this->getYoutubeLinkEnabled() ){
           return true;
         }
-        if(!is_null($this->getGoogleLink())){
+        if(!is_null($this->getGoogleLink()) && $this->getGoogleLinkEnabled() ){
+          return true;
+        }
+        if(!is_null($this->getInstagramLink()) && $this->getInstagramLinkEnabled() ){
           return true;
         }
 
@@ -969,6 +986,54 @@ class Website{
 		$this->twitter_page = $twitter_page;
 		return $this;
 	}
+	public function getId() {
+		return $this->id;
+	}
+	public function getInstagramLink() {
+		return $this->instagram_link;
+	}
+	public function setInstagramLink($instagram_link) {
+		$this->instagram_link = $instagram_link;
+		return $this;
+	}
+	public function getInstagramLinkEnabled() {
+		return $this->instagram_link_enabled;
+	}
+	public function setInstagramLinkEnabled($instagram_link_enabled) {
+		$this->instagram_link_enabled = $instagram_link_enabled;
+		return $this;
+	}
+	public function getShowSubscription() {
+		return $this->show_subscription;
+	}
+	public function setShowSubscription($show_subscription) {
+		$this->show_subscription = $show_subscription;
+		return $this;
+	}
+	public function getBtnTxtRaq() {
+		return $this->btn_txt_raq;
+	}
+	public function setBtnTxtRaq($btn_txt_raq) {
+		$this->btn_txt_raq = $btn_txt_raq;
+		return $this;
+	}
+	public function getBtnTxtGaq() {
+		return $this->btn_txt_gaq;
+	}
+	public function setBtnTxtGaq($btn_txt_gaq) {
+		$this->btn_txt_gaq = $btn_txt_gaq;
+		return $this;
+	}
+	public function getBtnTxtWar() {
+		return $this->btn_txt_war;
+	}
+	public function setBtnTxtWar($btn_txt_war) {
+		$this->btn_txt_war = $btn_txt_war;
+		return $this;
+	}
+	
+	
+	
 	
 	
 

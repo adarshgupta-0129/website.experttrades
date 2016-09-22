@@ -19,24 +19,18 @@ class HomepageController extends MainController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
+        
+
+        $array_twig = $this->defaultInfo();
+        $array_twig['margin_top_subscription'] = false;
+        
         $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
-        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $reviews =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([],['created' => 'DESC'], 3, 0);
         $services =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['order' => 'ASC','id' => 'DESC'], 3, 0);
         $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
         $total_portrait =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-      $facebook_image = null;
-      $twitter_image = null;
-    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
-        //var_dump($total_portrait.'::'.$total_landscape);die();
+         //var_dump($total_portrait.'::'.$total_landscape);die();
         if(	$total_portrait  == 0 ){
         	$perPage = 8;
         	$landscape = true;
@@ -54,7 +48,11 @@ class HomepageController extends MainController
         	$landscape = false;
         	$portrait = false;
         }
-        $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], $perPage, 0);
+        $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay($perPage, 0, ['tag_path'=>'homepage']);
+        $images = $images['data'];
+        if( count($images) <= 0 ){
+        	$images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], $perPage, 0);
+        }
         $pos_items= [];
         if(!$landscape && !$portrait ) {
         	$portraidc = 0;
@@ -73,7 +71,7 @@ class HomepageController extends MainController
         }
 
         $findMeOns =  $em->getRepository('AppBundle\Entity\Homepage\FindMeOn\Item\Item')->findAll();
-        $footerImages = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+        
         $this->trackVisit();
 
         $contactError = "";
@@ -91,7 +89,7 @@ class HomepageController extends MainController
             ->getForm();
 
         $contactForm->handleRequest($request);
-        if($this->getRequest()->isMethod('POST')){
+        if($request->isMethod('POST')){
 
             if ($contactForm->isValid()) {
 
@@ -146,8 +144,21 @@ class HomepageController extends MainController
             }
         }
 
-        return $this->render('AppBundle:homepage:index.html.twig',
-        array(
+        $array_twig['contact'] = $contact;
+        $array_twig['aboutUs'] = $aboutUs;
+        $array_twig['reviews'] = $reviews;
+        $array_twig['services'] = $services;
+        $array_twig['images'] = $images;
+        $array_twig['pos_items'] = $pos_items;
+        $array_twig['portrait'] = $portrait;
+        $array_twig['landscape'] = $landscape;
+        $array_twig['findMeOns'] = $findMeOns;
+        $array_twig['contactError'] = $contactError;
+        $array_twig['secureToken'] = $secureToken;
+        $array_twig['contact_form'] = $contactForm->createView();
+        
+        return $this->render('AppBundle:homepage:index.html.twig',$array_twig);
+        /*array(
           'website' => $website,
            'hasBlog' => $blog->getActive(),
           'contact' => $contact,
@@ -170,6 +181,6 @@ class HomepageController extends MainController
           'contact_form' => $contactForm->createView(),
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
-        ));
+        ));*/
     }
 }

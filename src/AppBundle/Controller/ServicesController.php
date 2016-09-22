@@ -18,17 +18,6 @@ class ServicesController extends MainController
     public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-      $facebook_image = null;
-      $twitter_image = null;
-    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
         $service =  $em->getRepository('AppBundle\Entity\Service\Service')->find(1);
         //$items = $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['id' => 'DESC']);
         $perPage = 6;
@@ -38,11 +27,13 @@ class ServicesController extends MainController
         if( $page > $items['last_page'] ){
         	return $this->redirect($this->generateUrl('blog'));
         }
-        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
-
-        return $this->render('AppBundle:services:index.html.twig',
-        array(
+        $array_twig = $this->defaultInfo();
+        $array_twig['service'] = $service;
+        $array_twig['items'] = $items;
+        $array_twig['page'] = $page;
+        return $this->render('AppBundle:services:index.html.twig',$array_twig);
+      /*  array(
           'website' => $website,
            'hasBlog' => $blog->getActive(),
          'homepage' => $homepage,
@@ -56,7 +47,7 @@ class ServicesController extends MainController
           'footer_images' => $footerImages,
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
-        ));
+        ));*/
     }
 
     /**

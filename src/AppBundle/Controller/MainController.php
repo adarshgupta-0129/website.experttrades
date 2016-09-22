@@ -40,7 +40,6 @@ class MainController extends Controller
     	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
     	$blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
     	$homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
-    	$footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
     	$facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
     	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
@@ -49,6 +48,12 @@ class MainController extends Controller
     	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
     	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
     	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
+    	
+    	$footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay(9, 0, ['tag_path'=>'footer']);
+    	$footerImages = $footerImages['data'];
+    	if( count($footerImages) <= 0 ){
+    		$footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+    	}
 
     	return array(
     			'website' => $website,
@@ -60,7 +65,8 @@ class MainController extends Controller
     			'footer_images' => $footerImages,
     			'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
     			'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-           		'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
+           		'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
+    			'margin_top_subscription' => true
     	);
     }
 }

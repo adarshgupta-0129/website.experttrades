@@ -23,20 +23,12 @@ class ContactController extends MainController
         $em = $this->getDoctrine()->getManager();
         $error = "";
 
-        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-      $facebook_image = null;
-      $twitter_image = null;
-    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
-        $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
-        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+       	$contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $this->trackVisit();
 
+        $array_twig = $this->defaultInfo();
+        $array_twig['margin_top_subscription'] = false;
+        
         $choices = [];
         foreach($em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findBy(array('deleted_at' => null)) as $c){
             $choices[$c->getName()] = $c->getName();
@@ -64,7 +56,7 @@ class ContactController extends MainController
         $secureToken = $recaptchaToken->secureToken($sessionId);
 
         $form->handleRequest($request);
-        if($this->getRequest()->isMethod('POST')){
+        if($request->isMethod('POST')){
 
             //open connection
             $ch = curl_init();
@@ -142,9 +134,12 @@ class ContactController extends MainController
               $error = 'Please click on the "I am not a Robot" checkbox';
             }
         }
-
-        return $this->render('AppBundle:contact:index.html.twig',
-        array(
+        $array_twig['error'] = $error;
+        $array_twig['secureToken'] = $secureToken;
+        $array_twig['contact'] = $contact;
+        $array_twig['form'] = $form->createView();
+        return $this->render('AppBundle:contact:index.html.twig',$array_twig);
+        /*array(
           'error' => $error,
           'secureToken' => $secureToken,
           'website' => $website,
@@ -158,7 +153,7 @@ class ContactController extends MainController
           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
           'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
-        ));
+        ));*/
     }
 
     /**
@@ -172,7 +167,7 @@ class ContactController extends MainController
             ->getForm();
 
         $subscriberForm->handleRequest($request);
-        if($this->getRequest()->isMethod('POST')){
+        if($request->isMethod('POST')){
 
             if ($subscriberForm->isValid()) {
                 $em->persist($subscriber);

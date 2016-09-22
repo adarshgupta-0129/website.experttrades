@@ -159,31 +159,11 @@
 			<div class="col-sm-12">
 				<div class="team_click">
 					<h2>Click below to get yourself a quote</h2>
-					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">Get A Quote</a></div></div>
+					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">{{website.btnTxtGaq}}</a></div></div>
 				</div>
 			</div>
 		</div>
 		<!-- 08/10/2015---------------as per mail work -->
-	</div>
-</section>
-<section class="subscribe susin">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8">
-				<div class="subscribe_left">
-					<h2>{{ website.subscribeTitle }}</h2>
-					<p>{{ website.subscribeSubtitle }}</p>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="subscribe_box">
-					<form action="{{ path('subscribe') }}" method="POST">
-					  {{ form_widget(subscriber_form.email, { 'attr': {'placeholder': 'Email Address'} }) }}
-						<input type="submit" value="GO" />
-					</form>
-				</div>
-			</div>
-		</div>
 	</div>
 </section>
 {% endif %}

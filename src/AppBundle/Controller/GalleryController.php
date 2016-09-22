@@ -18,7 +18,9 @@ class GalleryController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $array_twig = $this->defaultInfo();
-        
+
+		$selected_tag = $request->query->get('tag');
+        $tags =  $em->getRepository('AppBundle\Entity\Gallery\Tag\Tag')->getForDisplay();
         $gallery =  $em->getRepository('AppBundle\Entity\Gallery\Gallery')->find(1);
         $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
         $total_portrait =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();
@@ -42,8 +44,11 @@ class GalleryController extends MainController
         }
 
         $offset = ($page - 1) * $perPage;
-        $items = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay($perPage, $offset);
-        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+        $filters = [];
+        if( isset($selected_tag) && !is_null($selected_tag) && is_numeric($selected_tag) ){
+        	$filters['tags'] = [ $selected_tag ];
+        }
+        $items = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay($perPage, $offset, $filters);
         $this->trackVisit();
         $pos_items= [];
         if(!$landscape && !$portrait ) {
@@ -69,6 +74,8 @@ class GalleryController extends MainController
         $array_twig['portrait'] = $portrait;
         $array_twig['landscape'] = $landscape;
         $array_twig['page'] = $page;
+        $array_twig['tags'] = $tags;
+        $array_twig['selected_tag'] = $selected_tag;
         return $this->render('AppBundle:gallery:index.html.twig',$array_twig);
     }
 }

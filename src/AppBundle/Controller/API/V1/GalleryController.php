@@ -113,8 +113,16 @@ class GalleryController extends SecurityController
       $offset = $request->query->get('offset');
       $offset = (is_null($offset)) ? 0 : $offset;
 
+      $filters = [];
+      if($request->query->has('search')){
+      	$filters['search'] =  $request->query->get('search');
+      }
+      if($request->query->has('tags')){
+      	$filters['tags'] =  $request->query->get('tags');
+      }
+      
       $images =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')
-      ->getPaginated($limit, $offset, $path);
+      ->getPaginated($limit, $offset, $filters, $path);
 
       $response = new Response(json_encode($images));
       $response->headers->set('Content-Type', 'application/json');
@@ -138,12 +146,18 @@ class GalleryController extends SecurityController
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
             $path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/gallery/';
       }
-
+      $tags = [];
+      foreach($image->getItemTags() as $item_tag){
+      	$tag = $item_tag->getTag();
+      	$tags[] = $tag->getId();
+      }
+		
       $response = new Response(json_encode([
         'id' => $image->getId(),
         'title' => $image->getTitle(),
         'order' => $image->getOrder(),
-        'image_url' => (is_null($image->getPath())) ? null : $path.$image->getPath()
+        'image_url' => (is_null($image->getPath())) ? null : $path.$image->getPath(),
+        'tags_id' => $tags
       ]));
       $response->headers->set('Content-Type', 'application/json');
 
@@ -356,10 +370,10 @@ class GalleryController extends SecurityController
       	
       	$search = $request->query->get('search');
       	
-      	$images =  $em->getRepository('AppBundle\Entity\Gallery\Tag\Tag')
+      	$tags_images =  $em->getRepository('AppBundle\Entity\Gallery\Tag\Tag')
       	->search(array('search' => $search),array('path' => 'ASC'));
       	
-      	$response = new Response(json_encode($images));
+      	$response = new Response(json_encode(["total" => count($tags_images), "data"=>$tags_images] ));
       	$response->headers->set('Content-Type', 'application/json');
       	
       	return $response;
@@ -410,7 +424,15 @@ class GalleryController extends SecurityController
             $response = new Response(json_encode(
             [
               'code' => 200,
-              'message' => 'OK'
+              'message' => 'OK',
+              'data' => [
+      					'bgcolor' => $tag->getBgColor(),
+      					'color' => $tag->getColor(),
+      					'has_childs' => $tag->hasChildren(),
+      					'id' => $tag->getId(),
+      					'name' => $tag->getName(),
+      					'path' => $tag->getPath()
+      			]
             ]));
 
         }else{
@@ -483,7 +505,15 @@ class GalleryController extends SecurityController
             $response = new Response(json_encode(
             [
               'code' => 200,
-              'message' => 'OK'
+              'message' => 'OK',
+              'data' => [
+      					'bgcolor' => $tag->getBgColor(),
+      					'color' => $tag->getColor(),
+      					'has_childs' => $tag->hasChildren(),
+      					'id' => $tag->getId(),
+      					'name' => $tag->getName(),
+      					'path' => $tag->getPath()
+      			]
             ]));
 
         }else {

@@ -17,40 +17,18 @@ class ReviewsController extends MainController
     public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-      $facebook_image = null;
-      $twitter_image = null;
-    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
+
+        $array_twig = $this->defaultInfo();
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $perPage = 10;
         $offset = ($page - 1) * $perPage;
         $items = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getForDisplay(10, $offset);
-        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
-
-        return $this->render('AppBundle:reviews:index.html.twig',
-        array(
-          'page' => $page,
-          'website' => $website,
-           'hasBlog' => $blog->getActive(),
-         'homepage' => $homepage,
-        		'favicon' => $favicon,
-        		'facebook_image' => $facebook_image,
-        		'twitter_image' => $twitter_image,
-          'review' => $review,
-          'items' => $items,
-          'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
-          'footer_images' => $footerImages,
-          'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
-        ));
+        
+        $array_twig['review'] = $review;
+        $array_twig['items'] = $items;
+        $array_twig['page'] = $page;
+        return $this->render('AppBundle:reviews:index.html.twig',$array_twig);
     }
 
     /**
@@ -59,35 +37,15 @@ class ReviewsController extends MainController
     public function viewAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-        $homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-    	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-    	$favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-      $facebook_image = null;
-      $twitter_image = null;
-    	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-    	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-    	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
+
+        $array_twig = $this->defaultInfo();
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
-        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
         $this->trackVisit();
 
-        return $this->render('AppBundle:reviews:view.html.twig',
-        array(
-          'website' => $website,
-           'hasBlog' => $blog->getActive(),
-         'homepage' => $homepage,
-        		'favicon' => $favicon,
-        		'facebook_image' => $facebook_image,
-        		'twitter_image' => $twitter_image,
-          'review' => $review,
-          'item' => $item,
-          'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
-          'footer_images' => $footerImages,
-          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView()
-        ));
+        $array_twig['review'] = $review;
+        $array_twig['items'] = $items;
+        $array_twig['page'] = $page;
+        return $this->render('AppBundle:reviews:view.html.twig',$array_twig);
     }
 }
