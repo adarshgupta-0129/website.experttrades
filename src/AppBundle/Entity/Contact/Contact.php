@@ -192,6 +192,34 @@ class Contact{
     {
         return $this->phone;
     }
+    
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getFormatedPhone()
+    {
+    	$phones = explode(',',$this->phone);
+    	$phone = preg_replace('/[^0-9]+/', '', $phones[0]);
+    	// Remove the 2 digit international code (+44)
+    	if (substr($phone, 0, 2) == '44') {
+    		$phone = substr($phone, 2);
+    	}
+    	// Remove the 4 digit international code (0044)
+    	if (substr($phone, 0, 4) == '0044') {
+    		$phone = substr($phone, 4);
+    	}
+    	// Remove the initial Zero from the number
+    	// Some people write it in international numbers like this: +44 (0)1234 567 890
+    	// But it shouldn't be entered when dialling
+    	if (substr($phone, 0, 1) == '0') {
+    		$phone = substr($phone, 1);
+    	}
+    	// Add the international prefix
+    	$phone = '+44-' . $phone;
+        return $phone;
+    }
 
     /**
      * Set email

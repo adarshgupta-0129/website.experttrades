@@ -16,7 +16,7 @@ class MessageController extends MainController
     public function messageSuccessAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-    	$array_twig = $this->defaultInfo();
+    	$array_twig = $this->defaultInfo($request);
         
 
         return $this->render('AppBundle:message:success.html.twig', $array_twig);

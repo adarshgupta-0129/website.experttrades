@@ -62,4 +62,52 @@ class ItemRepository extends Repository{
 
   }
 
+
+  public function getReview( $id ){
+  
+  	$data = $this->getEntityManager()->createQueryBuilder();
+  	$data->select('i')->from('AppBundle\Entity\Review\Item\Item', 'i');
+  	$data->Where('i.id = :id');
+  	$data->setParameter('id', $id);
+  	$result = $data->getQuery()->getResult();
+  	return (is_array($result))?$result[0]:null;
+  }
+  
+  
+  public function getBestReview(){
+
+      $data = $this->getEntityManager()->createQueryBuilder();
+      $data->select('i')->from('AppBundle\Entity\Review\Item\Item', 'i');
+      $data->setFirstResult(0);
+      $data->setMaxResults(1);
+      $data->orderBy('i.rate_total', 'Desc');
+      $data->addOrderBy('i.job_done_date', 'Desc');
+      $result = $data->getQuery()->getResult();
+      
+      return (is_array($result))?$result[0]:null;
+  }
+  
+  public function getWorstReview(){
+
+      $data = $this->getEntityManager()->createQueryBuilder();
+      $data->select('i')->from('AppBundle\Entity\Review\Item\Item', 'i');
+      $data->setFirstResult(0);
+      $data->setMaxResults(1);
+      $data->orderBy('i.rate_total', 'ASC');
+      $result = $data->getQuery()->getSingleScalarResult();
+      return $result;
+      
+  }
+  
+  
+  public function getInfoReview(){
+
+      $data = $this->getEntityManager()->createQueryBuilder();
+      $data->select('count(i.rate_total) as num_reviews , SUM( i.rate_total ) as rate_total  ')->from('AppBundle\Entity\Review\Item\Item', 'i');
+      $data->orderBy('i.rate_total', 'DESC');
+      $result = $data->getQuery()->getResult();
+      return (is_array($result))?$result[0]:null;
+      
+  }
+
 }

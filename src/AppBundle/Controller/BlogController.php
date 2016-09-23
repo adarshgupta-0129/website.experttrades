@@ -36,7 +36,7 @@ class BlogController extends MainController
         	return $this->redirect($this->generateUrl('blog'));
         }
 
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
 
      
         $this->trackVisit();

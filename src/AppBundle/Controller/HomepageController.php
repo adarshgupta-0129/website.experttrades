@@ -21,7 +21,7 @@ class HomepageController extends MainController
         $em = $this->getDoctrine()->getManager();
         
 
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
         $array_twig['margin_top_subscription'] = false;
         
         $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);

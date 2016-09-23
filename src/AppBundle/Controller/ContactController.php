@@ -26,7 +26,7 @@ class ContactController extends MainController
        	$contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $this->trackVisit();
 
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
         $array_twig['margin_top_subscription'] = false;
         
         $choices = [];

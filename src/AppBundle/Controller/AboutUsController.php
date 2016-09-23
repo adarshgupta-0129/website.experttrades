@@ -22,7 +22,7 @@ class AboutUsController extends MainController
 
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
     	$teamMembers =  $em->getRepository('AppBundle\Entity\TeamMember\TeamMember')->findAll();
-    	$array_twig = $this->defaultInfo();
+    	$array_twig = $this->defaultInfo($request);
         $this->trackVisit();
 
         $array_twig['aboutUs'] = $aboutUs;

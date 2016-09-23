@@ -28,7 +28,7 @@ class ServicesController extends MainController
         	return $this->redirect($this->generateUrl('blog'));
         }
         $this->trackVisit();
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
         $array_twig['service'] = $service;
         $array_twig['items'] = $items;
         $array_twig['page'] = $page;

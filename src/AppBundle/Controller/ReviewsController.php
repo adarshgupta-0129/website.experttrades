@@ -18,7 +18,7 @@ class ReviewsController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $perPage = 10;
         $offset = ($page - 1) * $perPage;
@@ -38,14 +38,14 @@ class ReviewsController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
         $this->trackVisit();
 
         $array_twig['review'] = $review;
-        $array_twig['items'] = $items;
-        $array_twig['page'] = $page;
+        $array_twig['item'] = $item;
+        $array_twig['snipped'] = $this->richSnippedReviewJson($em, $request, $id);
         return $this->render('AppBundle:reviews:view.html.twig',$array_twig);
     }
 }

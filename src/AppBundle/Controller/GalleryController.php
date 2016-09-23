@@ -17,7 +17,7 @@ class GalleryController extends MainController
     public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
 
 		$selected_tag = $request->query->get('tag');
         $tags =  $em->getRepository('AppBundle\Entity\Gallery\Tag\Tag')->getForDisplay();

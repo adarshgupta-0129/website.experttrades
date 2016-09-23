@@ -27,7 +27,7 @@ class PostController extends MainController
         }
 
         $this->trackVisit();
-        $array_twig = $this->defaultInfo();
+        $array_twig = $this->defaultInfo($request);
         
         $array_twig['post'] = $post;
         $array_twig['blog'] = $blog;

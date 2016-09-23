@@ -32,7 +32,7 @@ class MainController extends Controller
         */
     }
     
-    public function defaultInfo()
+    public function defaultInfo(Request $request)
     {
     	$em = $this->getDoctrine()->getManager();
     	
@@ -66,7 +66,132 @@ class MainController extends Controller
     			'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
     			'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            		'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
-    			'margin_top_subscription' => true
+    			'margin_top_subscription' => true,
+    			'snipped' => $this->richSnippedsJson($em, $request, $website, $homepage)
     	);
     }
+    
+    public function richSnippedsJson($em, Request $request, $website, $homepage ){
+
+    	
+    	$snipped = '<script type="application/ld+json">'
+    	.'{'
+    	.'	"@context": "http://schema.org/",'
+    	.'	"@type": "Organization",'
+    	.'	"name": "'. $website->getCompanyName() .'",'
+    	.'	"description": "'. $homepage->getMetaDescription() .'",'
+		.'	"url" : "'.$request->getUri().'",'
+		.'	"logo" : "'.$request->getUri().'images/logo/'.$website->getLogoPath().'",';
+
+		$contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
+		$snipped .= '"contactPoint" : {'
+		.'	"@type" : "ContactPoint",'
+		.'	"contactType" : "sales, customer support",';
+		if( !is_null($contact->getPhone()) && trim($contact->getPhone()) != "" )
+			$snipped .= '	"telephone" : "'.$contact->getFormatedPhone().'",';
+		$snipped .= '	"areaServed" : "UK",'
+		.'	"availableLanguage" : "English",'
+		.'	"email" : "'.$contact->getEmail().'"'
+		.'	}';
+    	
+		$review_info = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getInfoReview();
+    	if(isset($review_info['num_reviews']) &&  $review_info['num_reviews'] > 0) 
+    	{
+	    	$snipped .= ',	"aggregateRating": {'
+	    	.'		"@type": "AggregateRating",'
+	    	.'		"ratingValue": "'.round(($review_info['rate_total'] / $review_info['num_reviews'] ),1, PHP_ROUND_HALF_UP).'",'
+	    	.'		"bestRating": "5",'
+	    	.'		"reviewCount": "'.$review_info['num_reviews'].'"'
+	    	.'	}';
+	    	$review = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getBestReview();
+	    	$snipped .= ', '
+	    	.'	"review": {'
+	    	.'		"@type": "Review",'
+	    	.'		"reviewRating": {'
+	    	.'			"@type": "Rating",'
+	    	.'			"ratingValue": "'.$review->getRateTotal().'"'
+	    	.'		},'
+	    	.'		"name": "'.$review->getTitle().'",'
+	    	.'		"datePublished": "'.$review->getJobDoneDateFormat().'",'
+	    	.'		"reviewBody": "'.$review->getJobDescription().'"';
+	    	
+	    	if(!is_null($review->getAuthorName()))
+	    	{
+	    		$snipped .= ','
+	    				.'		"author": {'
+	    				.'		"@type": "Person",'
+	    				.'		"name": "'.$review->getAuthorName().'"'
+	    			    .'		}';
+	    	} else {
+	    		$snipped .= ','
+	    				.'		"author": {'
+	    				.'		"@type": "Person",'
+	    				.'		"name": "unknown"'
+	    			    .'		}';
+	    		
+	    	}
+	    	if(!is_null($review->getExpertTradesReviewId()))
+	    	{
+		    	$snipped .= ','		
+		    	.'		"publisher": {'
+		    	.'		"@type": "Organization",'
+		    	.'		"name": "Expert Trades",'
+		    	.'		"url": "https://experttrades.com"'
+		    	.'		}';
+    		}
+	    	$snipped .= '}';
+    	}
+    	$snipped .= '}';
+    	$snipped .= '</script>';
+    	return $snipped;
+    	
+    }
+
+    public function richSnippedReviewJson($em, Request $request, $review_id ){
+
+    	$review_info = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getInfoReview();
+    	$snipped = '<script type="application/ld+json">'
+    			.'{';
+    			if(isset($review_info['num_reviews']) &&  $review_info['num_reviews'] > 0)
+    			{
+    						$review = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getReview($review_id);
+    						$snipped .= ''
+    								.'		"@type": "Review",'
+    								.'		"reviewRating": {'
+    								.'			"@type": "Rating",'
+    								.'			"ratingValue": "'.$review->getRateTotal().'"'
+    								.'		},'
+    								.'		"name": "'.$review->getTitle().'",'
+    								.'		"datePublished": "'.$review->getJobDoneDateFormat().'",'
+    								.'		"reviewBody": "'.$review->getJobDescription().'"';
+    								if(!is_null($review->getAuthorName()))
+    								{
+    									$snipped .= ','
+    									.'		"author": {'
+    									.'		"@type": "Person",'
+    									.'		"name": "'.$review->getAuthorName().'"'
+    									.'		}';
+    								} else {
+    									$snipped .= ','
+    									.'		"author": {'
+    									.'		"@type": "Person",'
+    									.'		"name": "unknown"'
+    									.'		}';
+    																	 
+    								}
+    								if(!is_null($review->getExpertTradesReviewId()))
+    								{
+    									$snipped .= ','
+    									.'		"publisher": {'
+    									.'		"@type": "Organization",'
+    									.'		"name": "Expert Trades",'
+    									.'		"url": "https://experttrades.com"'
+    									.'		}';
+    								}
+    			}
+    	$snipped .= '}';
+    	$snipped .= '</script>';
+    	return $snipped;
+    }
+    	 
 }

@@ -295,6 +295,8 @@ class Website{
         $this->show_subscription = true;
         
         $this->btn_txt_raq = "Request A quote";
+        $this->btn_txt_gaq = "Get A quote";
+        $this->btn_txt_war = "Write A Review";
     }
     /**
      * Get path

@@ -318,7 +318,10 @@ $domain = 'testwebsite.com';
     			'copyright' => $website->getCopyright(),
     			'company_name' => $website->getCompanyName(),
     			'show_logo' => $website->getShowLogo(),
-    			'logo_url' => (is_null($website->getLogoPath())) ? null : $path_logo.$website->getLogoPath()
+    			'logo_url' => (is_null($website->getLogoPath())) ? null : $path_logo.$website->getLogoPath(),
+    			'btn_txt_raq' => $website->getBtnTxtRaq(),
+    			'btn_txt_gaq' => $website->getBtnTxtGaq(),
+    			'btn_txt_war' => $website->getBtnTxtWar()
     	];
 
     	$em = $this->getDoctrine()->getManager();
@@ -490,6 +493,16 @@ $domain = 'testwebsite.com';
     				$website->setDisabled(true);
     			else 
     				$website->setDisabled(false);
+    		}
+    		
+    		if(isset($params['btn_txt_raq'])){
+    			$website->setBtnTxtRaq($params['btn_txt_raq']);
+    		}
+    		if(isset($params['btn_txt_gaq'])){
+    			$website->setBtnTxtGaq($params['btn_txt_gaq']);
+    		}
+    		if(isset($params['btn_txt_war'])){
+    			$website->setBtnTxtWar($params['btn_txt_war']);
     		}
     
     		$em->persist($website);

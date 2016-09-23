@@ -149,7 +149,8 @@ class ReviewController extends SecurityController
         'rate_friendly' => $item->getRateFriendly(),
         'rate_tidiness' => $item->getRateTidiness(),
         'rate_value' => $item->getRateValue(),
-        'rate_total' => $item->getRateTotal()
+        'rate_total' => $item->getRateTotal(),
+        'author_name' => $item->getAuthorName()
 
       ]));
       $response->headers->set('Content-Type', 'application/json');
@@ -182,6 +183,9 @@ class ReviewController extends SecurityController
             }
             if(isset($params['message'])){
               $item->setMessage($params['message']);
+            }
+            if(isset($params['author_name'])){
+              $item->setAuthorName($params['author_name']);
             }
             if(isset($params['job_description'])){
               $item->setJobDescription($params['job_description']);
@@ -252,6 +256,9 @@ class ReviewController extends SecurityController
             }
             if(isset($params['message'])){
               $item->setMessage($params['message']);
+            }
+            if(isset($params['author_name'])){
+              $item->setAuthorName($params['author_name']);
             }
             if(isset($params['job_description'])){
               $item->setJobDescription($params['job_description']);

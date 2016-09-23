@@ -30,6 +30,13 @@ class Item{
      */
      private $expert_trades_review_id;
 
+    /**
+     * @var string $author_name
+     *
+     * @ORM\Column(name="author_name", type="string", length=255, nullable=true)
+     */
+     private $author_name;
+
    /**
     * @var string $title
     *
@@ -339,7 +346,16 @@ class Item{
     public function getJobDoneDate()
     {
         return $this->job_done_date;
-    }
+    }  
+    /**
+     * Get JobDoneDate
+     *
+     * @return datetime
+     */
+    public function getJobDoneDateFormat()
+    {
+        return $this->job_done_date->format('Y-m-d');
+    }               
 
    /**
     * Get created
@@ -414,4 +430,13 @@ class Item{
 
      return $result;
    }
+   
+	public function getAuthorName() {
+		return $this->author_name;
+	}
+	public function setAuthorName($author_name) {
+		$this->author_name = $author_name;
+		return $this;
+	}
+	
 }
