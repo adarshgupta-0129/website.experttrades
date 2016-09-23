@@ -162,7 +162,7 @@ class Page{
     /**
      * Get featured_item
      *
-     * @return AppBundle\Entity\Page\Item
+     * @return AppBundle\Entity\Page\Item\Item
      */
     public function getFeaturedItem()
     {
