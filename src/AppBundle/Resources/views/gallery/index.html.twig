@@ -45,9 +45,11 @@
 </section>
 <section class="subheader">
 		<div class="container">
+					{%  if  tags|length > 0%}
 					<div class="readmore_button gallery_tags {% if selected_tag <= 0 %} selected {%  endif %}">
                 		<a href="{{ path('gallery',  { 'page': 1 }  ) }}" title="All" >All</a>
            			</div>
+           			{% endif %}
 					{% for key,tag in tags %}
 							<div class="readmore_button gallery_tags {% if selected_tag == tag.id %} selected {%  endif %}">
 		                		<a href="{{ path('gallery',  { 'page': 1 }  ) }}?tag={{tag.id}}" title="{{tag.name}}">{{tag.name}}</a>
