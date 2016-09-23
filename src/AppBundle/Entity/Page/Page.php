@@ -33,7 +33,7 @@ class Page{
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Page\Item\Item", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Page\Item\Item", mappedBy="page")
      */
     private $items;
 
