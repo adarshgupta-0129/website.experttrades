@@ -53,7 +53,7 @@
 						{% endfor %}
 					</div>
 					<div class="grt_wrk" style="color:{{ website.darkColor }}">{{ item.title }}</div>
-					<div class="dt_rvw">{{ item.jobDoneDate | date }}</div>
+					<div class="dt_rvw">{{ item.jobDoneDate  | date("F d, Y") }}</div>
 					<div class="review_listing">
 						<ul>
 							<li>Time Management</li>
