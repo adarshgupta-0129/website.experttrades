@@ -44,10 +44,10 @@
 	</div>
 </section>
 <section class="subheader">
-		<div class="container">
+		<div class="container" id="first_gallery_tags">
 					{%  if  tags|length > 0%}
-					<div class="readmore_button gallery_tags {% if selected_tag <= 0 %} selected {%  endif %}">
-                		<a href="{{ path('gallery',  { 'page': 1 }  ) }}" title="All" >All</a>
+					<div  class="readmore_button gallery_tags {% if selected_tag <= 0 %} selected {%  endif %}">
+                		<a href="{{ path('gallery',  { 'page': 1 }  ) }}?tag=" title="All" >All</a>
            			</div>
            			{% endif %}
 					{% for key,tag in tags %}
@@ -195,6 +195,29 @@ $(function(){
       navigateByImgClick: true
 		}
   });
+  	if(getUrlParameter('tag'))
+  	{
+  		 $('html, body').animate({
+  	        scrollTop: $("#first_gallery_tags").offset().top - 50
+  	    }, 500);
+
+	}
 });
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return true;//sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 </script>
+
 {% endblock %}
