@@ -197,9 +197,10 @@ $(function(){
   });
   	if(getUrlParameter('tag'))
   	{
-  		 $('html, body').animate({
+  		/* $('html, body').animate({
   	        scrollTop: $("#first_gallery_tags").offset().top - 50
-  	    }, 500);
+  	    }, 500);*/
+  		$(window).scrollTop($("#first_gallery_tags").offset().top - 50);
 
 	}
 });
