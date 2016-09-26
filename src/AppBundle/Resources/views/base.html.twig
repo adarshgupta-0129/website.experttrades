@@ -17,7 +17,6 @@
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
     <link href="{{ asset('bundles/app/css/bootstrap.css') }}" rel="stylesheet" >
-    <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datetimepicker.min.css') }}" />
 	{% if favicon  %}
     	<link rel="icon" href="{{ asset(favicon) }}" type="image/x-icon"/>
@@ -805,6 +804,8 @@ text-decoration:none;
 
 
 	{{ snipped |raw	 }}
+	
+    <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
