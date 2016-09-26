@@ -909,7 +909,7 @@ text-decoration:none;
 		</div>
 	</div>
 </section>
-{% else if app.request.attributes.get('_route') != 'homepage' AND if app.request.attributes.get('_route') != 'contact'  %}
+{% elseif app.request.attributes.get('_route') != 'homepage' and  app.request.attributes.get('_route') != 'contact'  %}
 
 <section>
 	<div class="container">
