@@ -19,11 +19,11 @@ class HomepageController extends MainController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        
+
 
         $array_twig = $this->defaultInfo($request);
         $array_twig['margin_top_subscription'] = false;
-        
+
         $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $reviews =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([],['created' => 'DESC'], 3, 0);
@@ -71,7 +71,7 @@ class HomepageController extends MainController
         }
 
         $findMeOns =  $em->getRepository('AppBundle\Entity\Homepage\FindMeOn\Item\Item')->findAll();
-        
+
         $this->trackVisit();
 
         $contactError = "";
@@ -144,6 +144,8 @@ class HomepageController extends MainController
             }
         }
 
+
+        $array_twig['id_page'] = 'home_page';
         $array_twig['contact'] = $contact;
         $array_twig['aboutUs'] = $aboutUs;
         $array_twig['reviews'] = $reviews;
@@ -156,7 +158,7 @@ class HomepageController extends MainController
         $array_twig['contactError'] = $contactError;
         $array_twig['secureToken'] = $secureToken;
         $array_twig['contact_form'] = $contactForm->createView();
-        
+
         return $this->render('AppBundle:homepage:index.html.twig',$array_twig);
         /*array(
           'website' => $website,

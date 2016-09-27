@@ -24,7 +24,8 @@ class ReviewsController extends MainController
         $offset = ($page - 1) * $perPage;
         $items = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getForDisplay(10, $offset);
         $this->trackVisit();
-        
+
+        $array_twig['id_page'] = 'reviews_page';
         $array_twig['review'] = $review;
         $array_twig['items'] = $items;
         $array_twig['page'] = $page;
@@ -43,6 +44,7 @@ class ReviewsController extends MainController
         $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
         $this->trackVisit();
 
+        $array_twig['id_page'] = 'review_page';
         $array_twig['review'] = $review;
         $array_twig['item'] = $item;
         $array_twig['snipped'] = $this->richSnippedReviewJson($em, $request, $id);

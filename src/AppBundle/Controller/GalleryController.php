@@ -67,7 +67,9 @@ class GalleryController extends MainController
         	}
         }
 
-        
+
+
+        $array_twig['id_page'] = 'gallery_page';
         $array_twig['gallery'] = $gallery;
         $array_twig['items'] = $items;
         $array_twig['pos_items'] = $pos_items;

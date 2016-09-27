@@ -25,6 +25,7 @@ class AboutUsController extends MainController
     	$array_twig = $this->defaultInfo($request);
         $this->trackVisit();
 
+        $array_twig['id_page'] = 'about_page';
         $array_twig['aboutUs'] = $aboutUs;
         $array_twig['teamMembers'] = $teamMembers;
     	$array_twig['subscriber_form'] =  $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView();

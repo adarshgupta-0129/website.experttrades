@@ -12,8 +12,8 @@ use AppBundle\Entity\Item\Item;
 
 class MainController extends Controller
 {
-	
-	
+
+
     public function trackVisit()
     {
         $em = $this->getDoctrine()->getManager();
@@ -31,12 +31,12 @@ class MainController extends Controller
         }
         */
     }
-    
+
     public function defaultInfo(Request $request)
     {
     	$em = $this->getDoctrine()->getManager();
-    	
-    	
+
+
     	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
     	$blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
     	$homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
@@ -48,7 +48,7 @@ class MainController extends Controller
     	if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
     	if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
     	if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
-    	
+
     	$footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->getForDisplay(9, 0, ['tag_path'=>'footer']);
     	$footerImages = $footerImages['data'];
     	if( count($footerImages) <= 0 ){
@@ -56,6 +56,7 @@ class MainController extends Controller
     	}
 
     	return array(
+				  'id_page' => "base",
     			'website' => $website,
     			'homepage' => $homepage,
     			'favicon' => $favicon,
@@ -70,10 +71,10 @@ class MainController extends Controller
     			'snipped' => $this->richSnippedsJson($em, $request, $website, $homepage)
     	);
     }
-    
+
     public function richSnippedsJson($em, Request $request, $website, $homepage ){
 
-    	
+
     	$snipped = '<script type="application/ld+json">'
     	.'{'
     	.'	"@context": "http://schema.org/",'
@@ -93,9 +94,9 @@ class MainController extends Controller
 		.'	"availableLanguage" : "English",'
 		.'	"email" : "'.$contact->getEmail().'"'
 		.'	}';
-    	
+
 		$review_info = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getInfoReview();
-    	if(isset($review_info['num_reviews']) &&  $review_info['num_reviews'] > 0) 
+    	if(isset($review_info['num_reviews']) &&  $review_info['num_reviews'] > 0)
     	{
 	    	$snipped .= ',	"aggregateRating": {'
 	    	.'		"@type": "AggregateRating",'
@@ -114,7 +115,7 @@ class MainController extends Controller
 	    	.'		"name": "'.$review->getTitle().'",'
 	    	.'		"datePublished": "'.$review->getJobDoneDateFormat().'",'
 	    	.'		"reviewBody": "'.$review->getJobDescription().'"';
-	    	
+
 	    	if(!is_null($review->getAuthorName()))
 	    	{
 	    		$snipped .= ','
@@ -128,11 +129,11 @@ class MainController extends Controller
 	    				.'		"@type": "Person",'
 	    				.'		"name": "unknown"'
 	    			    .'		}';
-	    		
+
 	    	}
 	    	if(!is_null($review->getExpertTradesReviewId()))
 	    	{
-		    	$snipped .= ','		
+		    	$snipped .= ','
 		    	.'		"publisher": {'
 		    	.'		"@type": "Organization",'
 		    	.'		"name": "Expert Trades",'
@@ -144,7 +145,7 @@ class MainController extends Controller
     	$snipped .= '}';
     	$snipped .= '</script>';
     	return $snipped;
-    	
+
     }
 
     public function richSnippedReviewJson($em, Request $request, $review_id ){
@@ -177,7 +178,7 @@ class MainController extends Controller
     									.'		"@type": "Person",'
     									.'		"name": "unknown"'
     									.'		}';
-    																	 
+
     								}
     								if(!is_null($review->getExpertTradesReviewId()))
     								{
@@ -193,5 +194,5 @@ class MainController extends Controller
     	$snipped .= '</script>';
     	return $snipped;
     }
-    	 
+
 }

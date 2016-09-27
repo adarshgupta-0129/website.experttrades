@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="{{ website.companyName }}">
-    
+
 	{% for script in scripts %}
 		{% if 'meta' in script.value %}
 			{{ script.value |raw }}
@@ -23,10 +23,10 @@
 	{% else %}
     	<link rel="icon" href="/favicon.png" type="image/x-icon"/>
 	{% endif %}
-	
+
     <link href='http://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    
+
   <style>
      .g-recaptcha{
         overflow: visible;
@@ -181,8 +181,8 @@
   .footerbox ul li img {width:auto; margin: -1px 10px 0 0;}
   .wty ul li {width:33%; float: left; padding: 0 2px 5px; text-align:center;}
   .wty .row  .col-xs-4{
-	  padding-right: 5px; 
-	  padding-left: 5px; 
+	  padding-right: 5px;
+	  padding-left: 5px;
 	  padding-bottom: 5px;
   }
   .wty div.container {width: 100%;
@@ -723,8 +723,8 @@ text-decoration:none;
   .pagination > li > a, .pagination > li > span {
       color: {{ website.darkColor }};
   }
-  
-  
+
+
   .pagination > li > a:hover, .pagination > li > a:focus, .pagination > li > span:hover {
   	color:white;
   	background-color: {{ website.darkColor }};
@@ -754,12 +754,12 @@ text-decoration:none;
   	   width: 100%;
     	padding: 66px 0 20px;
   }
-  
+
   .gallery_tags{
 	  float:left;
 	  margin-right: 15px;
 	  margin-bottom: 10px;
-  	
+
   }
   .gallery_tags a{
   		color: {{ website.darkColor }};
@@ -772,9 +772,9 @@ text-decoration:none;
   	background-color: {{ website.darkColor }};
   	border-color: {{ website.darkColor }};
   	opacity:0.5;
-  
+
   }
-  
+
   .gallery_tags.selected a{
   	color:white;
   	background-color: {{ website.darkColor }};
@@ -782,8 +782,8 @@ text-decoration:none;
   	text-decoration: underline;
   }
   </style>
-  
-  
+
+
    {% block stylesheets %}{% endblock %}
 
 	{% for script in scripts %}
@@ -804,12 +804,12 @@ text-decoration:none;
 
 
 	{{ snipped |raw	 }}
-	
+
     <link href="{{ asset('bundles/app/css/doc.css') }}" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
-<body>
+<body id="{{id_page}}">
 <section class="header">
 	<div class="container">
 		<nav class="navbar navbar-default" role="navigation">
@@ -959,7 +959,7 @@ text-decoration:none;
 						<li><a href="{{ website.youtubeLink }}" target="_BLANK"><i class="fa fa-youtube-square fa-1x social_icons2 "  alt="Connect On Youtube" ></i>Youtube</a></li>
 						{% endif %}
 						{% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
-						<li><a href="{{ website.googleLink }}" target="_BLANK"><i class="fa fa-google-plus-square fa-1x social_icons2 "  alt="Connect On Google Plus" >Google +</i></a></li>
+						<li><a href="{{ website.googleLink }}" target="_BLANK"><i class="fa fa-google-plus-square fa-1x social_icons2 "  alt="Connect On Google Plus" ></i>Google +</a></li>
 						{% endif %}
 						{% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
 						<li><a href="{{ website.linkedinLink }}" target="_BLANK"><i class="fa fa-linkedin-square fa-1x social_icons2 "  alt="Connect On Linkedin" ></i>Linkedin</a></li>

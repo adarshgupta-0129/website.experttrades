@@ -19,7 +19,7 @@ class PostController extends MainController
         $em = $this->getDoctrine()->getManager();
 
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-       $post = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->findBy(['slug'=>$slug]);
+        $post = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->findBy(['slug'=>$slug]);
         if(is_array($post) && count($post) <= 0 ){
         	return $this->redirect($this->generateUrl('blog'),404);
         } else {
@@ -28,7 +28,9 @@ class PostController extends MainController
 
         $this->trackVisit();
         $array_twig = $this->defaultInfo($request);
-        
+
+
+        $array_twig['id_page'] = 'post_page';
         $array_twig['post'] = $post;
         $array_twig['blog'] = $blog;
         return $this->render('AppBundle:blog/post:index.html.twig',$array_twig);

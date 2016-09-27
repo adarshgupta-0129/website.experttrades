@@ -28,7 +28,7 @@ class ContactController extends MainController
 
         $array_twig = $this->defaultInfo($request);
         $array_twig['margin_top_subscription'] = false;
-        
+
         $choices = [];
         foreach($em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findBy(array('deleted_at' => null)) as $c){
             $choices[$c->getName()] = $c->getName();
@@ -134,6 +134,8 @@ class ContactController extends MainController
               $error = 'Please click on the "I am not a Robot" checkbox';
             }
         }
+
+        $array_twig['id_page'] = 'contact_page';
         $array_twig['error'] = $error;
         $array_twig['secureToken'] = $secureToken;
         $array_twig['contact'] = $contact;

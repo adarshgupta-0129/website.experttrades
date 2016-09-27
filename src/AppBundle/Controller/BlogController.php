@@ -38,8 +38,10 @@ class BlogController extends MainController
 
         $array_twig = $this->defaultInfo($request);
 
-     
+
         $this->trackVisit();
+
+        $array_twig['id_page'] = 'blog_page';
         $array_twig['search'] = $search;
         $array_twig['page'] = $page;
         $array_twig['blog'] = $blog;
