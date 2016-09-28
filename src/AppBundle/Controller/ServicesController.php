@@ -77,7 +77,7 @@ class ServicesController extends MainController
         $array_twig['service'] = $service;
         $array_twig['item'] = $item;
         $array_twig['page'] = $page;
-        return $this->render('AppBundle:services:index.html.twig',$array_twig);
+        return $this->render('AppBundle:services/view:index.html.twig',$array_twig);
         /*return $this->render('AppBundle:services/view:index.html.twig',
         array(
           'website' => $website,
