@@ -41,7 +41,13 @@ class ReviewsController extends MainController
 
         $array_twig = $this->defaultInfo($request);
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
-        $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
+        $item = $em->getRepository('AppBundle\Entity\Service\Item\Item')->findOneBy([
+          'page_slug' => $slug,
+          'page_active' => true
+        ]);
+        if(!is_object($item)){
+            throw new NotFoundHttpException("Page not found");
+        }
         $this->trackVisit();
 
         $array_twig['id_page'] = 'review_page';
@@ -49,5 +55,6 @@ class ReviewsController extends MainController
         $array_twig['item'] = $item;
         $array_twig['snipped'] = $this->richSnippedReviewJson($em, $request, $id);
         return $this->render('AppBundle:reviews:view.html.twig',$array_twig);
+
     }
 }
