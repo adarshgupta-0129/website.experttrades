@@ -115,6 +115,10 @@ class HomepageController extends MainController
                     $em->persist($message);
                     $em->flush();
 
+
+
+                    	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+
                     $data_string = json_encode([
                       'name' => $message->getName(),
                       'email' => $message->getEmail(),
