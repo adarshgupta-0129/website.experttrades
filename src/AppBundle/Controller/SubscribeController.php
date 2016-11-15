@@ -38,6 +38,7 @@ class SubscribeController extends MainController
                   'email' => $subscriber->getEmail()
                 ]);
 
+                $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
                 $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_subscribers?website_access_token='.$website->getAccessToken());
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
