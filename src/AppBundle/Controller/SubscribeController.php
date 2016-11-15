@@ -67,29 +67,15 @@ class SubscribeController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
         $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+    	$array_twig = $this->defaultInfo($request);
+        $this->trackVisit();
 
-        $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-        $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-        $twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-        $favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-        $facebook_image = null;
-        $twitter_image = null;
-        if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-        if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-        if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
-        $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
+        $array_twig['id_page'] = 'subscribe_success';
+    	$array_twig['subscriber_form'] =  $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView();
 
-        return $this->render('AppBundle:subscribe:success.html.twig',
-         array(
-           'website' => $website,
-           'hasBlog' => $blog->getActive(),
-        		'favicon' => $favicon,
-        		'facebook_image' => $facebook_image,
-        		'twitter_image' => $twitter_image,
-           'footer_images' => $footerImages,
-           'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
-           'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-         ));
+       
+
+        return $this->render('AppBundle:subscribe:success.html.twig',$array_twig);
       }
 
 
@@ -99,29 +85,13 @@ class SubscribeController extends MainController
       public function subscribeErrorAction(Request $request)
       {
           $em = $this->getDoctrine()->getManager();
+
           $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-
-          $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
-          $facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
-          $twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
-          $favicon = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_FAVICON]);
-          $facebook_image = null;
-          $twitter_image = null;
-          if(is_object($facebook))$facebook_image =( is_null($facebook->getPath())) ? null : $facebook->getWebPath();
-          if(is_object($twitter))$twitter_image = ( is_null($twitter->getPath())) ? null : $twitter->getWebPath();
-          if(is_object($favicon))$favicon = ( is_null($favicon->getPath())) ? null : $favicon->getWebPath();
-          $footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
-
-          return $this->render('AppBundle:subscribe:error.html.twig',
-           array(
-             'website' => $website,
-           'hasBlog' => $blog->getActive(),
-        		'favicon' => $favicon,
-        		'facebook_image' => $facebook_image,
-        		'twitter_image' => $twitter_image,
-             'footer_images' => $footerImages,
-             'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
-             'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-           ));
+	    	$array_twig = $this->defaultInfo($request);
+	        $this->trackVisit();
+	
+	        $array_twig['id_page'] = 'subscribe_success';
+	    	$array_twig['subscriber_form'] =  $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView();
+          return $this->render('AppBundle:subscribe:error.html.twig',$array_twig);
         }
 }
