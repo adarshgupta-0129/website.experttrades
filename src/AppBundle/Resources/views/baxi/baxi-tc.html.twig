@@ -1,0 +1,135 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block header %}
+	<title>{{ homepage.metaTitle }}</title>
+	<meta name="description" content="{{ homepage.metaDescription }}">
+	
+    <meta property="og:url" content="{{ url('homepage') }}" />
+	<meta property="og:site_name" content="{{ homepage.metaTitle }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ homepage.metaTitle }}" />
+	<meta property="og:description" content="{{ homepage.metaDescription }}" />
+	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
+	
+    <meta name="twitter:card" content="summary_large_image">
+    {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
+	<meta name="twitter:title" content="{{ homepage.metaTitle }}">
+	<meta name="twitter:description" content="{{ homepage.metaDescription }}">
+	<meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
+	<meta name="twitter:domain" content="{{ app.request.host }}">
+	
+{% endblock %}
+   {% block stylesheets %}
+	 
+<!-- 
+***************
+FORDY'S STYLING
+***************
+-->    
+<style>
+    .innerpage_banner {
+        width:100%; 
+        background: url({{ asset('bundles/app/images/baxi/') }}baxi_1.jpg) no-repeat 0 0; 
+        background-size: cover; 
+        padding: 111px 0 49px;
+        background-repeat: no-repeat;
+    }
+    .innerpage_banner {
+        height: 580px;
+    }
+    .innerpage_banner h2 {
+        opacity: 0;
+    }
+    
+    .bodybox2 .container {
+        max-width: 100%;
+    }
+    .about_body_right .fa {
+        color: #18579c !important;    
+    }
+    .abtrinfo {
+        color: #666666;
+    }
+    .baxi-logo {
+        width: 350px;
+        margin-top: 32px;
+    }
+    .bodybox2 .container p {
+            color: white;
+    }
+    .bodybox2 {
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+  	.bodybox2 {width:100%; background-image: url({{ asset('bundles/app/images/baxi/') }}baxi_darkened.jpg); background-size: auto; padding: 45px 0 35px; margin-top: 43px;}
+    @media (min-width: 800px) {
+        .bodybox2 .container p {
+            padding-top: 115px;
+            padding-bottom: 115px;
+            padding-left: 500px;
+            font-size: 2em;
+        }
+    }
+    @media (max-width: 1400px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 400px;
+        }
+    }
+    @media (max-width: 700px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 200px;
+        }
+        .innerpage_banner p {
+            display: none;
+        }
+        .bodybox2 {
+            background-size: cover;
+            height: 200px;
+            background-repeat: no-repeat;
+            padding-right: 10px;
+        }
+        .baxi-logo {
+            max-width: 90%;
+        }
+    }
+<!-- 
+**********************
+END OF FORDY'S STYLING
+**********************
+-->        
+	</style>
+{% endblock %}
+
+{% block body %}
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
+
+<section class="innerpage_banner">
+	<div class="container">
+		<div class="banner_content_top">
+				<p><br></p>
+		</div>
+		<div class="banner_content_bottom">
+			<h2><br></h2>
+		</div>
+	</div>
+</section>
+<section class="bodybox1">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="about_head">
+					<h2>Terms and conditions</h2>
+					<p>* Baxi Approved Installers are recognised for their skill and dedication. With our approved installer scheme, homeowners have the confidence that any installer listed as a Baxi Approved Installer will complete a Baxi boiler installation to current building regulations and Gas Safe requirements. Whilst Baxi aims to ensure that all Baxi Approved Installers achieve and continue to maintain a high standard of workmanship, service and experience in the installation of Baxi products, we cannot guarantee that installations made by such third party installers will be error free and Baxi will not be liable (whether in contract, tort, negligence or otherwise) for any losses suffered as a result of an act or omission of a Baxi Approved Installer. As with all installers engaged by Baxi, Baxi Approved Installers will have Public Liability Insurance and will be Gas Safe Registered. If you have any queries regarding our Baxi Approved Installers, please contact us on 0800 915 9908 or info@baxi.co.uk.</p>
+				</div>
+			</div>
+		</div>
+		<!-- 08/10/2015---------------as per mail work -->
+	</div>
+</section>
+{% endif %}
+{% endblock %}
