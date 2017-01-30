@@ -10,3 +10,4 @@
 /bin/
 /web/images/*
 /composer.phar
+/vendor/
