@@ -56,7 +56,7 @@ class MainController extends Controller
     	}
 
     	return array(
-				  'id_page' => "base",
+				'id_page' => "base",
     			'website' => $website,
     			'homepage' => $homepage,
     			'favicon' => $favicon,
@@ -68,8 +68,12 @@ class MainController extends Controller
     			'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
            		'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
     			'margin_top_subscription' => true,
-    			'snipped' => $this->richSnippedsJson($em, $request, $website, $homepage)
+    			'snipped' => $this->richSnippedsJson($em, $request, $website, $homepage),
+    			'gmaps' => $this->getUrlGmaps($website),
     	);
+    }
+    private function getUrlGmaps($website ){
+    	return "https://www.google.com/maps/embed/v1/place?key=AIzaSyDWh2ugH_oq9rD1WRF9qH0-eIcUjEN-bEg&q=".$website->getPostcode()."&zoom=".$website->getZoomMaps()."";
     }
 
     public function richSnippedsJson($em, Request $request, $website, $homepage ){

@@ -240,6 +240,15 @@ class PageController extends SecurityController
 				if(isset($params['show_menu'])){
 					$page->setShowMenu($params['show_menu']);
 				}
+				if(isset($params['option_menu'])){
+					$page->setOptionMenu($params['option_menu']);
+				}
+				if(isset($params['redirection'])){
+					$page->setRedirection($params['redirection']);
+				}
+				if(isset($params['url_redirection'])){
+					$page->setUrlRedirection($params['url_redirection']);
+				}
 				if(isset($params['meta_tags'])){
 					$page->setMetaTags($params['meta_tags']);
 				}

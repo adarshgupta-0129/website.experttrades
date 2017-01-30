@@ -270,6 +270,13 @@ class Website{
      * @ORM\Column(name="btn_txt_war", type="string", length=25, options={"default" = "Write A Review"})
      */
     private $btn_txt_war;
+    
+    /**
+     * @var integer $zoom_maps
+     *
+     * @ORM\Column(name="zoom_maps", type="integer",  options={"default" = "12"})
+     */
+    private $zoom_maps;
 
     /**
     * @ORM\Column(type="boolean")
@@ -293,6 +300,8 @@ class Website{
         $this->show_reviews_tab = true;
         $this->show_contact_tab = true;
         $this->show_subscription = true;
+        
+        $this->zoom_maps = 12;
         
         $this->btn_txt_raq = "Request A quote";
         $this->btn_txt_gaq = "Get A quote";
@@ -1033,6 +1042,14 @@ class Website{
 		$this->btn_txt_war = $btn_txt_war;
 		return $this;
 	}
+	public function getZoomMaps() {
+		return $this->zoom_maps;
+	}
+	public function setZoomMaps($zoom_maps) {
+		$this->zoom_maps = $zoom_maps;
+		return $this;
+	}
+	
 	
 	
 	

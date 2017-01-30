@@ -39,7 +39,7 @@
 				<div class="item {% if loop.index == 1 %} active {% endif %}">
 					<img src="{{ asset('images/homepage/sliders/') }}{{ slider.path }}" alt="">
 					<div class="carousel-caption">
-					 <div class="captop">{{ slider.title }}</div>
+					 <h1 class="captop">{{ slider.title }}</h1>
 					 <div class="capmid">{{ slider.subtitle }}</div>
 					 <div class="slide_button"><a href="{{ path('contact') }}">{{ website.btnTxtRaq }}</a></div>
 					 <div class="slide_social">
@@ -441,8 +441,9 @@
 	</div>
 </section>
 {% endif %}
+
 <section class="contactmap">
-	<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDWh2ugH_oq9rD1WRF9qH0-eIcUjEN-bEg&q={{ website.postcode }}" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
+	<iframe src="{{gmaps}}" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
 </section>
 
 {% endif %}
@@ -456,6 +457,14 @@ var app = angular.module('app', [])
 .controller('MainCtrl',
 function($rootScope, $scope) {
   $scope.contact = {};
+});
+
+$('.contactmap').click(function () {
+    $('.contactmap iframe').css("pointer-events", "auto");
+});
+
+$( ".contactmap" ).mouseleave(function() {
+  $('.contactmap iframe').css("pointer-events", "none"); 
 });
 </script>
 {% endblock %}

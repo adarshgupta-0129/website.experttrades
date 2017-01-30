@@ -206,9 +206,9 @@
   /*--------------------------inner-pages-----------------------*/
   .innerpage_banner {width:100%; background: url({{ asset('images/headers/about.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
   .banner_content_top { width:100%; text-align: center;}
-  .banner_content_top p {font-family: 'Lato', sans-serif; font-size: 30px; color:#fff; font-weight:700; line-height: 41px;text-transform: uppercase;}
+  .banner_content_top p, .banner_content_top h1{font-family: 'Lato', sans-serif; font-size: 30px; color:#fff; font-weight:700; line-height: 41px;text-transform: uppercase;}
   .banner_content_bottom {width:100%; text-align: center; margin-top: 100px;}
-  .banner_content_bottom h2 {font-family: 'Lato', sans-serif; font-size: 50px; color:#fff; font-weight:700; background: url({{ asset('bundles/app/images/bcth-bg.jpg') }}) no-repeat 0 0; background-position: center top; padding-top: 32px; text-transform: uppercase;}
+  .banner_content_bottom h2, .banner_content_bottom p {font-family: 'Lato', sans-serif; font-size: 50px; color:#fff; font-weight:700; background: url({{ asset('bundles/app/images/bcth-bg.jpg') }}) no-repeat 0 0; background-position: center top; padding-top: 32px; text-transform: uppercase;}
 
 
   .banner_content_bottom_services {width:100%; text-align: center; margin-top: 40px;}
@@ -264,7 +264,7 @@
   .contact_inner_form label.checkbox-inline { text-transform: none; margin-right: 51px;}
   .chkln {margin-right: 0 !important;}
   .contact_inner_form textarea.form-control {height: 270px;}
-  .contact_inner_form .btn-default {background: #0077C2;color: #FFFFFF;display: block;font-family: 'Lato',sans-serif;font-size: 20px;font-weight: 700;line-height: 60px;text-align: center; padding: 0 75px; margin-left: -10px; border-radius: 0;}
+  .contact_inner_form .btn-default {background: #0077C2;color: #FFFFFF;display: block;font-family: 'Lato',sans-serif;font-size: 20px;font-weight: 700;line-height: 60px;text-align: center; padding: 0 75px; margin-left: 0px; border-radius: 0;}
   .contact_innaerpage_bottom {width:100%; background: {{ website.mainColor }}; padding: 30px 0; margin-top: 90px;}
   .cbbbox {width:100%; display: inline-block;}
   .addr_icon {width:20%; float: left;}
@@ -276,7 +276,6 @@
   .ccb2 {padding-top: 14px;}
   .rvst {width:100%; text-align: center; margin-top: 30px;}
   .rvst a {display: inline-block; padding: 0;}
-  .rvst h2 {font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:400; margin: 12px 0 0; text-transform: uppercase;}
   .rbbn {margin-top: 44px;}
   .review_banner {background: url({{ asset('images/headers/reviews.jpg') }}) no-repeat 0 0; background-size: cover;  padding: 111px 0 49px;}
   .review_panel {width:100%; margin-top: 24px;}
@@ -354,8 +353,12 @@
     .error_page_500_banner {width:100%; background: url({{ asset('bundles/app/images/errors/500_error.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
     .error_page_500_banner .banner_content_bottom {margin-top: 40px;}
 
-    .disabled_website_banner {width:100%; background: url({{ asset('bundles/app/images/errors/disabled.jpg') }}) no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
-    .disabled_website_banner .banner_content_bottom {margin-top: 40px;}
+    .disabled_website_banner {background-color: #334451;}
+    .disabled_website_banner img{width:100%;height:auto; min-width: 450px;}
+    .disabled_website_banner .banner_content_bottom {padding-top: 40px;}
+    .contactmap iframe{
+	    pointer-events: none;
+	}
 
 /*********************************************************************************************
 
@@ -641,7 +644,6 @@ text-decoration:none;
   .addrs_info p {font-size: 15px;}
   .addrs_info a {font-size: 15px;}
   .contact_inner_form label.checkbox-inline {margin-right: 10px;}
-  .contact_inner_form .btn-default {margin-left: 125px;}
   .error_page_400_banner {margin-top: 4px;}
   .disabled_website_banner{margin-top: 4px;}
   .error_page_500_banner {margin-top: 4px;}
@@ -781,6 +783,38 @@ text-decoration:none;
   	border-color: {{ website.darkColor }};
   	text-decoration: underline;
   }
+  /*LAST CHANGES*/
+  .captop, .capmid, .slide_button a, .view a, .view a, .view-color a {
+	border-radius: 10px;
+	}
+	
+	button#form_submit, .btn, button.btn.btn-default {
+	border-radius: 5px;
+	}
+	
+	input[type="submit"] {
+	border-radius: 0px 5px 5px 0px;
+	}
+	.servicebox a {
+		width:auto;
+	}
+	.navbar-brand {
+		height: auto !important;
+	}
+	.navbar {
+	    margin-bottom: 0px !important;
+	}
+	.something h2 {/*needs fordy replie*/
+		padding-bottom: 17px !important;
+	}
+	.cpinfo2 {
+		font-family: Arial;
+		font-size: 16px;
+		color: #000;
+		margin: 0 0 18px;
+	}
+	
+	
   </style>
 
 
@@ -845,10 +879,8 @@ text-decoration:none;
       {% endif %}
     {% else %}
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Services <span class="caret"></span></a>
+        <a  href="{{ path('services')}}" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Services <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="{{ path('services')}}">View All</a></li>
-          <li role="separator" class="divider"></li>
           {% for s in nav_bar_services %}
             <li><a
               {% if s.pageSlug %}
@@ -885,8 +917,13 @@ text-decoration:none;
 	</div>
 </section>
 
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
 {% block body %}{% endblock %}
+{% endif %}
 
+{% if not website.disabled %}
 {% if website.showSubscription == true %}
 
 <section class="subscribe {% if margin_top_subscription == true %}susin{% endif %}">
@@ -998,6 +1035,7 @@ text-decoration:none;
 		</div>
 	</div>
 </section>
+{% endif %} <!-- end if website block -->
 <section class="copyright">
 	<div class="container">
 		<div class="row">
@@ -1053,7 +1091,13 @@ $( document ).ready(function() {
           }
       });
     }
- });
+    
+     $('ul.nav li.dropdown').hover(function() {
+		  $(this).find('.dropdown-menu').stop(true, true).fadeIn();
+		}, function() {
+		  $(this).find('.dropdown-menu').stop(true, true).fadeOut();
+		});
+   });
 </script>
 
 

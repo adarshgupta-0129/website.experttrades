@@ -26,7 +26,7 @@
 <section class="innerpage_banner review_banner">
 	<div class="container">
 		<div class="banner_content_top">
-			<p>{{ review.headerText }}</p>
+			<h1>{{ review.headerText }}</h1>
 		</div>
 			<div class="rvst">
 			<a href="#"><img src="{{ asset('bundles/app/images/reviews/rv-star.png') }}" alt="Total Rating" /></a>
@@ -34,10 +34,10 @@
 			<a href="#"><img src="{{ asset('bundles/app/images/reviews/rv-star.png') }}" alt="Total Rating" /></a>
 			<a href="#"><img src="{{ asset('bundles/app/images/reviews/rv-star.png') }}" alt="Total Rating" /></a>
 			<a href="#"><img src="{{ asset('bundles/app/images/reviews/rv-star.png') }}" alt="Total Rating" /></a>
-			<h2>{{ review.headerSubtitle }}</h2>
+			<p>{{ review.headerSubtitle }}</p>
 			</div>
 		<div class="banner_content_bottom rbbn">
-			<h2>{{ review.headerTitle }}</h2>
+			<p>{{ review.headerTitle }}</p>
 		</div>
 	</div>
 </section>
@@ -104,12 +104,13 @@
 		</div>
 	</div>
 </section>
+
 <section class="review_pagination">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12  text-center">
 					<!--end-->
-					{% if items.total != 0%}
+					{% if per_page < items.total %}
 					<div>
 						<ul class="pagination pagination-dark pagination-m">
 
@@ -166,14 +167,16 @@
 
 									<li {% if page == items.last_page %} class="disabled" {% endif %}>
 										<a {% if page != items.last_page %} href="{{ path('reviews', { 'page': items.last_page } ) }}" {% endif %}>&raquo;</a>
-								 </li>
+								 	</li>
 					</ul>
 				</div>
 				{% endif %}
+				{% if items.data|length >= 3 %}
 				<div class="team_click">
 					<h2>Click Below To Post A Review About Us</h2>
 					<div class="teamq"><div class="slide_button rvquote"><a target="_BLANK" href="https://www.experttrades.com/leave-review-step-one-create/{{ website.tradeId }}">{{ website.btnTxtWar }}</a></div></div>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

@@ -60,11 +60,33 @@ class Page{
     private $static_page_name;
 
     /**
+     * @var boolean $is_admin
+     * only manage for admin users, that means experttrades users
+     *
+     * @ORM\Column(name="is_admin", type="boolean", options={"default" = 0})
+     */
+    private $is_admin;
+
+    /**
      * @var boolean $active
      *
      * @ORM\Column(name="active", type="boolean", options={"default" = 1})
      */
     private $active;
+    
+    /**
+     * @var boolean $redirection
+     *
+     * @ORM\Column(name="redirection", type="boolean", options={"default" = 0})
+     */
+    private $redirection;
+    
+    /**
+     * @var string $url_redirection
+     *
+     * @ORM\Column(name="url_redirection", type="text", length=1024, nullable=true)
+     */
+    private $url_redirection;
 
     /**
      * @var boolean $show_menu
@@ -72,6 +94,13 @@ class Page{
      * @ORM\Column(name="show_menu", type="boolean", options={"default" = 0})
      */
     private $show_menu;
+
+    /**
+     * @var int $option_menu
+     *
+     * @ORM\Column(name="option_menu", type="integer", options={"default" = 0})
+     */
+    private $option_menu;
     
 
    /**
@@ -124,18 +153,22 @@ class Page{
    * @ORM\Column(type="datetime")
    */
    private $created;
-
+    
    public function __construct( ){
        	$this->created = new \DateTime("now",new \DateTimeZone('Europe/London'));
        	$this->publish = null;
        	$this->show_menu = false;
        	$this->active = true;
+   		$this->redirection = false;
+   		$this->is_admin = false;
    }
 
    public function active(){
-   	$this->active = true;
-   	$this->publish = new \DateTime("now",new \DateTimeZone('Europe/London'));
+   		$this->active = true;
+   		$this->publish = new \DateTime("now",new \DateTimeZone('Europe/London'));
    }
+
+   
   /**
    * Get id
    *
@@ -290,6 +323,28 @@ class Page{
 		$this->tag_script = $tag_script;
 		return $this;
 	}
+	public function getRedirection() {
+		return $this->redirection;
+	}
+	public function setRedirection($redirection) {
+		$this->redirection = $redirection;
+		return $this;
+	}
+	public function getUrlRedirection() {
+		return $this->url_redirection;
+	}
+	public function setUrlRedirection($url_redirection) {
+		$this->url_redirection = $url_redirection;
+		return $this;
+	}
+	public function getOptionMenu() {
+		return $this->option_menu;
+	}
+	public function setOptionMenu($option_menu) {
+		$this->option_menu = $option_menu;
+		return $this;
+	}
+	
 	
 	
 	

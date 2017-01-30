@@ -22,13 +22,14 @@ class ReviewsController extends MainController
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $perPage = 10;
         $offset = ($page - 1) * $perPage;
-        $items = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getForDisplay(10, $offset);
+        $items = $em->getRepository('AppBundle\Entity\Review\Item\Item')->getForDisplay($perPage, $offset);
         $this->trackVisit();
 
         $array_twig['id_page'] = 'reviews_page';
         $array_twig['review'] = $review;
         $array_twig['items'] = $items;
         $array_twig['page'] = $page;
+        $array_twig['per_page'] = $perPage;
         return $this->render('AppBundle:reviews:index.html.twig',$array_twig);
     }
 
