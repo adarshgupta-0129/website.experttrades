@@ -1,0 +1,20 @@
+{
+  "name": "slushie/recaptcha-secure-token",
+  "description": "Generate ReCaptcha-compatible secure tokens",
+  "homepage": "https://github.com/slushie/recaptcha-secure-token",
+  "keywords": ["recaptcha", "secure token", "stoken"],
+  "license": "Apache-2.0",
+  "authors": [{
+    "name": "Josh Leder",
+    "email": "slushie@gmail.com"
+  }],
+  "require": {
+    "php": ">= 5.3.3",
+    "ext-mcrypt": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ReCaptchaSecureToken\\": "lib/"
+    }
+  }
+}
