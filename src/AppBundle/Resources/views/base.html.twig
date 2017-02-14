@@ -912,7 +912,7 @@ text-decoration:none;
         </ul>
       </li>
     {% endif %}
-
+   	<li {% if app.request.attributes.get('_route') == 'baxi' %} class="select" {% endif %}><a href="{{ path('baxi') }}">BAXI</a></li>
     {% if website.showReviewsTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
     {% endif %}

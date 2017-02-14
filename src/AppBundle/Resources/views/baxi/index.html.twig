@@ -1,0 +1,277 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block header %}
+	<title>{{ homepage.metaTitle }}</title>
+	<meta name="description" content="{{ homepage.metaDescription }}">
+	
+    <meta property="og:url" content="{{ url('homepage') }}" />
+	<meta property="og:site_name" content="{{ homepage.metaTitle }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ homepage.metaTitle }}" />
+	<meta property="og:description" content="{{ homepage.metaDescription }}" />
+	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
+	
+    <meta name="twitter:card" content="summary_large_image">
+    {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
+	<meta name="twitter:title" content="{{ homepage.metaTitle }}">
+	<meta name="twitter:description" content="{{ homepage.metaDescription }}">
+	<meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
+	<meta name="twitter:domain" content="{{ app.request.host }}">
+	
+{% endblock %}
+   {% block stylesheets %}
+	 
+<!-- 
+***************
+FORDY'S STYLING
+***************
+-->    
+<style>
+	.bodybox2 {width:100%; background-image: url({{ asset('bundles/app/images/baxi/') }}baxi_darkened.jpg); background-size: auto; padding: 45px 0 35px; margin-top: 43px;}
+  
+    .innerpage_banner {
+        width:100%; 
+        background: url({{ asset('bundles/app/images/baxi/') }}baxi_1.jpg) no-repeat 0 0; 
+     	background-size: cover; 
+        padding: 111px 0 49px;
+        background-repeat: no-repeat;
+    }
+    .innerpage_banner {
+        height: 580px;
+    }
+    .innerpage_banner h2 {
+        opacity: 0;
+    }
+    
+    .bodybox2 .container {
+        max-width: 100%;
+    }
+    .about_body_right .fa {
+        color: #18579c !important;    
+    }
+    .abtrinfo {
+        color: #666666;
+    }
+    .baxi-logo {
+        width: 350px;
+        margin-top: 32px;
+    }
+    .bodybox2 .container p {
+            color: white;
+    }
+    .bodybox2 {
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    @media (min-width: 800px) {
+        .bodybox2 .container p {
+            padding-top: 115px;
+            padding-bottom: 115px;
+            padding-left: 500px;
+            font-size: 2em;
+        }
+    }
+    @media (max-width: 1700px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 500px;
+            background-size: cover;
+        }
+    }
+    @media (max-width: 1400px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 400px;
+            background-size: cover;
+        }
+    }
+    @media (max-width: 1200px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 350px;
+            background-size: cover;
+        }
+    }
+    @media (max-width: 1000px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 275px;
+            background-size: cover;
+        }
+    }
+    @media (max-width: 760px) {
+        .innerpage_banner {
+            background-size: 100%;
+            height: 200px;
+        }
+        .innerpage_banner p {
+            display: none;
+        }
+        .bodybox2 {
+            background-size: cover;
+            height: 200px;
+            background-repeat: no-repeat;
+            padding-right: 10px;
+        }
+        .baxi-logo {
+            max-width: 90%;
+        }
+    }
+<!-- 
+**********************
+END OF FORDY'S STYLING
+**********************
+-->        
+	</style>
+{% endblock %}
+
+{% block body %}
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
+
+<section class="innerpage_banner">
+	<div class="container">
+		<div class="banner_content_top">
+				<p><br></p>
+		</div>
+		<div class="banner_content_bottom">
+			<h2><br></h2>
+		</div>
+	</div>
+</section>
+<section class="bodybox1">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="about_head">
+					<h2>Benefits of choosing a Baxi Approved Installer</h2>
+					<p> {{ website.companyName }} is a Baxi Approved Installer, which means we will complete your boiler installation, service or repair to the very highest standard and comply with current Building Regulations and Gas Safe requirements.
+                    <br><br>We have attended regular Baxi training courses so that you can be confident we have the experience and knowledge to fit and service Baxi boilers and accessories.
+</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="about_body_left">
+										<img src="{{ asset('bundles/app/images/baxi/') }}logo_circle.png" alt="Baxi Approved Installer" />
+									</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="about_body_right">
+					<div class="abtr">
+						<div class="abtrpic">
+								<i class="fa fa-check-square-o fa-4x" style="color:#002A40"></i>
+						</div>
+						<div class="abtrinfo">
+							<h4>Gas Safe registered and qualified</h4>
+						</div>
+					</div>
+					<div class="abtr">
+						<div class="abtrpic">
+								<i class="fa fa-check-square-o fa-4x" style="color:#002A40"></i>
+						</div>
+						<div class="abtrinfo">
+							<h4>Trained and experienced to install, service and maintain your Baxi boiler</h4>
+						</div>
+					</div>
+					<div class="abtr">
+						<div class="abtrpic">
+							<i class="fa fa-check-square-o fa-4x" style="color:#002A40"></i>
+						</div>
+						<div class="abtrinfo">
+							<h4>Guaranteed to get priority aftersales support from Baxi</h4>
+						</div>
+					</div>
+                    <div class="abtr">
+						<div class="abtrpic">
+							<i class="fa fa-check-square-o fa-4x" style="color:#002A40"></i>
+						</div>
+						<div class="abtrinfo">
+							<h4>Listed on the Baxi website – so you can find our contact details easily</h4>
+						</div>
+					</div>
+                    <div class="abtr">
+						<div class="abtrpic">
+							<i class="fa fa-check-square-o fa-4x" style="color:#002A40"></i>
+						</div>
+						<div class="abtrinfo">
+							<h4>Fully insured, with Public Liability Insurance</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="bodybox2">
+	<div class="container">
+        <p>Baxi Approved Installers have to meet Baxi’s high standards and our customer feedback is monitored to ensure we maintain the quality of our work.  We have signed the Baxi Approved Installer Code of Conduct.</p>
+<!--
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="review_head">
+					<h2>Information</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="statbox">
+					<i class="fa fa-home fa-4x" style="color:#002A40"></i>
+					<h2>45</h2>
+					<p>Positive Reviews</p>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="statbox">
+					<i class="fa fa-gbp fa-4x" style="color:#002A40"></i>
+					<h2>124</h2>
+					<p>Jobs Done So Far</p>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="statbox">
+				  <i class="fa fa-bookmark-o fa-4x" style="color:#002A40"></i>
+					<h2>12</h2>
+					<p>Years Of Expirience</p>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="statbox">
+					<i class="fa fa-smile-o fa-4x" style="color:#002A40"></i>
+					<h2>5</h2>
+					<p>Team Members</p>
+				</div>
+			</div>
+-->	
+	</div>
+</section>
+<section class="bodybox3">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="about_head">
+					<h2>About Baxi</h2>
+					<p>Baxi is proud to have been manufacturing in the UK since 1866.  Our range of Energy Saving Trust Endorsed high efficiency boilers are straightforward to install, maintain and service and easy to use. Baxi is so confident in the reliability of its boilers that it offers industry-leading free parts and labour warranties, for complete peace of mind.
+                    <br><br>
+                        For more information about Baxi <a href="http://baxi.com" target="_blank">click here</a>
+                        <br><br><a href="{{ path('baxi-tc') }}" target="_blank">Terms and conditions apply*</a></p>
+                    <img src="{{ asset('bundles/app/images/baxi/') }}baxi-logo.jpg" class="baxi-logo">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="team_click">
+					<h2>Click below to get yourself a quote</h2>
+					<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">{{website.btnTxtGaq}}</a></div></div>
+				</div>
+			</div>
+		</div>
+		<!-- 08/10/2015---------------as per mail work -->
+	</div>
+</section>
+{% endif %}
+{% endblock %}
