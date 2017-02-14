@@ -7,13 +7,22 @@
     <meta name="author" content="{{ website.companyName }}">
 
 	{% for script in scripts %}
-		{% if 'meta' in script.value %}
+		{% if '<meta' in script.value  
+		and '<script' not in script.value 
+		and '<style' not in script.value 
+		and '<!-- add tag near body -->' not in script.value
+		and '<!-- first script in header -->' not in script.value %}
 			{{ script.value |raw }}
 		{% endif %}
 	{% endfor %}
 
     {% block header %}{% endblock %}
 
+	{% for script in scripts %}
+		{% if '<!-- first script in header -->' in script.value %}
+			{{ script.value |raw }}
+		{% endif %}
+	{% endfor %}
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
     <link href="{{ asset('bundles/app/css/bootstrap.css') }}" rel="stylesheet" >
@@ -821,7 +830,11 @@ text-decoration:none;
    {% block stylesheets %}{% endblock %}
 
 	{% for script in scripts %}
-		{% if 'style' in script.value %}
+		{% if '<style' in script.value 
+		and '<script' not in script.value 
+		and '<meta' not in script.value 
+		and '<!-- add tag near body -->' not in script.value
+		and '<!-- first script in header -->' not in script.value %}
 			{{ script.value |raw }}
 		{% endif %}
 	{% endfor %}
@@ -844,6 +857,11 @@ text-decoration:none;
 <!-- NAVBAR
 ================================================== -->
 <body id="{{ id_page }}" >
+{% for script in scripts %}
+		{% if '<!-- add tag near body -->' in script.value %}
+			{{ script.value |raw }}
+		{% endif %}
+{% endfor %}
 <section class="header">
 	<div class="container">
 		<nav class="navbar navbar-default" role="navigation">
@@ -1107,7 +1125,11 @@ $( document ).ready(function() {
 <!-- ANALYTICS ETC -->
 
 {% for script in scripts %}
-	{% if 'script' in script.value %}
+	{% if '<script' in script.value 
+		and '<meta' not in script.value 
+		and '<style' not in script.value 
+		and '<!-- add tag near body -->' not in script.value
+		and '<!-- first script in header -->' not in script.value%}
 		{{ script.value |raw }}
 	{% endif %}
 {% endfor %}
