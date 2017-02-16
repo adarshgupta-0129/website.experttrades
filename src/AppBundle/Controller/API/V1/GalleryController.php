@@ -29,6 +29,8 @@ class GalleryController extends SecurityController
         [
           'header_text' => $gallery->getHeaderText(),
           'header_title' => $gallery->getHeaderTitle(),
+          'type_pagination' => $gallery->getTypePagination(),
+          'type_tags' => $gallery->getTypeTags(),
           'meta_title' => $gallery->getMetaTitle(),
           'meta_description' => $gallery->getMetaDescription()
         ]));
@@ -60,6 +62,14 @@ class GalleryController extends SecurityController
              }
              if(isset($params['header_title'])){
                $gallery->setHeaderTitle($params['header_title']);
+             }
+             
+             if(isset($params['type_pagination'])){
+               $gallery->setTypePagination($params['type_pagination']);
+             }
+         
+             if(isset($params['type_tags'])){
+               $gallery->setTypeTags($params['type_tags']);
              }
 
              if(isset($params['meta_title'])){

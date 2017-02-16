@@ -39,6 +39,15 @@ class Slider{
     private $id;
 
     /**
+     * @var string $type
+     * 0 -> default slider one button
+     * 1 -> slider 3 buttons
+     *
+     * @ORM\Column(name="type", type="integer", options={"default" = 0})
+     */
+    private $type;
+
+    /**
      * @var string $title
      *
      * @ORM\Column(name="title", type="text", length=2555, nullable=true)
@@ -52,20 +61,59 @@ class Slider{
      */
     private $subtitle;
 
-    /**
-     * @var string $button_text
-     *
-     * @ORM\Column(name="button_text", type="text", length=2555, nullable=true)
-     */
-    private $button_text;
 
     /**
     * @ORM\Column(type="string", length=255, nullable=true)
     */
     public $path;
+    
+
+    /**
+     * @var string $button_text
+     *
+     * @ORM\Column(name="button_text", type="text", length=125, nullable=true)
+     */
+    private $button_text;
+
+    /**
+     * @var string $url
+     * 
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
+    
+    /**
+     * @var string $button_text2
+     *
+     * @ORM\Column(name="button_text2", type="text", length=125, nullable=true)
+     */
+    private $button_text2;
+
+    /**
+     * @var string $url
+     * 
+     * @ORM\Column(name="url2", type="string", length=255, nullable=true)
+     */
+    private $url2;
+    
+    /**
+     * @var string $button_text3
+     *
+     * @ORM\Column(name="button_text3", type="text", length=2555, nullable=true)
+     */
+    private $button_text3;
+
+    /**
+     * @var string $url3
+     * 
+     * @ORM\Column(name="url3", type="string", length=125, nullable=true)
+     */
+    private $url3;
+    
+    
 
     public function __construct(){
-
+    	$this->type = 0;
     }
 
     /**
@@ -249,4 +297,49 @@ class Slider{
          // when displaying uploaded doc/image in the view.
          return 'images/homepage/sliders';
      }
+	public function getType() {
+		return $this->type;
+	}
+	public function setType($type) {
+		$this->type = $type;
+		return $this;
+	}
+	public function getUrl() {
+		return $this->url;
+	}
+	public function setUrl($url) {
+		$this->url = $url;
+		return $this;
+	}
+	public function getButtonText2() {
+		return $this->button_text2;
+	}
+	public function setButtonText2($button_text2) {
+		$this->button_text2 = $button_text2;
+		return $this;
+	}
+	public function getUrl2() {
+		return $this->url2;
+	}
+	public function setUrl2($url2) {
+		$this->url2 = $url2;
+		return $this;
+	}
+	public function getButtonText3() {
+		return $this->button_text3;
+	}
+	public function setButtonText3($button_text3) {
+		$this->button_text3 = $button_text3;
+		return $this;
+	}
+	public function getUrl3() {
+		return $this->url3;
+	}
+	public function setUrl3($url3) {
+		$this->url3 = $url3;
+		return $this;
+	}
+	
+     
+     
 }

@@ -50,8 +50,28 @@ class Gallery{
      * @ORM\Column(name="meta_description", type="text", length=2555, nullable=true)
      */
     private $meta_description;
+    
+    /**
+     * @var string $type_pagination
+     * 0 -> pagination
+     * 1 -> showmore
+     *
+     * @ORM\Column(name="type_pagination", type="integer", options={"default" = 1})
+     */
+    private $type_pagination;
+    
+    /**
+     * @var string $type_tags
+     * 0 -> buttons
+     * 1 -> selector
+     *
+     * @ORM\Column(name="type_tags", type="integer", options={"default" = 1})
+     */
+    private $type_tags;
 
     public function __construct(){
+    	$this->type_pagination = 1;
+    	$this->$type_tags = 1;
     }
 
     /**
@@ -143,5 +163,21 @@ class Gallery{
     {
         return $this->meta_description;
     }
+	public function getTypePagination() {
+		return $this->type_pagination;
+	}
+	public function setTypePagination($type_pagination) {
+		$this->type_pagination = $type_pagination;
+		return $this;
+	}
+	public function getTypeTags() {
+		return $this->type_tags;
+	}
+	public function setTypeTags($type_tags) {
+		$this->type_tags = $type_tags;
+		return $this;
+	}
+	
+    
 
 }

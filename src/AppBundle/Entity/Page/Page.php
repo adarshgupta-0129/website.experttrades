@@ -39,6 +39,16 @@ class Page{
     private $items;
 
    /**
+    * @var string $type
+    * 0 -> page
+    * 1 -> redirection
+    * 2 -> admin page created
+    * 
+    * @ORM\Column(name="type", type="integer", options={"default" = 0})
+    */
+    private $type;
+
+   /**
     * @var string $title
     *
     * @ORM\Column(name="title", type="string", length=1024, nullable=false)
@@ -101,7 +111,13 @@ class Page{
      * @ORM\Column(name="option_menu", type="integer", options={"default" = 0})
      */
     private $option_menu;
-    
+
+    /**
+     * @var text $header
+     *
+     * @ORM\Column(name="header", type="text", length=25555, nullable=true)
+     */
+    private $header;
 
    /**
     * @var text $body
@@ -154,18 +170,39 @@ class Page{
    */
    private $created;
     
+  /**
+   * @var datetime $deleted_at
+   *
+   * @ORM\Column(type="datetime", nullable=true)
+   */
+   private $deleted_at;
+    
    public function __construct( ){
        	$this->created = new \DateTime("now",new \DateTimeZone('Europe/London'));
        	$this->publish = null;
        	$this->show_menu = false;
+       	$this->option_menu = 0;
        	$this->active = true;
    		$this->redirection = false;
    		$this->is_admin = false;
+   		$this->type = 0;
    }
 
    public function active(){
    		$this->active = true;
    		$this->publish = new \DateTime("now",new \DateTimeZone('Europe/London'));
+   }
+
+   public function unactive(){
+   		$this->active = false;
+   		$this->publish = null;
+   }
+
+   public function delete(){
+   		$this->active = false;
+   		$this->publish = null;
+   		$this->publish = null;
+   		$this->deleted_at = new \DateTime("now",new \DateTimeZone('Europe/London'));
    }
 
    
@@ -186,7 +223,6 @@ class Page{
      */
     public function getItems( $type = Item::ITEM_IMAGE)
     {
-
     	$criteria = Criteria::create();
     	$criteria->where(Criteria::expr()->eq('type', $type));
     	$arr = $this->items->matching($criteria);
@@ -235,14 +271,6 @@ class Page{
 		$this->regenerateSearch();
 		return $this;
 	}
-	public function getExcerpt() {
-		return $this->excerpt;
-	}
-	public function setExcerpt($excerpt) {
-		$this->excerpt = $excerpt;
-		$this->regenerateSearch();
-		return $this;
-	}
 	public function getBody() {
 		return $this->body;
 	}
@@ -266,7 +294,6 @@ class Page{
 		$search .= $this->title." ";
 		$search .= $this->slug." ";
 		$search .= strip_tags( $this->meta_tags )." ";
-		$search .= strip_tags( $this->excerpt ) ." ";
 		$search .= strip_tags( $this->body ) ." ";
 		$this->search = $search;
 		return $this;
@@ -344,6 +371,28 @@ class Page{
 		$this->option_menu = $option_menu;
 		return $this;
 	}
+	public function getType() {
+		return $this->type;
+	}
+	public function setType($type) {
+		$this->type = $type;
+		return $this;
+	}
+	public function getIsAdmin() {
+		return $this->is_admin;
+	}
+	public function setIsAdmin($is_admin) {
+		$this->is_admin = $is_admin;
+		return $this;
+	}
+	public function getHeader() {
+		return $this->header;
+	}
+	public function setHeader($header) {
+		$this->header = $header;
+		return $this;
+	}
+	
 	
 	
 	
