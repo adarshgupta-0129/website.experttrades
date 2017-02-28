@@ -111,6 +111,15 @@ class Homepage{
      * @ORM\Column(name="meta_description", type="text", length=2555, nullable=true)
      */
     private $meta_description;
+    
+    /**
+     * @var integer $slider_type
+     * 0 -> normal 1 btn
+     * 1 -> type config buttons
+     *
+     * @ORM\Column(name="slider_type", type="integer",  options={"default" = "0"})
+     */
+    private $slider_type;
 
     public function __construct(){
 
@@ -386,4 +395,12 @@ class Homepage{
     {
         return $this->meta_description;
     }
+	public function getSliderType() {
+		return $this->slider_type;
+	}
+	public function setSliderType($slider_type) {
+		$this->slider_type = $slider_type;
+		return $this;
+	}
+	
 }

@@ -39,15 +39,6 @@ class Slider{
     private $id;
 
     /**
-     * @var string $type
-     * 0 -> default slider one button
-     * 1 -> slider 3 buttons
-     *
-     * @ORM\Column(name="type", type="integer", options={"default" = 0})
-     */
-    private $type;
-
-    /**
      * @var string $title
      *
      * @ORM\Column(name="title", type="text", length=2555, nullable=true)
@@ -113,7 +104,6 @@ class Slider{
     
 
     public function __construct(){
-    	$this->type = 0;
     }
 
     /**
@@ -297,13 +287,6 @@ class Slider{
          // when displaying uploaded doc/image in the view.
          return 'images/homepage/sliders';
      }
-	public function getType() {
-		return $this->type;
-	}
-	public function setType($type) {
-		$this->type = $type;
-		return $this;
-	}
 	public function getUrl() {
 		return $this->url;
 	}

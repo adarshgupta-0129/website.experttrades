@@ -5,11 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Cookie;
-
-use AppBundle\Entity\Subscriber\Subscriber;
-use AppBundle\Entity\Item\Item;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BaxiController extends MainController
 {
@@ -18,6 +14,13 @@ class BaxiController extends MainController
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+    	$page = $em->getRepository('AppBundle\Entity\Page\Page')->findBy(['slug'=>'baxi']);
+    	if(is_array($page) && count($page) <= 0 ){
+    		throw new NotFoundHttpException('Sorry not existing!');
+    	} else {
+    		$page = $page[0];
+    	}
     	$array_twig = $this->defaultInfo($request);
         $this->trackVisit();
 
@@ -29,7 +32,14 @@ class BaxiController extends MainController
      * @Route("/baxi/terms-and-coditions", name="baxi-tc")
      */
     public function indexTermsAction(Request $request)
-    {
+    { 
+    	$em = $this->getDoctrine()->getManager();
+    	$page = $em->getRepository('AppBundle\Entity\Page\Page')->findBy(['slug'=>'baxi']);
+    	if(is_array($page) && count($page) <= 0 ){
+    		throw new NotFoundHttpException('Sorry not existing!');
+    	} else {
+    		$page = $page[0];
+    	}
     	$array_twig = $this->defaultInfo($request);
         $this->trackVisit();
 

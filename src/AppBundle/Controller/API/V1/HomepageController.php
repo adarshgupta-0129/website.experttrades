@@ -36,8 +36,13 @@ class HomepageController extends SecurityController
               'id' => $slider->getId(),
               'title' => $slider->getTitle(),
               'subtitle' => $slider->getSubtitle(),
+              'image_url' => $path.$slider->getPath(),
               'button_text' => $slider->getButtonText(),
-              'image_url' => $path.$slider->getPath()
+              'url' => $slider->getUrl(),
+              'button_text2' => $slider->getButtonText2(),
+              'url2' => $slider->getUrl2(),
+              'button_text3' => $slider->getButtonText3(),
+              'url3' => $slider->getUrl3()
             ];
         }
 
@@ -55,7 +60,8 @@ class HomepageController extends SecurityController
           'find_me_on_title' => $homepage->getFindMeOnTitle(),
           'find_me_on_subtitle' => $homepage->getFindMeOnSubtitle(),
           'meta_title' => $homepage->getMetaTitle(),
-          'meta_description' => $homepage->getMetaDescription()
+          'meta_description' => $homepage->getMetaDescription(),
+          'slider_type' => $homepage->getSliderType()
         ]));
 
         $response->headers->set('Content-Type', 'application/json');
@@ -118,6 +124,9 @@ class HomepageController extends SecurityController
              if(isset($params['meta_description'])){
                $homepage->setMetaDescription($params['meta_description']);
              }
+             if(isset($params['slider_type'])){
+               $homepage->setSliderType($params['slider_type']);
+             }
 
              $em->persist($homepage);
              $em->flush();
@@ -164,8 +173,13 @@ class HomepageController extends SecurityController
           'id' => $slider->getId(),
           'title' => $slider->getTitle(),
           'subtitle' => $slider->getSubtitle(),
-          'button_text' => $slider->getButtonText(),
-          'image_url' => $sliderPath.$slider->getPath()
+          'image_url' => $sliderPath.$slider->getPath(),
+              'button_text' => $slider->getButtonText(),
+              'url' => $slider->getUrl(),
+              'button_text2' => $slider->getButtonText2(),
+              'url2' => $slider->getUrl2(),
+              'button_text3' => $slider->getButtonText3(),
+              'url3' => $slider->getUrl3()
         ];
 
         $response = new Response(json_encode($sliderArray));

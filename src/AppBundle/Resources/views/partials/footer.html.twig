@@ -1,0 +1,51 @@
+<section class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+		     {% if website.footerRow1Type == 0 %}
+				{% include  'AppBundle:partials:footer_links.html.twig' %}
+			{% elseif website.footerRow1Type == 1 %}
+				{% include  'AppBundle:partials:footer_social.html.twig' %}
+			{% elseif website.footerRow1Type == 2 %}
+				{% include  'AppBundle:partials:footer_gallery.html.twig' %}
+			{% elseif website.footerRow1Type == 3 %}
+				{% include  'AppBundle:partials:footer_facebook_widget.html.twig' %}
+			{% elseif website.footerRow1Type == 4 %}
+				{% include  'AppBundle:partials:footer_twitter_widget.html.twig' %}
+			{% endif %}
+				
+			</div>
+			<div class="col-sm-4">
+				         
+			 
+		     {% if website.footerRow2Type == 0 %}
+				{% include  'AppBundle:partials:footer_links.html.twig' %}
+			{% elseif website.footerRow2Type == 1 %}
+				{% include  'AppBundle:partials:footer_social.html.twig' %}
+			{% elseif website.footerRow2Type == 2 %}
+				{% include  'AppBundle:partials:footer_gallery.html.twig' %}
+			{% elseif website.footerRow2Type == 3 %}
+				{% include  'AppBundle:partials:footer_facebook_widget.html.twig' %}
+			{% elseif website.footerRow2Type == 4 %}
+				{% include  'AppBundle:partials:footer_twitter_widget.html.twig' %}
+			{% endif %}
+			</div>
+			<div class="col-sm-4">
+				         
+			 
+		     {% if website.footerRow3Type == 0 %}
+				{% include  'AppBundle:partials:footer_links.html.twig' %}
+			{% elseif website.footerRow3Type == 1 %}
+				{% include  'AppBundle:partials:footer_social.html.twig' %}
+			{% elseif website.footerRow3Type == 2 %}
+				{% include  'AppBundle:partials:footer_gallery.html.twig' %}
+			{% elseif website.footerRow3Type == 3 %}
+				{% include  'AppBundle:partials:footer_facebook_widget.html.twig' %}
+			{% elseif website.footerRow3Type == 4 %}
+				{% include  'AppBundle:partials:footer_twitter_widget.html.twig' %}
+			{% endif %}
+				
+			</div>
+		</div>
+	</div>
+</section>

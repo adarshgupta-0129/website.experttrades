@@ -1,0 +1,45 @@
+{% extends "AppBundle::base.html.twig" %}
+
+{% block header %}
+	<title>{{ homepage.metaTitle }}</title>
+	<meta name="description" content="{{ homepage.metaDescription }}">
+	
+    <meta property="og:url" content="{{ url('homepage') }}" />
+	<meta property="og:site_name" content="{{ homepage.metaTitle }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ homepage.metaTitle }}" />
+	<meta property="og:description" content="{{ homepage.metaDescription }}" />
+	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
+	
+    <meta name="twitter:card" content="summary_large_image">
+    {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
+	<meta name="twitter:title" content="{{ homepage.metaTitle }}">
+	<meta name="twitter:description" content="{{ homepage.metaDescription }}">
+	<meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
+	<meta name="twitter:domain" content="{{ app.request.host }}">
+	{{page.metaTags|raw}}
+{% endblock %}
+{% block stylesheets %}
+	{{page.tag_style|raw}}
+{% endblock %}
+
+{% block body %}
+{% if website.disabled %}
+{% include 'AppBundle:partials:website_disabled.html.twig' %}
+{% else %}
+
+<section class="innerpage_banner">
+	<div class="container">
+		{{page.header|raw}}
+	</div>
+</section>
+
+	{{page.body|raw}}
+
+{% endif %}
+{% endblock %}
+
+
+{% block  javascripts %}
+	{{page.tag_script|raw}}
+{% endblock %}

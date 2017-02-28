@@ -39,6 +39,9 @@ class PageController extends SecurityController
 		if( $request->query->get('search_by') != "" ){
 			$filters['search_by'] = $request->query->get('search_by');
 		}
+		if( $request->query->get('is_admin') != "" ){
+			$filters['is_admin'] = true;
+		}
 	
 		$pages =  $em->getRepository('AppBundle\Entity\Page\Page')
 		->getAllPaginated($limit, $offset,$filters);
@@ -92,9 +95,14 @@ class PageController extends SecurityController
 				'title' => $page->getTitle(),
 				'slug' => $page->getSlug(),
 				'body' => $page->getBody(),
+				'header' => $page->getHeader(),
+				'header' => $page->getHeader(),
 				'publish' => (is_null($page->getPublish()))?null:$page->getPublish()->getTimestamp(),
 				'static_page_name' => $page->getStaticPageName(),
+				'redirection' => $page->getRedirection(),
+				'url_redirection' => $page->getUrlRedirection(),
 				'show_menu' => $page->getShowMenu(),
+				'option_menu' => $page->getOptionMenu(),
 				'meta_tags' => $page->getMetaTags(),
 				'tag_style' => $page->getTagStyle(),
 				'tag_script' => $page->getTagScript(),
@@ -135,8 +143,14 @@ class PageController extends SecurityController
 						else
 							throw new \Exception('This slug already exist.');
 				}
+				if(isset($params['type'])){
+					$page->setType($params['type']);
+				}
 				if(isset($params['body'])){
 					$page->setBody($params['body']);
+				}
+				if(isset($params['header'])){
+					$page->setHeader($params['header']);
 				}
 				if(isset($params['publish'])){
 					$page->setPublish( (new \DateTime())->setTimestamp($params['publish']) );
@@ -145,8 +159,17 @@ class PageController extends SecurityController
 				if(isset($params['static_page_name'])){
 					$page->setStaticPageName($params['static_page_name']);
 				}
+				if(isset($params['redirection'])){
+					$page->setRedirection($params['redirection']);
+				}
+				if(isset($params['url_redirection'])){
+					$page->setUrlRedirection($params['url_redirection']);
+				}
 				if(isset($params['show_menu'])){
 					$page->setShowMenu($params['show_menu']);
+				}
+				if(isset($params['option_menu'])){
+					$page->setOptionMenu($params['option_menu']);
 				}
 				if(isset($params['meta_tags'])){
 					$page->setMetaTags($params['meta_tags']);
@@ -217,18 +240,14 @@ class PageController extends SecurityController
 						else
 							throw new \Exception('This slug already exist.');
 				}
-				if(isset($params['body'])){
-					$page->setBody($params['body']);
-				}
-			
-				if(isset($params['slug'])){
-					if( $em->getRepository('AppBundle\Entity\Page\Page')->checkSlug( $params['slug'] ) <= 0 )
-						$page->setSlug($params['slug']);
-						else
-							throw new \Exception('This slug already exist.');
+				if(isset($params['type'])){
+					$page->setType($params['type']);
 				}
 				if(isset($params['body'])){
 					$page->setBody($params['body']);
+				}
+				if(isset($params['header'])){
+					$page->setHeader($params['header']);
 				}
 				if(isset($params['publish'])){
 					$page->setPublish( (new \DateTime())->setTimestamp($params['publish']) );
@@ -237,17 +256,17 @@ class PageController extends SecurityController
 				if(isset($params['static_page_name'])){
 					$page->setStaticPageName($params['static_page_name']);
 				}
-				if(isset($params['show_menu'])){
-					$page->setShowMenu($params['show_menu']);
-				}
-				if(isset($params['option_menu'])){
-					$page->setOptionMenu($params['option_menu']);
-				}
 				if(isset($params['redirection'])){
 					$page->setRedirection($params['redirection']);
 				}
 				if(isset($params['url_redirection'])){
 					$page->setUrlRedirection($params['url_redirection']);
+				}
+				if(isset($params['show_menu'])){
+					$page->setShowMenu($params['show_menu']);
+				}
+				if(isset($params['option_menu'])){
+					$page->setOptionMenu($params['option_menu']);
 				}
 				if(isset($params['meta_tags'])){
 					$page->setMetaTags($params['meta_tags']);
@@ -261,6 +280,7 @@ class PageController extends SecurityController
 				if(isset($params['active'])){
 					$page->active();
 				}
+				
 				$em->persist($page);
 				$em->flush();
 				$response = new Response(json_encode(

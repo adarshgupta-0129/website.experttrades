@@ -1,0 +1,25 @@
+{% if website.hasSocial == true %}
+				<div class="footerbox">
+					<h2>Connect Socially</h2>
+					<ul>
+						{% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
+						<li><a href="{{ website.facebookLink }}" target="_BLANK"><i class="fa fa-facebook-square fa-1x social_icons2 "  alt="Connect On Facebook" ></i>Facebook</a></li>
+						{% endif %}
+						{% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
+						<li><a href="{{ website.twitterLink }}" target="_BLANK"><i class="fa fa-twitter-square fa-1x social_icons2 "  alt="Connect On Twitter" ></i>Twitter</a></li>
+						{% endif %}
+						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
+						<li><a href="{{ website.youtubeLink }}" target="_BLANK"><i class="fa fa-youtube-square fa-1x social_icons2 "  alt="Connect On Youtube" ></i>Youtube</a></li>
+						{% endif %}
+						{% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
+						<li><a href="{{ website.googleLink }}" target="_BLANK"><i class="fa fa-google-plus-square fa-1x social_icons2 "  alt="Connect On Google Plus" ></i>Google +</a></li>
+						{% endif %}
+						{% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
+						<li><a href="{{ website.linkedinLink }}" target="_BLANK"><i class="fa fa-linkedin-square fa-1x social_icons2 "  alt="Connect On Linkedin" ></i>Linkedin</a></li>
+						{% endif %}
+						{% if website.instagramLink is not null  and website.instagramLink | length > 0 and website.instagramLinkEnabled %}
+						<li><a href="{{ website.instagramLink }}" target="_BLANK"><i class="fa fa-instagram  fa-1x social_icons2 "  alt="Connect On Instagram" ></i>Instagram</a></li>
+						{% endif %}
+					</ul>
+				</div>
+        {% endif %}

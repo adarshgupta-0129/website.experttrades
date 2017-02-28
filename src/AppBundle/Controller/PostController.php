@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\Subscriber\Subscriber;
 use AppBundle\Entity\Item\Item;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostController extends MainController
 {
@@ -21,7 +22,7 @@ class PostController extends MainController
         $blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
         $post = $em->getRepository('AppBundle\Entity\Blog\Post\Post')->findBy(['slug'=>$slug]);
         if(is_array($post) && count($post) <= 0 ){
-        	return $this->redirect($this->generateUrl('blog'),404);
+    		throw new NotFoundHttpException('Sorry this post did not exist!');
         } else {
         	$post = $post[0];
         }

@@ -25,7 +25,7 @@
 	{% endfor %}
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
-    <link href="{{ asset('bundles/app/css/bootstrap.css') }}" rel="stylesheet" >
+    <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet" >
     <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datetimepicker.min.css') }}" />
 	{% if favicon  %}
     	<link rel="icon" href="{{ asset(favicon) }}" type="image/x-icon"/>
@@ -43,21 +43,16 @@
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-  .header {width:100%; padding: 0;}
-  .navbar-default {background: none; border:none;}
-  .navbar-nav > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
-  .navbar-nav > li > a:hover {color:{{ website.mainColor }} !important;}
-  .navbar-nav li.select a {color:{{ website.mainColor }};}
-  .navbar-right {margin-top: 23px;}
-
-  .banner_slider {width:100%; margin-top: 13px;}
+    
+	
+  .banner_slider {width:100%; }
   .captop {width:100%; background: {{ website.lightColor }}; padding: 5px; text-align: center; font-family: 'multicolore_regular'; font-size: 35px; color:#fff; text-transform: uppercase; line-height: 50px;text-shadow: none;}
   .capmid {width:100%; background: {{ website.darkColor }}; line-height: 50px; text-align: center; font-family: 'Lato', sans-serif; font-size: 19px; color:#fff; font-weight:400; text-transform: uppercase; margin-top: 5px; margin-bottom: 55px;}
   .slide_button {width:290px; margin: 0 auto;}
   .slide_button a {display: block; background: url({{ asset('bundles/app/images/tt.png') }}) no-repeat 0 0 {{ website.mainColor }}; background-position: 92% 50%; text-align: center;font-family: 'Lato', sans-serif; font-size: 20px; color:#fff; font-weight:700; line-height: 70px;
     padding-left: 12%;
     padding-right: 12%;}
-  .slide_social {width:187px; margin: 59px auto 0;}
+  .slide_social {    max-width: 220px;    margin: 30px auto 0;}
   .slide_social h2 {font-family: 'Lato', sans-serif; font-size: 18px; color:#fff; font-weight:400; text-transform: uppercase; margin: 0 0 11px;}
   .slide_social a {display:inline-block; padding: 0 4px;}
   .slide_social img {width:auto;}
@@ -164,6 +159,8 @@
   .cpinfo {width:93%; float: right;}
   .cppic2 {width:12%; float: left;}
   .cpinfo2 {width:83%; float: left;}
+  .ctc-button {display: none;}
+  a.ctc-button img{width: 100%;}
   .form-control {height: 48px; border-radius: 0; border:1px solid #b9b9b9;}
   textarea.form-control {resize: none; height: 150px;}
   .gfp {width:48.8%; float: left;}
@@ -612,6 +609,78 @@ text-decoration:none;
 }
 
 
+/***header menu****/
+.dropdown-menu > li > a{
+	color: #777;
+}
+
+
+/*********************************************************************************************
+	Headers
+*********************************************************************************************/
+
+/* Light type 1 */
+.header-logo{
+		max-height: 64px;
+	}
+	
+.fa-1-5x {
+    font-size: 1.5em;
+}
+  .header {width:100%;}
+  .navbar-default {background: none; border:none;}
+  .navbar-nav > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
+  .navbar-nav > li > a:hover {color:{{ website.mainColor }} !important;}
+  .navbar-nav li.select a {color:{{ website.mainColor }};}
+  .navbar-right {margin-top: 23px;}
+
+/* Light type 2 */
+.socialmedia {display: block !important;}
+.socialmedia-mobile {display: none !important;}
+.socialmedia-mobile a {float: left;margin-right: 5px;}
+.header.light.line2, .header.light.line2 .navbar-nav>li>.dropdown-menu{	background-color:#e6e6e6 }
+.header.light.line2 .dropdown-menu>li>a:hover,
+.header.light.line2 .dropdown-menu>li>a:focus {   color:{{ website.mainColor }} !important;    text-decoration: none;background-color: transparent;}
+.header.light .navbar-nav>li>a>i.social_icons 
+{    color: #777 !important;}
+ .header.light .navbar-nav > li > a:hover .social_icons {color:{{ website.mainColor }} !important;}
+ .header.light .navbar-nav li.select a .social_icons {color:{{ website.mainColor }};}
+ 
+/* DARK type 1 */
+.header.dark , .header.dark .navbar-nav>li>.dropdown-menu
+{background-color: #29333d;color: #e6e6e6;border:none;}
+.header.dark .container .navbar-nav > li > a:hover,
+.header.dark .container .navbar-nav>li>.dropdown-menu>li > a:hover
+{   color: #fff  !important;   background-color: #29333d !important;}
+.header.dark .container .navbar-nav > li.select > a,
+.header.dark .container .navbar-nav>li>.dropdown-menu>li.select > a
+{ color: #fff  !important; text-decoration: underline !important;}
+.header.dark .navbar-default .navbar-toggle:hover, .header.dark .navbar-default .navbar-toggle:focus {
+    background-color: #29333d;
+    color:#e6e6e6;
+}
+/* Dark type 2 */
+.header.dark.line1 
+{background-color: #232122;color: #e6e6e6;}
+.header.dark.line1 .container .navbar-nav > li > a:hover,
+.header.dark.line1 .container .navbar-nav>li>.dropdown-menu>li > a:hover
+{   color: #fff  !important;   background-color: #232122 !important;}
+.header.dark.line2 , .header.dark.line2 .navbar-nav>li>.dropdown-menu
+{background-color: #29333d;color: #2C353D;border:none;}
+.header.dark.line2 .container .navbar-nav > li > a:hover,
+.header.dark.line2 .container .navbar-nav>li>.dropdown-menu>li > a:hover
+{   color: #fff  !important;   background-color: #29333d !important;}
+.header.dark.line1 .container .navbar-nav > li.select > a,
+.header.dark.line1 .container .navbar-nav>li>.dropdown-menu>li.select > a
+{ color: #fff  !important; text-decoration: underline !important;}
+.header.dark.line1 .navbar-toggle:hover, .header.dark.line1  .navbar-toggle:focus {
+    background-color: #232122 !important;
+    color:#e6e6e6 !important;
+}
+.header.dark.line1  .navbar-toggle:hover,.header.dark.line1   .navbar-toggle:focus {
+    background-color: #29333d !important;
+    color: #232122 !important;
+}
 
 
 
@@ -647,7 +716,7 @@ text-decoration:none;
   .statbox h2 {font-size: 36px;}
   .teamq a {line-height: 68px !important;}
   .teamq {background:none;}
-  .innerpage_banner {margin-top: 20px;}
+  .innerpage_banner {margin-top: 0px;}
   .contact_inner_form {padding: 0;}
   .addrs_info {width: 65%;margin-left:26px;}
   .addrs_info p {font-size: 15px;}
@@ -660,6 +729,12 @@ text-decoration:none;
   .grt_wrk {font-size: 17px;}
   }
 
+  @media only screen and (min-width:749px) and (max-width:779px)
+  {
+	.header-logo{
+		max-height: 42px;
+	}
+  }
 
   @media only screen and (max-width:767px)
   {
@@ -677,8 +752,8 @@ text-decoration:none;
   .teamq {background:none;}
   .teambox {margin-right: 24px;}
   .teambox h2 {font-size: 13px;}
-  .innerpage_banner {margin-top: 20px;}
-  .navbar-right {margin-top: 53px;}
+  .innerpage_banner {margin-top: 0px;}
+  .navbar-right {margin-top: 20px;}
   .navbar-default .navbar-collapse, .navbar-default .navbar-form {border-color: #fff;}
   .contact_inner_form {padding: 0;}
   .contact_inner_form label.checkbox-inline {margin-right: 10px;}
@@ -692,6 +767,10 @@ text-decoration:none;
   .addrs_info a {padding-left: 0;}
   .navbar-toggle {margin-top: 27px; margin-bottom: 0;}
   .servicepage_box .servicebox {margin-bottom: 20px;}
+  .dropdown-menu{padding-left:20px;position: relative; border: none; display:block; float:none;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
+  
+	.socialmedia{display: none !important;}
+	.socialmedia-mobile{display: block !important;}
   }
 
 
@@ -702,6 +781,7 @@ text-decoration:none;
   .teambox {width: 43.8%; margin-bottom: 20px;}
   .contact_inner_form label.checkbox-inline {margin-left: 0; margin-right: 0; width:100%;}
   .review_listing ul li:first-child {width: 74%;}
+  
   }
 
 
@@ -714,7 +794,7 @@ text-decoration:none;
   .grp2{margin: 0 0 15px 0;}
   .teambox {width:100%; margin: 0 0 20px;}
   .banner_content_top p {font-size: 17px; line-height: 26px;}
-  .innerpage_banner {padding: 33px 0 49px;  margin-top: 20px;}
+  .innerpage_banner {padding: 33px 0 49px;  margin-top: 0px;}
   .addr_icon {float: none; text-align: center; width:100%;}
   .addrs_info {width:100%; text-align: center;}
   .banner_content_bottom h2 {font-size: 43px;}
@@ -724,6 +804,19 @@ text-decoration:none;
 
   .cppic2 {width:20%; float: left;}
   .cpinfo2 {width:73%; float: left;}
+  
+  .ctc-button {
+	  display: block;
+	  position: fixed;
+	  bottom: 20px;
+	  right: 20px;
+	  z-index: 100;
+	  background-color:{{ website.mainColor }}; 
+	  color:#fff;
+	  border-radius:50%;
+	  padding: 5px;
+	  width: 64px;
+	}
   }
 
   .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
@@ -862,78 +955,16 @@ text-decoration:none;
 			{{ script.value |raw }}
 		{% endif %}
 {% endfor %}
-<section class="header">
-	<div class="container">
-		<nav class="navbar navbar-default" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="{{ path('homepage') }}">
-      {% if website.showLogo == true %}
-      <img style="max-height:65px" src="{{ asset('images/logo/') }}{{ website.logoPath }}" alt="{{ website.companyName }}" style="width:100%"/>
-      {% else %}
-      <br>
-      {{ website.companyName | upper }}
-      {% endif %}
-    </a>
-  </div>
 
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse navbar-ex2-collapse">
-    <ul class="nav navbar-nav navbar-right">
-    <li {% if app.request.attributes.get('_route') == 'homepage' %} class="select" {% endif %}><a href="{{ path('homepage') }}">Home</a></li>
-    {% if website.showAboutTab == true %}
-    <li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About</a></li>
-    {% endif %}
-
-    {% if nav_bar_services | length == 0 %}
-      {% if website.showServicesTab == true %}
-        <li {% if app.request.attributes.get('_route') == 'services' %} class="select" {% endif %}><a href="{{ path('services') }}">Services</a></li>
-      {% endif %}
-    {% else %}
-      <li class="dropdown">
-        <a  href="{{ path('services')}}" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Services <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          {% for s in nav_bar_services %}
-            <li><a
-              {% if s.pageSlug %}
-              href="{{ path('services_view', { slug : s.pageSlug }) }}"
-              {% else %}
-              href="{{ path('services') }}"
-              {% endif %}
-            >{{ s.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endif %}
-   	<li {% if app.request.attributes.get('_route') == 'baxi' %} class="select" {% endif %}><a href="{{ path('baxi') }}">BAXI</a></li>
-    {% if website.showReviewsTab == true %}
-   	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
-    {% endif %}
-    {% if website.showGalleryTab == true %}
-   	<li {% if app.request.attributes.get('_route') == 'gallery' %} class="select" {% endif %}><a href="{{ path('gallery') }}">Gallery</a></li>
-    {% endif %}
-    {% if hasBlog == true %}
-    	<li
-    		{% if app.request.attributes.get('_route') == 'blog'  %} class="select" {% endif %}
-    		{% if app.request.attributes.get('_route') == 'post'  %} class="select" {% endif %}
-    	><a href="{{ path('blog') }}">Blog</a></li>
-    {% endif %}
-    {% if website.showContactTab == true %}
-   	<li {% if app.request.attributes.get('_route') == 'contact' %} class="select" {% endif %}><a href="{{ path('contact') }}">Contact</a></li>
-    {% endif %}
-    </ul>
-  </div><!-- /.navbar-collapse -->
-
-</nav>
-	</div>
-</section>
+{% if website.headerType == 0 %}
+	{% include  'AppBundle:partials:header_light_type_1.html.twig' %}
+{% elseif website.headerType == 1 %}
+	{% include  'AppBundle:partials:header_light_type_2.html.twig' %}
+{% elseif website.headerType == 2 %}
+	{% include  'AppBundle:partials:header_dark_type_1.html.twig' %}
+{% elseif website.headerType == 3 %}
+	{% include  'AppBundle:partials:header_dark_type_2.html.twig' %}
+{% endif %}
 
 {% if website.disabled %}
 {% include 'AppBundle:partials:website_disabled.html.twig' %}
@@ -973,87 +1004,8 @@ text-decoration:none;
 	</div>
 </section>
 {% endif %}
-<section class="footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="footerbox">
-					<h2>Our Company</h2>
-					<ul>
-            {% if website.showAboutTab == true %}
-						<li><a href="{{ path('about-us') }}">About</a></li>
-            {% endif %}
-            {% if website.showServicesTab == true %}
-						<li><a href="{{ path('services') }}">Services</a></li>
-            {% endif %}
-            {% if website.showGalleryTab == true %}
-						<li><a href="{{ path('gallery') }}">Gallery</a></li>
-            {% endif %}
-            {% if website.showReviewsTab == true %}
-						<li><a href="{{ path('reviews') }}">Reviews</a></li>
-            {% endif %}
-    				{% if hasBlog == true %}<li><a href="{{ path('blog') }}">Blog</a></li> {% endif %}
-            {% if website.showContactTab == true %}
-						<li><a href="{{ path('contact') }}">Contact</a></li>
-            {% endif %}
-					</ul>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				         
-			 {% if website.hasSocial == true %}
-				<div class="footerbox">
-					<h2>Connect Socially</h2>
-					<ul>
-						{% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
-						<li><a href="{{ website.facebookLink }}" target="_BLANK"><i class="fa fa-facebook-square fa-1x social_icons2 "  alt="Connect On Facebook" ></i>Facebook</a></li>
-						{% endif %}
-						{% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
-						<li><a href="{{ website.twitterLink }}" target="_BLANK"><i class="fa fa-twitter-square fa-1x social_icons2 "  alt="Connect On Twitter" ></i>Twitter</a></li>
-						{% endif %}
-						{% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
-						<li><a href="{{ website.youtubeLink }}" target="_BLANK"><i class="fa fa-youtube-square fa-1x social_icons2 "  alt="Connect On Youtube" ></i>Youtube</a></li>
-						{% endif %}
-						{% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
-						<li><a href="{{ website.googleLink }}" target="_BLANK"><i class="fa fa-google-plus-square fa-1x social_icons2 "  alt="Connect On Google Plus" ></i>Google +</a></li>
-						{% endif %}
-						{% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
-						<li><a href="{{ website.linkedinLink }}" target="_BLANK"><i class="fa fa-linkedin-square fa-1x social_icons2 "  alt="Connect On Linkedin" ></i>Linkedin</a></li>
-						{% endif %}
-						{% if website.instagramLink is not null  and website.instagramLink | length > 0 and website.instagramLinkEnabled %}
-						<li><a href="{{ website.instagramLink }}" target="_BLANK"><i class="fa fa-instagram  fa-1x social_icons2 "  alt="Connect On Instagram" ></i>Instagram</a></li>
-						{% endif %}
-					</ul>
-				</div>
-        {% endif %}
-			</div>
-			<div class="col-sm-4">
-				<div class="footerbox wty">
-					<h2>Recent Jobs</h2>
-					<div class="row">
-            {% for item in footer_images %}
-					<div class="col-xs-4 ">
-	            	{% if item.width > item.height %}
-	            		<div class="container landscape" ><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></div>
-	            	{% else %}
-	            		<div class="container portrait" ><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></div>
-	            	{% endif %}
-	            	</div>
-            {% endfor %}
-					</div>
-				</div>
-			</div>
-		<!--	<div class="col-sm-3">
-				<div class="footerbox">
-					<div class="footerlogo">
-						<a href="{{ path('homepage') }}"><img src="{{ asset('bundles/app/images/footerlogo.jpg') }}" alt="" /></a>
-					</div>
-				</div>
-			</div>
-    -->
-		</div>
-	</div>
-</section>
+
+	{% include  'AppBundle:partials:footer.html.twig' %}
 {% endif %} <!-- end if website block -->
 <section class="copyright">
 	<div class="container">
@@ -1069,6 +1021,14 @@ text-decoration:none;
 	<a href="#"><img src="{{ asset('bundles/app/images/chat.jpg') }}" alt="" /></a>
 </section>
 -->
+
+
+				{%  if website.callButton == 2  %}
+					<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
+					  <img   src="http://i.imgur.com/Q2COo4K.png" >
+					</a>
+				{%  endif  %}
+				
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -1077,7 +1037,7 @@ text-decoration:none;
   js.src = "//connect.facebook.net/ca_ES/sdk.js#xfbml=1&version=v2.8";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

@@ -321,7 +321,17 @@ $domain = 'testwebsite.com';
     			'logo_url' => (is_null($website->getLogoPath())) ? null : $path_logo.$website->getLogoPath(),
     			'btn_txt_raq' => $website->getBtnTxtRaq(),
     			'btn_txt_gaq' => $website->getBtnTxtGaq(),
-    			'btn_txt_war' => $website->getBtnTxtWar()
+    			'btn_txt_war' => $website->getBtnTxtWar(),
+    			'zoom_maps' => $website->getZoomMaps(),
+    			'facebook_timeline_script' => $website->getFacebookTimelineScript(),
+    			'facebook_show_timeline' => $website->getFacebookShowTimeline(),
+    			'twitter_timeline_script' => $website->getTwitterTimelineScript(),
+    			'twitter_show_timeline' => $website->getTwitterShowTimeline(),
+    			'call_button' => $website->getCallButton(),
+    			'footer_row1_type' => $website->getFooterRow1Type(),
+    			'footer_row1_type' => $website->getFooterRow1Type(),
+    			'footer_row3_type' => $website->getFooterRow3Type(),
+    			'header_type' => $website->getHeaderType()
     	];
 
     	$em = $this->getDoctrine()->getManager();
@@ -430,7 +440,36 @@ $domain = 'testwebsite.com';
              if(isset($params['show_subscription'])){
                $website->setShowSubscription($params['show_subscription']);
              }
-             
+             if(isset($params['zoom_maps'])){
+               $website->setZoomMaps($params['zoom_maps']);
+             }
+             if(isset($params['facebook_timeline_script'])){
+               $website->setFacebookTimelineScript($params['facebook_timeline_script']);
+             }
+             if(isset($params['facebook_show_timeline'])){
+               $website->setFacebookShowTimeline($params['facebook_show_timeline']);
+             }
+             if(isset($params['twitter_timeline_script'])){
+               $website->setTwitterTimelineScript($params['twitter_timeline_script']);
+             }
+             if(isset($params['twitter_show_timeline'])){
+               $website->setTwitterShowTimeline($params['twitter_show_timeline']);
+             }
+             if(isset($params['call_button'])){
+               $website->setCallButton($params['call_button']);
+             }
+             if(isset($params['footer_row1_type'])){
+               $website->setFooterRow1Type($params['footer_row1_type']);
+             }
+             if(isset($params['footer_row2_type'])){
+               $website->setFooterRow2Type($params['footer_row3_type']);
+             }
+             if(isset($params['footer_row3_type'])){
+               $website->setFooterRow3Type($params['footer_row3_type']);
+             }
+             if(isset($params['header_type'])){
+               $website->setHeaderType($params['header_type']);
+             }
 
              $em->persist($website);
              $em->flush();

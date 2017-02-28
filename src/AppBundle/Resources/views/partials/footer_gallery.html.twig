@@ -1,0 +1,14 @@
+<div class="footerbox wty">
+					<h2>Recent Jobs</h2>
+					<div class="row">
+            {% for item in footer_images %}
+					<div class="col-xs-4 ">
+	            	{% if item.width > item.height %}
+	            		<div class="container landscape" ><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></div>
+	            	{% else %}
+	            		<div class="container portrait" ><img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" /></div>
+	            	{% endif %}
+	            	</div>
+            {% endfor %}
+					</div>
+				</div>

@@ -67,6 +67,20 @@ class Website{
      * @ORM\Column(name="facebook_link", type="text", length=2555, nullable=true)
      */
     private $facebook_link;
+    
+    /**
+     * @var string $facebook_timeline_script
+     *
+     * @ORM\Column(name="facebook_timeline_script", type="text", length=2555, nullable=true)
+     */
+    private $facebook_timeline_script;
+    
+    /**
+     * @var string $facebook_show_timeline
+     *
+     * @ORM\Column(name="facebook_show_timeline", type="boolean", options={"default" = 0})
+     */
+    private $facebook_show_timeline;
 
     /**
      * @var string $twitter_link
@@ -80,6 +94,22 @@ class Website{
      * @ORM\Column(name="twitter_page", type="text", length=2555, nullable=true)
      */
     private $twitter_page;
+
+
+    /**
+     * @var string $twitter_timeline_script
+     *
+     * @ORM\Column(name="twitter_timeline_script", type="text", length=2555, nullable=true)
+     */
+    private $twitter_timeline_script;
+    
+    /**
+     * @var string twitter_show_timeline
+     *
+     * @ORM\Column(name="twitter_show_timeline", type="boolean", options={"default" = 0})
+     */
+    private $twitter_show_timeline;
+    
 
     /**
      * @var string $youtube_link
@@ -277,6 +307,63 @@ class Website{
      * @ORM\Column(name="zoom_maps", type="integer",  options={"default" = "12"})
      */
     private $zoom_maps;
+    
+    /**
+     * @var integer $call_button
+     * 0 -> homepage
+     * 1 -> homepage + contact page
+     * 2 -> all
+     *
+     * @ORM\Column(name="call_button", type="integer",  options={"default" = "0"})
+     */
+    private $call_button;
+    
+    /**
+     * @var integer $header_type
+     * 0 -> light type 1
+     * 1 -> light type 2
+     * 2 -> dark type 1
+     * 3 -> dark type 2
+     *
+     * @ORM\Column(name="header_type", type="integer",  options={"default" = "0"})
+     */
+    private $header_type;
+    
+    /**
+     * @var integer $footer_row1_type
+     * 0 -> links
+     * 1 -> social links
+     * 2 -> gallery images
+     * 3 -> facebook timeline 
+     * 4 -> twitter timeline 
+     *
+     * @ORM\Column(name="footer_row1_type", type="integer",  options={"default" = "0"})
+     */
+    private $footer_row1_type;
+    
+    /**
+     * @var integer $footer_row2_type
+     * 0 -> links
+     * 1 -> social links
+     * 2 -> gallery images
+     * 3 -> facebook timeline 
+     * 4 -> twitter timeline 
+     *
+     * @ORM\Column(name="footer_row2_type", type="integer",  options={"default" = "1"})
+     */
+    private $footer_row2_type;
+    
+    /**
+     * @var integer $footer_row3_type
+     * 0 -> links
+     * 1 -> social links
+     * 2 -> gallery images
+     * 3 -> facebook timeline 
+     * 4 -> twitter timeline 
+     *
+     * @ORM\Column(name="footer_row3_type", type="integer",  options={"default" = "2"})
+     */
+    private $footer_row3_type;
 
     /**
     * @ORM\Column(type="boolean")
@@ -292,6 +379,8 @@ class Website{
         $this->google_link_enabled = false;
         $this->linkedin_link_enabled = false;
         $this->instagram_link_enabled = false;
+        $this->facebook_show_timeline = false;
+        $this->twitter_show_timeline = false;
         $this->disabled = false;
 
         $this->show_about_tab = true;
@@ -302,6 +391,8 @@ class Website{
         $this->show_subscription = true;
         
         $this->zoom_maps = 12;
+        $this->call_button = 1; 
+        $this->header_type = 0; 
         
         $this->btn_txt_raq = "Request A quote";
         $this->btn_txt_gaq = "Get A quote";
@@ -1049,6 +1140,75 @@ class Website{
 		$this->zoom_maps = $zoom_maps;
 		return $this;
 	}
+	public function getFacebookTimelineScript() {
+		return $this->facebook_timeline_script;
+	}
+	public function setFacebookTimelineScript($facebook_timeline_script) {
+		$this->facebook_timeline_script = $facebook_timeline_script;
+		return $this;
+	}
+	public function getFacebookShowTimeline() {
+		return $this->facebook_show_timeline;
+	}
+	public function setFacebookShowTimeline($facebook_show_timeline) {
+		$this->facebook_show_timeline = $facebook_show_timeline;
+		return $this;
+	}
+	public function getTwitterTimelineScript() {
+		return $this->twitter_timeline_script;
+	}
+	public function setTwitterTimelineScript($twitter_timeline_script) {
+		$this->twitter_timeline_script = $twitter_timeline_script;
+		return $this;
+	}
+	public function getTwitterShowTimeline() {
+		return $this->twitter_show_timeline;
+	}
+	public function setTwitterShowTimeline($twitter_show_timeline) {
+		$this->twitter_show_timeline = $twitter_show_timeline;
+		return $this;
+	}
+	public function setLogoPath($logo_path) {
+		$this->logo_path = $logo_path;
+		return $this;
+	}
+	public function getCallButton() {
+		return $this->call_button;
+	}
+	public function setCallButton($call_button) {
+		$this->call_button = $call_button;
+		return $this;
+	}
+	public function getFooterRow1Type() {
+		return $this->footer_row1_type;
+	}
+	public function setFooterRow1Type($footer_row1_type) {
+		$this->footer_row1_type = $footer_row1_type;
+		return $this;
+	}
+	public function getFooterRow2Type() {
+		return $this->footer_row2_type;
+	}
+	public function setFooterRow2Type($footer_row2_type) {
+		$this->footer_row2_type = $footer_row2_type;
+		return $this;
+	}
+	public function getFooterRow3Type() {
+		return $this->footer_row3_type;
+	}
+	public function setFooterRow3Type($footer_row3_type) {
+		$this->footer_row3_type = $footer_row3_type;
+		return $this;
+	}
+	public function getHeaderType() {
+		return $this->header_type;
+	}
+	public function setHeaderType($header_type) {
+		$this->header_type = $header_type;
+		return $this;
+	}
+	
+	
 	
 	
 	

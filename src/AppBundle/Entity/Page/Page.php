@@ -106,7 +106,11 @@ class Page{
     private $show_menu;
 
     /**
-     * @var int $option_menu
+     * @var int $option_menu 
+     * ( position )
+    * 0 -> after home
+    * 1 -> after services
+    * 2 -> after blog
      *
      * @ORM\Column(name="option_menu", type="integer", options={"default" = 0})
      */
