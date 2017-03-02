@@ -1,12 +1,12 @@
-{% if website.twitterShowTimeline == true and  website.twitterTimelineScript is null %}
- 	<div class="footerbox">
-			<a class="twitter-timeline" href="{{website.twitterLink}}"  
-			data-height="300" 
-			data-theme="dark" 
+{% if website.twitterShowTimeline == true and  (website.twitterTimelineScript is null or website.twitterTimelineScript is empty) %}
+ 	<div class="footerbox bbb">
+			<a class="twitter-timeline" href="{{website.twitterLink}}"
+			data-height="300"
+			data-theme="dark"
 			data-chrome="nofooter noborders">Tweets by {{website.twitterPage}}</a>
 	</div>
 {% elseif website.twitterShowTimeline == true  and  website.twitterTimelineScript is not null %}
-  	<div class="footerbox">
+  	<div class="footerbox aaa">
 		{{ website.twitterTimelineScript| raw}}
 	</div>
 {% endif %}

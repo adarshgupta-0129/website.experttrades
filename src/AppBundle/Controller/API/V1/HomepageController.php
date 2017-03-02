@@ -216,6 +216,24 @@ class HomepageController extends SecurityController
             if(isset($params['subtitle'])){
               $slider->setSubtitle($params['subtitle']);
             }
+            if(isset($params['button_text'])){
+              $slider->setButtonText($params['button_text']);
+            }
+            if(isset($params['url'])){
+              $slider->setUrl($params['url']);
+            }
+            if(isset($params['button_text2'])){
+              $slider->setButtonText2($params['button_text2']);
+            }
+            if(isset($params['url2'])){
+              $slider->setUrl2($params['url2']);
+            }
+            if(isset($params['button_text3'])){
+              $slider->setButtonText3($params['button_text3']);
+            }
+            if(isset($params['url3'])){
+              $slider->setUrl3($params['url3']);
+            }
 
             $em->persist($slider);
             $em->flush();

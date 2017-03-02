@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Gallery\Item\ItemRepository")
  */
 class Item{
-	
+
 
 	/**
 	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Gallery\Tag\ItemTag", mappedBy="item")
@@ -74,7 +74,7 @@ class Item{
     * @ORM\Column(type="string", length=255, nullable=true)
     */
     public $path;
-    
+
     /**
     * @ORM\Column(name="extension",type="string", length=5, nullable=true)
     */
@@ -84,7 +84,7 @@ class Item{
         $this->order = 0;
       	$this->item_tags = new ArrayCollection();
     }
-    
+
     /**
      * Get item_tags
      *
@@ -94,7 +94,7 @@ class Item{
     {
     	return $this->item_tags;
     }
-    
+
 
     /**
      * Sets file.
@@ -217,12 +217,12 @@ class Item{
         		);
         // set the path property to the filename where you've saved the file
         $this->path = $filename;
-        
+
 
         $imageURL = $this->getAbsolutePath();
         $img = null;
         if(getimagesize($imageURL)){
-        
+
         	if ($this->ext == 'gif'){
         		$img = imagecreatefromgif($imageURL);
         	}else if ($this->ext == 'png'){
@@ -234,7 +234,7 @@ class Item{
         if(is_null($img)){
         	return false;
         }
-        
+
        	$width = imagesx($img);
     	$height = imagesy($img);
     	$new_width = $width;
@@ -260,21 +260,21 @@ class Item{
 	        $new_height = $max_height;
 	        $new_width = floor( $width * ( $max_height / $height ) );
 	    }
-	
+
 	    # wider
 	    if ($max_width != 'auto' &&  $width > $max_width) {
 	        $new_width = $max_width;
 	        $new_height = floor( $height * ( $max_width / $width ) );
 	    }
-    
+
     	// create a new temporary image
     	$tmp_img = imagecreatetruecolor( $new_width, $new_height );
 
     	// copy and resize old image into new image
     	imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
-    	
+
     	//$tmp_img = imagescale($img, $new_width, $new_height);
-    	
+
     	$tmp_path = sys_get_temp_dir(  )."/tmp_file.".$this->ext;
     	if ($this->ext == 'gif'){
     		imagegif($tmp_img, $tmp_path);
@@ -289,13 +289,13 @@ class Item{
     	//move temporaly to image name
     	rename($tmp_path, $imageURL);
 
-        
+
         // clean up the file property as you won't need it anymore
         $this->file = null;
      }
-     
+
      public function rotateImage( $degrees ){
-     	
+
      	$imageURL = $this->getAbsolutePath();
      	if( is_null($this->ext) || $this->ext == "" ){
 	     	$fparts = pathinfo($imageURL);
@@ -307,7 +307,7 @@ class Item{
      	}
         $image = null;
         if(getimagesize($imageURL)){
-        
+
         	if ($this->ext == 'gif'){
         		$image = imagecreatefromgif($imageURL);
         	}else if ($this->ext == 'png'){
@@ -319,10 +319,10 @@ class Item{
         if(is_null($image)){
         	return false;
         }
-        
+
        	$width = imagesx($image);
     	$height = imagesy($image);
-    	
+
     	if($degrees != 180){
     		$side = $width > $height ? $width : $height;
     		$imageSquare = imagecreatetruecolor($side, $side);
@@ -341,7 +341,7 @@ class Item{
     		$this->width = $width;
     		$this->height = $height;
     	}
-    	
+
     	$tmp_path = sys_get_temp_dir(  )."/tmp_file.".$this->ext;
     	if ($this->ext == 'gif'){
     		imagegif($image, $tmp_path);
@@ -350,13 +350,13 @@ class Item{
     	}else if ($this->ext == 'jpg' || $this->ext == 'jpeg'){
     		imagejpeg($image, $tmp_path);
     	}
-    	
+
     	//move temporaly to image name
     	rename($imageURL, str_replace(".".$this->ext,"_original.".$this->ext,$imageURL));
     	//move temporaly to image name
     	rename($tmp_path, $imageURL);
-    	
-     	
+
+
      }
 
      public function getAbsolutePath()

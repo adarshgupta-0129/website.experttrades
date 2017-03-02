@@ -24,12 +24,12 @@ class WebsiteController extends SecurityController
         $website = $em->getRepository('AppBundle\Entity\Website')->find(1);
         $response = new Response(json_encode($this->getWebsite($request, $website)));
     	$response->headers->set('Content-Type', 'application/json');
-    	
+
     	return $response;
 
     }
-    
-    
+
+
     /**
      * @Route("/api/v1/admin/website", name="get_admin_website")
      * @Method({"GET"})
@@ -48,11 +48,11 @@ class WebsiteController extends SecurityController
     	$array_response['trade_url'] = $website->getTradeUrl();
         $response = new Response(json_encode($array_response));
     	$response->headers->set('Content-Type', 'application/json');
-    	
+
     	return $response;
 
     }
-    
+
 
 
 
@@ -65,7 +65,7 @@ class WebsiteController extends SecurityController
     	$this->checkAdminAccess($request);
     	$file_json =  __DIR__.'/../../../../../clear_integration.json';
     	$file_json2 =  __DIR__.'/../../../../../launch_site.json';
-    	
+
 
     	$params = array();
     	$content = $this->get("request")->getContent();
@@ -106,10 +106,10 @@ class WebsiteController extends SecurityController
     				$do_it = true;
     			}
     		}
- /**/	
+ /**/
     		if($do_it)
     		{
-    			
+
  /**
     		if(true){
 $color = 'white';
@@ -123,14 +123,14 @@ $domain = 'testwebsite.com';
 		    		$array_response['error'] = true;
 		    	}else {
 		    		$array_response['error'] = false;
-		    		
+
             		$array_json = [
             				'color' => $color,
             				'domain' => $domain,
             				'full_domain' => $params['domain'],
             				'data' => $array_response
             		];
-            		
+
             		if (!$handle = fopen($file_json, 'w')) {
             			$response = new Response(json_encode(
     					[
@@ -138,7 +138,7 @@ $domain = 'testwebsite.com';
     							'message' => 'Something went wrong! Error creating json File!'
     					]));
             		}
-            		
+
             		// Write $somecontent to our opened file.
             		if (fwrite($handle, json_encode($array_json)) === FALSE) {
             			$response = new Response(json_encode(
@@ -147,14 +147,14 @@ $domain = 'testwebsite.com';
     							'message' => 'Something went wrong! Error writing json File!'
     					]));
             		}
-            		
+
 					fclose($handle);
-		    		
-            		
+
+
 		    	}
 		    	$response = new Response(json_encode($array_response));
-    		} 
-    		else 
+    		}
+    		else
     		{
     			$response = new Response(json_encode(
     					[
@@ -162,8 +162,8 @@ $domain = 'testwebsite.com';
     							'message' => 'Invalid paramaters.'
     					]));
     		}
-    	} 
-    	else 
+    	}
+    	else
     	{
              $response = new Response(json_encode(
              [
@@ -173,9 +173,9 @@ $domain = 'testwebsite.com';
     	}
 		$response->headers->set('Content-Type', 'application/json');
     	return $response;
-    
+
     }
-    
+
     /**
      * @Route("/api/v1/admin/website/launch_site", name="post_admin_website_launch_site")
      * @Method({"POST"})
@@ -184,7 +184,7 @@ $domain = 'testwebsite.com';
     {
     	$this->checkAdminAccess($request);
     	$file_json =  __DIR__.'/../../../../../launch_site.json';
-    	
+
     	$params = array();
     	$content = $this->get("request")->getContent();
     	if (!empty($content))
@@ -192,7 +192,7 @@ $domain = 'testwebsite.com';
     		$params = json_decode($content, true); // 2nd param to get as array
     		$do_it = false;
     		if( file_exists ( $file_json ) && !isset($params['force']) ){
-    		
+
     			$response = new Response(json_encode(
     					[
     							'code' => 2,
@@ -212,10 +212,10 @@ $domain = 'testwebsite.com';
     				$do_it = true;
     			}
     		}
-    
+
     		if($do_it)
     		{
-    			 
+
     			/**
     			 if(true){
     			 $color = 'white';
@@ -226,7 +226,7 @@ $domain = 'testwebsite.com';
     					'domain' => $domain,
     					'full_domain' => $params['domain']
     			];
-    			
+
     			if (!$handle = fopen($file_json, 'w')) {
     				$response = new Response(json_encode(
     						[
@@ -234,7 +234,7 @@ $domain = 'testwebsite.com';
     								'message' => 'Something went wrong! Error creating json File!'
     						]));
     			}
-    			
+
     			// Write $somecontent to our opened file.
     			if (fwrite($handle, json_encode($array_json)) === FALSE) {
     				$response = new Response(json_encode(
@@ -243,7 +243,7 @@ $domain = 'testwebsite.com';
     								'message' => 'Something went wrong! Error writing json File!'
     						]));
     			}
-    			
+
     			fclose($handle);
     			$em = $this->getDoctrine()->getManager();
     			$website = $em->getRepository('AppBundle\Entity\Website')->find(1);
@@ -257,7 +257,7 @@ $domain = 'testwebsite.com';
 		    	$array_response['trade_url'] = $website->getTradeUrl();
 		    	$array_response['error'] = false;
 		    	$response = new Response(json_encode($array_response));
-    			
+
     		}
     		else
     		{
@@ -278,11 +278,11 @@ $domain = 'testwebsite.com';
     	}
     	$response->headers->set('Content-Type', 'application/json');
     	return $response;
-    
+
     }
-    
+
     private function getWebsite(Request $request, $website){
-    	
+
     	$path_logo = 'http://'.$request->server->get('HTTP_HOST').'/images/logo/';
     	if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
     		$path_logo = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/images/logo/';
@@ -329,7 +329,7 @@ $domain = 'testwebsite.com';
     			'twitter_show_timeline' => $website->getTwitterShowTimeline(),
     			'call_button' => $website->getCallButton(),
     			'footer_row1_type' => $website->getFooterRow1Type(),
-    			'footer_row1_type' => $website->getFooterRow1Type(),
+    			'footer_row2_type' => $website->getFooterRow2Type(),
     			'footer_row3_type' => $website->getFooterRow3Type(),
     			'header_type' => $website->getHeaderType()
     	];
@@ -462,7 +462,7 @@ $domain = 'testwebsite.com';
                $website->setFooterRow1Type($params['footer_row1_type']);
              }
              if(isset($params['footer_row2_type'])){
-               $website->setFooterRow2Type($params['footer_row3_type']);
+               $website->setFooterRow2Type($params['footer_row2_type']);
              }
              if(isset($params['footer_row3_type'])){
                $website->setFooterRow3Type($params['footer_row3_type']);
@@ -493,7 +493,7 @@ $domain = 'testwebsite.com';
          return $response;
 
     }
-    
+
     /**
      * @Route("/api/v1/admin/website", name="put_admin_website")
      * @Method({"PUT"})
@@ -501,17 +501,17 @@ $domain = 'testwebsite.com';
     public function putAdmintAction(Request $request)
     {
     	$this->checkAdminAccess($request);
-    
+
     	$em = $this->getDoctrine()->getManager();
     	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-    
+
     	$params = array();
     	$content = $this->get("request")->getContent();
     	if (!empty($content))
     	{
     		$params = json_decode($content, true); // 2nd param to get as array
-    
-    		 
+
+
     		if(isset($params['main_color'])){
     			$website->setMainColor($params['main_color']);
     		}
@@ -530,10 +530,10 @@ $domain = 'testwebsite.com';
     		if(isset($params['disabled'])){
     			if($params['disabled'] === true || $params['disabled'] === 1 || $params['disabled'] === 'true')
     				$website->setDisabled(true);
-    			else 
+    			else
     				$website->setDisabled(false);
     		}
-    		
+
     		if(isset($params['btn_txt_raq'])){
     			$website->setBtnTxtRaq($params['btn_txt_raq']);
     		}
@@ -543,30 +543,30 @@ $domain = 'testwebsite.com';
     		if(isset($params['btn_txt_war'])){
     			$website->setBtnTxtWar($params['btn_txt_war']);
     		}
-    
+
     		$em->persist($website);
     		$em->flush();
-    
+
     		$response = new Response(json_encode(
     				[
     						'code' => 200,
     						'message' => 'OK'
     				]));
-    
+
     	}else{
-    
+
     		$response = new Response(json_encode(
     				[
     						'code' => 1,
     						'message' => 'Invalid Form'
     				]));
     	}
-    
+
     	$response->headers->set('Content-Type', 'application/json');
     	return $response;
-    
+
     }
-    
+
     /**
      * @Route("/api/v1/admin/website_headers", name="post_website_headers")
      * @Method({"POST"})
@@ -574,31 +574,31 @@ $domain = 'testwebsite.com';
     public function postHeadersAction(Request $request)
     {
         $this->checkAdminAccess($request);
-        
+
         $em = $this->getDoctrine()->getManager();
         $file = $request->files->get('file');
         if(!is_null($file)) {
-        
+
         	$item = new Item(Item::STORE_HEADER);
         	$item->setFile($file);
         	$item->upload();
-        
+
         	$response = new Response(json_encode(
         			[
         				'code' => 200,
           				'message' => ''
         			]));
-        
-        
+
+
         }else{
-        
+
         	$response = new Response(json_encode(
         			[
         					'code' => 1,
         					'message' => 'Invalid Form'
         			]));
         }
-        
+
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
@@ -677,8 +677,8 @@ $domain = 'testwebsite.com';
 
     }
 
-    
-    
+
+
     /**
      * @Route("/api/v1/website/item", name="post_website_item")
      * @Method({"POST"})
@@ -692,11 +692,11 @@ $domain = 'testwebsite.com';
     	{
     				$this->checkAdminAccess($request);
     	}
-    	else 
+    	else
     	{
     		$this->checkAccess($request);
     	}
-    
+
     	try{
 	    	$em = $this->getDoctrine()->getManager();
 	    	$file = $request->files->get('file');
@@ -713,17 +713,17 @@ $domain = 'testwebsite.com';
 	    		if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
 	    			$path_social = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
 	    		}
-	    		
+
 	    		$response = new Response(json_encode(
 	    				[
 	    						'code' => 200,
 	    						'id' => $item->getId(),
 	    						'url' => $path_social.$item->getWebPath()
 	    				]));
-	    
-	    
+
+
 	    	}else{
-	    
+
 	    		$response = new Response(json_encode(
 	    				[
 	    						'code' => 1,
@@ -737,12 +737,12 @@ $domain = 'testwebsite.com';
     						'message' => $e->getMessage()
     				]));
     	}
-    
+
     	$response->headers->set('Content-Type', 'application/json');
     	return $response;
-    
+
     }
-    
+
     /**
      * @Route("/api/v1/gallery_items/{id}", name="delete_website_item")
      * @Method({"DELETE"})
@@ -750,36 +750,36 @@ $domain = 'testwebsite.com';
     public function deleteItemAction(Request $request, $id)
     {
     	$this->checkAccess($request);
-    
+
     	$em = $this->getDoctrine()->getManager();
     	$item =  $em->getRepository('AppBundle\Entity\Item\Item')->find($id);
-    
+
     	if(is_object($item)){
-    
+
     		$item->deleteFile();
     		$em->remove($item);
     		$em->flush();
-    
+
     		$response = new Response(json_encode(
     				[
     						'code' => 200,
     						'message' => 'OK'
     				]));
-    
+
     	}else{
-    
+
     		$response = new Response(json_encode(
     				[
     						'code' => 1,
     						'message' => 'Invalid Form'
     				]));
     	}
-    
+
     	$response->headers->set('Content-Type', 'application/json');
     	return $response;
-    
+
     }
-    
-    
-    
+
+
+
 }
