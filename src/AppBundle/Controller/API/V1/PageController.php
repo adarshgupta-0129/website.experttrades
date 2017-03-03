@@ -40,7 +40,7 @@ class PageController extends SecurityController
 			$filters['search_by'] = $request->query->get('search_by');
 		}
 		if( $request->query->get('is_admin') != "" ){
-			$filters['is_admin'] = true;
+			$filters['is_admin'] = $request->query->get('is_admin');
 		}
 
 		$pages =  $em->getRepository('AppBundle\Entity\Page\Page')

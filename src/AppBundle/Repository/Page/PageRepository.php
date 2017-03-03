@@ -97,8 +97,11 @@ class PageRepository extends Repository{
 			}
 		}
 		
-		if(!isset($filters['is_admin']) || $filters['is_admin'] != true ){
-			$data->andWhere('p.is_admin = true');
+		if(!isset($filters['is_admin'])){
+			$data->andWhere('p.is_admin = false');
+		}else if(isset($filters['is_admin'])){
+			$data->andWhere('p.is_admin = :isadmin');
+			$data->setParameter('isadmin' , $filters['is_admin'] );
 		}
 	
 		$count = clone $data;
