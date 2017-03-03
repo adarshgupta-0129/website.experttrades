@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\IsNull;
 
 class PageController extends SecurityController
 {
-	
+
 	/**
 	 * @Route("/api/v1/pages", name="get_pages", requirements={"offset" = "\d+", "limit" = "\d+"}, defaults={"offset" = 0, "limit" = 10})
 	 * @Method({"GET"})
@@ -23,36 +23,36 @@ class PageController extends SecurityController
 	public function getPagesAction(Request $request)
 	{
 		$this->checkAccess($request);
-	
+
 		$em = $this->getDoctrine()->getManager();
-	
+
 		$limit = $request->query->get('limit');
 		$limit = (is_null($limit)) ? 10 : $limit;
-	
+
 		$offset = $request->query->get('offset');
 		$offset = (is_null($offset)) ? 0 : $offset;
 		$filters = [];
 		if( $request->query->get('search') != "" ){
 			$filters['search'] = $request->query->get('search');
 		}
-	
+
 		if( $request->query->get('search_by') != "" ){
 			$filters['search_by'] = $request->query->get('search_by');
 		}
 		if( $request->query->get('is_admin') != "" ){
 			$filters['is_admin'] = true;
 		}
-	
+
 		$pages =  $em->getRepository('AppBundle\Entity\Page\Page')
 		->getAllPaginated($limit, $offset,$filters);
-	
+
 		$response = new Response(json_encode($pages));
 		$response->headers->set('Content-Type', 'application/json');
-	
+
 		return $response;
-	
+
 	}
-	
+
 	/**
 	 * @Route("/api/v1/pages/{id}", name="get_page")
 	 * @Method({"GET"})
@@ -60,11 +60,11 @@ class PageController extends SecurityController
 	public function getPageAction(Request $request, $id)
 	{
 		$this->checkAccess($request);
-	
+
 		$em = $this->getDoctrine()->getManager();
 		$page =  $em->getRepository('AppBundle\Entity\Page\Page')->find($id);
-	
-	
+
+
 		$path = 'http://'.$request->server->get('HTTP_HOST').'/';
 		if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
 			$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
@@ -89,7 +89,7 @@ class PageController extends SecurityController
 					'url' => (is_null($objItem->getWebPath())) ? null : $path.$objItem->getWebPath()
 			];
 		}
-	
+
 		$response = new Response(json_encode([
 				'id' => $page->getId(),
 				'title' => $page->getTitle(),
@@ -109,31 +109,30 @@ class PageController extends SecurityController
 				'featured_image' => $item
 		]));
 		$response->headers->set('Content-Type', 'application/json');
-	
+
 		return $response;
-	
+
 	}
-	
+
 	/**
 	 * @Route("/api/v1/pages", name="post_page")
 	 * @Method({"POST"})
 	 */
 	public function postPageAction(Request $request)
 	{
-	
+
 		$this->checkAccess($request);
-	
+
 		$em = $this->getDoctrine()->getManager();
 		$page = new Page();
-	
+
 		$params = array();
 		$content = $this->get("request")->getContent();
 		try{
 			if (!empty($content))
 			{
 				$params = json_decode($content, true); // 2nd param to get as array
-	
-	
+
 				if(isset($params['title'])){
 					$page->setTitle($params['title']);
 				}
@@ -183,19 +182,19 @@ class PageController extends SecurityController
 				if(isset($params['active'])){
 					$page->active();
 				}
-	
+
 				$em->persist($page);
 				$em->flush();
-	
+
 				$response = new Response(json_encode(
 						[
 								'code' => 200,
 								'message' => 'OK',
 								'id' => $page->getId()
 						]));
-	
+
 			}else{
-	
+
 				$response = new Response(json_encode(
 						[
 								'code' => 1,
@@ -209,11 +208,11 @@ class PageController extends SecurityController
 							'message' => $e->getMessage()
 					]));
 		}
-	
+
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
 	}
-	
+
 	/**
 	 * @Route("/api/v1/pages/{id}", name="put_page")
 	 * @Method({"PUT"})
@@ -221,10 +220,10 @@ class PageController extends SecurityController
 	public function putPageAction(Request $request, $id)
 	{
 		$this->checkAccess($request);
-	
+
 		$em = $this->getDoctrine()->getManager();
 		$page =  $em->getRepository('AppBundle\Entity\Page\Page')->find($id);
-	
+
 		$params = array();
 		$content = $this->get("request")->getContent();
 		try{
@@ -280,7 +279,7 @@ class PageController extends SecurityController
 				if(isset($params['active'])){
 					$page->active();
 				}
-				
+
 				$em->persist($page);
 				$em->flush();
 				$response = new Response(json_encode(
@@ -289,9 +288,9 @@ class PageController extends SecurityController
 								'message' => 'OK',
 								'id' => $page->getId()
 						]));
-	
+
 			}else{
-	
+
 				$response = new Response(json_encode(
 						[
 								'code' => 1,
@@ -305,13 +304,13 @@ class PageController extends SecurityController
 							'message' => $e->getMessage()
 					]));
 		}
-	
-	
+
+
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
-	
+
 	}
-	
+
 	/**
 	 * @Route("/api/v1/pages/{id}", name="delete_page")
 	 * @Method({"DELETE"})
@@ -319,37 +318,37 @@ class PageController extends SecurityController
 	public function deletePageAction(Request $request, $id)
 	{
 		$this->checkAccess($request);
-	
+
 		$em = $this->getDoctrine()->getManager();
 		$page =  $em->getRepository('AppBundle\Entity\Page\Page')->find($id);
-	
+
 		if(is_object($page)){
 			foreach( $page->getItems() as $item ){
 				$this->deletePageFileAction($request, $page->getId(), $item->getId());
 			}
 			$em->remove($page);
 			$em->flush();
-	
+
 			$response = new Response(json_encode(
 					[
 							'code' => 200,
 							'message' => 'OK'
 					]));
-	
+
 		}else{
-	
+
 			$response = new Response(json_encode(
 					[
 							'code' => 1,
 							'message' => 'Invalid Form'
 					]));
 		}
-	
+
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
-	
+
 	}
-	
+
 	/**
 	 * @Route("/api/v1/pages/{id}/file/{type}", name="get_page_file_img")
 	 * @Method({"GET"})
@@ -359,22 +358,22 @@ class PageController extends SecurityController
 		$this->checkAccess($request);
 		$limit = $request->query->get('limit');
 		$limit = (is_null($limit) || !is_numeric($limit)) ? null : $limit;
-		 
+
 		$offset = $request->query->get('offset');
 		$offset = (is_null($offset) || !is_numeric($offset)) ? null : $offset;
-		 
+
 		$em = $this->getDoctrine()->getManager();
 		$filters = array('id'=> $id, 'type'=>$type);
-	
-	
-	
+
+
+
 		$path = 'http://'.$request->server->get('HTTP_HOST').'/';
 		if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
 			$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
 		}
 		$return = $em->getRepository('AppBundle\Entity\Page\Item\Item')
 		->getPaginated($limit, $offset,$filters,$path);
-	
+
 		if( !is_null($limit)&& !is_null($offset))
 		{
 			$response = new Response(json_encode($return));
@@ -383,16 +382,16 @@ class PageController extends SecurityController
 		{
 			$response = new Response(json_encode(array('items'=>$return)));
 		}
-	
-	
+
+
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
-	
-	
-	
+
+
+
 	}
-	
-	
+
+
 	/**
 	 * @Route("/api/v1/pages/{id}/file", name="post_page_file")
 	 * @Method({"POST"})
@@ -400,8 +399,8 @@ class PageController extends SecurityController
 	public function postPageFileAction(Request $request, $id)
 	{
 		$this->checkAccess($request);
-	
-	
+
+
 		$em = $this->getDoctrine()->getManager();
 		$file = $request->files->get('file');
 		$isValid = false;
@@ -419,7 +418,7 @@ class PageController extends SecurityController
 			if(!$isValid && !is_null($file)){
 				throw new \Exception('The '.$file->getMimeType().' format is invalid');
 			}elseif(!is_null($file)) {
-	
+
 				$params = array();
 				$page =  $em->getRepository('AppBundle\Entity\Page\Page')->find($id);
 				$item = new Item($page);
@@ -436,10 +435,10 @@ class PageController extends SecurityController
 				}
 				$item->setFile($file);
 				$item->upload();
-	
+
 				$em->persist($item);
 				$em->flush();
-	
+
 				$path = 'http://'.$request->server->get('HTTP_HOST').'/';
 				if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
 					$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
@@ -451,12 +450,12 @@ class PageController extends SecurityController
 								'url' => $path.$item->getWebPath(),
 								'featured' => $item->getFeatured()
 						]));
-	
+
 				$response->headers->set('Content-Type', 'application/json');
 				return $response;
-	
+
 			}else{
-	
+
 				$response = new Response(json_encode(
 						[
 								'code' => 1,
@@ -470,12 +469,12 @@ class PageController extends SecurityController
 							'message' => $e->getMessage()
 					]));
 		}
-	
+
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
-	
+
 	}
-	
+
 	/**
 	 * @Route("/api/v1/pages/{page_id}/file/{id}", name="delete_page_file")
 	 * @Method({"DELETE"})
@@ -483,33 +482,33 @@ class PageController extends SecurityController
 	public function deletePageFileAction(Request $request, $page_id, $id)
 	{
 		$this->checkAccess($request);
-	
+
 		$em = $this->getDoctrine()->getManager();
 		$item =  $em->getRepository('AppBundle\Entity\Page\Item\Item')->find($id);
-	
+
 		if(is_object($item)){
-	
+
 			$item->deleteFile();
 			$em->remove($item);
 			$em->flush();
-	
+
 			$response = new Response(json_encode(
 					[
 							'code' => 200,
 							'message' => 'OK'
 					]));
-	
+
 		}else{
-	
+
 			$response = new Response(json_encode(
 					[
 							'code' => 1,
 							'message' => 'Invalid Form'
 					]));
 		}
-	
+
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
-	
+
 	}
 }
