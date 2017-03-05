@@ -415,6 +415,7 @@ class GalleryController extends SecurityController
         }
         if(!empty($params)){
             
+        	 
             if(isset($params['bgcolor'])){
                 $tag->setBgColor($params['bgcolor']);
             }

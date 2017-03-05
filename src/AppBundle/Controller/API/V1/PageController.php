@@ -127,11 +127,19 @@ class PageController extends SecurityController
 		$page = new Page();
 
 		$params = array();
-		$content = $this->get("request")->getContent();
-		try{
-			if (!empty($content))
-			{
-				$params = json_decode($content, true); // 2nd param to get as array
+		
+        $content = $this->get("request")->getContent();
+       try{
+        if (!empty($content))
+        {
+
+        	$params = json_decode($content, true); // 2nd param to get as array
+        }
+        else 
+        {
+        	$params = $request->request->all();
+        }
+        if(!empty($params)){
 
 				if(isset($params['title'])){
 					$page->setTitle($params['title']);
