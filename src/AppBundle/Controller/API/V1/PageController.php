@@ -127,7 +127,7 @@ class PageController extends SecurityController
 		$page = new Page();
 
 		$params = array();
-		
+
         $content = $this->get("request")->getContent();
        try{
         if (!empty($content))
@@ -135,7 +135,7 @@ class PageController extends SecurityController
 
         	$params = json_decode($content, true); // 2nd param to get as array
         }
-        else 
+        else
         {
         	$params = $request->request->all();
         }
@@ -184,8 +184,8 @@ class PageController extends SecurityController
 				if(isset($params['tag_style'])){
 					$page->setTagStyle($params['tag_style']);
 				}
-				if(isset($params['tag_style'])){
-					$page->setTagScript($params['tag_style']);
+				if(isset($params['tag_script'])){
+					$page->setTagScript($params['tag_script']);
 				}
 				if(isset($params['active'])){
 					$page->active();
@@ -281,8 +281,8 @@ class PageController extends SecurityController
 				if(isset($params['tag_style'])){
 					$page->setTagStyle($params['tag_style']);
 				}
-				if(isset($params['tag_style'])){
-					$page->setTagScript($params['tag_style']);
+				if(isset($params['tag_script'])){
+					$page->setTagScript($params['tag_script']);
 				}
 				if(isset($params['active'])){
 					$page->active();

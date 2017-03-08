@@ -3,14 +3,14 @@
 {% block header %}
 	<title>{{ homepage.metaTitle }}</title>
 	<meta name="description" content="{{ homepage.metaDescription }}">
-	
-    <meta property="og:url" content="{{ url('homepage') }}" />
+
+  <meta property="og:url" content="{{ url('homepage') }}" />
 	<meta property="og:site_name" content="{{ homepage.metaTitle }}" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{{ homepage.metaTitle }}" />
 	<meta property="og:description" content="{{ homepage.metaDescription }}" />
 	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
-	
+
     <meta name="twitter:card" content="summary_large_image">
     {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
 	<meta name="twitter:title" content="{{ homepage.metaTitle }}">
@@ -20,7 +20,7 @@
 	{{page.metaTags|raw}}
 {% endblock %}
 {% block stylesheets %}
-	{{page.tag_style|raw}}
+	{{page.tagStyle|raw}}
 {% endblock %}
 
 {% block body %}
@@ -41,5 +41,5 @@
 
 
 {% block  javascripts %}
-	{{page.tag_script|raw}}
+	{{page.tagScript|raw}}
 {% endblock %}

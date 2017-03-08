@@ -67,7 +67,7 @@ class MainController extends Controller
     			'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
     			'nav_bar_pages' => $em->getRepository('AppBundle\Entity\Page\Page')->getMenuPages(),
     			'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-           		'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
+          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
     			'margin_top_subscription' => true,
     			'snipped' => $this->richSnippedsJson($em, $request, $website, $homepage),
     			'gmaps' => $this->getUrlGmaps($website),
