@@ -39,6 +39,10 @@ class PageController extends SecurityController
 		if( $request->query->get('search_by') != "" ){
 			$filters['search_by'] = $request->query->get('search_by');
 		}
+
+		if( $request->query->get('search_by_type') != "" ){
+			$filters['search_by_type'] = $request->query->get('search_by_type');
+		}
 		if( $request->query->get('is_admin') != "" ){
 			$filters['is_admin'] = $request->query->get('is_admin');
 		}

@@ -11,31 +11,31 @@ use AppBundle\Repository\Repository;
  * repository methods below.
  */
 class PageRepository extends Repository{
-	
+
 	public function getPaginated($limit, $offset, $filters = []){
-	
+
 		$data = $this->getEntityManager()->createQueryBuilder();
 		$data->from('AppBundle\Entity\Page\Page', 'p');
 		$data->where('p.publish IS NOT NULL');
 		$data->andWhere('p.publish <= :date_now');
 		$data->andWhere('p.active = true');
 		$data->setParameter('date_now' , (new \DateTime()) );
-		
+
 		if(isset($filters['search']) && $filters['search'] != "" ){
 			$data->andWhere('p.search LIKE  :search');
 			$data->setParameter('search' , '%'.$filters['search'].'%');
 		}
-		
+
 		$count = clone $data;
 		$count->select('count(p.id)');
 		$total = $count->getQuery()->getSingleScalarResult();
-		
+
 		$data->select('p');
 		$data->setFirstResult($offset);
 		$data->setMaxResults($limit);
 		$data->orderBy('p.publish', 'desc');
 		$result = $data->getQuery()->getResult();
-	
+
 		$final = [];
 		foreach($result as $page){
 			$result_page = [];
@@ -56,19 +56,18 @@ class PageRepository extends Repository{
 			$result_page['tag_script'] = $page->getTagScript();
 			if( ($item = $page->getFeaturedItem()) !== FALSE)
 				$result_page['featuredImage'] = array( 'url' => $item->getWebPath(), 'title' => $item->getTitle()  );
-			
+
 			$final[] = $result_page;
 		}
-	
+
 		return $this->payload($total, $limit, $offset, $final);
-	
+
 	}
-	
+
 	public function getAllPaginated($limit, $offset, $filters = []){
-	
+
 		$data = $this->getEntityManager()->createQueryBuilder();
 		$data->from('AppBundle\Entity\Page\Page', 'p');
-
 		if(isset($filters['search']) && $filters['search'] != "" ){
 			$data->where('p.search <= :search');
 			$data->setParameter('search' , $filters['search'] );
@@ -96,24 +95,24 @@ class PageRepository extends Repository{
 					break;
 			}
 		}
-		
+
 		if(!isset($filters['is_admin'])){
 			$data->andWhere('p.is_admin = false');
 		}else if(isset($filters['is_admin'])){
 			$data->andWhere('p.is_admin = :isadmin');
 			$data->setParameter('isadmin' , $filters['is_admin'] );
 		}
-	
+
 		$count = clone $data;
 		$count->select('count(p.id)');
 		$total = $count->getQuery()->getSingleScalarResult();
-	
+
 		$data->select('p');
 		$data->setFirstResult($offset);
 		$data->setMaxResults($limit);
 		$data->orderBy('p.publish', 'desc');
 		$result = $data->getQuery()->getResult();
-	
+
 		$final = [];
 		foreach($result as $page){
 			$result_page = [];
@@ -134,14 +133,14 @@ class PageRepository extends Repository{
 			$result_page['tag_script'] = $page->getTagScript();
 			if( ($item = $page->getFeaturedItem()) !== FALSE)
 				$result_page['featuredImage'] = array( 'url' => $item->getWebPath(), 'title' => $item->getTitle()  );
-			
+
 			$final[] = $result_page;
 		}
-	
+
 		return $this->payload($total, $limit, $offset, $final);
-	
+
 	}
-	
+
 	public function getMenuPages(  ){
 		$option = 0;
 		$return = [];
@@ -157,7 +156,7 @@ class PageRepository extends Repository{
 			$data->select('p');
 			$data->orderBy('p.publish', 'desc');
 			$result = $data->getQuery()->getResult();
-			
+
 			$final = [];
 			foreach($result as $page){
 				$result_page = [];
@@ -178,7 +177,7 @@ class PageRepository extends Repository{
 				$result_page['tag_script'] = $page->getTagScript();
 				if( ($item = $page->getFeaturedItem()) !== FALSE)
 					$result_page['featuredImage'] = array( 'url' => $item->getWebPath(), 'title' => $item->getTitle()  );
-						
+
 				$final[] = $result_page;
 			}
 			$return[$option] = $final;
@@ -186,11 +185,11 @@ class PageRepository extends Repository{
 		}
 		//var_dump($return);die();
 		return $return;
-	
+
 	}
-	
+
 	public function countPages(){
-	
+
 		$data = $this->getEntityManager()->createQueryBuilder();
 		$data->from('AppBundle\Entity\Page\Page', 'p');
 		$data->where('p.publish IS NOT NULL');
@@ -199,14 +198,14 @@ class PageRepository extends Repository{
 		$count = clone $data;
 		$count->select('count(p.id)');
 		$total = $count->getQuery()->getSingleScalarResult();
-	
+
 		return $total;
-	
+
 	}
-	
+
 
 	public function checkSlug( $slug, $id = null ){
-	
+
 		$data = $this->getEntityManager()->createQueryBuilder();
 		$data->from('AppBundle\Entity\Page\Page', 'p');
 		$data->where('p.slug = :slug');
@@ -218,9 +217,9 @@ class PageRepository extends Repository{
 		$count = clone $data;
 		$count->select('count(p.id)');
 		$total = $count->getQuery()->getSingleScalarResult();
-	
+
 		return $total;
-	
+
 	}
 
 
