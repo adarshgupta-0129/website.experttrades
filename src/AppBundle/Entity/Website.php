@@ -42,7 +42,7 @@ class Website{
      * @ORM\Column(name="access_token", type="text", length=2555, nullable=true)
      */
     private $access_token;
-    
+
 
     /**
      * @var string $admin_access_token
@@ -67,14 +67,14 @@ class Website{
      * @ORM\Column(name="facebook_link", type="text", length=2555, nullable=true)
      */
     private $facebook_link;
-    
+
     /**
      * @var string $facebook_timeline_script
      *
      * @ORM\Column(name="facebook_timeline_script", type="text", length=2555, nullable=true)
      */
     private $facebook_timeline_script;
-    
+
     /**
      * @var string $facebook_show_timeline
      *
@@ -102,14 +102,14 @@ class Website{
      * @ORM\Column(name="twitter_timeline_script", type="text", length=2555, nullable=true)
      */
     private $twitter_timeline_script;
-    
+
     /**
      * @var string twitter_show_timeline
      *
      * @ORM\Column(name="twitter_show_timeline", type="boolean", options={"default" = 0})
      */
     private $twitter_show_timeline;
-    
+
 
     /**
      * @var string $youtube_link
@@ -138,7 +138,7 @@ class Website{
      * @ORM\Column(name="instagram_link", type="text", length=2555, nullable=true)
      */
     private $instagram_link;
-    
+
 
 
     /**
@@ -286,28 +286,28 @@ class Website{
      * @ORM\Column(name="btn_txt_raq", type="string", length=25, options={"default" = "Request A Quote"})
      */
     private $btn_txt_raq;
-    
+
     /**
      * @var string $btn_txt_gaq button text get a quote
      *
      * @ORM\Column(name="btn_txt_gaq", type="string", length=25, options={"default" = "Get A Quote"})
      */
     private $btn_txt_gaq;
-    
+
     /**
      * @var string $btn_txt_war button text write a review
      *
      * @ORM\Column(name="btn_txt_war", type="string", length=25, options={"default" = "Write A Review"})
      */
     private $btn_txt_war;
-    
+
     /**
      * @var integer $zoom_maps
      *
      * @ORM\Column(name="zoom_maps", type="integer",  options={"default" = "12"})
      */
     private $zoom_maps;
-    
+
     /**
      * @var integer $call_button
      * 0 -> homepage
@@ -317,7 +317,7 @@ class Website{
      * @ORM\Column(name="call_button", type="integer",  options={"default" = "0"})
      */
     private $call_button;
-    
+
     /**
      * @var integer $header_type
      * 0 -> light type 1
@@ -328,38 +328,38 @@ class Website{
      * @ORM\Column(name="header_type", type="integer",  options={"default" = "0"})
      */
     private $header_type;
-    
+
     /**
      * @var integer $footer_row1_type
      * 0 -> links
      * 1 -> social links
      * 2 -> gallery images
-     * 3 -> facebook timeline 
-     * 4 -> twitter timeline 
+     * 3 -> facebook timeline
+     * 4 -> twitter timeline
      *
      * @ORM\Column(name="footer_row1_type", type="integer",  options={"default" = "0"})
      */
     private $footer_row1_type;
-    
+
     /**
      * @var integer $footer_row2_type
      * 0 -> links
      * 1 -> social links
      * 2 -> gallery images
-     * 3 -> facebook timeline 
-     * 4 -> twitter timeline 
+     * 3 -> facebook timeline
+     * 4 -> twitter timeline
      *
      * @ORM\Column(name="footer_row2_type", type="integer",  options={"default" = "1"})
      */
     private $footer_row2_type;
-    
+
     /**
      * @var integer $footer_row3_type
      * 0 -> links
      * 1 -> social links
      * 2 -> gallery images
-     * 3 -> facebook timeline 
-     * 4 -> twitter timeline 
+     * 3 -> facebook timeline
+     * 4 -> twitter timeline
      *
      * @ORM\Column(name="footer_row3_type", type="integer",  options={"default" = "2"})
      */
@@ -389,14 +389,18 @@ class Website{
         $this->show_reviews_tab = true;
         $this->show_contact_tab = true;
         $this->show_subscription = true;
-        
+
         $this->zoom_maps = 12;
-        $this->call_button = 1; 
-        $this->header_type = 0; 
-        
+        $this->call_button = 1;
+        $this->header_type = 0;
+
         $this->btn_txt_raq = "Request A quote";
         $this->btn_txt_gaq = "Get A quote";
         $this->btn_txt_war = "Write A Review";
+
+        $this->footer_row1_type = 0;
+        $this->footer_row2_type = 1;
+        $this->footer_row3_type = 2;
     }
     /**
      * Get path
@@ -1207,13 +1211,13 @@ class Website{
 		$this->header_type = $header_type;
 		return $this;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 
 }

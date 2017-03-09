@@ -111,7 +111,7 @@ class Homepage{
      * @ORM\Column(name="meta_description", type="text", length=2555, nullable=true)
      */
     private $meta_description;
-    
+
     /**
      * @var integer $slider_type
      * 0 -> normal 1 btn
@@ -124,6 +124,7 @@ class Homepage{
     public function __construct(){
 
         $this->sliders = new ArrayCollection();
+        $this->slider_type = 0;
     }
 
     /**
@@ -402,5 +403,5 @@ class Homepage{
 		$this->slider_type = $slider_type;
 		return $this;
 	}
-	
+
 }
