@@ -50,7 +50,7 @@ class Gallery{
      * @ORM\Column(name="meta_description", type="text", length=2555, nullable=true)
      */
     private $meta_description;
-    
+
     /**
      * @var string $type_pagination
      * 0 -> pagination
@@ -59,7 +59,7 @@ class Gallery{
      * @ORM\Column(name="type_pagination", type="integer", options={"default" = 1})
      */
     private $type_pagination;
-    
+
     /**
      * @var string $type_tags
      * 0 -> buttons
@@ -71,7 +71,7 @@ class Gallery{
 
     public function __construct(){
     	$this->type_pagination = 1;
-    	$this->$type_tags = 1;
+    	$this->type_tags = 1;
     }
 
     /**
@@ -177,7 +177,7 @@ class Gallery{
 		$this->type_tags = $type_tags;
 		return $this;
 	}
-	
-    
+
+
 
 }
