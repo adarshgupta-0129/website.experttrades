@@ -177,6 +177,7 @@ class PageRepository extends Repository{
 				$result_page['option_menu'] = $page->getOptionMenu();
 				$result_page['body'] = $page->getBody();
 				$result_page['header'] = $page->getHeader();
+				$result_page['active'] = $page->getActive();
 				$result_page['published'] = (is_null($page->getPublish()))?null:$page->getPublish()->getTimestamp();
 				$result_page['meta_tags'] = $page->getMetaTags();
 				$result_page['tag_style'] = $page->getTagStyle();

@@ -101,6 +101,7 @@ class PageController extends SecurityController
 				'slug' => $page->getSlug(),
 				'body' => $page->getBody(),
 				'header' => $page->getHeader(),
+				'active' => $page->getActive(),
 				'header' => $page->getHeader(),
 				'publish' => (is_null($page->getPublish()))?null:$page->getPublish()->getTimestamp(),
 				'static_page_name' => $page->getStaticPageName(),
@@ -192,8 +193,11 @@ class PageController extends SecurityController
 				if(isset($params['tag_script'])){
 					$page->setTagScript($params['tag_script']);
 				}
-				if(isset($params['active'])){
-					$page->active();
+				if(isset($params['active']) ){
+					$page->setActive($params['active']);
+				}
+				if(isset($params['is_admin'])){
+					$page->setIsAdmin($params['is_admin']);
 				}
 
 				$em->persist($page);
@@ -289,8 +293,8 @@ class PageController extends SecurityController
 				if(isset($params['tag_script'])){
 					$page->setTagScript($params['tag_script']);
 				}
-				if(isset($params['active'])){
-					$page->active();
+				if(isset($params['active']) ){
+					$page->setActive($params['active']);
 				}
 
 				$em->persist($page);

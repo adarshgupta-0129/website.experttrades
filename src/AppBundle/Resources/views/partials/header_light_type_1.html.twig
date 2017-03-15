@@ -30,7 +30,7 @@
     {% if nav_bar_pages[0] | length == 1 %}
     	{% if nav_bar_pages[0][0]['type'] is defined and nav_bar_pages[0][0]['type'] == 2 %}
 	    	<li {% if app.request.attributes.get('_route')  == nav_bar_pages[0][0]['slug'] %} class="select" {% endif %}>
-	    		<a href="{{ path(nav_bar_pages[0][0]['slug']) }}">{{nav_bar_pages[0][0]['title']|upper}}</a>
+	    		<a href="{{ path(nav_bar_pages[0][0]['static_page_name']) }}">{{nav_bar_pages[0][0]['title']|upper}}</a>
 	    	</li>
 	    {% elseif nav_bar_pages[0][0]['type'] is defined and nav_bar_pages[0][0]['type'] == 1 %}
 	    	<li ><a  href="{{ nav_bar_pages[0][0]['url_redirection'] }}">{{nav_bar_pages[0][0]['title']|upper}}</a></li>
@@ -46,7 +46,7 @@
           {% for menu_page in nav_bar_pages[0] %}
             {% if menu_page['type'] is defined and menu_page['type'] == 2 %}
 		    	<li {% if app.request.attributes.get('_route')  == menu_page['slug'] %} class="select" {% endif %}>
-		    		<a href="{{ path(menu_page['slug']) }}">{{menu_page['title']|upper}}</a>
+		    		<a href="{{ path(menu_page['static_page_name']) }}">{{menu_page['title']|upper}}</a>
 		    	</li>
 		    {% elseif menu_page['type'] is defined and menu_page['type'] == 1 %}
 		    	<li ><a href="{{ menu_page['url_redirection'] }}">{{menu_page['title']|upper}}</a></li>
@@ -89,7 +89,7 @@
     {% if nav_bar_pages[1] | length == 1 %}
     	{% if nav_bar_pages[1][0]['type'] is defined and nav_bar_pages[1][0]['type'] == 2 %}
 	    	<li {% if app.request.attributes.get('_route')  == nav_bar_pages[1][0]['slug'] %} class="select" {% endif %}>
-	    		<a href="{{ path(nav_bar_pages[1][0]['slug']) }}">{{nav_bar_pages[1][0]['title']|upper}}</a>
+	    		<a href="{{ path(nav_bar_pages[1][0]['static_page_name']) }}">{{nav_bar_pages[1][0]['title']|upper}}</a>
 	    	</li>
 	    {% elseif nav_bar_pages[1][0]['type'] is defined and nav_bar_pages[1][0]['type'] == 1 %}
 	    	<li ><a  href="{{ nav_bar_pages[1][0]['url_redirection'] }}">{{nav_bar_pages[1][0]['title']|upper}}</a></li>
@@ -105,7 +105,7 @@
           {% for menu_page in nav_bar_pages[1] %}
             {% if menu_page['type'] is defined and menu_page['type'] == 2 %}
 		    	<li {% if app.request.attributes.get('_route')  == menu_page['slug'] %} class="select" {% endif %}>
-		    		<a href="{{ path(menu_page['slug']) }}">{{menu_page['title']|upper}}</a>
+		    		<a href="{{ path(menu_page['static_page_name']) }}">{{menu_page['title']|upper}}</a>
 		    	</li>
 		    {% elseif menu_page['type'] is defined and menu_page['type'] == 1 %}
 		    	<li ><a href="{{ menu_page['url_redirection'] }}">{{menu_page['title']|upper}}</a></li>
@@ -135,7 +135,7 @@
     {% if nav_bar_pages[2] | length == 1 %}
     	{% if nav_bar_pages[2][0]['type'] is defined and nav_bar_pages[2][0]['type'] == 2 %}
 	    	<li {% if app.request.attributes.get('_route')  == nav_bar_pages[2][0]['slug'] %} class="select" {% endif %}>
-	    		<a href="{{ path(nav_bar_pages[2][0]['slug']) }}">{{nav_bar_pages[2][0]['title']|upper}}</a>
+	    		<a href="{{ path(nav_bar_pages[2][0]['static_page_name']) }}">{{nav_bar_pages[2][0]['title']|upper}}</a>
 	    	</li>
 	    {% elseif nav_bar_pages[2][0]['type'] is defined and nav_bar_pages[2][0]['type'] == 1 %}
 	    	<li ><a  href="{{ nav_bar_pages[2][0]['url_redirection'] }}">{{nav_bar_pages[2][0]['title']|upper}}</a></li>
@@ -151,7 +151,7 @@
           {% for menu_page in nav_bar_pages[2] %}
             {% if menu_page['type'] is defined and menu_page['type'] == 2 %}
 		    	<li {% if app.request.attributes.get('_route')  == menu_page['slug'] %} class="select" {% endif %}>
-		    		<a href="{{ path(menu_page['slug']) }}">{{menu_page['title']|upper}}</a>
+		    		<a href="{{ path(menu_page['static_page_name']) }}">{{menu_page['title']|upper}}</a>
 		    	</li>
 		    {% elseif menu_page['type'] is defined and menu_page['type'] == 1 %}
 		    	<li ><a href="{{ menu_page['url_redirection'] }}">{{menu_page['title']|upper}}</a></li>
