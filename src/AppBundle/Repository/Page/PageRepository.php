@@ -85,12 +85,18 @@ class PageRepository extends Repository{
 		if(isset($filters['search_by_type']) && $filters['search_by_type'] != "" ){
 			switch ($filters['search_by_type']){
 				case 'page':
+				case '0':
+				case 0:
 					$data->andWhere('p.type = 0');
 					break;
 				case 'redirection':
+				case '1':
+				case 1:
 					$data->andWhere('p.type = 1');
 					break;
 				case 'static':
+				case '2':
+				case 2:
 					$data->andWhere('p.type = 2');
 					break;
 			}

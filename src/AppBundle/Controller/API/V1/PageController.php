@@ -96,6 +96,7 @@ class PageController extends SecurityController
 
 		$response = new Response(json_encode([
 				'id' => $page->getId(),
+				'type' => $page->getType(),
 				'title' => $page->getTitle(),
 				'slug' => $page->getSlug(),
 				'body' => $page->getBody(),

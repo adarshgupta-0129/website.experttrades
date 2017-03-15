@@ -23,9 +23,9 @@
   <div class="collapse navbar-collapse navbar-ex2-collapse">
     <ul class="nav navbar-nav navbar-right">
     <li {% if app.request.attributes.get('_route') == 'homepage' %} class="select" {% endif %}><a href="{{ path('homepage') }}">Home</a></li>
-    
+
     <!-- menu pages option 0 -->
-    
+
     <!-- menu pages option 1 -->
     {% if nav_bar_pages[0] | length == 1 %}
     	{% if nav_bar_pages[0][0]['type'] is defined and nav_bar_pages[0][0]['type'] == 2 %}
@@ -41,7 +41,7 @@
     	{% endif %}
     {% elseif nav_bar_pages[0] | length > 1 %}
     	<li class="dropdown">
-        <a   class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Other <span class="caret"></span></a>
+        <a   class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">More <span class="caret"></span></a>
         <ul class="dropdown-menu">
           {% for menu_page in nav_bar_pages[0] %}
             {% if menu_page['type'] is defined and menu_page['type'] == 2 %}
@@ -59,7 +59,7 @@
         </ul>
       </li>
     {% endif %}
-    
+
     {% if website.showAboutTab == true %}
     <li {% if app.request.attributes.get('_route') == 'about-us' %} class="select" {% endif %}><a href="{{ path('about-us') }}">About</a></li>
     {% endif %}
@@ -100,7 +100,7 @@
     	{% endif %}
     {% elseif nav_bar_pages[1] | length > 1 %}
     	<li class="dropdown">
-        <a   class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Other <span class="caret"></span></a>
+        <a   class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">More <span class="caret"></span></a>
         <ul class="dropdown-menu">
           {% for menu_page in nav_bar_pages[1] %}
             {% if menu_page['type'] is defined and menu_page['type'] == 2 %}
@@ -118,7 +118,7 @@
         </ul>
       </li>
     {% endif %}
-    
+
     {% if website.showReviewsTab == true %}
    	<li {% if app.request.attributes.get('_route') == 'reviews' %} class="select" {% endif %}><a href="{{ path('reviews') }}">Reviews</a></li>
     {% endif %}
@@ -146,7 +146,7 @@
     	{% endif %}
     {% elseif nav_bar_pages[2] | length > 1 %}
     	<li class="dropdown">
-        <a   class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Other <span class="caret"></span></a>
+        <a   class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">More <span class="caret"></span></a>
         <ul class="dropdown-menu">
           {% for menu_page in nav_bar_pages[2] %}
             {% if menu_page['type'] is defined and menu_page['type'] == 2 %}
