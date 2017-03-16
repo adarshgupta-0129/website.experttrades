@@ -85,12 +85,18 @@ class PageRepository extends Repository{
 		if(isset($filters['search_by_type']) && $filters['search_by_type'] != "" ){
 			switch ($filters['search_by_type']){
 				case 'page':
+				case '0':
+				case 0:
 					$data->andWhere('p.type = 0');
 					break;
 				case 'redirection':
+				case '1':
+				case 1:
 					$data->andWhere('p.type = 1');
 					break;
 				case 'static':
+				case '2':
+				case 2:
 					$data->andWhere('p.type = 2');
 					break;
 			}
@@ -171,6 +177,7 @@ class PageRepository extends Repository{
 				$result_page['option_menu'] = $page->getOptionMenu();
 				$result_page['body'] = $page->getBody();
 				$result_page['header'] = $page->getHeader();
+				$result_page['active'] = $page->getActive();
 				$result_page['published'] = (is_null($page->getPublish()))?null:$page->getPublish()->getTimestamp();
 				$result_page['meta_tags'] = $page->getMetaTags();
 				$result_page['tag_style'] = $page->getTagStyle();

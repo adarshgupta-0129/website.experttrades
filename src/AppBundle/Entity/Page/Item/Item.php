@@ -222,7 +222,7 @@ class Item{
         // target filename to move to
 
 
-				if(!file_exists($this->getUploadRootDir())) mkdir($this->getUploadRootDir());
+				if(!file_exists($this->getUploadRootDir())) mkdir($this->getUploadRootDir(), 0777, true);
         $this->getFile()->move(
             $this->getUploadRootDir(),
             $filename
@@ -253,7 +253,7 @@ class Item{
      {
          // the absolute directory path where uploaded
          // documents should be saved
-         return __DIR__.'/../../../../../../web/'.$this->getUploadDir();
+         return __DIR__.'/../../../../../web/'.$this->getUploadDir();
      }
 
      protected function getUploadDir()
