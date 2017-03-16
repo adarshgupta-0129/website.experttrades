@@ -1,10 +1,15 @@
 {% extends "AppBundle::base.html.twig" %}
 
 {% block header %}
-	<title>{{ homepage.metaTitle }}</title>
-	<meta name="description" content="{{ homepage.metaDescription }}">
 
-  <meta property="og:url" content="{{ url('homepage') }}" />
+	{% if not '<title' in page.metaTags %}
+		<title>{{ homepage.metaTitle }}</title>
+	{%  endif %}
+	{% if not 'name="description"' in page.metaTags %}
+		<meta name="description" content="{{ homepage.metaDescription }}">
+	{%  endif %}
+
+  	<meta property="og:url" content="{{ url('homepage') }}" />
 	<meta property="og:site_name" content="{{ homepage.metaTitle }}" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{{ homepage.metaTitle }}" />
