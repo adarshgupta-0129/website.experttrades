@@ -268,9 +268,9 @@ class PageController extends SecurityController
 				if(isset($params['publish'])){
 					if( $params['publish'] != "" && is_numeric($params['publish']) ){
 						$page->setPublish( (new \DateTime())->setTimestamp($params['publish']) );
-						$page->setActive();
+						$page->setActive(true);
 					} else {
-						$page->setUnactive();
+						$page->unactive();
 					}
 				}
 				if(isset($params['static_page_name'])){
