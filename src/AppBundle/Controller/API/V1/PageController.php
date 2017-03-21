@@ -266,8 +266,12 @@ class PageController extends SecurityController
 					$page->setHeader($params['header']);
 				}
 				if(isset($params['publish'])){
-					$page->setPublish( (new \DateTime())->setTimestamp($params['publish']) );
-					$page->setActive(true);
+					if( $params['publish'] != "" && is_numeric($params['publish']) ){
+						$page->setPublish( (new \DateTime())->setTimestamp($params['publish']) );
+						$page->setActive();
+					} else {
+						$page->setUnactive();
+					}
 				}
 				if(isset($params['static_page_name'])){
 					$page->setStaticPageName($params['static_page_name']);
