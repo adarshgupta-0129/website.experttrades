@@ -20,6 +20,7 @@ class OfferRepository extends Repository{
 		$data->andWhere('((p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NULL)'.
 				'OR (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
 				'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
+				'OR (p.publish IS NULL AND p.publish_until IS NULL )'.
 				')');
 		$data->setParameter('date_now' , (new \DateTime()) );
 		
