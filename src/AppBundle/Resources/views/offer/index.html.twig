@@ -6,34 +6,13 @@
 {% endblock %}
 {% block stylesheets %}
 <style>
-.office_banner {
+.offer_banner {
 	{% if offer.hasOfferHeader %}
   background: url({{ asset('images/headers/offers.jpg') }}) no-repeat 0 0;
 	{% else %}
   background: url({{ asset('images/headers/services.jpg') }}) no-repeat 0 0;
 	{% endif %}
   background-size: cover;
-}
-.teamq {
-background: none;
-}
-.view a:hover,
-.view-color a:hover,
-.slide_buttons a:hover {
-	background: #2c3e50; /*sub title colour*/
-	color: white;
-	text-decoration: none;
-}
-.view a,
-.view-color a,
-.slide_buttons a,
-.slide_button a {
-	transition-duration: .5s;
-	transition-timing-function: ease;
-}
-.slide_button, .view a, .view-color a, .slide_buttons a {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    border-radius: 10px;
 }
 </style>
 
@@ -44,7 +23,7 @@ background: none;
 {% include 'AppBundle:partials:website_disabled.html.twig' %}
 {% else %}
 
-<section class="innerpage_banner office_banner">
+<section class="innerpage_banner offer_banner">
 	<div class="container">
 		<h1 style="text-align: center;color:white;">{{ offer.headerTitle }}</h1>
 		<p><br></p>

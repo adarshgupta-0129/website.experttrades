@@ -85,6 +85,43 @@
 	</div>
 </section>
 {% endif %}
+{% if offerhomepage is defined %}
+
+<section class="bodybox3">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="about_head" >
+					<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ offer.headerTitle }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row" >
+            {% if offerhomepage.featured_image  is defined   and offerhomepage.featured_image.url %}
+				<div class="col-sm-5">
+					<img src="{{ asset(offerhomepage.featured_image.url) }}" alt="offerhomepage.featured_image.title" class=""   style="width:100%;">
+				</div>
+            	<div class="col-sm-7">
+			{% else %}
+            	<div class="col-sm-offset-2 col-sm-8" >
+			{% endif %}
+					<h2>{{offerhomepage.title}}</h2>
+	                <div class="content">
+	                	{{offerhomepage.body|raw}}
+	               	</div>
+               	{% if offerhomepage.btn_action == 'contact' %}
+                	<div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': offerhomepage.btn_contact_text  } ) }}">{{offerhomepage.btn_text}}</a></div>
+				{% elseif offerhomepage.btn_action == 'ext_redirect' %}
+                	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" target="_blank">{{offerhomepage.btn_text}}</a></div>
+				{% elseif offerhomepage.btn_action == 'int_redirect' %}
+                	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" >{{offerhomepage.btn_text}}</a></div>
+				{% endif %}
+                
+		     </div>
+		</div>
+	</div>
+</section>
+{% endif %}
 {% if website.showReviewsTab == true %}
 <section class="bodybox2">
 	<div class="container">

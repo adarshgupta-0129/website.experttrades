@@ -27,6 +27,9 @@ class OfferRepository extends Repository{
 			$data->andWhere('p.search LIKE  :search');
 			$data->setParameter('search' , '%'.$filters['search'].'%');
 		}
+		if(isset($filters['show_homepage']) && $filters['show_homepage'] == true){
+			$data->andWhere('p.show_homepage = true');
+		}
 		
 		$count = clone $data;
 		$count->select('count(p.id)');

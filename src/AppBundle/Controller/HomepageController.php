@@ -146,8 +146,10 @@ class HomepageController extends MainController
                 }
             }
         }
-
-
+		$offer_homepage = $em->getRepository('AppBundle\Entity\Offerpage\Offer\Offer')->getPaginated(1, 0, array('show_homepage' => true ));
+		if(count($offer_homepage['data']) > 0){
+			$array_twig['offerhomepage'] = $offer_homepage['data'][0];
+		}
         $array_twig['id_page'] = 'home_page';
         $array_twig['aboutUs'] = $aboutUs;
         $array_twig['reviews'] = $reviews;

@@ -71,6 +71,7 @@ class MainController extends Controller
     			'twitter_image' => $twitter_image,
     			'hasBlog' => $blog->getActive(),
     			'hasOffer' => $offer->getActive(),
+    			'offer' => $offer,
     			'footer_images' => $footerImages,
     			'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
     			'nav_bar_pages' => $em->getRepository('AppBundle\Entity\Page\Page')->getMenuPages(),
