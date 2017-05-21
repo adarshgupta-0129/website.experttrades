@@ -150,7 +150,9 @@ class ReviewController extends SecurityController
         'rate_tidiness' => $item->getRateTidiness(),
         'rate_value' => $item->getRateValue(),
         'rate_total' => $item->getRateTotal(),
-        'author_name' => $item->getAuthorName()
+        'author_name' => $item->getAuthorName(),
+        'ext_provider_name' => $item->getExtProviderName(),
+        'ext_provider_url' => $item->getExtProviderUrl()
 
       ]));
       $response->headers->set('Content-Type', 'application/json');
@@ -183,6 +185,12 @@ class ReviewController extends SecurityController
             }
             if(isset($params['message'])){
               $item->setMessage($params['message']);
+            }
+            if(isset($params['ext_provider_name'])){
+              $item->setExtProviderName($params['ext_provider_name']);
+            }
+            if(isset($params['ext_provider_url'])){
+              $item->setExtProviderUrl($params['ext_provider_url']);
             }
             if(isset($params['author_name'])){
               $item->setAuthorName($params['author_name']);
@@ -256,6 +264,12 @@ class ReviewController extends SecurityController
             }
             if(isset($params['message'])){
               $item->setMessage($params['message']);
+            }
+            if(isset($params['ext_provider_name'])){
+              $item->setExtProviderName($params['ext_provider_name']);
+            }
+            if(isset($params['ext_provider_url'])){
+              $item->setExtProviderUrl($params['ext_provider_url']);
             }
             if(isset($params['author_name'])){
               $item->setAuthorName($params['author_name']);

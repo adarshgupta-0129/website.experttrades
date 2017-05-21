@@ -98,7 +98,7 @@
 		</div>
 		<div class="row">
 			{% for review in reviews %}
-			<div class="col-sm-4">
+			<div class="{% if reviews|length == 2 %}col-sm-offset-2{% elseif  reviews|length == 1 %}col-sm-offset-4{% endif %}col-sm-4">
 				<div class="reviewbox">
 					<br>
 					<div class="rvbtop">
@@ -107,7 +107,7 @@
 						{% endfor %}
 						<h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
 						<br>
-						<h3>{{ review.jobDoneDate | date }}</h3>
+						<h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
 						<br>
 						<p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
 
@@ -189,7 +189,7 @@
 					{% endif %}
 					<h2>{{ item.title }}</h2>
 					<p>{{ item.subtitle |striptags | slice(0, 200) | raw}} {% if item.subtitle |length > 200%}...{% endif %}</p>
-					{% if item.pageActive %}
+					{% if item.pageActive and item.pageSlug %}
 						<a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
 					{% else %}
 						<a href="{{ path('services') }}">Learn more +</a>
@@ -313,7 +313,7 @@
 				<br><br>
 				{%  if website.callButton == 0 or website.callButton == 1  %}
 					<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
-					  <img   src="http://i.imgur.com/Q2COo4K.png" >
+					  <i class="fa fa-phone fa-2x" aria-hidden="true" style="margin: 5px 10px;"></i>
 					</a>
 				{%  endif  %}
 			</div>

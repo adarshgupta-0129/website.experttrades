@@ -26,6 +26,11 @@ use AppBundle\Entity\Blog\Blog;
 use AppBundle\Entity\Blog\Post\Post;
 use AppBundle\Entity\Blog\Post\Item\Item as PostItem;
 
+
+use AppBundle\Entity\Offerpage\OfferPage;
+use AppBundle\Entity\Offerpage\Offer\Offer;
+use AppBundle\Entity\Offerpage\Offer\Item\Item as OfferItem;
+
 use AppBundle\Entity\Contact\Contact;
 
 use AppBundle\Entity\Website;
@@ -252,6 +257,20 @@ class initSiteCommand extends ContainerAwareCommand
         	$em->flush();
         	echo "\n Blog Created \n";
 
+        }
+        
+
+        $offerpage =  $em->getRepository('AppBundle\Entity\Offerpage\OfferPage')->find(1);
+        if(!is_object($offerpage)){
+        
+        	$offerpage = new OfferPage();
+        	$offerpage->setHeaderText('Have a look at our most recent promotions');
+        	$offerpage->setHeaderTitle('Offers & Promotions');
+        	$offerpage->setActive(false);
+        	$em->persist($offerpage);
+        	$em->flush();
+        	echo "\n Offerpage Created \n";
+        
         }
 
         echo "\n Site Created \n";

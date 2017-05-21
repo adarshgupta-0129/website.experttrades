@@ -84,7 +84,12 @@
           {% endfor %}
         </ul>
       </li>
-    {% endif %}
+    {% endif %}	    
+		    {% if hasOffer == true %}
+		    	<li
+		    		{% if app.request.attributes.get('_route') == 'offerss'  %} class="select" {% endif %}
+		    	><a href="{{ path('offers') }}">Offers</a></li>
+		    {% endif %}
     <!-- menu pages option 1 -->
     {% if nav_bar_pages[1] | length == 1 %}
     	{% if nav_bar_pages[1][0]['type'] is defined and nav_bar_pages[1][0]['type'] == 2 %}

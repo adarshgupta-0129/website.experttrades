@@ -43,7 +43,10 @@
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-
+	img,
+	iframe {
+	max-width:100%;
+	}
 
   .banner_slider {width:100%; }
   .captop {width:100%; background: {{ website.lightColor }}; padding: 5px; text-align: center; font-family: 'multicolore_regular'; font-size: 35px; color:#fff; text-transform: uppercase; line-height: 50px;text-shadow: none;}
@@ -161,6 +164,9 @@
   .cpinfo2 {width:83%; float: left;}
   a.ctc-button {display: none !important; }
   a.ctc-button img{width: 100%;}
+  .slide_button,
+  .view a,.view-color a,.slide_buttons a {	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);	border-radius: 10px;}
+  .ctc-button {	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);}
   .form-control {height: 48px; border-radius: 0; border:1px solid #b9b9b9;}
   textarea.form-control {resize: none; height: 150px;}
   .gfp {width:48.8%; float: left;}
@@ -273,11 +279,11 @@
   .contact_inner_form .btn-default {background: #0077C2;color: #FFFFFF;display: block;font-family: 'Lato',sans-serif;font-size: 20px;font-weight: 700;line-height: 60px;text-align: center; padding: 0 75px; margin-left: 0px; border-radius: 0;}
   .contact_innaerpage_bottom {width:100%; background: {{ website.mainColor }}; padding: 30px 0; margin-top: 90px;}
   .cbbbox {width:100%; display: inline-block;}
-  .addr_icon {width:20%; float: left;}
+  .addr_icon {width:20%; float: left;text-align:center;padding-top: 14px;}
   .addr_icon img {width:auto;}
   .addrs_info {width:79%; float: left;padding-top: 14px;}
   .addrs_info p {font-family: 'Lato', sans-serif; font-size: 18px; color:#fff; font-weight:700; margin: 0;}
-  .addrs_info a {font-family: 'Lato', sans-serif; font-size: 18px; color:#fff; font-weight:700;padding-left: 30px;}
+  .addrs_info a {font-family: 'Lato', sans-serif; font-size: 18px; color:#fff; font-weight:700;}
   .phpinfo p {line-height: 44px;}
   .ccb2 {padding-top: 14px;}
   .rvst {width:100%; text-align: center; margin-top: 30px;}
@@ -630,31 +636,37 @@ text-decoration:none;
 }
   .header {width:100%;}
   .navbar-default {background: none; border:none;}
-  .navbar-nav > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
-  .navbar-nav > li > a:hover {color:{{ website.mainColor }} !important;}
+  .navbar-nav > li > a, .navbar-nav > ul > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
+  .navbar-nav > li > a:hover, .navbar-nav > ul > li > a:hover {color:{{ website.mainColor }} !important;}
   .navbar-nav li.select a {color:{{ website.mainColor }};}
   .navbar-right {margin-top: 23px;}
-
+  .navbar-right.socialmedia {margin-top: 4px !important;}
+  .navbar-tel {width: 100%; text-align: center;}
+  .navbar-tel i{margin-right: 10px;}
+  .navbar-tel a{font-family: 'Lato', sans-serif;    font-size: 16px;font-weight: 400;text-transform: uppercase;text-decoration:none; color:white;}
+  .navbar-tel a:hover{color:#e6e6e6;}
 /* Light type 2 */
 .socialmedia {display: block !important;}
-.socialmedia-mobile {display: none !important;}
-.socialmedia-mobile a {float: left;margin-right: 5px;}
+.socialmedia-mobile,.navbartelf-mobile {display: none !important;}
+.socialmedia-mobile a {float: left;margin-right: 3px;}
 .header.light.line2, .header.light.line2 .navbar-nav>li>.dropdown-menu{	background-color:#e6e6e6 }
-.header.light.line2 .dropdown-menu>li>a:hover,
-.header.light.line2 .dropdown-menu>li>a:focus {   color:{{ website.mainColor }} !important;    text-decoration: none;background-color: transparent;}
-.header.light .navbar-nav>li>a>i.social_icons
+.header.light.line2 .dropdown-menu li a:hover,
+.header.light.line2 .dropdown-menu li a:focus,
+.header.light.line2 .navbar-tel a:hover {   color:{{ website.mainColor }} !important;    text-decoration: none;background-color: transparent;}
+.header.light .navbar-nav li a i.social_icons,
+ .header.light .navbar-nav .navbar-tel a
 {    color: #777 !important;}
- .header.light .navbar-nav > li > a:hover .social_icons {color:{{ website.mainColor }} !important;}
+ .header.light .navbar-nav  li  a:hover .social_icons,
+ .header.light .navbar-nav .navbar-tel a:hover  {color:{{ website.mainColor }} !important;}
  .header.light .navbar-nav li.select a .social_icons {color:{{ website.mainColor }};}
-
 /* DARK type 1 */
 .header.dark , .header.dark .navbar-nav>li>.dropdown-menu
 {background-color: #29333d;color: #e6e6e6;border:none;}
-.header.dark .container .navbar-nav > li > a:hover,
-.header.dark .container .navbar-nav>li>.dropdown-menu>li > a:hover
+.header.dark .container .navbar-nav li a:hover,
+.header.dark .container .navbar-nav li .dropdown-menu>li > a:hover
 {   color: #fff  !important;   background-color: #29333d !important;}
-.header.dark .container .navbar-nav > li.select > a,
-.header.dark .container .navbar-nav>li>.dropdown-menu>li.select > a
+.header.dark .container .navbar-nav   li.select   a,
+.header.dark .container .navbar-nav li .dropdown-menu li.select   a
 { color: #fff  !important; text-decoration: underline !important;}
 .header.dark .navbar-default .navbar-toggle:hover, .header.dark .navbar-default .navbar-toggle:focus {
     background-color: #29333d;
@@ -663,17 +675,20 @@ text-decoration:none;
 /* Dark type 2 */
 .header.dark.line1
 {background-color: #232122;color: #e6e6e6;}
-.header.dark.line1 .container .navbar-nav > li > a:hover,
-.header.dark.line1 .container .navbar-nav>li>.dropdown-menu>li > a:hover
+.header.dark.line1 .container .navbar-nav   li   a:hover,
+.header.dark.line1 .container .navbar-nav li .dropdown-menu li  a:hover
 {   color: #fff  !important;   background-color: #232122 !important;}
-.header.dark.line2 , .header.dark.line2 .navbar-nav>li>.dropdown-menu
+.header.dark.line2 , .header.dark.line2 .navbar-nav li .dropdown-menu
 {background-color: #29333d;color: #2C353D;border:none;}
-.header.dark.line2 .container .navbar-nav > li > a:hover,
-.header.dark.line2 .container .navbar-nav>li>.dropdown-menu>li > a:hover
+.header.dark.line2 .container .navbar-nav   li   a:hover,
+.header.dark.line2 .container .navbar-nav li .dropdown-menu li   a:hover,
+ .header.dark.line2 .container .navbar-nav .navbar-tel a:hover
 {   color: #fff  !important;   background-color: #29333d !important;}
-.header.dark.line1 .container .navbar-nav > li.select > a,
-.header.dark.line1 .container .navbar-nav>li>.dropdown-menu>li.select > a
+.header.dark.line2 .container .navbar-nav .navbar-tel a,
+.header.dark.line1 .container .navbar-nav   li.select   a,
+.header.dark.line1 .container .navbar-nav li .dropdown-menu li.select   a
 { color: #fff  !important; text-decoration: underline !important;}
+.header.dark.line2 .container .navbar-nav .navbar-tel a:hover,
 .header.dark.line1 .navbar-toggle:hover, .header.dark.line1  .navbar-toggle:focus {
     background-color: #232122 !important;
     color:#e6e6e6 !important;
@@ -682,6 +697,8 @@ text-decoration:none;
     background-color: #29333d !important;
     color: #232122 !important;
 }
+
+
 
 
 
@@ -755,6 +772,7 @@ text-decoration:none;
   .teambox h2 {font-size: 13px;}
   .innerpage_banner {margin-top: 0px;}
   .navbar-right {margin-top: 20px;}
+  .navbar-right.socialmedia {margin-top: 3px !important;}
   .navbar-default .navbar-collapse, .navbar-default .navbar-form {border-color: #fff;}
   .contact_inner_form {padding: 0;}
   .contact_inner_form label.checkbox-inline {margin-right: 10px;}
@@ -771,7 +789,7 @@ text-decoration:none;
   .dropdown-menu{padding-left:20px;position: relative; border: none; display:block; float:none;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
 
 	.socialmedia{display: none !important;}
-	.socialmedia-mobile{display: block !important;}
+	.socialmedia-mobile, .navbartelf-mobile {display: block !important;}
   }
 
 
@@ -1179,7 +1197,7 @@ text-decoration:none;
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="cpy">{{ website.copyright }} <small><a style="color: #bdbdbd;" href="https://www.experttrades.com/website">| Websites For Trades - by Expert Trades </a></small></div>
+				<div class="cpy">{{ website.copyright }} <small><a style="color: #bdbdbd;" href="https://www.experttrades.com/website">| Websites For Tradesmen - by Expert Trades </a></small></div>
 			</div>
 		</div>
 	</div>
@@ -1193,7 +1211,7 @@ text-decoration:none;
 
 				{%  if website.callButton == 2  %}
 					<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
-					  <img   src="http://i.imgur.com/Q2COo4K.png" >
+					  <i class="fa fa-phone fa-2x" aria-hidden="true" style="margin: 5px 10px;"></i>
 					</a>
 				{%  endif  %}
 

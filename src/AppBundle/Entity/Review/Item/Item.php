@@ -37,6 +37,20 @@ class Item{
      */
      private $author_name;
 
+    /**
+     * @var string $ext_provider_name
+     *
+     * @ORM\Column(name="ext_provider_name", type="string", length=255, nullable=true)
+     */
+     private $ext_provider_name;
+
+    /**
+     * @var string $ext_provider_url
+     *
+     * @ORM\Column(name="ext_provider_url", type="string", length=255, nullable=true)
+     */
+     private $ext_provider_url;
+
    /**
     * @var string $title
     *
@@ -438,5 +452,20 @@ class Item{
 		$this->author_name = $author_name;
 		return $this;
 	}
+	public function getExtProviderName() {
+		return $this->ext_provider_name;
+	}
+	public function setExtProviderName($ext_provider_name) {
+		$this->ext_provider_name = $ext_provider_name;
+		return $this;
+	}
+	public function getExtProviderUrl() {
+		return $this->ext_provider_url;
+	}
+	public function setExtProviderUrl($ext_provider_url) {
+		$this->ext_provider_url = $ext_provider_url;
+		return $this;
+	}
+	
 	
 }

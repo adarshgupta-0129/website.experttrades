@@ -18,11 +18,12 @@
 	      {% endif %}
 	    </a>
 	  </div>
-   		<ul class="nav navbar-nav navbar-right socialmedia">
+   		<div class="nav navbar-nav navbar-right socialmedia">
+   			<ul class="nav navbar-nav">
 
 						{% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
 						<li>
-							<a href="{{ website.facebookLink }}" target="_BLANK"><i class="fa fa-facebook-square fa-2x social_icons hover"  alt="Connect On Facebook" ></i> </a>
+							<a href="{{ website.facebookLink }}" target="_BLANK"><i class="fa fa-facebook-square fa-2x social_icons  hover"  alt="Connect On Facebook" ></i> </a>
 						</li>
 						{% endif %}
 						{% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
@@ -50,9 +51,18 @@
 							<a href="{{ website.instagramLink }}" target="_BLANK"><i class="fa fa-instagram fa-2x social_icons hover"  alt="Connect On Instagram" ></i></a>
 						</li>
 						{% endif %}
-    </ul>
-
-	</div>
+    		</ul>
+   			{% if contact.phone != "" %}
+	    		<div  class="navbar-tel ">
+		    		<i class="fa fa-phone" ></i>&nbsp;
+			    	{% set phones = contact.phone|split(',') %}
+			    	{%  for phone in phones %}
+			    		{% if loop.index > 1 %} ,&nbsp {% endif %}
+				    	<a href="tel:{{  phone }}">{{ phone }}</a>
+			    	{% endfor %}
+				</div>
+    	 	{% endif %}
+	  </div>
 </section>
 <section class="header light line2">
 	<div class="container">
@@ -121,7 +131,12 @@
           {% endfor %}
         </ul>
       </li>
-    {% endif %}
+    {% endif %}	    
+		    {% if hasOffer == true %}
+		    	<li
+		    		{% if app.request.attributes.get('_route') == 'offers'  %} class="select" {% endif %}
+		    	><a href="{{ path('offers') }}">Offers</a></li>
+		    {% endif %}
     <!-- menu pages option 1 -->
     {% if nav_bar_pages[1] | length == 1 %}
     	{% if nav_bar_pages[1][0]['type'] is defined and nav_bar_pages[1][0]['type'] == 2 %}
@@ -205,6 +220,15 @@
    	<li {% if app.request.attributes.get('_route') == 'contact' %} class="select" {% endif %}><a href="{{ path('contact') }}">Contact</a></li>
     {% endif %}
 
+    {% if contact.phone != "" %}
+    <li class="navbartelf-mobile ">
+	    		<i class="fa fa-phone" ></i>&nbsp;
+		    	{% set phones = contact.phone|split(',') %}
+		    	{%  for phone in phones %}
+		    		{% if loop.index > 1 %} ,&nbsp {% endif %}
+			    	<a href="tel:{{  phone }}">{{ phone }}</a>
+		    	{% endfor %} </li>
+	{% endif %}
     <!-- socialmedia for movile -->
     <li class="socialmedia-mobile">
 

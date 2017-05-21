@@ -158,7 +158,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="cbbbox">
-					<div class="addr_icon"><img src="{{ asset('bundles/app/images/contact/cnt-addr-icon.png') }}" alt="" /></div>
+					<div class="addr_icon"><i class="fa fa-map-marker fa-2x" style="color:white"></i></div>
 					<div class="addrs_info">
 						<p>{{ contact.addressFirstLine }}</p>
 						<p>{{ contact.addressSecondLine }}</p>
@@ -167,17 +167,17 @@
 			</div>
 			<div class="col-sm-5">
 				<div class="cbbbox ccb2">
-					<div class="addr_icon"><img src="{{ asset('bundles/app/images/contact/cnt2.png') }}" alt="" /></div>
+					<div class="addr_icon"><i class="fa fa-envelope fa-2x" style="color:white"></i></div>
 					<div class="addrs_info">
 						<p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-3">
-				<div class="cbbbox">
-					<div class="addr_icon"><img src="{{ asset('bundles/app/images/contact/cnt3.png') }}" alt="" /></div>
-					<div class="addrs_info phpinfo">
-						<p>{{ contact.phone |replace({',': '<br>'}) | raw }}</p>
+				<div class="cbbbox ccb2">
+					<div class="addr_icon"><i class="fa fa-phone fa-2x" style="color:white"></i></div>
+					<div class="addrs_info ">
+						<p><a href="tel:{{  contact.phone|split(',')[0] }}">{{ contact.phone |replace({',': '<br>'}) | raw }}</a></p>
 					</div>
 				</div>
 			</div>
@@ -192,7 +192,7 @@
 
 {%  if website.callButton == 1  %}
 	<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
-	  <img   src="http://i.imgur.com/Q2COo4K.png" >
+					  <i class="fa fa-phone fa-2x" aria-hidden="true" style="margin: 5px 10px;"></i>
 	</a>
 {%  endif  %}
 

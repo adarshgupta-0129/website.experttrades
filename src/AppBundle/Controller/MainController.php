@@ -37,8 +37,10 @@ class MainController extends Controller
     	$em = $this->getDoctrine()->getManager();
 
 
+    	$contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
     	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
     	$blog =  $em->getRepository('AppBundle\Entity\Blog\Blog')->find(1);
+    	$offer =  $em->getRepository('AppBundle\Entity\Offerpage\OfferPage')->find(1);
     	$homepage =  $em->getRepository('AppBundle\Entity\Homepage\Homepage')->find(1);
     	$facebook = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_FB]);
     	$twitter = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(['storage'=>Item::STORE_SOCIAL_TWITTER]);
@@ -54,20 +56,26 @@ class MainController extends Controller
     	if( count($footerImages) <= 0 ){
     		$footerImages =  $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->findBy([],['id' => 'DESC'], 9, 0);
     	}
-
+    	/* replace date copyright or introducing it copyright */ 
+    	$pregrpl = preg_replace("/^©\s*20[0-9]{2}/","",$website->getCopyright(),-1, $count);
+    	$year = (new \DateTime())->format('Y');
+    	if($count > 0)$website->setCopyright('©'. $year . " ". $pregrpl); 
+    	if( strpos($website->getCopyright(),$year) === FALSE )$website->setCopyright('©'. $year . " ". $website->getCopyright()); 
     	return array(
 				'id_page' => "base",
+    			'contact' => $contact,
     			'website' => $website,
     			'homepage' => $homepage,
     			'favicon' => $favicon,
     			'facebook_image' => $facebook_image,
     			'twitter_image' => $twitter_image,
     			'hasBlog' => $blog->getActive(),
+    			'hasOffer' => $offer->getActive(),
     			'footer_images' => $footerImages,
     			'nav_bar_services' => $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy(['page_active' => true],['order' => 'ASC','id' => 'DESC']),
     			'nav_bar_pages' => $em->getRepository('AppBundle\Entity\Page\Page')->getMenuPages(),
     			'scripts' => $em->getRepository('AppBundle\Entity\Script\Script')->findAll(),
-          'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
+          		'subscriber_form' => $this->createFormBuilder(new Subscriber())->add('email', 'text')->getForm()->createView(),
     			'margin_top_subscription' => true,
     			'snipped' => $this->richSnippedsJson($em, $request, $website, $homepage),
     			'gmaps' => $this->getUrlGmaps($website),

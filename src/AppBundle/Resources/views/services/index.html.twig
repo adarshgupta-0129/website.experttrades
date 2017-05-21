@@ -30,7 +30,7 @@
 							<div class="servicebox">
 									{% if item.path is not null %}
 
-										{% if item.pageActive %}
+										{% if item.pageActive and item.pageSlug %}
 										<a class="img_link" href="{{ path('services_view', { slug : item.pageSlug }) }}">
 											<img alt="{{ item.title }}" src="{{ asset('images/services/') }}{{ item.path }}">
 										</a>
@@ -41,7 +41,7 @@
 									{% endif %}
 									<h2>{{ item.title }}</h2>
 									<p>{{ item.subtitle | raw }}</p>
-									{% if item.pageActive %}
+									{% if item.pageActive and item.pageSlug  %}
 										<a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
 									{% endif %}
 							</div>

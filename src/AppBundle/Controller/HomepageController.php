@@ -24,7 +24,6 @@ class HomepageController extends MainController
         $array_twig = $this->defaultInfo($request);
         $array_twig['margin_top_subscription'] = false;
 
-        $contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $aboutUs =  $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
         $reviews =  $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([],['created' => 'DESC'], 3, 0);
         $services =  $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([],['order' => 'ASC','id' => 'DESC'], 3, 0);
@@ -150,7 +149,6 @@ class HomepageController extends MainController
 
 
         $array_twig['id_page'] = 'home_page';
-        $array_twig['contact'] = $contact;
         $array_twig['aboutUs'] = $aboutUs;
         $array_twig['reviews'] = $reviews;
         $array_twig['services'] = $services;

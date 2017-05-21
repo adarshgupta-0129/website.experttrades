@@ -23,7 +23,6 @@ class ContactController extends MainController
         $em = $this->getDoctrine()->getManager();
         $error = "";
 
-       	$contact =  $em->getRepository('AppBundle\Entity\Contact\Contact')->find(1);
         $this->trackVisit();
 
         $array_twig = $this->defaultInfo($request);
@@ -35,6 +34,9 @@ class ContactController extends MainController
         }
         $date = new \Datetime();
         $quoteRequest = new QuoteRequest();
+        if(!is_null($request->get('subject'))){
+        	$quoteRequest->setJobDescription($request->get('subject').PHP_EOL.PHP_EOL);
+        }
         $form = $this->createFormBuilder($quoteRequest)
             ->add('name', 'text', array('required' => true, 'constraints' => array(new NotBlank())))
             ->add('email', 'email', array('required' => false))
@@ -140,7 +142,6 @@ class ContactController extends MainController
         $array_twig['id_page'] = 'contact_page';
         $array_twig['error'] = $error;
         $array_twig['secureToken'] = $secureToken;
-        $array_twig['contact'] = $contact;
         $array_twig['form'] = $form->createView();
         return $this->render('AppBundle:contact:index.html.twig',$array_twig);
         /*array(
