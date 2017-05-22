@@ -189,6 +189,7 @@ class OfferpageController extends SecurityController
         'excerpt' => $offer->getExcerpt(),
         'body' => $offer->getBody(),
         'is_published' => $offer->isPublished(),
+        'is_scheduled' => $offer->isScheduled(),
         'show_homepage' => $offer->getShowHomepage(),
         'active' => $offer->getActive(),
         'publish' => (is_null($offer->getPublish()))?null:$offer->getPublish()->getTimestamp(),

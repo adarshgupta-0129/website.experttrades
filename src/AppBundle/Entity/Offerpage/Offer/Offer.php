@@ -248,6 +248,7 @@ class Offer{
   public function setTitle($title)
   {
       $this->title = $title;
+			$this->btn_contact_text = "RE: ". $this->title;
 		$this->regenerateSearch();
 		return $this;
   }
@@ -307,6 +308,20 @@ class Offer{
 	}
 	public function isPublished() {
 		return $this->isActive();
+	}
+	public function isScheduled() {
+		if($this->active){
+			$now = (new \DateTime);
+			if( is_null($this->publish_until) && $now->getTimestamp() < $this->publish->getTimestamp() ){
+				return true;
+			} else if($now->getTimestamp() <= $this->publish_until->getTimestamp() && $now->getTimestamp() < $this->publish->getTimestamp()){
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	public function getPublish() {
 		return $this->publish;

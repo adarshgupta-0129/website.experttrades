@@ -93,11 +93,17 @@ class OfferRepository extends Repository{
 						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d') );
 					break;
 				case 'unpublished':
-						$data->andWhere('NOT((p.active =true  AND (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NULL)'.
-						'OR (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
-						'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
-						'OR (p.publish IS NULL AND p.publish_until IS NULL )'.
+						$data->andWhere('(p.active =true  AND ('.
+						'(p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NOT NULL AND p.publish_until < :date_now )'.
+						'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until < :date_now )'.
 						')) OR p.active = false');
+						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d')  );
+					break;
+				case 'scheduled':
+						$data->andWhere('p.active =true  AND ('.
+						'(p.publish IS NOT NULL AND p.publish > :date_now AND p.publish_until IS NULL)'.
+						'OR (p.publish IS NOT NULL AND p.publish > :date_now AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
+						')');
 						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d')  );
 					break;
 			}
@@ -124,6 +130,7 @@ class OfferRepository extends Repository{
         	$result_offer['is_active'] = $offer->isActive();
         	$result_offer['show_homepage'] = $offer->getShowHomepage();
         	$result_offer['active'] = $offer->getActive();
+					$result_offer['is_scheduled'] = $offer->isScheduled();
         	$result_offer['is_published'] = $offer->isPublished();
         	$result_offer['publish'] = (is_null($offer->getPublish()))?null:$offer->getPublish()->getTimestamp();
         	$result_offer['publish_f'] = (is_null($offer->getPublish()))?null:$offer->getPublish()->format('d-m-Y');
