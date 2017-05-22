@@ -312,9 +312,9 @@ class Offer{
 	public function isScheduled() {
 		if($this->active){
 			$now = (new \DateTime);
-			if( is_null($this->publish_until) && $now->getTimestamp() < $this->publish->getTimestamp() ){
+			if( is_null($this->publish_until) && !is_null($this->publish) && $now->getTimestamp() < $this->publish->getTimestamp() ){
 				return true;
-			} else if($now->getTimestamp() <= $this->publish_until->getTimestamp() && $now->getTimestamp() < $this->publish->getTimestamp()){
+			} else if(!is_null($this->publish) && !is_null($this->publish_until) && $now->getTimestamp() <= $this->publish_until->getTimestamp() && $now->getTimestamp() < $this->publish->getTimestamp()){
 				return true;
 			} else {
 				return false;
