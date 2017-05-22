@@ -122,7 +122,7 @@ class OfferpageController extends SecurityController
       if( $request->query->get('search_by') != "" ){
       	$filters['search_by'] = $request->query->get('search_by');
       }
-      
+
 
       $host = 'http://'.$request->server->get('HTTP_HOST').'/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
@@ -131,7 +131,7 @@ class OfferpageController extends SecurityController
 
       $offers =  $em->getRepository('AppBundle\Entity\Offerpage\Offer\Offer')
       ->getAllPaginated($limit, $offset,$filters);
-      
+
       foreach( $offers['data'] as &$of){
       	if(isset($of['featured_image']) && isset($of['featured_image']['url'])){
       		$of['featured_image']['url'] = $host.$of['featured_image']['url'];
@@ -467,30 +467,30 @@ class OfferpageController extends SecurityController
     	$this->checkAccess($request);
     	$limit = $request->query->get('limit');
     	$limit = (is_null($limit) || !is_numeric($limit)) ? null : $limit;
-    	
+
     	$offset = $request->query->get('offset');
     	$offset = (is_null($offset) || !is_numeric($offset)) ? null : $offset;
-    	
+
       $em = $this->getDoctrine()->getManager();
       $filters = array('id'=> $id, 'type'=>$type);
-      
-      
+
+
 
       $path = 'http://'.$request->server->get('HTTP_HOST').'/';
       if(!in_array($this->container->get( 'kernel' )->getEnvironment(), array('prod'))){
       	$path = 'http://'.$request->server->get('HTTP_HOST').'/website.experttrades/web/';
-      } 
+      }
       $return = $em->getRepository('AppBundle\Entity\Offerpage\Offer\Item\Item')
       ->getPaginated($limit, $offset,$filters,$path);
-      
+
       if( !is_null($limit)&& !is_null($offset))
       {
 	      $response = new Response(json_encode($return));
       }
-	  else 
+	  else
 	  {
 	      $response = new Response(json_encode(array('items'=>$return)));
-	  }		
+	  }
 
 
 	  $response->headers->set('Content-Type', 'application/json');

@@ -18,7 +18,7 @@ use AppBundle\Entity\Offerpage\Offer\Item\Item;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Offerpage\Offer\OfferRepository")
  */
 class Offer{
-	
+
 
 
 	/**
@@ -30,7 +30,7 @@ class Offer{
 	 * })
 	 */
 	private $offerpage;
-	
+
 
 	/**
 	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Offerpage\Offer\Item\Item", mappedBy="offer")
@@ -60,21 +60,21 @@ class Offer{
     * @ORM\Column(name="slug", type="text", length=1024, nullable=true)
     */
     private $slug;
-    
+
     /**
      * @var text $excerpt
      *
      * @ORM\Column(name="excerpt", type="text", length=2555, nullable=true)
      */
     private $excerpt;
-    
+
    /**
     * @var text $body
     *
     * @ORM\Column(name="body", type="text", length=25555, nullable=true)
     */
     private $body;
-    
+
 
     /**
      * @var search $body
@@ -89,7 +89,7 @@ class Offer{
      * @ORM\Column(name="meta_title", type="text", length=2555, nullable=true)
      */
     private $meta_title;
-    
+
     /**
      * @var string $meta_description
      *
@@ -118,31 +118,31 @@ class Offer{
      * @ORM\Column(name="active",type="boolean")
      */
     private $active;
-    
+
     /**
      * @var boolean $is_published
      *
      * @ORM\Column(name="is_published",type="boolean")
      */
     private $is_published;
-    
+
     /**
      * @var boolean $show_homepage
      *
      * @ORM\Column(name="show_homepage",type="boolean")
      */
     private $show_homepage;
-    
+
    /**
     * @var string $btn_text
     *
     * @ORM\Column(name="btn_text", type="string", length=255, nullable=true)
     */
     private $btn_text;
-    
+
    /**
     * @var string $btn_action
-    * 
+    *
     *  'contact': redirect contactpage and add btn_contact_text in job description
     *  'int_redirect': open internal link
     *  'ext_redirect': open btn_link in a new tab
@@ -150,21 +150,21 @@ class Offer{
     * @ORM\Column(name="btn_action", type="string", length=255, nullable=true)
     */
     private $btn_action;
-    
+
    /**
     * @var string $btn_contact_text
     *
     * @ORM\Column(name="btn_contact_text", type="string", length=1024, nullable=true)
     */
     private $btn_contact_text;
-    
+
    /**
     * @var string $btn_link
     *
     * @ORM\Column(name="btn_link", type="string", length=1024, nullable=true)
     */
     private $btn_link;
-    
+
   /**
    * @var datetime $created
    *
@@ -176,8 +176,8 @@ class Offer{
 		$this->offerpage = $offerpage;
    	   	$this->items = new ArrayCollection();
        	$this->created = new \DateTime("now",new \DateTimeZone('Europe/London'));
-       	$this->active = false;	
-       	$this->publish = null;	
+       	$this->active = false;
+       	$this->publish = null;
        	$this->publish_until = null;
        	$this->is_published = false;
        	$this->show_homepage = false;
@@ -212,7 +212,7 @@ class Offer{
     {
         $this->offerpage = $offerpage;
     }
-    
+
     /**
      * Get Items
      *
@@ -226,7 +226,7 @@ class Offer{
     	$arr = $this->items->matching($criteria);
     	return $arr;
     }
-    
+
     /**
      * Get featured_item
      *
@@ -344,13 +344,19 @@ class Offer{
 			//check publidh date  is LT today
 			if( $now->getTimestamp() >= $this->publish->getTimestamp())
 				return $this->active;
-			else 
+			else
+				return false;
+		} else  if(is_null($this->publish)){
+			//check publidh date  is LT today
+			if( $now->getTimestamp() <= $this->publish_until->getTimestamp())
+				return $this->active;
+			else
 				return false;
 		} else {
 			//check publidh date  is LT today and publish until GT today
 			if( $now->getTimestamp() >= $this->publish->getTimestamp() && $now->getTimestamp() <= $this->publish_until->getTimestamp())
 				return $this->active;
-			else 
+			else
 				return false;
 		}
 		return $this->active;
@@ -369,7 +375,7 @@ class Offer{
 		$this->search = $search;
 		return $this;
 	}
-	
+
    /**
     * Get created
     *
@@ -407,7 +413,7 @@ class Offer{
 		$this->btn_link = $btn_link;
 		return $this;
 	}
-	
-	
-	
+
+
+
 }

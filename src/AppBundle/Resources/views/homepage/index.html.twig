@@ -116,7 +116,7 @@
 				{% elseif offerhomepage.btn_action == 'int_redirect' %}
                 	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" >{{offerhomepage.btn_text}}</a></div>
 				{% endif %}
-                
+
 		     </div>
 		</div>
 	</div>
@@ -135,7 +135,7 @@
 		</div>
 		<div class="row">
 			{% for review in reviews %}
-			<div class="{% if reviews|length == 2 %}col-sm-offset-2{% elseif  reviews|length == 1 %}col-sm-offset-4{% endif %}col-sm-4">
+			<div class="{% if reviews|length == 2 and loop.index = 1 %}col-sm-offset-2 {% elseif  reviews|length == 1 %}col-sm-offset-4 {% endif %} col-sm-4">
 				<div class="reviewbox">
 					<br>
 					<div class="rvbtop">
