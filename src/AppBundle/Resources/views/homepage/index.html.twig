@@ -135,7 +135,7 @@
 		</div>
 		<div class="row">
 			{% for review in reviews %}
-			<div class="{% if reviews|length == 2 and loop.index = 1 %}col-sm-offset-2 {% elseif  reviews|length == 1 %}col-sm-offset-4 {% endif %} col-sm-4">
+			<div class="{% if reviews|length == 2 and loop.index == 1 %}col-sm-offset-2 {% elseif  reviews|length == 1 %}col-sm-offset-4 {% endif %} col-sm-4">
 				<div class="reviewbox">
 					<br>
 					<div class="rvbtop">
