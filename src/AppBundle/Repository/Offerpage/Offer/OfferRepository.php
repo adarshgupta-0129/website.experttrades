@@ -93,11 +93,11 @@ class OfferRepository extends Repository{
 						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d') );
 					break;
 				case 'unpublished':
-						$data->andWhere('NOT((p.active =true AND (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NULL)'.
+						$data->andWhere('NOT(((p.active =true  AND (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NULL)'.
 						'OR (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
 						'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
 						'OR (p.publish IS NULL AND p.publish_until IS NULL )'.
-						'))');
+						')) OR p.active = false ');
 						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d')  );
 					break;
 			}
