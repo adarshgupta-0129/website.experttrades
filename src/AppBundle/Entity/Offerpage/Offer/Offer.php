@@ -313,6 +313,8 @@ class Offer{
 	}
 	public function setPublish($publish) {
 		$this->publish = $publish;
+		if(is_object($this->publish))
+			$this->publish->setTime('0','0');
 		return $this;
 	}
 	public function getPublishUntil() {
@@ -320,6 +322,8 @@ class Offer{
 	}
 	public function setPublishUntil($publish_until) {
 		$this->publish_until = $publish_until;
+		if(is_object($this->publish_until))
+			$this->publish_until->setTime('23','59');
 		return $this;
 	}
 	public function setActive($active) {

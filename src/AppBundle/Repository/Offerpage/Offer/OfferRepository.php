@@ -22,7 +22,7 @@ class OfferRepository extends Repository{
 				'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
 				'OR (p.publish IS NULL AND p.publish_until IS NULL )'.
 				')');
-		$data->setParameter('date_now' , (new \DateTime()) );
+		$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d') );
 
 		if(isset($filters['search']) && $filters['search'] != "" ){
 			$data->andWhere('p.search LIKE  :search');
@@ -90,6 +90,7 @@ class OfferRepository extends Repository{
 						'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
 						'OR (p.publish IS NULL AND p.publish_until IS NULL )'.
 						'))');
+						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d') );
 					break;
 				case 'unpublished':
 						$data->andWhere('NOT((p.active =true AND (p.publish IS NOT NULL AND p.publish <= :date_now AND p.publish_until IS NULL)'.
@@ -97,6 +98,7 @@ class OfferRepository extends Repository{
 						'OR (p.publish IS NULL AND p.publish_until IS NOT NULL AND p.publish_until >= :date_now )'.
 						'OR (p.publish IS NULL AND p.publish_until IS NULL )'.
 						'))');
+						$data->setParameter('date_now' , (new \DateTime())->format('Y-m-d')  );
 					break;
 			}
 		}
@@ -124,8 +126,10 @@ class OfferRepository extends Repository{
         	$result_offer['active'] = $offer->getActive();
         	$result_offer['is_published'] = $offer->isPublished();
         	$result_offer['publish'] = (is_null($offer->getPublish()))?null:$offer->getPublish()->getTimestamp();
+        	$result_offer['publish_f'] = (is_null($offer->getPublish()))?null:$offer->getPublish()->format('d-m-Y');
         	$result_offer['publish_until'] = (is_null($offer->getPublishUntil()))?null:$offer->getPublishUntil()->getTimestamp();
-        	$result_offer['meta_title'] = $offer->getMetaTitle();
+					$result_offer['publish_untilf'] = (is_null($offer->getPublishUntil()))?null:$offer->getPublishUntil()->format('d-m-Y');
+					$result_offer['meta_title'] = $offer->getMetaTitle();
         	$result_offer['meta_description'] = $offer->getMetaDescription();
         	$result_offer['btn_text'] = $offer->getBtnText();
         	$result_offer['btn_action'] = $offer->getBtnAction();
