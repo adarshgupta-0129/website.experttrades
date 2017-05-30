@@ -17,6 +17,12 @@
 .odd-section{
 	background-color: {{ website.darkColor }};
 }
+ .view-color{
+ 	margin:20px auto;
+ }
+ .offer-img{
+ 	margin-top:25px;
+ }
 </style>
 
 {% endblock %}
@@ -40,7 +46,7 @@
 		<div class="row" >
             {% if of.featured_image  is defined   and of.featured_image.url %}
 				<div class="col-sm-5">
-					<img src="{{ asset(of.featured_image.url) }}" alt="of.featured_image.title" class=""   style="width:100%;">
+					<img src="{{ asset(of.featured_image.url) }}" alt="{{of.featured_image.title}}" class="offer-img"   style="width:100%;">
 				</div>
             	<div class="col-sm-7">
 			{% else %}
@@ -89,7 +95,7 @@
 			</div>
             {% if of.featured_image  is defined   and of.featured_image.url %}
 				<div class="col-sm-5">
-					<img src="{{ asset(of.featured_image.url) }}" alt="of.featured_image.title" class=""   style="width:100%;">
+					<img src="{{ asset(of.featured_image.url) }}" alt="{{of.featured_image.title}}" class="offer-img"  style="width:100%;">
 				</div>
 			{% endif %}
 		</div>

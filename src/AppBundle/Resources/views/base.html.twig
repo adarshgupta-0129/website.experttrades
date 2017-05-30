@@ -811,7 +811,7 @@ text-decoration:none;
   .carousel-inner > .item > a > img{height: 180px;
       width: auto !important;
       max-width: inherit;}
-  .slide_button{width: 100%;}
+  .slide_button{width: 80%;}
   .slide_button a{text-align: left; padding: 0 0 0 5%;}
   .gfp{width: 100%;}
   .grp2{margin: 0 0 15px 0;}
@@ -838,8 +838,10 @@ text-decoration:none;
 	  color:#fff;
 	  border-radius:50%;
 	  padding: 5px;
-	  width: 64px;
 	}
+  	a.ctc-button i{
+	  	margin: 10px 15px;
+  	}
   }
 
   .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
@@ -1217,7 +1219,7 @@ Offers
 
 				{%  if website.callButton == 2  %}
 					<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
-					  <i class="fa fa-phone fa-2x" aria-hidden="true" style="margin: 5px 10px;"></i>
+					  <i class="fa fa-phone fa-2x" aria-hidden="true" ></i>
 					</a>
 				{%  endif  %}
 
