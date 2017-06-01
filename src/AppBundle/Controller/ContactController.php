@@ -76,7 +76,9 @@ class ContactController extends MainController
             $result = json_decode(curl_exec($ch), true);
             //close connection
             curl_close($ch);
-
+        	/*$result = [];
+        	$result['success'] = true;*/
+            
             if(isset($result['success']) && $result['success']){
 
                 if ($form->isValid()) {
@@ -107,9 +109,10 @@ class ContactController extends MainController
                       'email' => $quoteRequest->getEmail(),
                       'phone' => $quoteRequest->getPhone(),
                       'job_description' => $quoteRequest->getJobDescription(),
-                      'job_date' => (is_object($quoteRequest->getJobDate())) ? $quoteRequest->getJobDate()->format('Y-m-d H:i') : '',
+                      'job_date' => (is_object($quoteRequest->getJobDate())) ? $quoteRequest->getJobDate()->getTimestamp() : '',
                       'job_location' => $quoteRequest->getJobLocation(),
-                      'categories' => $categories
+                      'categories' => $categories,
+                      'from' => 'website_contact'
                     ]);
 
 
