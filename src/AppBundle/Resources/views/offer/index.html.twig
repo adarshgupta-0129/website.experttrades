@@ -84,7 +84,6 @@
 	                <div class="content" style="color:white;">
 	                	{{of.body|raw}}
 	               	</div>
-	               	{{of.btn_action}}
                	{% if of.btn_action == 'contact' %}
                 	<div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': of.btn_contact_text  } ) }}">{{of.btn_text}}</a></div>
 				{% elseif of.btn_action == 'ext_redirect' %}
