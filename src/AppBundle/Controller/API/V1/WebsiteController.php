@@ -701,8 +701,8 @@ $domain = 'testwebsite.com';
 	    	$em = $this->getDoctrine()->getManager();
 	    	$file = $request->files->get('file');
 	    	if(!is_null($file)) {
-	    		$new = true;
-	    		if( $new ) $item = new Item($request->request->get('type'));
+	    		$item = $em->getRepository('AppBundle\Entity\Item\Item')->findOneBy(array('storage' => $request->request->get('type')));
+	    		if( !is_object($item) ) $item = new Item($request->request->get('type'));
 	    		$item->setFile($file);
 	    		$item->upload();
 	    		$em->persist($item);
