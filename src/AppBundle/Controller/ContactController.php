@@ -59,87 +59,92 @@ class ContactController extends MainController
 
         $form->handleRequest($request);
         if($request->isMethod('POST')){
+        	try
+        	{
 
-            //open connection
-            $ch = curl_init();
-            //set the url, number of POST vars, POST data
-            curl_setopt($ch,CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-            curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query([
-            	'secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl',
-              'response' => $this->get('request')->request->get('g-recaptcha-response'),
-              'remoteip' => $this->container->get('request')->getClientIp()
-            ]));
-
-            //execute post
-            $result = json_decode(curl_exec($ch), true);
-            //close connection
-            curl_close($ch);
-        	/*$result = [];
-        	$result['success'] = true;*/
-            
-            if(isset($result['success']) && $result['success']){
-
-                if ($form->isValid()) {
-
-                    $quoteRequest->setJobDate(\DateTime::createFromFormat('d/m/Y',$form->get('job_date')->getData()));
-                    $em->persist($quoteRequest);
-                    $em->flush();
-
-                    $categories = [];
-                    foreach($form->get('job_categories')->getData() as $c){
-
-                        $jobCategory = $em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findOneBy(array('name' => $c));
-                        if(is_object($jobCategory)) {
-
-                            $categories[] = $jobCategory->getName();
-
-
-                            $category = new QuoteRequestCategory();
-                            $category->setQuoteRequest($quoteRequest);
-                            $category->setJobCategory($jobCategory);
-                            $em->persist($category);
-                            $em->flush();
-                        }
-                    }
-
-                    $data_string = json_encode([
-                      'name' => $quoteRequest->getName(),
-                      'email' => $quoteRequest->getEmail(),
-                      'phone' => $quoteRequest->getPhone(),
-                      'job_description' => $quoteRequest->getJobDescription(),
-                      'job_date' => (is_object($quoteRequest->getJobDate())) ? $quoteRequest->getJobDate()->getTimestamp() : '',
-                      'job_location' => $quoteRequest->getJobLocation(),
-                      'categories' => $categories,
-                      'from' => 'website_contact'
-                    ]);
-
-
-                    $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-                    $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Content-Length: ' . strlen($data_string))
-                    );
-
-
-                    $result = json_decode(curl_exec($ch), true);
-                    if( $result['code'] != 200 ){
-                    	$error = 'We can not send your quote request. Please contact using phone number or try again later.';
-                    } else
-                    	return $this->redirect($this->generateUrl('contact').'?sent=true');
-
-                }else{
-                  $error = 'Please fill the mandatory fields. (name, email and phone)';
-                }
-
-            }else{
-              $error = 'Please click on the "I am not a Robot" checkbox';
-            }
+	            //open connection
+	            $ch = curl_init();
+	            //set the url, number of POST vars, POST data
+	            curl_setopt($ch,CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+	            curl_setopt($ch, CURLOPT_POST, true);
+	            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+	            curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query([
+	            	'secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl',
+	              'response' => $this->get('request')->request->get('g-recaptcha-response'),
+	              'remoteip' => $this->container->get('request')->getClientIp()
+	            ]));
+	
+	            //execute post
+	            $result = json_decode(curl_exec($ch), true);
+	            //close connection
+	            curl_close($ch);
+	        	/*$result = [];
+	        	$result['success'] = true;*/
+	            
+	            if(isset($result['success']) && $result['success']){
+	
+	                if ($form->isValid()) {
+	
+	                    $quoteRequest->setJobDate(\DateTime::createFromFormat('d/m/Y',$form->get('job_date')->getData()));
+	                    $em->persist($quoteRequest);
+	                    $em->flush();
+	
+	                    $categories = [];
+	                    foreach($form->get('job_categories')->getData() as $c){
+	
+	                        $jobCategory = $em->getRepository('AppBundle\Entity\JobCategory\JobCategory')->findOneBy(array('name' => $c));
+	                        if(is_object($jobCategory)) {
+	
+	                            $categories[] = $jobCategory->getName();
+	
+	
+	                            $category = new QuoteRequestCategory();
+	                            $category->setQuoteRequest($quoteRequest);
+	                            $category->setJobCategory($jobCategory);
+	                            $em->persist($category);
+	                            $em->flush();
+	                        }
+	                    }
+	
+	                    $data_string = json_encode([
+	                      'name' => $quoteRequest->getName(),
+	                      'email' => $quoteRequest->getEmail(),
+	                      'phone' => $quoteRequest->getPhone(),
+	                      'job_description' => $quoteRequest->getJobDescription(),
+	                      'job_date' => (is_object($quoteRequest->getJobDate())) ? $quoteRequest->getJobDate()->getTimestamp() : '',
+	                      'job_location' => $quoteRequest->getJobLocation(),
+	                      'categories' => $categories,
+	                      'from' => 'website_contact'
+	                    ]);
+	
+	
+	                    $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+	                    $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
+	                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+	                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	                        'Content-Type: application/json',
+	                        'Content-Length: ' . strlen($data_string))
+	                    );
+	
+	
+	                    $result = json_decode(curl_exec($ch), true);
+	                    if( $result['code'] != 200 ){
+	                    	$error = 'We can not send your quote request. Please contact using phone number or try again later.';
+	                    } else
+	                    	return $this->redirect($this->generateUrl('contact').'?sent=true');
+	
+	                }else{
+	                  $error = 'Please fill the mandatory fields. (name, email and phone)';
+	                }
+	
+	            }else{
+	              $error = 'Please click on the "I am not a Robot" checkbox';
+	            }
+        	} catch( \Exception $e ) {
+        		$error = 'We can not send your quote request. Please contact using phone number or try again later.';
+        	}
         }
 
         $array_twig['id_page'] = 'contact_page';

@@ -14,4 +14,4 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    api_url: http://localhost:8888/experttrades/web/app_dev.php/api/v2/
+    api_url: http://api_local.experttrades.com/app_dev.php/api/v2/
