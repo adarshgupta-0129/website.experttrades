@@ -177,7 +177,13 @@
 				<div class="cbbbox ">
 					<div class="addr_icon"><i class="fa fa-phone fa-3x" style="color:white"></i></div>
 					<div class="addrs_info ">
-						<p><a href="tel:{{  contact.phone|split(',')[0] }}">{{ contact.phone |replace({',': '<br>'}) | raw }}</a></p>
+						<p>
+    						{% set phones = contact.phone|split(',') %}
+            		    	{%  for phone in phones %}
+            		    		{% if loop.index > 1 %} <br> {% endif %}
+            			    	<a href="tel:{{  phone| trim }}">{{ phone| trim  }}</a>
+            		    	{% endfor %}
+        		    	</p>
 					</div>
 				</div>
 			</div>
