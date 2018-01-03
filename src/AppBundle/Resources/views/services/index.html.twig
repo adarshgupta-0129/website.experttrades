@@ -1,134 +1,213 @@
 {% extends "AppBundle::base.html.twig" %}
 
 {% block header %}
-	<title>{{ service.metaTitle }}</title>
-	<meta name="description" content="{{ service.metaDescription }}">
+    <title>{{ service.metaTitle }}</title>
+    <meta name="description" content="{{ service.metaDescription }}">
 {% endblock %}
 
 {% block body %}
-{% if website.disabled %}
-{% include 'AppBundle:partials:website_disabled.html.twig' %}
-{% else %}
-<section class="innerpage_banner service_banner">
-	<div class="container">
-		<div class="banner_content_top">
-			<h1>{{ service.headerText }}</h1>
-		</div>
-		<div class="banner_content_bottom">
-			<p>{{ service.headerTitle }}</p>
-		</div>
-	</div>
-</section>
-<section class="service_page_panel">
-	<div class="container">
+    {% if website.disabled %}
+        {% include 'AppBundle:partials:website_disabled.html.twig' %}
+    {% else %}
+        <section class="innerpage_banner service_banner">
+            <div class="container">
+                <div class="banner_content_top">
+                    <h1>{{ service.headerText }}</h1>
+                </div>
+                <div class="banner_content_bottom">
+                    <p>{{ service.headerTitle }}</p>
+                </div>
+            </div>
+        </section>
+        <section class="service_page_panel">
+            <div class="container">
+                <div id="portfolio">
+                    <div class="row" id="rows_services">
+                        <div class="servicepage_box" >
+                            <div class="row">
+                                {% for item in items.data %}
+                                    <div class="col-sm-4">
+                                        <div class="row">
+                                            <div class="servicebox">
+                                                {% if item.path is not null %}
 
-		<div class="servicepage_box">
-			<div class="row">
-				{% for item in items.data %}
-					<div class="col-sm-4">
-						<div class="row">
-							<div class="servicebox">
-									{% if item.path is not null %}
+                                                    {% if item.pageActive and item.pageSlug %}
+                                                        <a class="img_link" href="{{ path('services_view', { slug : item.pageSlug }) }}">
+                                                            <img alt="{{ item.title }}" src="{{ asset('images/services/') }}{{ item.path }}">
+                                                        </a>
+                                                    {% else %}
+                                                        <img alt="{{ item.title }}" src="{{ asset('images/services/') }}{{ item.path }}">
+                                                    {% endif %}
 
-										{% if item.pageActive and item.pageSlug %}
-										<a class="img_link" href="{{ path('services_view', { slug : item.pageSlug }) }}">
-											<img alt="{{ item.title }}" src="{{ asset('images/services/') }}{{ item.path }}">
-										</a>
-										{% else %}
-											<img alt="{{ item.title }}" src="{{ asset('images/services/') }}{{ item.path }}">
-										{% endif %}
+                                                {% endif %}
+                                                <h2>{{ item.title }}</h2>
+                                                <p>{{ item.subtitle | raw }}</p>
+                                                {% if item.pageActive and item.pageSlug  %}
+                                                    <a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if loop.index is divisible by(3) %}
+                                    </div>
+                                </div>
+                                <div class="servicepage_box">
+                                    <div class="row">
+                                    {% endif  %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if service.typePagination == 2 %}
+                    <div class="row srvclk" >
+                        <div class="col-sm-12  text-center">
+                            <div class="row" id="load_more">
+                                <div class="col-sm-12  text-center"  >
+                                    <div class="slide_button" ><a  id="load_more_btn" >Load More</a></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    {% if items.total != 0%}
+                                        <div>
+                                            <ul class="pagination pagination-dark pagination-m ">
 
-									{% endif %}
-									<h2>{{ item.title }}</h2>
-									<p>{{ item.subtitle | raw }}</p>
-									{% if item.pageActive and item.pageSlug  %}
-										<a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
-									{% endif %}
-							</div>
-						</div>
-					</div>
-					{% if loop.index is divisible by(3) %}
-						</div>
-					</div>
-					<div class="servicepage_box">
-						<div class="row">
-					{% endif  %}
-				{% endfor %}
-					
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-sm-12 text-center">
-				{% if items.total != 0%}
-				<div>
-					<ul class="pagination pagination-dark pagination-m ">
+                                                <li {% if page == 1 %} class="disabled" {% endif %}>
+                                                    <a {% if page != 1 %} href="{{ path('services', { 'page': 1 } ) }}" {% endif %}>&laquo;</a>
+                                                </li>
+                                                {% if items.last_page < 8 %}
 
-								<li {% if page == 1 %} class="disabled" {% endif %}>
-									<a {% if page != 1 %} href="{{ path('services', { 'page': 1 } ) }}" {% endif %}>&laquo;</a>
-								</li>
-								{% if items.last_page < 8 %}
+                                                    {% for i in 1..items.last_page %}
+                                                        <li {%if i == page %} class="active" {% endif %}>
+                                                            <a href="{{ path('services', { 'page': i } ) }}">{{ i }}</a>
+                                                        </li>
+                                                    {% endfor %}
 
-										{% for i in 1..items.last_page %}
-												<li {%if i == page %} class="active" {% endif %}>
-													<a href="{{ path('services', { 'page': i } ) }}">{{ i }}</a>
-												</li>
-										{% endfor %}
+                                                {% else %}
+                                                    <!-- Page 1 -->
+                                                    <li {%if 1 == page %} class="active" {% endif %}>
+                                                        <a href="{{ path('services', { 'page': 1 } ) }}">1</a>
+                                                    </li>
+                                                    <!-- Page - 1 -->
+                                                    {% if items.last_page >= 2 %}
+                                                        {% set pageMinusOne = page -1 %}
 
-								{% else %}
-										 <!-- Page 1 -->
-										 <li {%if 1 == page %} class="active" {% endif %}>
-												<a href="{{ path('services', { 'page': 1 } ) }}">1</a>
-										 </li>
-										 <!-- Page - 1 -->
-										 {% if items.last_page >= 2 %}
-														{% set pageMinusOne = page -1 %}
+                                                        {% if page > 3 %}
+                                                            <li><a href="{{ path('services', { 'page': pageMinusOne }) }}">..</a></li>
+                                                            {% endif %}
 
-														{% if page > 3 %}
-														<li><a href="{{ path('services', { 'page': pageMinusOne }) }}">..</a></li>
-														{% endif %}
+                                                        {% if pageMinusOne >= 2 %}
+                                                            <li><a href="{{ path('services', { 'page': pageMinusOne }) }}">{{ pageMinusOne }}</a></li>
+                                                            {% endif %}
 
-														{% if pageMinusOne >= 2 %}
-														<li><a href="{{ path('services', { 'page': pageMinusOne }) }}">{{ pageMinusOne }}</a></li>
-														{% endif %}
+                                                        {% if page != 1 and page != items.last_page %}
+                                                            <li class="active" >
+                                                                <a href="{{ path('services', { 'page': page }) }}">{{ page }}</a>
+                                                            </li>
+                                                        {% endif %}
 
-														{% if page != 1 and page != items.last_page %}
-														<li class="active" >
-															<a href="{{ path('services', { 'page': page }) }}">{{ page }}</a>
-														</li>
-														{% endif %}
+                                                        {% set pagePlusOne = page +1 %}
+                                                        {% if pagePlusOne < items.last_page %}
+                                                            <li><a href="{{ path('services', { 'page': pagePlusOne }) }}">{{ pagePlusOne }}</a></li>
+                                                            {% endif %}
 
-														{% set pagePlusOne = page +1 %}
-														{% if pagePlusOne < items.last_page %}
-														<li><a href="{{ path('services', { 'page': pagePlusOne }) }}">{{ pagePlusOne }}</a></li>
-														{% endif %}
+                                                        {% set totalMinusTree = items.last_page -3 %}
+                                                        {% if page < totalMinusTree %}
+                                                            <li><a href="{{ path('services', { 'page': pagePlusOne }) }}">..</a></li>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    <!-- Page 1 -->
+                                                    <li {% if items.last_page == page %} class="active" {% endif %}>
+                                                        <a href="{{ path('services', { 'page': items.last_page }) }}">{{ items.last_page }}</a>
+                                                    </li>
 
-														{% set totalMinusTree = items.last_page -3 %}
-														{% if page < totalMinusTree %}
-														<li><a href="{{ path('services', { 'page': pagePlusOne }) }}">..</a></li>
-														{% endif %}
-										{% endif %}
-										<!-- Page 1 -->
-										<li {% if items.last_page == page %} class="active" {% endif %}>
-											<a href="{{ path('services', { 'page': items.last_page }) }}">{{ items.last_page }}</a>
-										</li>
+                                                {% endif %}
 
-								{% endif %}
+                                                <li {% if page == items.last_page %} class="disabled" {% endif %}>
+                                                    <a {% if page != items.last_page %} href="{{ path('services', { 'page': items.last_page } ) }}" {% endif %}>&raquo;</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif    %}
 
-								<li {% if page == items.last_page %} class="disabled" {% endif %}>
-									<a {% if page != items.last_page %} href="{{ path('services', { 'page': items.last_page } ) }}" {% endif %}>&raquo;</a>
-							 </li>
-				</ul>
-			</div>
-			{% endif %}
-			</div>
-		</div>
+                        <div class="team_click srvclk">
+                            <h2>Click below to get yourself a quote</h2>
+                            <div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">{{website.btnTxtGaq}}</a></div></div>
+                        </div>
+                    </div>
+                    </section>
+                {% endif %}
+            {% endblock %}
 
-		<div class="team_click srvclk">
-				<h2>Click below to get yourself a quote</h2>
-				<div class="teamq"><div class="slide_button"><a href="{{ path('contact') }}">{{website.btnTxtGaq}}</a></div></div>
-		</div>
-	</div>
-</section>
-{% endif %}
-{% endblock %}
+            {% block javascripts %}
+
+                <script type="text/javascript">
+                    $(function () {
+                    {% if service.typePagination == 2 %}
+                            //just make this action if the type pagination is show mor                e
+                            var page =                                 {{ page }}                ;
+                                    var last_page =                                 {{ items.last_page }}                ;
+                            var path = "{{ path('service_ajax') }}?page=";
+                            function loadMoreImages(loadmore) {
+                                if (page < last_page) {
+                                    $('#load_more').hide();
+                                    page = page + 1;
+                                    $.ajax({
+                                        url: path + page,
+                                        success: function (result) {
+                                            $("#rows_services").append(result);
+                                            actionButtons();
+                                            if (loadmore === true) {
+                                                loadMoreImages(loadmore);
+                                            }
+                                        }});
+                                }
+                            }
+                            function actionButtons() {
+                                if (page >= last_page) {
+                                    $('#load_more').hide();
+                                    $('#row_pag').hide();
+                                } else {
+
+                                    $('#load_more').show();
+                                    $('#row_pag').hide();
+                                }
+                            }
+                            /*reload images*/
+                            $(window).scroll(function () {
+                                var hT = $('#load_more').offset().top,
+                                        hH = $('#load_more').outerHeight(),
+                                        wH = $(window).height(),
+                                        wS = $(this).scrollTop();
+                                if (wS > (hT + hH - wH) && $('#load_more').is(":visible")) {
+                                    // ajax call get data from server and append to the div
+                                    loadMoreImages();
+                                }
+                            });
+                            $("#load_more_btn").click(function () {
+                                loadMoreImages();
+                            });
+                            actionButtons();
+                    {% endif %}
+
+                        });
+                        var getUrlParameter = function getUrlParameter(sParam) {
+                            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                                    sURLVariables = sPageURL.split('&'),
+                                    sParameterName,
+                                    i;
+                            for (i = 0; i < sURLVariables.length; i++) {
+                                sParameterName = sURLVariables[i].split('=');
+                                if (sParameterName[0] === sParam) {
+                                    return true; //sParameterName[1] === undefined ? true : sParameterName[1];
+                                }
+                            }
+                        };
+                </script>
+
+            {% endblock %}
