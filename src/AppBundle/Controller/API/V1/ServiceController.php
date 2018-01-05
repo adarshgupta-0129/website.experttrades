@@ -27,7 +27,8 @@ class ServiceController extends SecurityController {
                             'header_text' => $service->getHeaderText(),
                             'header_title' => $service->getHeaderTitle(),
                             'meta_title' => $service->getMetaTitle(),
-                            'meta_description' => $service->getMetaDescription()
+                            'meta_description' => $service->getMetaDescription(),
+                            'type_pagination' => $service->getTypePagination()
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -63,7 +64,7 @@ class ServiceController extends SecurityController {
                 $service->setMetaDescription($params['meta_description']);
             }
             if (isset($params['type_pagination'])) {
-                $gallery->setTypePagination($params['type_pagination']);
+                $service->setTypePagination($params['type_pagination']);
             }
 
 
