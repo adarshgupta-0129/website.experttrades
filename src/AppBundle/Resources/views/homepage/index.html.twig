@@ -29,10 +29,12 @@
             {% include  'AppBundle:homepage:slider_type_1.html.twig' %}
         {% elseif homepage.sliderType == 1 %}
             {% include  'AppBundle:homepage:slider_type_2.html.twig' %}
+        {% elseif homepage.sliderType == 2 %}
+            {% include  'AppBundle:homepage:slider_type_3.html.twig' %}
         {% endif %}
 
         {% if website.showAboutTab == true %}
-            <section {% if website.showReviewsTab == true %} class="bodybox1" {% else %} class="bodybox2"{% endif %}>
+            <section {% if website.showReviewsTab == true %} class="bodybox1" {% else %} class="bodybox2"{% endif %} id="aboutUs">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
@@ -205,7 +207,7 @@
             </section>
         {% endif %}
         {% if website.showServicesTab == true %}
-            <section class="bodybox3">
+            <section class="bodybox3" id="services">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
@@ -248,7 +250,7 @@
             </section>
         {% endif %}
         {% if website.showGalleryTab == true %}
-            <section class="bodybox2 bx23">
+            <section class="bodybox2 bx23" id="gallery">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
@@ -365,4 +367,5 @@
                         $('.contactmap iframe').css("pointer-events", "none");
                     });
                 </script>
+
             {% endblock %}
