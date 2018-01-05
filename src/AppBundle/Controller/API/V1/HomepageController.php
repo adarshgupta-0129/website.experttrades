@@ -208,7 +208,6 @@ class HomepageController extends SecurityController
         if (!empty($content))
         {
             $params = json_decode($content, true); // 2nd param to get as array
-
             if(isset($params['title'])){
               $slider->setTitle($params['title']);
             }
