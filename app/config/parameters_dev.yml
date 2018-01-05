@@ -5,7 +5,7 @@ parameters:
     database_port: 3306
     #database_name: anythingwithwood_co_uk
     database_name: website_expert_trades
-    database_password: experttrades
+    database_password: Exp3rttr4d3s!
     database_user: experttrades
     #database_password: root
     #database_user: root
