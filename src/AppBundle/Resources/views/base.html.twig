@@ -1399,9 +1399,9 @@
                         color: #fff;
                         font-weight: 400;
                         text-transform: uppercase;
-                        white-space: nowrap;
+                        {#                        white-space: nowrap;#}
                         font-size: 120px;
-                        line-height: 180px;
+                        line-height: 130px;
                         margin: 0px;
                     }
                     @media (min-width:768px) and (max-width:991px) {
@@ -1578,7 +1578,7 @@
                     </head>
                     <!-- NAVBAR
                     ================================================== -->
-                    <body id="{{ id_page }}" {% if homepage.sliderType == 2 %} data-spy="scroll" data-target=".navbar-fixed-top" style="overflow-x: hidden;" {% endif %}>
+                    <body id="{{ id_page }}" {% if homepage.sliderType == 2 %} data-spy="scroll" data-target=".navbar-fixed-top"  {% endif %}>
                         {% for script in scripts %}
                             {% if '<!-- add tag near body -->' in script.value %}
                                 {{ script.value |raw }}
