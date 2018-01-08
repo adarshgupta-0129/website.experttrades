@@ -1631,10 +1631,7 @@
                                 {{ script.value |raw }}
                             {% endif %}
                         {% endfor %}
-                        {#{% if homepage.sliderType == 2 %}
-                            <div class="overlay" onclick="closeOverlay()" style="display: none;"></div>
-                            {% include  'AppBundle:partials:header_fixed.html.twig' %}
-                        {% else %}#}
+                
                             {% if website.headerType == 0 %}
                                 {% include  'AppBundle:partials:header_light_type_1.html.twig' %}
                             {% elseif website.headerType == 1 %}
@@ -1644,10 +1641,8 @@
                             {% elseif website.headerType == 3 %}
                                 {% include  'AppBundle:partials:header_dark_type_2.html.twig' %}
                             {% elseif website.headerType == 4 %}
-                                <div class="overlay" onclick="closeOverlay()" style="display: none;"></div>
                                 {% include  'AppBundle:partials:header_fixed.html.twig' %}
                             {% endif %}
-{#                        {% endif %}#}
 
                         {% if website.disabled %}
                             {% include 'AppBundle:partials:website_disabled.html.twig' %}
