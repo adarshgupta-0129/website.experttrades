@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-md-4 text-center visible-xs">
-                <p class="contact_glyph"><i class="glyphicon glyphicon-phone"></i></p>
+                <p class="contact_glyph"><i class="glyphicon glyphicon-phone" style="color:{{ website.darkColor }}"></i></p>
                 <h5 class="text-uppercase small_head">Call Us</h5>
                 <p class="contact_details">{% set contacts = contact.phone|split(',') %}
                     {% for contact in contacts %}
@@ -17,7 +17,7 @@
                     {%endfor%}</p>
             </div>
             <div class="col-md-4 text-center hidden-xs">
-                <p class="contact_glyph"><i class="glyphicon glyphicon-phone"></i></p>
+                <p class="contact_glyph"><i class="glyphicon glyphicon-phone" style="color:{{ website.darkColor }}"></i></p>
                 <h5 class="text-uppercase small_head">Call Us</h5>
                 <p class="contact_details">{{ contact.phone |replace({',': '<br>'}) | raw }}</p>
             </div>
