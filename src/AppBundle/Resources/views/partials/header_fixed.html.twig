@@ -1,7 +1,7 @@
 {#<button type="button" class="navbar-toggle fixed-toggle" data-toggle="collapse">
     <a href="#x" id="slide" class="mobile-menu-style"><i class="fa fa-bars"></i></a>  
 </button>#}
-<nav class="navbar navbar-default navbar-fixed-top new-nav" role="navigation">
+<nav class="navbar navbar-default {% if id_page == "home_page" %} navbar-fixed-top {% else %} nav-inner {% endif %} new-nav" role="navigation">
     <div class="container">
 
         <div class="navbar-header page-scroll">

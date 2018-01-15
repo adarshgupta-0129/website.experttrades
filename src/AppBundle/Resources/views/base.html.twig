@@ -1323,12 +1323,12 @@
                         transition:all 0.2s ease-in-out;
                     }
                     .nav-new .navbar-nav>.active>a, .nav-new .navbar-nav>.active>a:hover, .nav-new .navbar-nav>.active>a:focus {
-    color: #FFFFFF !important;
-    background-color: transparent !important;
-}
-.nav-new li.active {
-    border-color: #FFF !important;
-}
+                        color: #FFFFFF !important;
+                        background-color: transparent !important;
+                    }
+                    .nav-new li.active {
+                        border-color: #FFF !important;
+                    }
                     ul.menu li a:hover{
                         background:#FFF;
                     }
@@ -1479,10 +1479,11 @@
                             display: inline-block;
                         }
                     }
-                    @media(max-width:768px) {
+                    @media(max-width:767px) {
                         .new-nav{
                             background-color: #252325;
                         }
+
                         .new-nav .navbar-brand {
                             color: #fff !important;
                             margin-top: 3px;
@@ -1511,6 +1512,7 @@
                             color: #FFFFFF;
                             border:none;
                         }
+
                     }
                     .new-nav .navbar-right {
                         margin-top: 0px;
@@ -1565,7 +1567,7 @@
                         margin-top:60px;
                         margin-bottom:40px;
                     }
-                    
+
                     .new-nav .navbar-nav>.active>a, .new-nav .navbar-nav>.active>a:hover, .new-nav .navbar-nav>.active>a:focus, .new-nav .navbar-nav>a:focus {
                         color: #FFF !important;
                         background-color: transparent !important;
@@ -1576,7 +1578,7 @@
                     .new-nav li.active {
                         border-color:white;
                     }
-                    
+
                     .top-nav-collapse .navbar-nav>.active>a, .top-nav-collapse .navbar-nav>.active>a:hover, .new-nav .navbar-nav>.active>a:focus, .top-nav-collapse .navbar-nav>a:focus {
                         color: #111111 !important;
                         background-color: transperent !important;
@@ -1584,17 +1586,46 @@
                     .top-nav-collapse li a, .top-nav-collapse li a:hover {
                         color:#111111 !important;
                     }
-                    @media(min-width:768px) {
-.new-nav .navbar-collapse {
-    padding: 20px 0 0;
-}
-}
-.navbar-nav>li>.dropdown-menu{    background: #252325;}
-.new-nav .dropdown-menu li a, .new-nav .dropdown-menu li a:hover {
-   color: #ffffff !important;
-    background: transparent;
-}
-                    
+
+                    .nav-inner li a, .nav-inner li a:hover {
+                        color: #111111 !important;
+                    } 
+
+                    .nav-inner .navbar-nav>.active>a, .nav-inner .navbar-nav>.active>a:hover, .nav-inner .navbar-nav>.active>a:focus, .nav-inner .navbar-nav>a:focus
+                    {
+                        color: #000 !important;
+                        background-color: transparent !important;
+                        border-bottom: 2px solid #000;
+                    }
+
+
+                    @media only screen and (min-width:320px) and (max-width:767px){
+                        .new-nav .navbar-collapse {
+                            overflow: hidden;
+                            max-height: 100vh; 
+                        }
+
+                        .nav-inner li a, .nav-inner li a:hover {
+                            color: #ffffff !important;
+                        }
+
+                        .nav-inner .navbar-nav>.active>a, .nav-inner .navbar-nav>.active>a:hover, .nav-inner .navbar-nav>.active>a:focus, .nav-inner .navbar-nav>a:focus {
+                            color: #fff !important;}
+
+                    }
+
+
+                    .new-nav .navbar-fixed-top .navbar-collapse {
+                        max-height:100vh !important;
+                    }
+                    .navbar-nav>li>.dropdown-menu{    background: #252325;}
+                    .new-nav .dropdown-menu li a, .new-nav .dropdown-menu li a:hover {
+                        color: #ffffff !important;
+                        background: transparent;
+                    }
+
+
+
                 </style>
 
 
@@ -1633,18 +1664,18 @@
                                 {{ script.value |raw }}
                             {% endif %}
                         {% endfor %}
-                
-                            {% if website.headerType == 0 %}
-                                {% include  'AppBundle:partials:header_light_type_1.html.twig' %}
-                            {% elseif website.headerType == 1 %}
-                                {% include  'AppBundle:partials:header_light_type_2.html.twig' %}
-                            {% elseif website.headerType == 2 %}
-                                {% include  'AppBundle:partials:header_dark_type_1.html.twig' %}
-                            {% elseif website.headerType == 3 %}
-                                {% include  'AppBundle:partials:header_dark_type_2.html.twig' %}
-                            {% elseif website.headerType == 4 %}
-                                {% include  'AppBundle:partials:header_fixed.html.twig' %}
-                            {% endif %}
+
+                        {% if website.headerType == 0 %}
+                            {% include  'AppBundle:partials:header_light_type_1.html.twig' %}
+                        {% elseif website.headerType == 1 %}
+                            {% include  'AppBundle:partials:header_light_type_2.html.twig' %}
+                        {% elseif website.headerType == 2 %}
+                            {% include  'AppBundle:partials:header_dark_type_1.html.twig' %}
+                        {% elseif website.headerType == 3 %}
+                            {% include  'AppBundle:partials:header_dark_type_2.html.twig' %}
+                        {% elseif website.headerType == 4 %}
+                            {% include  'AppBundle:partials:header_fixed.html.twig' %}
+                        {% endif %}
 
                         {% if website.disabled %}
                             {% include 'AppBundle:partials:website_disabled.html.twig' %}
@@ -1814,6 +1845,22 @@
                                     });
                                 });
 
+                            {% if id_page != "home_page" %}
+                                $(window).scroll(function () {
+                                    var scroll = $(window).scrollTop();
+
+                                    if (scroll >= 5)
+                                    {
+                                        $('.navbar').removeClass('nav-inner');
+                                        $('.navbar').addClass('navbar-fixed-top');
+                                    } else {
+                                        $('.navbar').addClass('nav-inner');
+                                        $('.navbar').removeClass('navbar-fixed-top');
+                                    }
+
+                                });
+                            {% endif %}
+
 
                             });
                             function closeOverlay()
@@ -1825,7 +1872,11 @@
                                 hidden1.fadeOut(500);
                                 //$(".overlay").css('display','none');
                             }
+
+
                         </script>
+
+
 
                     {% endif %}
 
