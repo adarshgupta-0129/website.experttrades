@@ -1,462 +1,370 @@
 {% extends "AppBundle::base.html.twig" %}
 
 {% block header %}
-	<title>{{ homepage.metaTitle }}</title>
-	<meta name="description" content="{{ homepage.metaDescription }}">
+    <title>{{ homepage.metaTitle }}</title>
+    <meta name="description" content="{{ homepage.metaDescription }}">
 
     <meta property="og:url" content="{{ url('homepage') }}" />
-	<meta property="og:site_name" content="{{ homepage.metaTitle }}" />
-	<meta property="og:type" content="website" />
-	<meta property="og:title" content="{{ homepage.metaTitle }}" />
-	<meta property="og:description" content="{{ homepage.metaDescription }}" />
-	<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
+    <meta property="og:site_name" content="{{ homepage.metaTitle }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ homepage.metaTitle }}" />
+    <meta property="og:description" content="{{ homepage.metaDescription }}" />
+    <meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(facebook_image) }}" />
 
     <meta name="twitter:card" content="summary_large_image">
     {% if website.twitterPage %}<meta name="twitter:site" content="{{ website.twitterPage }}">{% endif %}
-	<meta name="twitter:title" content="{{ homepage.metaTitle }}">
-	<meta name="twitter:description" content="{{ homepage.metaDescription }}">
-	<meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
-	<meta name="twitter:domain" content="{{ app.request.host }}">
+    <meta name="twitter:title" content="{{ homepage.metaTitle }}">
+    <meta name="twitter:description" content="{{ homepage.metaDescription }}">
+    <meta name="twitter:image:src" content="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset(twitter_image) }}">
+    <meta name="twitter:domain" content="{{ app.request.host }}">
 
 {% endblock %}
 
 {% block body %}
-{% if website.disabled %}
-{% include 'AppBundle:partials:website_disabled.html.twig' %}
-{% else %}
+    {% if website.disabled %}
+        {% include 'AppBundle:partials:website_disabled.html.twig' %}
+    {% else %}
 
-{% if homepage.sliderType == 0 %}
-	{% include  'AppBundle:homepage:slider_type_1.html.twig' %}
-{% elseif homepage.sliderType == 1 %}
-	{% include  'AppBundle:homepage:slider_type_2.html.twig' %}
-{% endif %}
+        {% if homepage.sliderType == 0 %}
+            {% include  'AppBundle:homepage:slider_type_1.html.twig' %}
+        {% elseif homepage.sliderType == 1 %}
+            {% include  'AppBundle:homepage:slider_type_2.html.twig' %}
+        {% elseif homepage.sliderType == 2 %}
+            {% include  'AppBundle:homepage:slider_type_3.html.twig' %}
+        {% endif %}
+        {% if website.showAboutTab == true %}
+            <section {% if website.showReviewsTab == true %} class="bodybox1" {% else %} class="bodybox2"{% endif %} id="aboutUs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="about_head" >
+                                <h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsTitle }}</h2>
+                                <p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsText | raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="about_body_left">
+                                {% if aboutUs.path is not null %}
+                                    <img src="{{ asset('images/about_us/') }}{{ aboutUs.path }}" alt="About Us" />
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="about_body_right">
+                                <div class="abtr">
+                                    <div class="abtrpic">
+                                        <i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsFirstPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
+                                    </div>
+                                    <div class="abtrinfo">
+                                        <h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
+                                        <p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsFirstPointText }}</p>
+                                    </div>
+                                </div>
+                                <div class="abtr">
+                                    <div class="abtrpic">
+                                        <i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsSecondPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
+                                    </div>
+                                    <div class="abtrinfo">
+                                        <h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
+                                        <p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsSecondPointText }}</p>
+                                    </div>
+                                </div>
+                                <div class="abtr">
+                                    <div class="abtrpic">
+                                        <i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsThirdPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
+                                    </div>
+                                    <div class="abtrinfo">
+                                        <h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
+                                        <p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsThirdPointText }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if offerhomepage is defined %}
 
-{% if website.showAboutTab == true %}
-<section {% if website.showReviewsTab == true %} class="bodybox1" {% else %} class="bodybox2"{% endif %}>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="about_head" >
-					<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsTitle }}</h2>
-					<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsText | raw }}</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="about_body_left">
-					{% if aboutUs.path is not null %}
-					<img src="{{ asset('images/about_us/') }}{{ aboutUs.path }}" alt="About Us" />
-					{% endif %}
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="about_body_right">
-					<div class="abtr">
-						<div class="abtrpic">
-							<i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsFirstPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
-						</div>
-						<div class="abtrinfo">
-							<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsFirstPointTitle }}</h2>
-							<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsFirstPointText }}</p>
-						</div>
-					</div>
-					<div class="abtr">
-						<div class="abtrpic">
-							<i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsSecondPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
-						</div>
-						<div class="abtrinfo">
-							<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsSecondPointTitle }}</h2>
-							<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsSecondPointText }}</p>
-						</div>
-					</div>
-					<div class="abtr">
-						<div class="abtrpic">
-							<i {% if website.showReviewsTab == false %} style="color:white" {% endif %} class="fa {{ aboutUs.aboutUsThirdPointImage }} fa-4x" style="color:{{ website.darkColor }}"></i>
-						</div>
-						<div class="abtrinfo">
-							<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsThirdPointTitle }}</h2>
-							<p {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ aboutUs.aboutUsThirdPointText }}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-{% endif %}
-{% if offerhomepage is defined %}
+            <section class="bodybox3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="about_head" >
+                                <h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ offer.headerTitle }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        {% if offerhomepage.featured_image  is defined   and offerhomepage.featured_image.url %}
+                            <div class="col-sm-5">
+                                <img src="{{ asset(offerhomepage.featured_image.url) }}" alt="offerhomepage.featured_image.title" class=""   style="width:100%;">
+                            </div>
+                            <div class="col-sm-7">
+                            {% else %}
+                                <div class="col-sm-offset-2 col-sm-8" >
+                                {% endif %}
+                                <h2>{{offerhomepage.title}}</h2>
+                                <div class="content">
+                                    {{offerhomepage.body|raw}}
+                                </div>
+                                {% if offerhomepage.btn_action == 'contact' %}
+                                    <div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': offerhomepage.btn_contact_text  } ) }}">{{offerhomepage.btn_text}}</a></div>
+                                    {% elseif offerhomepage.btn_action == 'ext_redirect' %}
+                                    <div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" target="_blank">{{offerhomepage.btn_text}}</a></div>
+                                    {% elseif offerhomepage.btn_action == 'int_redirect' %}
+                                    <div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" >{{offerhomepage.btn_text}}</a></div>
+                                    {% endif %}
 
-<section class="bodybox3">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="about_head" >
-					<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ offer.headerTitle }}</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row" >
-            {% if offerhomepage.featured_image  is defined   and offerhomepage.featured_image.url %}
-				<div class="col-sm-5">
-					<img src="{{ asset(offerhomepage.featured_image.url) }}" alt="offerhomepage.featured_image.title" class=""   style="width:100%;">
-				</div>
-            	<div class="col-sm-7">
-			{% else %}
-            	<div class="col-sm-offset-2 col-sm-8" >
-			{% endif %}
-					<h2>{{offerhomepage.title}}</h2>
-	                <div class="content">
-	                	{{offerhomepage.body|raw}}
-	               	</div>
-               	{% if offerhomepage.btn_action == 'contact' %}
-                	<div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': offerhomepage.btn_contact_text  } ) }}">{{offerhomepage.btn_text}}</a></div>
-				{% elseif offerhomepage.btn_action == 'ext_redirect' %}
-                	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" target="_blank">{{offerhomepage.btn_text}}</a></div>
-				{% elseif offerhomepage.btn_action == 'int_redirect' %}
-                	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" >{{offerhomepage.btn_text}}</a></div>
-				{% endif %}
-                
-		     </div>
-		</div>
-	</div>
-</section>
-{% endif %}
-{% if website.showReviewsTab == true %}
-<section class="bodybox2">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="review_head">
-					<h2>{{ homepage.reviewsTitle }}</h2>
-					<p style="color:white">{{ homepage.reviewsSubtitle | raw }}</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			{% for review in reviews %}
-			<div class="{% if reviews|length == 2 %}col-sm-offset-2{% elseif  reviews|length == 1 %}col-sm-offset-4{% endif %}col-sm-4">
-				<div class="reviewbox">
-					<br>
-					<div class="rvbtop">
-						{% for img in review.stars('total', 'star.png') %}
-							<img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
-						{% endfor %}
-						<h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
-						<br>
-						<h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
-						<br>
-						<p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        {% endif %}
+        {% if website.showReviewsTab == true %}
+            <section class="bodybox2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="review_head">
+                                <h2>{{ homepage.reviewsTitle }}</h2>
+                                <p style="color:white">{{ homepage.reviewsSubtitle | raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for review in reviews %}
+                            <div class="{% if reviews|length == 2 %}col-sm-offset-2{% elseif  reviews|length == 1 %}col-sm-offset-4{% endif %}col-sm-4">
+                                <div class="reviewbox">
+                                    <br>
+                                    <div class="rvbtop">
+                                        {% for img in review.stars('total', 'star.png') %}
+                                            <img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
+                                        {% endfor %}
+                                        <h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
+                                        <br>
+                                        <h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
+                                        <br>
+                                        <p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
 
-					</div>
-					<div class="rvmid">
-						<div class="rvmdinr">
-							<span>Time management </span>
-							{% for img in review.stars('time_management') %}
-									 <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Time Management"></a>
-							{% endfor %}
-						</div>
-						<div class="rvmdinr">
-							<span>Tidiness</span>
-							{% for img in review.stars('tidiness') %}
-									 <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Tidiness"></a>
-							{% endfor %}
-						</div>
-						<div class="rvmdinr">
-							<span>Friendly Rating</span>
-							{% for img in review.stars('friendly') %}
-									 <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Friendly rating"></a>
-							{% endfor %}
-						</div>
-						<div class="rvmdinr">
-							<span>Value Rating</span>
-							{% for img in review.stars('value') %}
-									 <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Value Rating"></a>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="rvbottom">
-						<p>{{ review.message |slice(0, 230) }} {% if review.message |length > 230 %}...{% endif %}</p>
-					</div>
-					<div class="rvsocial">
-						<span>Share :</span>
-						<a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Facebook">
-						<i class="fa fa-facebook-square fa-2x social_icons_review_home "  alt="Share On Facebook" ></i>
-						</a>
-						<a href="https://twitter.com/intent/tweet?text=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Twitter">
-						<i class="fa fa-twitter-square fa-2x social_icons_review_home "  alt="Share On Twitter" ></i>
-						</a>
-					</div>
+                                    </div>
+                                    <div class="rvmid">
+                                        <div class="rvmdinr">
+                                            <span>Time management </span>
+                                            {% for img in review.stars('time_management') %}
+                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Time Management"></a>
+                                                {% endfor %}
+                                        </div>
+                                        <div class="rvmdinr">
+                                            <span>Tidiness</span>
+                                            {% for img in review.stars('tidiness') %}
+                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Tidiness"></a>
+                                                {% endfor %}
+                                        </div>
+                                        <div class="rvmdinr">
+                                            <span>Friendly Rating</span>
+                                            {% for img in review.stars('friendly') %}
+                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Friendly rating"></a>
+                                                {% endfor %}
+                                        </div>
+                                        <div class="rvmdinr">
+                                            <span>Value Rating</span>
+                                            {% for img in review.stars('value') %}
+                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Value Rating"></a>
+                                                {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="rvbottom">
+                                        <p>{{ review.message |slice(0, 230) }} {% if review.message |length > 230 %}...{% endif %}</p>
+                                    </div>
+                                    <div class="rvsocial">
+                                        <span>Share :</span>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Facebook">
+                                            <i class="fa fa-facebook-square fa-2x social_icons_review_home "  alt="Share On Facebook" ></i>
+                                        </a>
+                                        <a href="https://twitter.com/intent/tweet?text=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Twitter">
+                                            <i class="fa fa-twitter-square fa-2x social_icons_review_home "  alt="Share On Twitter" ></i>
+                                        </a>
+                                    </div>
 
 
-				</div>
-			</div>
-	    {% endfor %}
-		</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
 
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="view">
-					<a href="{{ path('reviews') }}">View more reviews +</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-{% endif %}
-{% if website.showServicesTab == true %}
-<section class="bodybox3">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="about_head">
-					<h2>{{ homepage.servicesTitle }}</h2>
-					<p>{{ homepage.servicesSubtitle | raw }}</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			{% for item in services %}
-			<div class="col-sm-4">
-				<div class="row">
-					<div class="servicebox servicebox_home">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="view">
+                                <a href="{{ path('reviews') }}">View more reviews +</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if website.showServicesTab == true %}
+            <section class="bodybox3" id="services">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="about_head">
+                                <h2>{{ homepage.servicesTitle }}</h2>
+                                <p>{{ homepage.servicesSubtitle | raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for item in services %}
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="servicebox servicebox_home">
 
-					{% if item.path is not null %}
-					<img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" />
-					{% endif %}
-					<h2>{{ item.title }}</h2>
-					<p>{{ item.subtitle |striptags | slice(0, 200) | raw}} {% if item.subtitle |length > 200%}...{% endif %}</p>
-					{% if item.pageActive and item.pageSlug %}
-						<a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
-					{% else %}
-						<a href="{{ path('services') }}">Learn more +</a>
-					{% endif %}
-				</div>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
+                                        {% if item.path is not null %}
+                                            <img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" />
+                                        {% endif %}
+                                        <h2>{{ item.title }}</h2>
+                                        <p>{{ item.subtitle |striptags | slice(0, 200) | raw}} {% if item.subtitle |length > 200%}...{% endif %}</p>
+                                        {% if item.pageActive and item.pageSlug %}
+                                            <a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
+                                        {% else %}
+                                            <a href="{{ path('services') }}">Learn more +</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
 
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="view-color">
-					<a href="{{ path('services') }}">View more services +</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-{% endif %}
-{% if website.showGalleryTab == true %}
-<section class="bodybox2 bx23">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="review_head">
-					<h2>{{ homepage.galleryTitle }}</h2>
-					<p style="color:white">{{ homepage.gallerySubtitle | raw }}</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			{% for key,item in images %}
-				{% if item.path is not null %}
-					{% if landscape %}
-						<div class="col-sm-3">
-							<div class="jobpic landscape_all">
-								<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
-								<div class="jbhover">
-									<h2>{{ item.title }}</h2>
-									<a href="{{ path('gallery') }}">View More</a>
-								</div>
-							</div>
-						</div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="view-color">
+                                <a href="{{ path('services') }}">View more services +</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% if website.showGalleryTab == true %}
+            <section class="bodybox2 bx23" id="gallery">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="review_head">
+                                <h2>{{ homepage.galleryTitle }}</h2>
+                                <p style="color:white">{{ homepage.gallerySubtitle | raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for key,item in images %}
+                            {% if item.path is not null %}
+                                {% if landscape %}
+                                    <div class="col-sm-3">
+                                        <div class="jobpic landscape_all">
+                                            <img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
+                                            <div class="jbhover">
+                                                <h2>{{ item.title }}</h2>
+                                                <a href="{{ path('gallery') }}">View More</a>
+                                            </div>
+                                        </div>
+                                    </div>
 
-					{% elseif portrait  %}
-						<div class="col-sm-3">
-							<div class="jobpic portrait_all">
-								<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
-								<div class="jbhover">
-									<h2>{{ item.title }}</h2>
-									<a href="{{ path('gallery') }}">View More</a>
-								</div>
-							</div>
-						</div>
-					{% else   %}
-						<div class="col-sm-3">
-							<div class="jobpic {{pos_items[key]}}">
-								<img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
-								<div class="jbhover">
-									<h2>{{ item.title }}</h2>
-									<a href="{{ path('gallery') }}">View More</a>
-								</div>
-							</div>
-						</div>
-					{% endif %}
-				{% endif %}
-			{% endfor %}
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="view">
-					<a href="{{ path('gallery') }}">View more gallery +</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-{% endif %}
-{% if website.showContactTab == true %}
-<section id="bodybox3" class="bodybox3">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="about_head">
-					<h2>{{ homepage.contactUsTitle }}</h2>
-					<p>{{ homepage.contactUsSubtitle | raw }}</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="contact_left">
-				<div class="row">
-					<div class="cppic2">
-						<i class="fa fa-map-marker fa-2x" style="color:{{ website.darkColor }}"></i>
-					</div>
-					<div class="cpinfo2">
-						<p>{{ contact.addressFirstLine }}
-						<br>{{ contact.addressSecondLine }}</p>
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="cppic2">
-						<a href="mailto:{{ contact.email }}"><i class="fa fa-envelope fa-2x" style="color:{{ website.darkColor }}"></i></a>
-					</div>
-				  <div class="cpinfo2">
-						<a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-					</div>
-				</div>
+                            {% elseif portrait  %}
+                                <div class="col-sm-3">
+                                    <div class="jobpic portrait_all">
+                                        <img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
+                                        <div class="jbhover">
+                                            <h2>{{ item.title }}</h2>
+                                            <a href="{{ path('gallery') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else   %}
+                                <div class="col-sm-3">
+                                    <div class="jobpic {{pos_items[key]}}">
+                                        <img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}" />
+                                        <div class="jbhover">
+                                            <h2>{{ item.title }}</h2>
+                                            <a href="{{ path('gallery') }}">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="view">
+                            <a href="{{ path('gallery') }}">View more gallery +</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    {% if website.showContactTab == true %}
+        {% include  'AppBundle:homepage:contact_form.html.twig' %}
+    {% endif %}
 
-				<br>
-				<div class="row">
-					<div class="cppic2">
-						<i class="fa fa-phone fa-2x" style="color:{{ website.darkColor }}"></i>
-					</div>
-				  <div class="cpinfo2">
-							{{ contact.phone |replace({',': '<br><br>'}) | raw }}
-				  </div>
-				</div>
-				<br><br>
-				{%  if website.callButton == 0 or website.callButton == 1  %}
-					<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
-					  <i class="fa fa-phone fa-2x" aria-hidden="true" style="margin: 5px 10px;"></i>
-					</a>
-				{%  endif  %}
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="contact_right">
-				<form method="POST" name="contactForm" action="{{ path('homepage') }}#bodybox3">
-				  <div class="row">
-						<div class="form-group col-sm-6">
-							{{ form_widget(contact_form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Name' , 'ng-model' : 'contact.name'} }) }}
-				  		</div>
-					  <div class="form-group  col-sm-6">
-					    	{{ form_widget(contact_form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Email' , 'ng-model' : 'contact.email'} }) }}
-					  </div>
-				  </div>
-				  <div class="row">
-					<div class="form-group col-sm-12">
-				    	{{ form_widget(contact_form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Phone Number' , 'ng-model' : 'contact.phone'} }) }}
-				  	</div>
-				  </div>
-				  <div class="row">
-					<div class="form-group col-sm-12">
-							{{ form_widget(contact_form.message, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Message' , 'ng-model' : 'contact.message' } }) }}
-				  	</div>
-				  </div>
-
-					<br>
-					{% if contactError %}
-					<div class="row">
-							<div class="col-md-12">
-								<div class="alert alert-danger text-center">{{ contactError }}</div>
-						</div>
-					</div>
-					<br>
-					{% endif %}
-					<div class="row">
-						<div class="col-md-12 text-center">
-								<div class="g-recaptcha" data-sitekey="6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn" data-stoken=" {{ secureToken }}"></div>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-							<div class="col-md-12">
-							  <button ng-disabled="contactForm.$invalid" type="submit" class="btn btn-default">Submit</button>
-							</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</section>
-{% endif %}
-
-{% if findMeOns | length > 0
+        {% if findMeOns | length > 0
 	or homepage.findMeOnTitle | length > 0
 		or homepage.findMeOnSubtitle | length > 0 %}
 
-<section class="bodybox4">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="find_us_head">
-					<h2 style="color:white">{{ homepage.findMeOnTitle }}</h2>
-					<p style="color:white">{{ homepage.findMeOnSubtitle | raw }}</p>
-				</div>
-			</div>
-		</div>
+        <section class="bodybox4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="find_us_head">
+                            <h2 style="color:white">{{ homepage.findMeOnTitle }}</h2>
+                            <p style="color:white">{{ homepage.findMeOnSubtitle | raw }}</p>
+                        </div>
+                    </div>
+                </div>
 
-		<div class="row">
-		{% for findMeOn in findMeOns %}
-	    <div class="col-xs-12 col-sm-6 col-md-3">
-	        <a href="{{ findMeOn.link }}" target="_blank" class="thumbnail">
-							<img class="img-responsive" src="{{ asset('images/find_me_on/') }}{{ findMeOn.path }}" />
-	        </a>
-	    </div>
-		{% endfor %}
-	  </div>
-		<br>
+                <div class="row">
+                    {% for findMeOn in findMeOns %}
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <a href="{{ findMeOn.link }}" target="_blank" class="thumbnail">
+                                <img class="img-responsive" src="{{ asset('images/find_me_on/') }}{{ findMeOn.path }}" />
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <br>
 
-	</div>
-</section>
-{% endif %}
+            </div>
+        </section>
+    {% endif %}
 
-<section class="contactmap">
-	<iframe src="{{gmaps}}" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
-</section>
+    <section class="contactmap">
+        <iframe src="{{gmaps}}" width="100%" height="310" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </section>
 
-{% endif %}
-{% endblock %}
+    {% endif %}
+        {% endblock %}
 
-{% block javascripts %}
+            {% block javascripts %}
 
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js'></script>
-<script>
-var app = angular.module('app', [])
-.controller('MainCtrl',
-function($rootScope, $scope) {
-  $scope.contact = {};
-});
+                <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js'></script>
+                <script>
+                    var app = angular.module('app', [])
+                            .controller('MainCtrl',
+                                    function ($rootScope, $scope) {
+                                        $scope.contact = {};
+                                    });
 
-$('.contactmap').click(function () {
-    $('.contactmap iframe').css("pointer-events", "auto");
-});
+                    $('.contactmap').click(function () {
+                        $('.contactmap iframe').css("pointer-events", "auto");
+                    });
 
-$( ".contactmap" ).mouseleave(function() {
-  $('.contactmap iframe').css("pointer-events", "none");
-});
-</script>
-{% endblock %}
+                    $(".contactmap").mouseleave(function () {
+                        $('.contactmap iframe').css("pointer-events", "none");
+                    });
+                </script>
+
+            {% endblock %}

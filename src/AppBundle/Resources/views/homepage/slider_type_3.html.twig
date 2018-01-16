@@ -1,0 +1,64 @@
+{% for slider in homepage.sliders %}
+    {% if loop.index == 1 %}
+        <section id="page-top" class="hero-div" style="background-image: url({{ asset('images/homepage/sliders/') }}{{ slider.path }})">
+            <div class="inn">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 hidden-sm hidden-xs">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h1 class="header-main">{{ slider.subtitle}}</h1>
+                                </div>
+                                <div class="col-md-3">
+                                    {% if slider.url is not null and  slider.url != "" %}
+                                        <a href="{{slider.url}}" class="btn-black">{{slider.buttonText}} <i class="fa fa-angle-right"></i></a>
+                                        {%endif%}
+                                </div>
+                            </div>
+                            <h2 class="header-big">{{ slider.title}}</h2>
+                        </div>
+                        <div class="col-md-10 col-md-offset-1 visible-sm visible-xs">
+                            <h2 class="header-big">{{ slider.title}}</h2>
+                            <h1 class="header-main">{{ slider.subtitle}} </h1>
+                            {% if slider.url is not null and  slider.url != "" %}
+                                <a href="{{slider.url}}" class="btn-black">{{slider.buttonText}} <i class="fa fa-angle-right"></i></a>
+                                {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="slide_social"> </div>
+                    <div class="row slide-content">
+                        {% if website.showAboutTab == true %}
+                            <div class="col-sm-3 col-xs-6">
+                                <a href="#aboutUs" class="animated fadeInRight page-scroll">
+                                    <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i><span class="quick-link">About Us</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if website.showServicesTab == true %}
+                            <div class="col-sm-3 col-xs-6">
+                                <a href="#services" class="animated fadeInRight page-scroll">
+                                    <i class="glyphicon glyphicon-th-large" aria-hidden="true"></i><span class="quick-link">Services</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if website.showGalleryTab == true %}
+                            <div class="col-sm-3 col-xs-6">
+                                <a href="#gallery" class="animated fadeInRight page-scroll">
+                                    <i class="glyphicon glyphicon-camera" aria-hidden="true"></i><span class="quick-link">Gallery</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if website.showContactTab == true %}
+                            <div class="col-sm-3 col-xs-6">
+                                <a href="#contact" class="animated fadeInRight page-scroll">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="quick-link">Contact Us</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}

@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Service\ServiceRepository")
  */
-class Service{
+class Service {
 
     /**
      * @var integer $id
@@ -51,8 +51,17 @@ class Service{
      */
     private $meta_description;
 
-    public function __construct(){
+    /**
+     * @var string $type_pagination
+     * 1 -> pagination
+     * 2 -> showmore
+     *
+     * @ORM\Column(name="type_pagination", type="integer", options={"default" = 1})
+     */
+    private $type_pagination;
 
+    public function __construct() {
+        $this->type_pagination = 1;
     }
 
     /**
@@ -60,8 +69,7 @@ class Service{
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -70,8 +78,7 @@ class Service{
      *
      * @param string $header_title
      */
-    public function setHeaderTitle($header_title)
-    {
+    public function setHeaderTitle($header_title) {
         $this->header_title = $header_title;
     }
 
@@ -80,8 +87,7 @@ class Service{
      *
      * @return string
      */
-    public function getHeaderTitle()
-    {
+    public function getHeaderTitle() {
         return $this->header_title;
     }
 
@@ -90,8 +96,7 @@ class Service{
      *
      * @param string $header_text
      */
-    public function setHeaderText($header_text)
-    {
+    public function setHeaderText($header_text) {
         $this->header_text = $header_text;
     }
 
@@ -100,29 +105,25 @@ class Service{
      *
      * @return string
      */
-    public function getHeaderText()
-    {
+    public function getHeaderText() {
         return $this->header_text;
     }
-
 
     /**
      * Set meta_title
      *
      * @param string $meta_title
      */
-    public function setMetaTitle($meta_title)
-    {
+    public function setMetaTitle($meta_title) {
         $this->meta_title = $meta_title;
     }
-    
+
     /**
      * Get meta_title
      *
      * @return string
      */
-    public function getMetaTitle()
-    {
+    public function getMetaTitle() {
         return $this->meta_title;
     }
 
@@ -131,8 +132,7 @@ class Service{
      *
      * @param string $meta_description
      */
-    public function setMetaDescription($meta_description)
-    {
+    public function setMetaDescription($meta_description) {
         $this->meta_description = $meta_description;
     }
 
@@ -141,9 +141,17 @@ class Service{
      *
      * @return string
      */
-    public function getMetaDescription()
-    {
+    public function getMetaDescription() {
         return $this->meta_description;
+    }
+
+    public function getTypePagination() {
+        return $this->type_pagination;
+    }
+
+    public function setTypePagination($type_pagination) {
+        $this->type_pagination = $type_pagination;
+        return $this;
     }
 
 }
