@@ -1569,6 +1569,15 @@
                         background-position: center center;
                         position: relative;
                     }
+                     {% if website.headerType == 0 or website.headerType == 2 %}
+                     	.hero-div{
+                        	height: 90%;
+                        }
+                     {% elseif website.headerType == 1  or website.headerType == 3 %}
+                     	.hero-div{
+                        	height: 85%;
+                        }
+                     {% endif %}
                     .inn{
                         display: table-cell;
                         vertical-align: middle;
@@ -1999,8 +2008,13 @@
                                 $(function () {
                                     $('a.page-scroll').bind('click', function (event) {
                                         var $anchor = $(this);
+                                        var total = $($anchor.attr('href')).offset().top - 20;
+                                        if( $('.new-nav').length > 0 ){
+                                        	total = total-110;
+                                        }
+                                        
                                         $('html, body').stop().animate({
-                                            scrollTop: $($anchor.attr('href')).offset().top - 130
+                                            scrollTop: total
                                         }, 1500, 'easeInOutExpo');
                                         event.preventDefault();
                                     });
