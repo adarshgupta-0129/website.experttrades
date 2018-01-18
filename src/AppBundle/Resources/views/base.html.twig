@@ -857,11 +857,11 @@
                             margin-top: 30px;
                             margin-bottom: 0;
                         }
-                        .new-nav.light .navbar-toggle  {
-                            border-color: #111;
+                        .new-nav.navbar-fixed-top li a, .new-nav.navbar-fixed-top li a:hover {
+                            color: #111 !important;
                         }
                         .new-nav.light .navbar-toggle .icon-bar {
-                            background-color: #111;
+                            background-color: #111 !important;
                         }
                         .navbar-fixed-top, .navbar-fixed-bottom {
                             position: inherit;
@@ -1011,11 +1011,11 @@
                     }	
                     
                     //mobile
-                    .navbar-default .navbar-toggle {
-						border-color: #FFF !important;
+                    .new-nav.dark .navbar-toggle {
+						border:1px #FFF solid !important;
                     	
                     }
-                    .navbar-default .navbar-toggle .icon-bar{
+                    .new-nav.dark .navbar-toggle .icon-bar{
 						background-color: #FFF !important;
                     	
                     }
@@ -1775,6 +1775,7 @@
                         }
                         .hero-div{
                             text-align: center;
+                            height: 85%;
                         }
                         .btn-slider-3{
                             margin:10px auto 0;
@@ -2017,27 +2018,32 @@
                         $(window).scroll(function () {
                             var scroll = $(window).scrollTop();
     
-                            if (scroll >= 5)
+                            if (scroll >= 0)
                             {
                                 $('.navbar').removeClass('nav-inner');
                                 $('.navbar').addClass('navbar-fixed-top');
+                                $(".navbar-fixed-top").addClass("top-nav-collapse");
+                                $(".innerpage_banner").css({"margin-top":$(".navbar-fixed-top").outerHeight()});
                             } else {
                                 $('.navbar').addClass('nav-inner');
                                 $('.navbar').removeClass('navbar-fixed-top');
+                                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+                                $(".innerpage_banner").css({"margin-top":"0px"});
                             }
     
                         });
+                    {% else %}
+                        $(window).scroll(function () {
+                            if ($(".navbar").offset().top > 50) {
+                                $(".navbar-fixed-top").addClass("top-nav-collapse");
+                            } else {
+                                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+                            }
+                        });
                     {% endif %}
-                    $(window).scroll(function () {
-                        if ($(".navbar").offset().top > 50) {
-                            $(".navbar-fixed-top").addClass("top-nav-collapse");
-                        } else {
-                            $(".navbar-fixed-top").removeClass("top-nav-collapse");
-                        }
-                    });
                     </script>
 
-                    {% if (homepage.sliderType == 2) or (website.headerType == 4) or (website.headerType == 5)%}
+                    {% if (homepage.sliderType == 2) and (website.headerType == 4 or website.headerType == 5)%}
                         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js'></script>
                         <script>
                             $(document).ready(function () {
@@ -2071,10 +2077,6 @@
                                         }, 1500, 'easeInOutExpo');
                                         event.preventDefault();
                                     });
-
-
-                                
-
 
                             });
                             function closeOverlay()
