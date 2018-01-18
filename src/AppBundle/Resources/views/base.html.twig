@@ -2018,17 +2018,18 @@
                         $(window).scroll(function () {
                             var scroll = $(window).scrollTop();
     
-                            if (scroll >= 0)
+                            if (scroll > 0)
                             {
                                 $('.navbar').removeClass('nav-inner');
                                 $('.navbar').addClass('navbar-fixed-top');
-                                $(".navbar-fixed-top").addClass("top-nav-collapse");
-                                $(".innerpage_banner").css({"margin-top":$(".navbar-fixed-top").outerHeight()});
+                                //if not mobile
+                                if( $('.navbar-toggle').css('display')=='none') 
+                                	$(".innerpage_banner").css({"margin-top":$(".navbar-fixed-top").height()});
                             } else {
                                 $('.navbar').addClass('nav-inner');
                                 $('.navbar').removeClass('navbar-fixed-top');
-                                $(".navbar-fixed-top").removeClass("top-nav-collapse");
-                                $(".innerpage_banner").css({"margin-top":"0px"});
+                                if( $('.navbar-toggle').css('display')=='none') 
+                                	$(".innerpage_banner").css({"margin-top":"0px"});
                             }
     
                         });
