@@ -1150,72 +1150,6 @@
 
                     }
 
-.fa-1-5x {
-    font-size: 1.5em;
-}
-  .header {width:100%;}
-  .navbar-default {background: none; border:none;}
-  .navbar-nav > li > a, .navbar-nav > ul > li > a {font-family: 'Lato', sans-serif; font-size: 16px; color:#4f4f4f; font-weight:400; text-transform: uppercase;}
-  .navbar-nav > li > a:hover, .navbar-nav > ul > li > a:hover {color:{{ website.mainColor }} !important;}
-  .navbar-nav li.select a {color:{{ website.mainColor }};}
-  .navbar-right {margin-top: 23px;}
-  .navbar-right.socialmedia {margin-top: 4px !important;}
-  .navbar-tel {width: 100%; text-align: center; clear: both;}
-  .navbar-tel i{margin-right: 10px;}
-  .navbar-tel a{font-family: 'Lato', sans-serif;    font-size: 16px;font-weight: 400;text-transform: uppercase;text-decoration:none; color:white;}
-  .navbar-tel a:hover{color:#e6e6e6;}
-/* Light type 2 */
-.socialmedia {display: block !important;}
-.socialmedia-mobile,.navbartelf-mobile {display: none !important;}
-.socialmedia-mobile a {float: left;margin-right: 3px;}
-.header.light.line2, .header.light.line2 .navbar-nav>li>.dropdown-menu{	background-color:#e6e6e6 }
-.header.light.line2 .dropdown-menu li a:hover,
-.header.light.line2 .dropdown-menu li a:focus,
-.header.light.line2 .navbar-tel a:hover {   color:{{ website.mainColor }} !important;    text-decoration: none;background-color: transparent;}
-.header.light .navbar-nav li a i.social_icons,
- .header.light .navbar-nav .navbar-tel a
-{    color: #777 !important;}
- .header.light .navbar-nav  li  a:hover .social_icons,
- .header.light .navbar-nav .navbar-tel a:hover  {color:{{ website.mainColor }} !important;}
- .header.light .navbar-nav li.select a .social_icons {color:{{ website.mainColor }};}
-/* DARK type 1 */
-.header.dark , .header.dark .navbar-nav>li>.dropdown-menu
-{background-color: #29333d;color: #e6e6e6;border:none;}
-.header.dark .container .navbar-nav li a:hover,
-.header.dark .container .navbar-nav li .dropdown-menu>li > a:hover
-{   color: #fff  !important;   background-color: #29333d !important;}
-.header.dark .container .navbar-nav   li.select   a,
-.header.dark .container .navbar-nav li .dropdown-menu li.select   a
-{ color: #fff  !important; text-decoration: underline !important;}
-.header.dark .navbar-default .navbar-toggle:hover, .header.dark .navbar-default .navbar-toggle:focus {
-    background-color: #29333d;
-    color:#e6e6e6;
-}
-/* Dark type 2 */
-.header.dark.line1
-{background-color: #232122;color: #e6e6e6;}
-.header.dark.line1 .container .navbar-nav   li   a:hover,
-.header.dark.line1 .container .navbar-nav li .dropdown-menu li  a:hover
-{   color: #fff  !important;   background-color: #232122 !important;}
-.header.dark.line2 , .header.dark.line2 .navbar-nav li .dropdown-menu
-{background-color: #29333d;color: #2C353D;border:none;}
-.header.dark.line2 .container .navbar-nav   li   a:hover,
-.header.dark.line2 .container .navbar-nav li .dropdown-menu li   a:hover,
- .header.dark.line2 .container .navbar-nav .navbar-tel a:hover
-{   color: #fff  !important;   background-color: #29333d !important;}
-.header.dark.line2 .container .navbar-nav .navbar-tel a,
-.header.dark.line1 .container .navbar-nav   li.select   a,
-.header.dark.line1 .container .navbar-nav li .dropdown-menu li.select   a
-{ color: #fff  !important; text-decoration: underline !important;}
-.header.dark.line2 .container .navbar-nav .navbar-tel a:hover,
-.header.dark.line1 .navbar-toggle:hover, .header.dark.line1  .navbar-toggle:focus {
-    background-color: #232122 !important;
-    color:#e6e6e6 !important;
-}
-.header.dark.line1  .navbar-toggle:hover,.header.dark.line1   .navbar-toggle:focus {
-    background-color: #29333d !important;
-    color: #232122 !important;
-}
 
                     @media only screen and (max-width:479px)
                     {
@@ -1441,6 +1375,10 @@
                         text-transform: none;
                         display: block !important;
                     }
+                    .carousel-transaction .item{
+                        background-color: {{website.mainColor}};
+                    }
+                    
                     .carousel-transaction .item:nth-child(odd) .slide_buttons{
                         position: absolute;
                         right: 10%;
@@ -1455,6 +1393,7 @@
                         left: 10%;
                         bottom :-30%;
                         height: 30%;
+                        background-color: {{website.mainColor}};
                     }
                     .carousel-transaction .slide_buttons a {
                         float:left;
