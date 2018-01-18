@@ -2009,9 +2009,29 @@
                             });
                         });
                     </script>
+                    
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js'></script>
+                    <script>
+                        $(document).ready(function () {
+							//jQuery for page scrolling feature - requires jQuery Easing plugin
+                            $(function () {
+                                $('a.page-scroll').bind('click', function (event) {
+                                    var $anchor = $(this);
+                                    var total = $($anchor.attr('href')).offset().top - 20;
+                                    if( $('.new-nav').length > 0 ){
+                                    	total = total-110;
+                                    }
+                                    
+                                    $('html, body').stop().animate({
+                                        scrollTop: total
+                                    }, 1500, 'easeInOutExpo');
+                                    event.preventDefault();
+                                });
+                            });
+                    </script>
 
                     {% if (homepage.sliderType == 2) or (website.headerType == 4) or (website.headerType == 5)%}
-                        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js'></script>
+                        
                         <script>
                         $(window).scroll(function () {
                             if ($(".navbar").offset().top > 50) {
@@ -2020,9 +2040,6 @@
                                 $(".navbar-fixed-top").removeClass("top-nav-collapse");
                             }
                         });
-                        </script>
-
-                        <script>
                             $(document).ready(function () {
                                 $('#slide').click(function () {
                                     var hidden = $('.sideoff-off');
@@ -2041,21 +2058,6 @@
                                     closeOverlay();
                                 });
 
-								//jQuery for page scrolling feature - requires jQuery Easing plugin
-                                $(function () {
-                                    $('a.page-scroll').bind('click', function (event) {
-                                        var $anchor = $(this);
-                                        var total = $($anchor.attr('href')).offset().top - 20;
-                                        if( $('.new-nav').length > 0 ){
-                                        	total = total-110;
-                                        }
-                                        
-                                        $('html, body').stop().animate({
-                                            scrollTop: total
-                                        }, 1500, 'easeInOutExpo');
-                                        event.preventDefault();
-                                    });
-                                });
 
                                 {% if id_page != "home_page" and (website.headerType == 4 or website.headerType == 5) %}
                                     $(window).scroll(function () {
