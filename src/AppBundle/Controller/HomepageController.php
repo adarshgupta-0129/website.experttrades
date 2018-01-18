@@ -5,11 +5,11 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
 use AppBundle\Entity\Subscriber\Subscriber;
 use AppBundle\Entity\Message\Message;
-
-use AppBundle\Entity\Item\Item;
+use AppBundle\Entity\QuoteRequest\QuoteRequest;
+use AppBundle\Entity\QuoteRequest\JobCategory\JobCategory as QuoteRequestCategory;
 
 class HomepageController extends MainController
 {
@@ -71,79 +71,120 @@ class HomepageController extends MainController
 
         $findMeOns =  $em->getRepository('AppBundle\Entity\Homepage\FindMeOn\Item\Item')->findAll();
 
+        
         $this->trackVisit();
-
         $contactError = "";
         $config = ['site_key' => '6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn', 'site_secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl'];
         $recaptchaToken = new \ReCaptchaSecureToken\ReCaptchaToken($config);
         $sessionId = uniqid('recaptcha');
         $secureToken = $recaptchaToken->secureToken($sessionId);
-
-        $message = new Message();
-        $contactForm = $this->createFormBuilder($message)
-            ->add('name', 'text')
-            ->add('email', 'email')
-            ->add('phone', 'text')
-            ->add('message', 'textarea')
-            ->getForm();
-
+        /* $message = new Message();
+         $contactForm = $this->createFormBuilder($message)
+         ->add('name', 'text')
+         ->add('email', 'email')
+         ->add('phone', 'text')
+         ->add('message', 'textarea')
+         ->getForm();*/
+        
+        $date = new \Datetime();
+        $quoteRequest = new QuoteRequest();
+        $contactForm = $this->createFormBuilder($quoteRequest)
+        ->add('name', 'text', array('required' => true, 'constraints' => array(new NotBlank())))
+        ->add('email', 'email', array('required' => false))
+        ->add('phone', 'text', array('required' => true, 'constraints' => array(new NotBlank())))
+        ->add('job_description', 'textarea')
+        ->add('submit', 'submit')
+        ->getForm();
+        
         $contactForm->handleRequest($request);
         if($request->isMethod('POST')){
-
-            if ($contactForm->isValid()) {
-
-              //open connection
-                $ch = curl_init();
-                //set the url, number of POST vars, POST data
-                curl_setopt($ch,CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-                curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query([
-                  'secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl',
-                  'response' => $this->get('request')->request->get('g-recaptcha-response'),
-                  'remoteip' => $this->container->get('request')->getClientIp()
-                ]));
-
-                //execute post
-                $result = json_decode(curl_exec($ch), true);
-                //close connection
-                curl_close($ch);
-
-                if(isset($result['success']) && $result['success']){
-
-                    $em->persist($message);
-                    $em->flush();
-
-
-
-                    	$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
-
-                    $data_string = json_encode([
-                      'name' => $message->getName(),
-                      'email' => $message->getEmail(),
-                      'phone' => $message->getPhone(),
-                      'message' => $message->getMessage(),
-                      'from' => 'website'
-                    ]);
-
-                    $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_notifications?website_access_token='.$website->getAccessToken());
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            try
+            {
+                if ($contactForm->isValid()) {
+                    
+                    //open connection
+                    $ch = curl_init();
+                    //set the url, number of POST vars, POST data
+                    curl_setopt($ch,CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+                    curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query([
+                        'secret' => '6LfVOBUTAAAAAM-wdIS07CEZ5bhgZzvrpa1s60Wl',
+                        'response' => $this->get('request')->request->get('g-recaptcha-response'),
+                        'remoteip' => $this->container->get('request')->getClientIp()
+                    ]));
+                    
+                    //execute post
+                    $result = json_decode(curl_exec($ch), true);
+                    //close connection
+                    curl_close($ch);
+                    
+                    /*$result = [];
+                     $result['success'] = true;*/
+                    
+                    if(isset($result['success']) && $result['success']){
+                        
+                        $em->persist($quoteRequest);
+                        $em->flush();
+                        
+                        /*$website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+                        
+                        $data_string = json_encode([
+                        'name' => $message->getName(),
+                        'email' => $message->getEmail(),
+                        'phone' => $message->getPhone(),
+                        'message' => $message->getMessage(),
+                        'from' => 'website'
+                        ]);
+                        
+                        $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_notifications?website_access_token='.$website->getAccessToken());
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                         'Content-Type: application/json',
                         'Content-Length: ' . strlen($data_string))
-                    );
-
-                    $result = json_decode(curl_exec($ch), true);
-                    if( $result['code'] != 200 ){
-                    	$contactError = 'We can not send your request. Please contact using phone number or try again.';
-                    } else
-                   		return $this->redirect($this->generateUrl('message_success'));
-
-                }else{
-                    $contactError = 'Please click on the "I am not a Robot" checkbox';
+                        );
+                        
+                        $result = json_decode(curl_exec($ch), true);
+                        if( $result['code'] != 200 ){
+                        $contactError = 'We can not send your request. Please contact using phone number or try again.';
+                        } else
+                        return $this->redirect($this->generateUrl('message_success'));*/
+                        
+                        $data_string = json_encode([
+                            'name' => $quoteRequest->getName(),
+                            'email' => $quoteRequest->getEmail(),
+                            'phone' => $quoteRequest->getPhone(),
+                            'job_description' => $quoteRequest->getJobDescription(),
+                            'job_date' => (is_object($quoteRequest->getJobDate())) ? $quoteRequest->getJobDate()->format('Y-m-d H:i') : '',
+                            'job_location' => '',
+                            'from' => 'website_homepage'
+                        ]);
+                        $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+                        $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                            'Content-Type: application/json',
+                            'Content-Length: ' . strlen($data_string))
+                            );
+                        
+                        
+                        $result = json_decode(curl_exec($ch), true);
+                        if( $result['code'] != 200 ){
+                            $contactError = 'We can not send your request. Please contact using phone number or try again.';
+                        } else
+                            return $this->redirect($this->generateUrl('message_success'));
+                            
+                            
+                    }else{
+                        $contactError = 'Please click on the "I am not a Robot" checkbox';
+                    }
                 }
+            } catch( \Exception $e ) {
+                $contactError= 'We can not send your quote request. Please contact using phone number or try again later.';
             }
         }
 		$offer_homepage = $em->getRepository('AppBundle\Entity\Offerpage\Offer\Offer')->getPaginated(1, 0, array('show_homepage' => true ));

@@ -19,7 +19,7 @@
 	    </a>
 	  </div>
    		<div class="nav navbar-nav navbar-right socialmedia">
-   			<ul class="nav navbar-nav">
+   			<ul class="nav navbar-nav ">
 
 						{% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
 						<li>
@@ -131,7 +131,7 @@
           {% endfor %}
         </ul>
       </li>
-    {% endif %}	    
+    {% endif %}
 		    {% if hasOffer == true %}
 		    	<li
 		    		{% if app.request.attributes.get('_route') == 'offers'  %} class="select" {% endif %}

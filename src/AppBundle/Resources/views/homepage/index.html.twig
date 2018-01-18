@@ -88,66 +88,67 @@
         {% endif %}
         {% if offerhomepage is defined %}
 
-            <section class="bodybox3">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="about_head" >
-                                <h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ offer.headerTitle }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" >
-                        {% if offerhomepage.featured_image  is defined   and offerhomepage.featured_image.url %}
-                            <div class="col-sm-5">
-                                <img src="{{ asset(offerhomepage.featured_image.url) }}" alt="offerhomepage.featured_image.title" class=""   style="width:100%;">
-                            </div>
-                            <div class="col-sm-7">
-                            {% else %}
-                                <div class="col-sm-offset-2 col-sm-8" >
-                                {% endif %}
-                                <h2>{{offerhomepage.title}}</h2>
-                                <div class="content">
-                                    {{offerhomepage.body|raw}}
-                                </div>
-                                {% if offerhomepage.btn_action == 'contact' %}
-                                    <div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': offerhomepage.btn_contact_text  } ) }}">{{offerhomepage.btn_text}}</a></div>
-                                    {% elseif offerhomepage.btn_action == 'ext_redirect' %}
-                                    <div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" target="_blank">{{offerhomepage.btn_text}}</a></div>
-                                    {% elseif offerhomepage.btn_action == 'int_redirect' %}
-                                    <div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" >{{offerhomepage.btn_text}}</a></div>
-                                    {% endif %}
+            
+<section class="bodybox3">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="about_head" >
+					<h2 {% if website.showReviewsTab == false %} style="color:white" {% endif %}>{{ offer.headerTitle }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row" >
+            {% if offerhomepage.featured_image  is defined   and offerhomepage.featured_image.url %}
+				<div class="col-sm-5">
+					<img src="{{ asset(offerhomepage.featured_image.url) }}" alt="offerhomepage.featured_image.title" class=""   style="width:100%;">
+				</div>
+            	<div class="col-sm-7">
+			{% else %}
+            	<div class="col-sm-offset-2 col-sm-8" >
+			{% endif %}
+					<h2>{{offerhomepage.title}}</h2>
+	                <div class="content">
+	                	{{offerhomepage.body|raw}}
+	               	</div>
+               	{% if offerhomepage.btn_action == 'contact' %}
+                	<div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': offerhomepage.btn_contact_text  } ) }}">{{offerhomepage.btn_text}}</a></div>
+				{% elseif offerhomepage.btn_action == 'ext_redirect' %}
+                	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" target="_blank">{{offerhomepage.btn_text}}</a></div>
+				{% elseif offerhomepage.btn_action == 'int_redirect' %}
+                	<div class="view-color" style="text-align:left;" ><a href="{{offerhomepage.btn_link}}" >{{offerhomepage.btn_text}}</a></div>
+				{% endif %}
 
-                            </div>
-                        </div>
-                    </div>
-            </section>
-        {% endif %}
-        {% if website.showReviewsTab == true %}
-            <section class="bodybox2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="review_head">
-                                <h2>{{ homepage.reviewsTitle }}</h2>
-                                <p style="color:white">{{ homepage.reviewsSubtitle | raw }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        {% for review in reviews %}
-                            <div class="{% if reviews|length == 2 %}col-sm-offset-2{% elseif  reviews|length == 1 %}col-sm-offset-4{% endif %}col-sm-4">
-                                <div class="reviewbox">
-                                    <br>
-                                    <div class="rvbtop">
-                                        {% for img in review.stars('total', 'star.png') %}
-                                            <img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
-                                        {% endfor %}
-                                        <h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
-                                        <br>
-                                        <h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
-                                        <br>
-                                        <p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
+		     </div>
+		</div>
+	</div>
+</section>
+{% endif %}
+{% if website.showReviewsTab == true %}
+<section class="bodybox2">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="review_head">
+					<h2>{{ homepage.reviewsTitle }}</h2>
+					<p style="color:white">{{ homepage.reviewsSubtitle | raw }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			{% for review in reviews %}
+			<div class="{% if reviews|length == 2 and loop.index == 1 %}col-sm-offset-2 {% elseif  reviews|length == 1 %}col-sm-offset-4 {% endif %} col-sm-4">
+				<div class="reviewbox">
+					<br>
+					<div class="rvbtop">
+						{% for img in review.stars('total', 'star.png') %}
+							<img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
+						{% endfor %}
+						<h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
+						<br>
+						<h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
+						<br>
+						<p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
 
                                     </div>
                                     <div class="rvmid">
@@ -311,7 +312,7 @@
         {% include  'AppBundle:homepage:contact_form.html.twig' %}
     {% endif %}
 
-        {% if findMeOns | length > 0
+    {% if findMeOns | length > 0
 	or homepage.findMeOnTitle | length > 0
 		or homepage.findMeOnSubtitle | length > 0 %}
 
