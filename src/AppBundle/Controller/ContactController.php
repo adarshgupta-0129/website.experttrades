@@ -112,8 +112,10 @@ class ContactController extends MainController
                       'categories' => $categories
                     ]);
 
-
+                    
                     $website =  $em->getRepository('AppBundle\Entity\Website')->find(1);
+                    var_dump($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
+                    
                     $ch = curl_init($this->container->getParameter('api_url').'trades/'.$website->getTradeId().'/website_quote_requests?website_access_token='.$website->getAccessToken());
                     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -125,6 +127,7 @@ class ContactController extends MainController
 
 
                     $result = json_decode(curl_exec($ch), true);
+                    var_dump($result);die();
                     if( $result['code'] != 200 ){
                     	$error = 'We can not send your quote request. Please contact using phone number or try again later.';
                     } else
