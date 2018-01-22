@@ -605,19 +605,22 @@ class GalleryController extends SecurityController
     	if(isset($params['tags_delete_ids'])){
 
 	    	$final_response = $this->deleteByIds($params['items_ids'],$params['tags_delete_ids'], true );
-	    	if(!is_array($final_response))
-	    		$message = $final_response;
-	    	
+	    	if(!is_array($final_response)){
+	    	    $message = $final_response;
+	    	    $final_response = [];
+    	    }
     	}
     	
     	if(isset($params['tags_ids'])){
 	    	$final_response2 = $this->postByIds($params['items_ids'],$params['tags_ids'] );
-	    	if(!is_array($final_response2))
+	    	if(!is_array($final_response2)){
 	    		$message = $final_response2;
+	    		$final_response2 = [];
+	    	}
     		
     	}
-
-    	if(is_null($message))
+    	
+    	if(is_null($message) )
     	{
     		$response = new Response(json_encode(
     				array_merge($final_response2,$final_response)

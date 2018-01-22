@@ -259,7 +259,11 @@ $(function(){
   	        scrollTop: $("#first_gallery_tags").offset().top - 50
   	    }, 500);*/
 		$('#load_more').hide();
-  		$(window).scrollTop($("#first_gallery_tags").offset().top - 50);
+        {% if (homepage.sliderType == 2) and (website.headerType == 4 or website.headerType == 5)%}
+  			$(window).scrollTop($("#first_gallery_tags").offset().top - 160);
+  		{% else %}
+			$(window).scrollTop($("#first_gallery_tags").offset().top - 50);
+  		{% endif %}
 
   		actionButtons();
 	}
