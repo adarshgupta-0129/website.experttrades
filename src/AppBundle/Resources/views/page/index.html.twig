@@ -26,6 +26,12 @@
 {% endblock %}
 {% block stylesheets %}
 	{{page.tagStyle|raw}}
+	{% if header_image != null %}
+		<style>
+			.innerpage_banner {width:100%; background: url('{{ header_image }}') no-repeat 0 0; background-size: cover; padding: 111px 0 49px;}
+		</style>
+	{% endif %}
+	
 {% endblock %}
 
 {% block body %}

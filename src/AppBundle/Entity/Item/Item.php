@@ -21,7 +21,9 @@ class Item{
 	const  ITEM_ZIP = 'zip';
 	const  ITEM_ICON = 'icon';
 	
+	const  STORE_DOCUMENTS_DOWNLOADS = 'downloads';
 	const  STORE_HEADER = 'headers';
+	const  STORE_EXTRAS = 'extras';
 	const  STORE_SOCIAL_FB = 'social_fb';
 	const  STORE_SOCIAL_TWITTER = 'social_tt';
 	const  STORE_FAVICON = 'favicon';
@@ -47,16 +49,29 @@ class Item{
 				'ico2'  => 'image/x-icon',
 				'ico'  => 'image/vnd.microsoft.icon'
 			),
-			self::ITEM_ZIP => array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed')
+    	    self::ITEM_ZIP => array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed')
 		];
 	
 	public static $STORECONFIG = [
-			self::STORE_HEADER => array (
-				'folder'  => 'headers',
-				'quantity'  => 'unique',
-				'access'  => 'admin',
-				'type'  => self::ITEM_ZIP
-			),
+    	    self::STORE_HEADER => array (
+    	        'folder'  => 'headers',
+    	        'quantity'  => 'unique',
+    	        'access'  => 'admin',
+    	        'type'  => self::ITEM_ZIP
+    	    ),
+    	    self::STORE_EXTRAS => array (
+    	        'folder'  => 'extras',
+    	        'quantity'  => 'unique',
+    	        'access'  => 'admin',
+    	        'type'  => self::ITEM_ZIP
+    	    ),
+    	    self::STORE_DOCUMENTS_DOWNLOADS => array (
+    	        'parent_folder'  => 'documents',
+    	        'folder'  => 'downloads',
+    	        'quantity'  => 'unique',
+    	        'access'  => 'admin',
+    	        'type'  => self::ITEM_ZIP
+    	    ),
 			self::STORE_SOCIAL_FB => array (
 				'width'  => '1200',
 				'height'  => '630',
@@ -557,7 +572,11 @@ class Item{
     	// get rid of the __DIR__ so it doesn't screw up
     	// when displaying uploaded doc/image in the view.
     	
-    	return 'images/'.self::$STORECONFIG[$this->storage]['folder'];
+        if( isset(self::$STORECONFIG[$this->storage]['parent_folder']) && self::$STORECONFIG[$this->storage]['parent_folder'] === 'documents'  ){
+            return 'documents/'.self::$STORECONFIG[$this->storage]['folder'];
+        } else {
+            return 'images/'.self::$STORECONFIG[$this->storage]['folder'];
+        }
     }
     
     public function deleteFile()

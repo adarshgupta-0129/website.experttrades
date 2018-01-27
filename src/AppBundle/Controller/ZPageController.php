@@ -32,6 +32,11 @@ class ZPageController extends MainController
           //var_dump($page);
           $array_twig['id_page'] = $page->getSlug();
           $array_twig['page'] = $page;
+          //check headers
+          $array_twig['header_image'] = null;
+          if( file_exists( $this->get('kernel')->getRootDir() . '/../web/images/headers/'. $array_twig['id_page']  .'.jpg' ) ){
+              $array_twig['header_image'] = str_replace('/app_dev.php', '', $request->getUriForPath('/images/headers/'. $array_twig['id_page']  .'.jpg') );
+          }
           return $this->render('AppBundle:page:index.html.twig',$array_twig);
         } else if($page->getType() == 1){
           $url = $page->getUrlRedirection();
@@ -67,6 +72,11 @@ class ZPageController extends MainController
         //var_dump($page);
         $array_twig['id_page'] = $page->getSlug();
         $array_twig['page'] = $page;
+        //check headers
+        $array_twig['header_image'] = null;
+        if( file_exists( $this->get('kernel')->getRootDir() . '/../web/images/headers/'. $array_twig['id_page']  .'.jpg' ) ){
+            $array_twig['header_image'] = str_replace('/app_dev.php', '', $request->getUriForPath('/images/headers/'. $array_twig['id_page']  .'.jpg') );
+        }
         return $this->render('AppBundle:page:index.html.twig',$array_twig);
       } else if($page->getType() == 1){
         $url = $page->getUrlRedirection();
@@ -103,6 +113,11 @@ class ZPageController extends MainController
         //var_dump($page);
         $array_twig['id_page'] = $page->getSlug();
         $array_twig['page'] = $page;
+        //check headers
+        $array_twig['header_image'] = null;
+        if( file_exists( $this->get('kernel')->getRootDir() . '/../web/images/headers/'. $array_twig['id_page']  .'.jpg' ) ){
+            $array_twig['header_image'] = str_replace('/app_dev.php', '', $request->getUriForPath('/images/headers/'. $array_twig['id_page']  .'.jpg') );
+        }
         return $this->render('AppBundle:page:index.html.twig',$array_twig);
       } else if($page->getType() == 1){
         $url = $page->getUrlRedirection();
