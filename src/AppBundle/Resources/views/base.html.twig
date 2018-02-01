@@ -35,6 +35,7 @@
 
                 <link href='http://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
                 <link href="{{ asset('bundles/app/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" >
+                <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/component.css')}}" />
 
                 <style>
                     .g-recaptcha{
@@ -1828,6 +1829,22 @@
                         margin-top:60px;
                         margin-bottom:40px;
                     }
+
+                    .p0{
+                        padding:0px !important;
+                    }
+
+                    @keyframes animateElement{
+                        0% {
+                            opacity:0;
+                            transform:  translate(0px,0px);
+                        }
+                        100% {
+                            opacity:1;
+                            transform:  translate(0px,0px);
+                        }
+                    }
+
                 </style>
 
 
@@ -1973,8 +1990,15 @@
 
                     <script src='https://www.google.com/recaptcha/api.js'></script>
 
+                    <!-- Masonry Gallery View Javascript -->
+                    <script src="{{ asset('bundles/app/js/modernizr.custom.js')}}"></script>
+                    <script src="{{ asset('bundles/app/js/masonry.pkgd.min.js')}}"></script>
+                    <script src="{{ asset('bundles/app/js/imagesloaded.js')}}"></script>
+                    <script src="{{ asset('bundles/app/js/classie.js')}}"></script>
+                    <script src="{{ asset('bundles/app/js/AnimOnScroll.js')}}"></script>
+
                     <script >
-                        //resize iframes embed video
+//resize iframes embed video
                         $(document).ready(function () {
                             var is_mobile = false;
 
