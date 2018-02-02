@@ -43,6 +43,9 @@ class ReviewsController extends MainController
         $array_twig = $this->defaultInfo($request);
         $review =  $em->getRepository('AppBundle\Entity\Review\Review')->find(1);
         $item = $em->getRepository('AppBundle\Entity\Review\Item\Item')->find($id);
+        if( !is_object($item) ){
+            throw new NotFoundHttpException('Sorry this review did not exist!');
+        }
         $this->trackVisit();
 
         $array_twig['id_page'] = 'review_page';
