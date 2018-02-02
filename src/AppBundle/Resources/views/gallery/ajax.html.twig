@@ -1,40 +1,54 @@
+{% if gallery.typePagination == 1 %}
+    {% for key,item in items.data %}
+        {% if item.path is not null %}
+            {% if landscape %}
+                <div class="col-sm-4">
+                    <div class="row landscape_all">
+                        <div class="servicebox galbox">
+                            <a href="{{ asset('images/gallery/') }}{{ item.path }}">
+                                <img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
+                                <div class="galhover"><p>{{ item.title }}</p></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% elseif portrait  %}
+                <div class="col-sm-3">
+                    <div class="row portrait_all">
+                        <div class="servicebox galbox">
+                            <a href="{{ asset('images/gallery/') }}{{ item.path }}">
+                                <img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
+                                <div class="galhover"><p>{{ item.title }}</p></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else   %}
+                <div class="col-sm-4">
+                    <div class="row {{pos_items[key]}}">
+                        <div class="servicebox galbox">
+                            <a href="{{ asset('images/gallery/') }}{{ item.path }}">
+                                <img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
+                                <div class="galhover"><p>{{ item.title }}</p></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-					{% for key,item in items.data %}
-						{% if item.path is not null %}
-							{% if landscape %}
-								<div class="col-sm-4">
-									<div class="row landscape_all">
-										<div class="servicebox galbox">
-										<a href="{{ asset('images/gallery/') }}{{ item.path }}">
-											<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
-											<div class="galhover"><p>{{ item.title }}</p></div>
-										</a>
-									</div>
-									</div>
-								</div>
-							{% elseif portrait  %}
-								<div class="col-sm-3">
-									<div class="row portrait_all">
-										<div class="servicebox galbox">
-										<a href="{{ asset('images/gallery/') }}{{ item.path }}">
-											<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
-											<div class="galhover"><p>{{ item.title }}</p></div>
-										</a>
-									</div>
-									</div>
-								</div>
-							{% else   %}
-								<div class="col-sm-4">
-									<div class="row {{pos_items[key]}}">
-										<div class="servicebox galbox">
-										<a href="{{ asset('images/gallery/') }}{{ item.path }}">
-											<img alt="{{ item.title }}" src="{{ asset('images/gallery/') }}{{ item.path }}">
-											<div class="galhover"><p>{{ item.title }}</p></div>
-										</a>
-									</div>
-									</div>
-								</div>
-							
-							{% endif %}
-						{% endif %}
-					{% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{%else%}
+    {% for key,item in items.data %}
+        {% if item.path is not null %}
+            <li class="p0">
+                <div class="servicebox galbox">
+                    <a href="{{ asset('images/gallery/') }}{{ item.path }}">
+                        <img src="{{ asset('images/gallery/') }}{{ item.path }}">
+                        <div class="galhover"><p>{{ item.title }}</p></div>
+                    </a>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+{%endif%}

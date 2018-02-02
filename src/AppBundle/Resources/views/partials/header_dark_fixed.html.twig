@@ -69,7 +69,8 @@
                             <li class="dropdown">
                                 <a  href="{{ path('services')}}" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Services <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    {% for s in nav_bar_services %}
+                                    <li><a href="{{ path('services')}}">View All</a></li>
+                                        {% for s in nav_bar_services %}
                                         <li><a
                                                 {% if s.pageSlug %}
                                                     href="{{ path('services_view', { slug : s.pageSlug }) }}"
@@ -170,41 +171,41 @@
                             <li {% if app.request.attributes.get('_route') == 'contact' %} class="active" {% endif %}><a href="{{ path('contact') }}">Contact</a></li>
                             {% endif %}
                     </ul>
-                    
-                    
+
+
                     <div class="visible-xs social-mobile">
-                    <ul class="nav navbar-nav navbar-nav2 ">
-                        {% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
-                            <li>
-                                <a href="{{ website.facebookLink }}" class="social-nav" target="_BLANK"><i class="fa fa-facebook"  alt="Connect On Facebook" ></i> </a>
-                            </li>
-                        {% endif %}
-                        {% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
-                            <li>
-                                <a href="{{ website.twitterLink }}" class="social-nav" target="_BLANK"><i class="fa fa-twitter"  alt="Connect On Twitter" ></i> </a>
-                            </li>
-                        {% endif %}
-                        {% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
-                            <li>
-                                <a href="{{ website.youtubeLink }}" class="social-nav" target="_BLANK"><i class="fa fa-youtube"  alt="Connect On Youtube" ></i></a>
-                            </li>
-                        {% endif %}
-                        {% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
-                            <li>
-                                <a href="{{ website.googleLink }}" class="social-nav" target="_BLANK"><i class="fa fa-google-plus"  alt="Connect On Google Plus" ></i></a>
-                            </li>
-                        {% endif %}
-                        {% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
-                            <li>
-                                <a href="{{ website.linkedinLink }}" class="social-nav" target="_BLANK"><i class="fa fa-linkedin"  alt="Connect On Linkedin" ></i></a>
-                            </li>
-                        {% endif %}
-                        {% if website.instagramLink is not null  and website.instagramLink | length > 0 and website.instagramLinkEnabled %}
-                            <li>
-                                <a href="{{ website.instagramLink }}" class="social-nav" target="_BLANK"><i class="fa fa-instagram"  alt="Connect On Instagram" ></i></a>
-                            </li>
-                        {% endif %}
-                    </ul>
+                        <ul class="nav navbar-nav navbar-nav2 ">
+                            {% if website.facebookLink is not null and website.facebookLink | length > 0 and website.facebookLinkEnabled %}
+                                <li>
+                                    <a href="{{ website.facebookLink }}" class="social-nav" target="_BLANK"><i class="fa fa-facebook"  alt="Connect On Facebook" ></i> </a>
+                                </li>
+                            {% endif %}
+                            {% if website.twitterLink is not null and website.twitterLink | length > 0 and website.twitterLinkEnabled %}
+                                <li>
+                                    <a href="{{ website.twitterLink }}" class="social-nav" target="_BLANK"><i class="fa fa-twitter"  alt="Connect On Twitter" ></i> </a>
+                                </li>
+                            {% endif %}
+                            {% if website.youtubeLink is not null and website.youtubeLink | length > 0 and website.youtubeLinkEnabled %}
+                                <li>
+                                    <a href="{{ website.youtubeLink }}" class="social-nav" target="_BLANK"><i class="fa fa-youtube"  alt="Connect On Youtube" ></i></a>
+                                </li>
+                            {% endif %}
+                            {% if website.googleLink is not null  and website.googleLink | length > 0 and website.googleLinkEnabled %}
+                                <li>
+                                    <a href="{{ website.googleLink }}" class="social-nav" target="_BLANK"><i class="fa fa-google-plus"  alt="Connect On Google Plus" ></i></a>
+                                </li>
+                            {% endif %}
+                            {% if website.linkedinLink is not null  and website.linkedinLink | length > 0 and website.linkedinLinkEnabled %}
+                                <li>
+                                    <a href="{{ website.linkedinLink }}" class="social-nav" target="_BLANK"><i class="fa fa-linkedin"  alt="Connect On Linkedin" ></i></a>
+                                </li>
+                            {% endif %}
+                            {% if website.instagramLink is not null  and website.instagramLink | length > 0 and website.instagramLinkEnabled %}
+                                <li>
+                                    <a href="{{ website.instagramLink }}" class="social-nav" target="_BLANK"><i class="fa fa-instagram"  alt="Connect On Instagram" ></i></a>
+                                </li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -231,6 +232,7 @@
                         <li class="dropdown">
                             <a  href="{{ path('services')}}" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Services <span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li><a href="{{ path('services')}}">View All</a></li>
                                 {% for s in nav_bar_services %}
                                     <li><a
                                             {% if s.pageSlug %}
