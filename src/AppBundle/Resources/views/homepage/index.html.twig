@@ -322,10 +322,12 @@
                 <div class="owl-carousel owl-theme">
                     {% for key,item in images %}
                         {% if item.path is not null %}
-                            <div class="item">  <img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}">
+                            <div class="item" style="border:2px solid white">  <img src="{{ asset('images/gallery/') }}{{ item.path }}" alt="{{ item.title }}">
                                 <a href="{{ path('gallery') }}">    
                                     <div class="itemhover">
+                                        <div class="itemtitle">
                                         <h2>{{ item.title }}</h2>
+                                        </div>
                                     </div>
                                 </a> </div>
                             {% endif %}
@@ -414,21 +416,21 @@
                             items: 1,
                             nav: true,
                             loop: true,
-                            margin: 20,
+                            margin: 60,
                             stagePadding: 80
                         },
                         600: {
                             items: 1,
                             nav: true,
                             loop: true,
-                            margin: 20,
+                            margin: 60,
                             stagePadding: 150
                         },
                         1000: {
                             items: 1,
                             nav: true,
                             loop: true,
-                            margin: 20,
+                            margin: 80,
                             stagePadding: 300
                         }
                     }
