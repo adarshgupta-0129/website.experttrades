@@ -68,7 +68,7 @@ class initSiteCommand extends ContainerAwareCommand
           $website->setLinkedinLink('');
 
           $website->setAccessToken(substr( md5(rand()), 0, 50));
-          $website->setAdminAccessToken('****');
+          $website->setAdminAccessToken('3xp3rtt4d3s09033130a64cb7a4034c9');
           $website->setPostcode('B94AA');
           $website->setCompanyName('Expert Trades');
           $website->setSubscribeTitle('Stay in touch');
