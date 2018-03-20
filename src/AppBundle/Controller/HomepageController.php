@@ -24,7 +24,7 @@ class HomepageController extends MainController {
         $array_twig['margin_top_subscription'] = false;
 
         $aboutUs = $em->getRepository('AppBundle\Entity\AboutUs\AboutUs')->find(1);
-        $reviews = $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([], ['created' => 'DESC'], 3, 0);
+        $reviews = $em->getRepository('AppBundle\Entity\Review\Item\Item')->findBy([], ['created' => 'DESC'], 10, 0);
         $services = $em->getRepository('AppBundle\Entity\Service\Item\Item')->findBy([], ['order' => 'ASC', 'id' => 'DESC'], 3, 0);
         /* $total_landscape = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_landscape();
           $total_portrait = $em->getRepository('AppBundle\Entity\Gallery\Item\Item')->total_portrait();

@@ -1,113 +1,116 @@
 {% extends "AppBundle::base.html.twig" %}
 
 {% block header %}
-	<title>{{ offer.metaTitle }}</title>
-	<meta name="description" content="{{ offer.metaDescription }}">
+    <title>{{ offer.metaTitle }}</title>
+    <meta name="description" content="{{ offer.metaDescription }}">
 {% endblock %}
 {% block stylesheets %}
-<style>
-.offer_banner {
-	{% if offer.hasOfferHeader %}
-  background: url({{ asset('images/headers/offers.jpg') }}) no-repeat 0 0;
-	{% else %}
-  background: url({{ asset('images/headers/services.jpg') }}) no-repeat 0 0;
-	{% endif %}
-  background-size: cover;
-}
-.odd-section{
-	background-color: {{ website.darkColor }};
-}
- .view-color{
- 	margin:20px auto;
- }
- .offer-img{
- 	margin-top:25px;
- }
-</style>
+    <style>
+        .offer_banner {
+            {% if offer.hasOfferHeader %}
+                background: url({{ asset('images/headers/offers.jpg') }}) no-repeat 0 0;
+            {% else %}
+                background: url({{ asset('images/headers/services.jpg') }}) no-repeat 0 0;
+            {% endif %}
+            background-size: cover;
+        }
+        .odd-section{
+            background-color: {{ website.darkColor }};
+        }
+        .view-color{
+            margin:20px auto;
+        }
+        .offer-img{
+            margin-top:25px;
+        }
+    </style>
 
 {% endblock %}
 
 {% block body %}
-{% if website.disabled %}
-{% include 'AppBundle:partials:website_disabled.html.twig' %}
-{% else %}
+    {% if website.disabled %}
+        {% include 'AppBundle:partials:website_disabled.html.twig' %}
+    {% else %}
 
-<section class="innerpage_banner offer_banner">
-	<div class="container">
-		<h1 style="text-align: center;color:white;">{{ offer.headerTitle }}</h1>
-		<p><br></p>
-		<h3 style="text-align: center;color:white;">{{ offer.headerText }}</h3>
-	</div>
-</section>
-{% for of in offers.data %}
-{% if (loop.index % 2) != 0 %}
-<section class="bodybox3">
-	<div class="container">
-		<div class="row" >
-            {% if of.featured_image  is defined   and of.featured_image.url %}
-				<div class="col-sm-5">
-					<img src="{{ asset(of.featured_image.url) }}" alt="{{of.featured_image.title}}" class="offer-img"   style="width:100%;">
-				</div>
-            	<div class="col-sm-7">
-			{% else %}
-            	<div class="col-sm-offset-2 col-sm-8" >
-			{% endif %}
-					<h2>{{of.title}}</h2>
-	                <div class="content">
-	                	{{of.body|raw}}
-	               	</div>
-               	{% if of.btn_action == 'contact' %}
-                	<div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': of.btn_contact_text  } ) }}">{{of.btn_text}}</a></div>
-				{% elseif of.btn_action == 'ext_redirect' %}
-                	<div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" target="_blank">{{of.btn_text}}</a></div>
-				{% elseif of.btn_action == 'int_redirect' %}
-                	<div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" >{{of.btn_text}}</a></div>
-				{% endif %}
+        <section class="innerpage_banner offer_banner">
+            <div class="container">
+                <div class="banner_content_top">
+                    <h1>{{ offer.headerText }}</h1>
+                </div>
+                <div class="banner_content_bottom">
+                    <p>{{ offer.headerTitle }}</p>
+                </div>
+            </div>
+        </section>
+        {% for of in offers.data %}
+            {% if (loop.index % 2) != 0 %}
+                <section class="bodybox3">
+                    <div class="container">
+                        <div class="row" >
+                            {% if of.featured_image  is defined   and of.featured_image.url %}
+                                <div class="col-sm-5">
+                                    <img src="{{ asset(of.featured_image.url) }}" alt="{{of.featured_image.title}}" class="offer-img"   style="width:100%;">
+                                </div>
+                                <div class="col-sm-7">
+                                {% else %}
+                                    <div class="col-sm-offset-2 col-sm-8" >
+                                    {% endif %}
+                                    <h2>{{of.title}}</h2>
+                                    <div class="content">
+                                        {{of.body|raw}}
+                                    </div>
+                                    {% if of.btn_action == 'contact' %}
+                                        <div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': of.btn_contact_text  } ) }}">{{of.btn_text}}</a></div>
+                                        {% elseif of.btn_action == 'ext_redirect' %}
+                                        <div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" target="_blank">{{of.btn_text}}</a></div>
+                                        {% elseif of.btn_action == 'int_redirect' %}
+                                        <div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" >{{of.btn_text}}</a></div>
+                                        {% endif %}
 
-		     </div>
-		</div>
-	</div>
-</section>
+                                </div>
+                            </div>
+                        </div>
+                </section>
 
-{% else %}
-<section class="bodybox3 odd-section" >
-	<div class="container">
-		<div class="row" style="margin:60px 0;color:white;">
+            {% else %}
+                <section class="bodybox3 odd-section" >
+                    <div class="container">
+                        <div class="row" style="margin:60px 0;color:white;">
 
-            {% if of.featured_image  is defined   and of.featured_image.url %}
-            	<div class="col-sm-7" >
-			{% else %}
-            	<div class="col-sm-offset-2 col-sm-8" >
-			{% endif %}
+                            {% if of.featured_image  is defined   and of.featured_image.url %}
+                                <div class="col-sm-7" >
+                                {% else %}
+                                    <div class="col-sm-offset-2 col-sm-8" >
+                                    {% endif %}
 
-					<h2 style="color:white;">{{of.title}}</h2>
-	                <div class="content" style="color:white;">
-	                	{{of.body|raw}}
-	               	</div>
-               	{% if of.btn_action == 'contact' %}
-                	<div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': of.btn_contact_text  } ) }}">{{of.btn_text}}</a></div>
-				{% elseif of.btn_action == 'ext_redirect' %}
-                	<div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" target="_blank">{{of.btn_text}}</a></div>
-				{% elseif of.btn_action == 'int_redirect' %}
-                	<div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" >{{of.btn_text}}</a></div>
-				{% endif %}
-			</div>
-            {% if of.featured_image  is defined   and of.featured_image.url %}
-				<div class="col-sm-5">
-					<img src="{{ asset(of.featured_image.url) }}" alt="{{of.featured_image.title}}" class="offer-img"  style="width:100%;">
-				</div>
-			{% endif %}
-		</div>
-    </div>
-</section>
+                                    <h2 style="color:white;">{{of.title}}</h2>
+                                    <div class="content" style="color:white;">
+                                        {{of.body|raw}}
+                                    </div>
+                                    {% if of.btn_action == 'contact' %}
+                                        <div class="view-color" style="text-align:left;"><a href="{{ path('contact', { 'subject': of.btn_contact_text  } ) }}">{{of.btn_text}}</a></div>
+                                        {% elseif of.btn_action == 'ext_redirect' %}
+                                        <div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" target="_blank">{{of.btn_text}}</a></div>
+                                        {% elseif of.btn_action == 'int_redirect' %}
+                                        <div class="view-color" style="text-align:left;" ><a href="{{of.btn_link}}" >{{of.btn_text}}</a></div>
+                                        {% endif %}
+                                </div>
+                                {% if of.featured_image  is defined   and of.featured_image.url %}
+                                    <div class="col-sm-5">
+                                        <img src="{{ asset(of.featured_image.url) }}" alt="{{of.featured_image.title}}" class="offer-img"  style="width:100%;">
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                </section>
 
-{% endif %}
-{% endfor %}
+            {% endif %}
+        {% endfor %}
 
-		<div class="team_click ">
-				<h2>Click below to get yourself a quote</h2>
-				<div class=""><div class="slide_button"><a href="{{ path('contact') }}">{{website.btnTxtGaq}}</a></div></div>
-		</div>
+        <div class="team_click ">
+            <h2>Click below to get yourself a quote</h2>
+            <div class=""><div class="slide_button"><a href="{{ path('contact') }}">{{website.btnTxtGaq}}</a></div></div>
+        </div>
 
-{% endif %}
+    {% endif %}
 {% endblock %}

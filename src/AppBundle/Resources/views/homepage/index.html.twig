@@ -136,66 +136,67 @@
                         </div>
                     </div>
                     <div class="row">
-                        {% for review in reviews %}
-                            <div class="{% if reviews|length == 2 and loop.index == 1 %}col-sm-offset-2 {% elseif  reviews|length == 1 %}col-sm-offset-4 {% endif %} col-sm-4">
-                                <div class="reviewbox">
-                                    <br>
-                                    <div class="rvbtop">
-                                        {% for img in review.stars('total', 'star.png') %}
-                                            <img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
-                                        {% endfor %}
-                                        <h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
+                        <div class="owl-carousel owl-review owl-theme">
+                            {% for review in reviews %}
+                                <div class="item">
+                                    {#                                    <div class="{% if reviews|length == 2 and loop.index == 1 %}col-sm-offset-2 {% elseif  reviews|length == 1 %}col-sm-offset-4 {% endif %} col-sm-4">#}
+                                    <div class="reviewbox">
                                         <br>
-                                        <h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
-                                        <br>
-                                        <p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
+                                        <div class="rvbtop">
+                                            {% for img in review.stars('total', 'star.png') %}
+                                                <img src="{{ asset('bundles/app/images/reviews/') }}{{ img }}" alt="Total rating" />
+                                            {% endfor %}
+                                            <h2>{{ review.title |slice(0, 30) }} {% if review.title |length > 30 %}...{% endif %}</h2>
+                                            <br>
+                                            <h3>{{ review.jobDoneDate | date("F jS, Y") }}</h3>
+                                            <br>
+                                            <p><small>{% if review.expertTradesReviewId != 0 and review.expertTradesReviewId is not null %} <i style="color:grey;" class="fa fa-check-circle"></i> <a href="{{ website.trade_url }}/reviews" target="_BLANK" style="color:grey;">Verified By Expert Trades</a>{% endif %} </small></p>
 
-                                    </div>
-                                    <div class="rvmid">
-                                        <div class="rvmdinr">
-                                            <span>Time management </span>
-                                            {% for img in review.stars('time_management') %}
-                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Time Management"></a>
-                                                {% endfor %}
                                         </div>
-                                        <div class="rvmdinr">
-                                            <span>Tidiness</span>
-                                            {% for img in review.stars('tidiness') %}
-                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Tidiness"></a>
-                                                {% endfor %}
+                                        <div class="rvmid">
+                                            <div class="rvmdinr">
+                                                <span>Time management </span>
+                                                {% for img in review.stars('time_management') %}
+                                                    <span class="pull-right"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Time Management"></span>
+                                                    {% endfor %}
+                                            </div>
+                                            <div class="rvmdinr">
+                                                <span>Tidiness</span>
+                                                {% for img in review.stars('tidiness') %}
+                                                    <span class="pull-right"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Tidiness"></span>
+                                                    {% endfor %}
+                                            </div>
+                                            <div class="rvmdinr">
+                                                <span>Friendly Rating</span>
+                                                {% for img in review.stars('friendly') %}
+                                                    <span class="pull-right"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Friendly rating"></span>
+                                                    {% endfor %}
+                                            </div>
+                                            <div class="rvmdinr">
+                                                <span>Value Rating</span>
+                                                {% for img in review.stars('value') %}
+                                                    <span class="pull-right"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Value Rating"></span>
+                                                    {% endfor %}
+                                            </div>
                                         </div>
-                                        <div class="rvmdinr">
-                                            <span>Friendly Rating</span>
-                                            {% for img in review.stars('friendly') %}
-                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Friendly rating"></a>
-                                                {% endfor %}
+                                        <div class="rvbottom">
+                                            <p>{{ review.message |slice(0, 230) }} {% if review.message |length > 230 %}...{% endif %}</p>
                                         </div>
-                                        <div class="rvmdinr">
-                                            <span>Value Rating</span>
-                                            {% for img in review.stars('value') %}
-                                                <a href="#"><img src="{{asset('bundles/app/images/reviews/') }}{{ img }}" alt="Value Rating"></a>
-                                                {% endfor %}
+                                        <div class="rvsocial">
+                                            <span>Share :</span>
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Facebook">
+                                                <i class="fa fa-facebook-square fa-2x social_icons_review_home "  alt="Share On Facebook" ></i>
+                                            </a>
+                                            <a href="https://twitter.com/intent/tweet?text=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Twitter">
+                                                <i class="fa fa-twitter-square fa-2x social_icons_review_home "  alt="Share On Twitter" ></i>
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="rvbottom">
-                                        <p>{{ review.message |slice(0, 230) }} {% if review.message |length > 230 %}...{% endif %}</p>
-                                    </div>
-                                    <div class="rvsocial">
-                                        <span>Share :</span>
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Facebook">
-                                            <i class="fa fa-facebook-square fa-2x social_icons_review_home "  alt="Share On Facebook" ></i>
-                                        </a>
-                                        <a href="https://twitter.com/intent/tweet?text=http://{{ app.request.host }}/review/{{ review.id }}" target="_BLANK" alt="Share On Twitter">
-                                            <i class="fa fa-twitter-square fa-2x social_icons_review_home "  alt="Share On Twitter" ></i>
-                                        </a>
-                                    </div>
-
-
+                                    {#                                    </div>#}
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="view">
@@ -224,15 +225,19 @@
                                     <div class="servicebox servicebox_home">
 
                                         {% if item.path is not null %}
-                                            <img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" />
-                                        {% endif %}
-                                        <h2>{{ item.title }}</h2>
-                                        <p>{{ item.subtitle |striptags | slice(0, 200) | raw}} {% if item.subtitle |length > 200%}...{% endif %}</p>
-                                        {% if item.pageActive and item.pageSlug %}
-                                            <a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
-                                        {% else %}
-                                            <a href="{{ path('services') }}">Learn more +</a>
-                                        {% endif %}
+                                            {% if item.pageActive and item.pageSlug %}
+                                                <a href="{{ path('services_view', { slug : item.pageSlug }) }}">
+                                                {% else %}
+                                                    <a href="{{ path('services') }}">
+                                                    {% endif %}<img src="{{ asset('images/services/') }}{{ item.path }}" alt="{{ item.title }}" /></a>
+                                                {% endif %}
+                                            <h2>{{ item.title }}</h2>
+                                            <p>{{ item.subtitle |striptags | slice(0, 200) | raw}} {% if item.subtitle |length > 200%}...{% endif %}</p>
+                                            {% if item.pageActive and item.pageSlug %}
+                                                <a href="{{ path('services_view', { slug : item.pageSlug }) }}">Learn more +</a>
+                                            {% else %}
+                                                <a href="{{ path('services') }}">Learn more +</a>
+                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +278,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+        
                                 {% elseif portrait  %}
                                     <div class="col-sm-3">
                                         <div class="jobpic portrait_all">
@@ -319,7 +324,7 @@
                     </div>
                 </div>
 
-                <div class="owl-carousel owl-theme">
+                <div class="owl-carousel owl-gallery owl-theme">
                     {% for key,item in images %}
                         {% if item.path is not null %}
                             <div class="item" >  
@@ -406,7 +411,7 @@
                 $(".contactmap").mouseleave(function () {
                     $('.contactmap iframe').css("pointer-events", "none");
                 });
-                var owl = $('.owl-carousel');
+                var owl = $('.owl-gallery');
                 owl.owlCarousel({
                     autoWidth: true,
                     loop: true,
@@ -429,6 +434,28 @@
                     }
                 });
 
+                var owl1 = $('.owl-review');
+                owl1.owlCarousel({
+                    loop: true,
+                    margin: 10,
+                    nav: false,
+                    autoplay: {% if reviews|length > 6 %}true{% else %}false{% endif %},
+                    responsiveClass: true,
+                    autoplayHoverPause: true,
+                    center: true,
+                    dots: false,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 2
+                        },
+                        1000: {
+                            items: 3
+                        }
+                    }
+                });
 
                 /*
                  loop: true,

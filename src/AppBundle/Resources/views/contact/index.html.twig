@@ -1,230 +1,229 @@
 {% extends "AppBundle::base.html.twig" %}
 
 {% block header %}
-	<title>{{ contact.metaTitle }}</title>
-	<meta name="description" content="{{ contact.metaDescription }}">
+    <title>{{ contact.metaTitle }}</title>
+    <meta name="description" content="{{ contact.metaDescription }}">
 {% endblock %}
 {% block stylesheets %}
-	<style>
+    <style>
 
-		.contact_inner_form .btn-default.btn-submit{
-			background-color:{{ website.mainColor }};
-		}
-	</style>
+        .contact_inner_form .btn-default.btn-submit{
+            background-color:{{ website.mainColor }};
+        }
+    </style>
 {% endblock %}
 {% block body %}
-{% if website.disabled %}
-{% include 'AppBundle:partials:website_disabled.html.twig' %}
-{% else %}
-<section class="contact_banner">
-	<div class="container">
-		<div class="banner_content_top">
-				<p>&nbsp;</p>
-				<h1>{{ contact.headerText }}</h1>
-		</div>
-		<div class="banner_content_bottom">
-			<p>{{ contact.headerTitle }}</p>
-		</div>
-	</div>
-</section>
-<section class="bodybox3">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="about_head">
-					<h2>Request A Quote</h2>
-				</div>
-				{% if app.request.get('sent') == 'true' %}
-				<div class="row">
-					<div class="col-sm-4 col-sm-offset-4 text-center">
-						<div class="alert alert-success"><b>Quote Request Sent Successfully.</b> <br><br> We Will Get In Touch With You Soon.</div>
-					</div>
-				</div>
-				{% else %}
-				{% if error %}
-				<div class="row">
-					  <div class="col-md-10 col-md-offset-2">
-							<div class="alert alert-danger text-center">{{ error }}</div>
-					</div>
-				</div>
-				<br>
-				{% endif %}
-				<form name="contactForm" class="form-horizontal" method="post" action="{{ path('contact') }}#cf1" >
-				<div class="cf1">
-					<h2>Contact Information</h2>
-					<div class="contact_inner_form">
-							  <div class="form-group">
-							    <label for="inputEmail3" class="col-sm-2 control-label">Name *</label>
-							    <div class="col-sm-10">
-										{{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your name'} }) }}
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
-							    <div class="col-sm-10">
-							      {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email'} }) }}
-							    </div>
-							  </div>
-								<div class="form-group">
-							    <label for="inputPassword3" class="col-sm-2 control-label">Phone *</label>
-							    <div class="col-sm-10">
-							      {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your phone'} }) }}
-							    </div>
-							  </div>
-					</div>
-				</div>
-				<div class="cf1">
-					<h2>Job Information</h2>
-					<div class="contact_inner_form">
-						  <div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Job Location *</label>
-						    <div class="col-sm-10">
-						      {{ form_widget(form.job_location, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job postcode'} }) }}
-						    </div>
-						  </div>
-							<div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Preferred Start Date *</label>
-						    <div class="col-sm-10">
-						      {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy'} }) }}
-						    </div>
-						  </div>
-							{% if form.job_categories |length > 0 %}
-						  <div class="form-group">
+    {% if website.disabled %}
+        {% include 'AppBundle:partials:website_disabled.html.twig' %}
+    {% else %}
+        <section class="innerpage_banner contact_banner">
+            <div class="container">
+                <div class="banner_content_top">
+                    <h1>{{ contact.headerText }}</h1>
+                </div>
+                <div class="banner_content_bottom">
+                    <p>{{ contact.headerTitle }}</p>
+                </div>
+            </div>
+        </section>
+        <section class="bodybox3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="about_head">
+                            <h2>Request A Quote</h2>
+                        </div>
+                        {% if app.request.get('sent') == 'true' %}
+                            <div class="row">
+                                <div class="col-sm-4 col-sm-offset-4 text-center">
+                                    <div class="alert alert-success"><b>Quote Request Sent Successfully.</b> <br><br> We Will Get In Touch With You Soon.</div>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if error %}
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="alert alert-danger text-center">{{ error }}</div>
+                                    </div>
+                                </div>
+                                <br>
+                            {% endif %}
+                            <form name="contactForm" class="form-horizontal" method="post" action="{{ path('contact') }}#cf1" >
+                                <div class="cf1">
+                                    <h2>Contact Information</h2>
+                                    <div class="contact_inner_form">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Name *</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your name'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your email'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Phone *</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder' : 'Enter your phone'} }) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cf1">
+                                    <h2>Job Information</h2>
+                                    <div class="contact_inner_form">
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Job Location *</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.job_location, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job postcode'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Preferred Start Date *</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.job_date, { 'attr': {'class': 'form-control datepicker', 'placeholder' : 'dd/mm/yy'} }) }}
+                                            </div>
+                                        </div>
+                                        {% if form.job_categories |length > 0 %}
+                                            <div class="form-group">
 
-						    <label for="inputPassword3" class="col-sm-2 control-label">Job Category *</label>
+                                                <label for="inputPassword3" class="col-sm-2 control-label">Job Category *</label>
 
-						    <div class="col-sm-5">
-									{% for formElement in form.job_categories %}
-									{% if loop.index is odd %}
-										<label class="checkbox-inline">
-											{{ form_widget(formElement) }} {{ formElement.vars.value }}
-										</label>
-										<br>
-										{% endif %}
+                                                <div class="col-sm-5">
+                                                    {% for formElement in form.job_categories %}
+                                                        {% if loop.index is odd %}
+                                                            <label class="checkbox-inline">
+                                                                {{ form_widget(formElement) }} {{ formElement.vars.value }}
+                                                            </label>
+                                                            <br>
+                                                        {% endif %}
 
-									{% endfor %}
-						    </div>
-								<div class="col-sm-5">
-									{% for formElement in form.job_categories %}
-									{% if loop.index is even %}
-										<label class="checkbox-inline">
-											{{ form_widget(formElement) }} {{ formElement.vars.value }}
-										</label>
-										<br>
-										{% endif %}
-									{% endfor %}
-						    </div>
-						  </div>
-							<br><br>
-							{% endif %}
-						  <div class="form-group">
-						    <label for="inputPassword3" class="col-sm-2 control-label">Job Description *</label>
-						    <div class="col-sm-10">
-									  {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description'} }) }}
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    {% for formElement in form.job_categories %}
+                                                        {% if loop.index is even %}
+                                                            <label class="checkbox-inline">
+                                                                {{ form_widget(formElement) }} {{ formElement.vars.value }}
+                                                            </label>
+                                                            <br>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                        {% endif %}
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Job Description *</label>
+                                            <div class="col-sm-10">
+                                                {{ form_widget(form.job_description, { 'attr': {'class': 'form-control', 'rows' : '3', 'placeholder' : 'Enter the job description'} }) }}
 
-						    </div>
-						  </div>
-							<br>
-							<div class="row">
-								<div class="col-md-10 col-md-offset-2 text-center">
-										<div class="g-recaptcha" data-sitekey="6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn" data-stoken=" {{ secureToken }}"></div>
-								</div>
-							</div>
-							<br>
-							{% if error %}
-							<div class="row">
-								  <div class="col-md-10 col-md-offset-2">
-										<div class="alert alert-danger text-center">{{ error }}</div>
-								</div>
-							</div>
-							{% endif %}
-							<div class="row">
-								<div class="col-md-2 col-md-offset-2 text-left">
-									{{ form_widget(form.submit, { 'label': 'Submit', 'attr': {'class':'btn btn-default btn-submit'} }) }}
-									<small style="float:left">(*) mandatory</small>
-								</div>
-							</div>
-					</div>
-				</div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-10 col-md-offset-2 text-center">
+                                                <div class="g-recaptcha" data-sitekey="6LfVOBUTAAAAANuA1WqMKBYBbS7dC8DwbgINIWnn" data-stoken=" {{ secureToken }}"></div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        {% if error %}
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-offset-2">
+                                                    <div class="alert alert-danger text-center">{{ error }}</div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="row">
+                                            <div class="col-md-2 col-md-offset-2 text-left">
+                                                {{ form_widget(form.submit, { 'label': 'Submit', 'attr': {'class':'btn btn-default btn-submit'} }) }}
+                                                <small style="float:left">(*) mandatory</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-				</form>
-				{% endif %}
-			</div>
-		</div>
-	</div>
-</section>
-<section class="contact_innaerpage_bottom">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="cbbbox">
-					<div class="addr_icon"><i class="fa fa-map-marker fa-3x" style="color:white"></i></div>
-					<div class="addrs_info">
-						<p>{{ contact.addressFirstLine }}</p>
-						<p>{{ contact.addressSecondLine }}</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-5">
-				<div class="cbbbox ">
-					<div class="addr_icon"><i class="fa fa-envelope fa-3x" style="color:white"></i></div>
-					<div class="addrs_info">
-						<p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-3">
-				<div class="cbbbox ">
-					<div class="addr_icon"><i class="fa fa-phone fa-3x" style="color:white"></i></div>
-					<div class="addrs_info ">
-						<p>
-    						{% set phones = contact.phone|split(',') %}
-            		    	{%  for phone in phones %}
-            		    		{% if loop.index > 1 %} <br> {% endif %}
-            			    	<a href="tel:{{  phone| trim }}">{{ phone| trim  }}</a>
-            		    	{% endfor %}
-        		    	</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="contactmap cmp">
-	<iframe width="100%" height="310" frameborder="0" allowfullscreen="" style="border:0" src="{{gmaps}}"></iframe>
-</section>
-
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="contact_innaerpage_bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="cbbbox">
+                            <div class="addr_icon"><i class="fa fa-map-marker fa-3x" style="color:white"></i></div>
+                            <div class="addrs_info">
+                                <p>{{ contact.addressFirstLine }}</p>
+                                <p>{{ contact.addressSecondLine }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="cbbbox ">
+                            <div class="addr_icon"><i class="fa fa-envelope fa-3x" style="color:white"></i></div>
+                            <div class="addrs_info">
+                                <p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="cbbbox ">
+                            <div class="addr_icon"><i class="fa fa-phone fa-3x" style="color:white"></i></div>
+                            <div class="addrs_info ">
+                                <p>
+                                    {% set phones = contact.phone|split(',') %}
+                                    {%  for phone in phones %}
+                                        {% if loop.index > 1 %} <br> {% endif %}
+                                        <a href="tel:{{  phone| trim }}">{{ phone| trim  }}</a>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="contactmap cmp">
+            <iframe width="100%" height="310" frameborder="0" allowfullscreen="" style="border:0" src="{{gmaps}}"></iframe>
+        </section>
 
 
-{%  if website.callButton == 1  %}
-	<a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
-					  <i class="fa fa-phone fa-2x" aria-hidden="true" ></i>
-	</a>
-{%  endif  %}
 
-{% endif %}
+        {%  if website.callButton == 1  %}
+            <a href="tel:{{  contact.phone|split(',')[0] }}" class="ctc-button" > <!--Replace with trade's phone number-->
+                <i class="fa fa-phone fa-2x" aria-hidden="true" ></i>
+            </a>
+        {%  endif  %}
+
+    {% endif %}
 {% endblock %}
 
 
 {% block javascripts %}
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js'></script>
-<script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-datepicker.js') }}"></script>
-<script type="text/javascript">
-$.fn.datepicker.defaults.format = "dd/mm/yyyy";
-$('.datepicker').datepicker();
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js'></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript">
+        $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+        $('.datepicker').datepicker();
 
-var app = angular.module('app', [])
-.controller('MainCtrl',
-function($rootScope, $scope) {
-  $scope.contact = {};
-});
+        var app = angular.module('app', [])
+                .controller('MainCtrl',
+                        function ($rootScope, $scope) {
+                            $scope.contact = {};
+                        });
 
-$('.contactmap').click(function () {
-    $('.contactmap iframe').css("pointer-events", "auto");
-});
+        $('.contactmap').click(function () {
+            $('.contactmap iframe').css("pointer-events", "auto");
+        });
 
-$( ".contactmap" ).mouseleave(function() {
-  $('.contactmap iframe').css("pointer-events", "none");
-});
-</script>
+        $(".contactmap").mouseleave(function () {
+            $('.contactmap iframe').css("pointer-events", "none");
+        });
+    </script>
 {% endblock %}
