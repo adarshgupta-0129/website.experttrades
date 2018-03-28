@@ -441,7 +441,6 @@
                     autoplay: {% if reviews|length > 6 %}true{% else %}false{% endif %},
                     responsiveClass: true,
                     autoplayHoverPause: true,
-                    center: true,
                     dots: true,
                     responsive: {
                         0: {
@@ -449,10 +448,11 @@
                             stagePadding: 10
                         },
                         600: {
-                            items: 2
+                            items: 2,
+                            stagePadding: 10
                         },
                         1000: {
-                            items: 3
+                            items: 3,
                         }
                     }
                 });
