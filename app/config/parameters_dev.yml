@@ -4,9 +4,9 @@ parameters:
     database_host: localhost
     database_port: 3306
     #database_name: anythingwithwood_co_uk
-    database_name: website_expert_trades
-    database_password: Exp3rttr4d3s!
-    database_user: experttrades
+    database_name: website_expert_trades_dev
+    database_password: Yahoo@444
+    database_user: root
     #database_password: root
     #database_user: root
     mailer_transport: smtp

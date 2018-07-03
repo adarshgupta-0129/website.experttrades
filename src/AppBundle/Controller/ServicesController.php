@@ -95,7 +95,7 @@ class ServicesController extends MainController {
 
         $this->trackVisit();
         $array_twig = $this->defaultInfo($request);
-
+        /*print_r($array_twig);*/
         $array_twig['id_page'] = 'services_page';
         $array_twig['service'] = $service;
         $array_twig['item'] = $item;
